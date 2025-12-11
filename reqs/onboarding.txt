@@ -1,0 +1,58 @@
+ONBOARDING WIZARD REQUIREMENTS
+User Type Detection
+Individual: Personal KYC information
+
+Business: Company information + representative details
+
+User Type Routing: Determine at signup or first login
+
+Multi-Step Wizard Structure
+For Individuals:
+
+Personal Details: Full name, DOB, nationality, ID type
+
+Contact Information: Phone, address (with country-specific formatting)
+
+ID Verification: Document upload/photo capture (passport, driver's license, national ID)
+
+Source of Funds: Employment status, income range (for AML compliance)
+
+Security Setup: 2FA preference, security questions
+
+Terms & Agreements: Regulatory disclosures, privacy policy
+
+For Businesses:
+
+Company Details: Legal name, registration number, tax ID
+
+Business Information: Industry, size, website, incorporation date
+
+Authorized Representatives: List of individuals with signing authority
+
+UBO (Ultimate Beneficial Owner) Disclosure: Ownership structure
+
+Banking Details: For payouts (account information)
+
+Documentation: Certificate of incorporation, articles, shareholder register
+
+Compliance: Business purpose, expected transaction volumes
+
+Wizard Features:
+Progress Indicator: Clear step tracking (breadcrumb or progress bar)
+
+Save & Resume: Draft saving at each step
+
+Validation: Per-step validation before proceeding
+
+Back Navigation: Allow going back without losing data
+
+Exit Points: Clear way to logout/save for later
+
+KYC Compliance Notes:
+Malawi Requirements: Align with RBM (Reserve Bank of Malawi) regulations
+
+China Requirements: Consider PBOC (People's Bank of China) for merchant side
+
+Documentation: Support multiple file types, size limits, preview functionality
+
+Data Privacy: Clear indication of why information is collected

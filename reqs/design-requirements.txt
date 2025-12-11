@@ -1,0 +1,33 @@
+DESIGN SYSTEM FOUNDATION
+Core Color Palette
+Primary Colors:
+
+Primary Green: #448a33 (Dominant brand color)
+
+Primary Blue: #3b5a65 (Secondary brand color)
+
+Extended Palette Requirements:
+
+Accessibility: All colors must meet WCAG 2.1 AA contrast ratios
+
+Dark Mode: Prepare inverted/semantic variants for dark theme
+
+Semantic Colors: Define success, error, warning, info states using derivatives
+
+Neutrals: Create grayscale from near-white to near-black
+
+Typography Scale
+Font Family: Choose 1-2 fintech-appropriate fonts (consider Inter, Manrope, or system stack)
+
+Hierarchy: Define h1-h6, body, caption, button, label sizes
+
+Line Heights: Responsive line heights for readability
+
+Weights: Regular, Medium, Semibold, Bold at minimum
+
+Spacing System
+Base Unit: 4px or 8px grid system
+
+Scale: Define spacing tokens (xs, sm, md, lg, xl, 2xl, etc.)
+
+Layout: Grid gaps, container padding, section margins
