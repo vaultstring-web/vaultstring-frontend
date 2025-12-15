@@ -1,0 +1,141 @@
+Kho
+1. KYC Status Dashboard
+Overview Widget:
+Status summary: Approved, Pending, Denied, Expiring Soon
+
+Progress bar: % of KYC completion
+
+Next action required (if any)
+
+Last updated timestamp
+
+Status Badges:
+Approved: Green, full access
+
+Pending: Yellow, limited access
+
+Denied: Red, restricted access
+
+Expiring Soon: Orange, renewal required
+
+2. KYC Document Gallery
+Document Categories:
+
+(Refer to onboarding)
+
+Document Card Display:
+Thumbnail preview (blurred for security)
+
+Document name & type
+
+Upload date & expiry date
+
+Status: Verified, Pending, Expired
+
+Action buttons: View, Replace, Download
+
+3. Document Detail View
+Clicking a document reveals:
+Full document preview (PDF/image viewer)
+
+Verification details:
+
+Verified on: Date
+
+Expiry date: Highlight if <30 days
+
+History of uploads/versions
+
+Rejection reasons (if denied)
+
+"Request review" button (if pending)
+
+4. Expiry Management Panel
+Expiring Soon Section:
+List of documents expiring in <30 days
+
+Visual countdown indicators
+
+Bulk renewal option
+
+Set reminders toggle
+
+Renewal Flow:
+Select documents to renew
+
+Upload new versions
+
+Confirmation screen
+
+Status change to "Pending Review"
+
+5. KYC Progress Tracker
+Step-by-step visualization:
+Personal Information (Name, DOB, Contact)
+
+Identity Documents (Upload & verify)
+
+Address Verification
+
+Financial Information
+
+Final Review
+
+For each step:
+Current status indicator
+
+Required vs optional fields
+
+Estimated processing time
+
+Action button if incomplete
+
+6. Admin/Self-Service Actions
+User Actions:
+Upload new documents
+
+Replace expired/incorrect docs
+
+Download verified copies
+
+Check verification status
+
+Submit for review
+
+
+7. Empty & Status States
+No documents: Upload CTA
+
+All approved: Celebration state
+
+Denied: Clear next steps
+
+Pending: Estimated wait time
+
+8. Security & Privacy
+Sensitive data masking
+
+Document preview watermarks
+
+Download logs (mock)
+
+Access history (mock)
+
+Deliverables Checklist
+KYC status dashboard widget
+
+Document gallery with thumbnails
+
+Document detail preview modal
+
+Expiry management panel
+
+Progress tracker component
+
+Upload/replace document flow
+
+Status badge components
+
+Empty/state components
+
+Responsive mobile design
