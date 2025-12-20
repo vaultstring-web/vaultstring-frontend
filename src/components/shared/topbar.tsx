@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 
 interface TopBarProps {
-  user: UserProfile;
+  user: UserProfile | null;
   onMenuClick: () => void;
 }
 
@@ -45,13 +45,13 @@ const TopBar: React.FC<TopBarProps> = ({ user, onMenuClick }) => {
         
         <div className="hidden md:flex items-center gap-3 pl-4 border-l border-slate-200 cursor-pointer hover:opacity-80">
           <div className="text-right">
-            <p className="text-sm font-medium text-slate-900 leading-none">{user.name}</p>
-            <p className="text-xs text-slate-500 mt-1">Personal Account</p>
+            <p className="text-sm font-medium text-slate-900 leading-none">{user?.name || ''}</p>
+            <p className="text-xs text-slate-500 mt-1">{user?.accountLabel || '—'}</p>
           </div>
           <div className="h-9 w-9 rounded-full bg-slate-200 overflow-hidden border border-slate-300 relative">
             <Image 
-              src={user.avatarUrl} 
-              alt={user.name} 
+              src={user?.avatarUrl || '/icons/avatar-default.png'} 
+              alt={user?.name || ''} 
               fill
               className="object-cover"
               sizes="36px"
@@ -63,8 +63,8 @@ const TopBar: React.FC<TopBarProps> = ({ user, onMenuClick }) => {
         {/* Mobile Avatar Only */}
         <div className="md:hidden h-8 w-8 rounded-full bg-slate-200 overflow-hidden relative">
           <Image 
-            src={user.avatarUrl} 
-            alt={user.name} 
+            src={user?.avatarUrl || '/icons/avatar-default.png'} 
+            alt={user?.name || ''} 
             fill
             className="object-cover"
             sizes="32px"

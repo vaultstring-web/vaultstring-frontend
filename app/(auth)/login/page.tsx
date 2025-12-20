@@ -36,7 +36,7 @@ export default function LoginPage() {
             rememberMe: Boolean(formValues.rememberMe)
           });
 
-          if (resp?.ok || resp?.token) {
+          if (resp?.ok === true || resp?.token || resp?.access_token) {
             showSuccess('Login successful!');
             setTimeout(() => router.push('/dashboard'), 500);
             return;

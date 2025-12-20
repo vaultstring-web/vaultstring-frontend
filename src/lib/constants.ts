@@ -3,7 +3,6 @@ import { Transaction, UserProfile, WalletStats } from '@/src/types/types';
 // Exchange Rate: 1 MWK = 0.0041 CNY (Hypothetical for demo)
 export const EXCHANGE_RATE_MWK_TO_CNY = 0.0041;
 export const EXCHANGE_RATE_CNY_TO_MWK = 1 / EXCHANGE_RATE_MWK_TO_CNY;
-
 export const MOCK_USER: UserProfile = {
   name: "Chisomo Banda",
   email: "chisomo.b@example.mw",

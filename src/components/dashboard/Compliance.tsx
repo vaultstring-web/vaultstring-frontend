@@ -23,7 +23,7 @@ const Compliance: React.FC<ComplianceProps> = ({ user }) => {
       
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-           <h2 className="text-2xl font-bold text-slate-800">Compliance & KYC</h2>
+           <h2 className="text-2xl font-bold text-slate-500">Compliance & KYC</h2>
            <p className="text-slate-500">Manage your identity verification documents to unlock higher limits.</p>
         </div>
         <div className={`px-4 py-2 rounded-full flex items-center gap-2 border ${
@@ -78,7 +78,7 @@ const Compliance: React.FC<ComplianceProps> = ({ user }) => {
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
              <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
                  <h4 className="font-semibold text-slate-800 flex items-center gap-2">
-                     <FileText size={18} className="text-slate-400" />
+                     <FileText size={18} className="text-slate-500" />
                      National ID / Passport
                  </h4>
                  {user.kycStatus === 'verified' && <span className="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded">APPROVED</span>}

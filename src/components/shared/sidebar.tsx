@@ -12,6 +12,8 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { useAuth } from '@/src/context/AuthContext';
+import { setToken, setUser } from '@/src/lib/api/api-client';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -21,6 +23,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
   const pathname = usePathname();
   const router = useRouter();
+  const { setUser: setCtxUser } = useAuth();
   
   const navItems = [
     { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -32,8 +35,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
   ];
 
   const handleSignOut = () => {
-    // TODO: Implement sign out logic
-    router.push('/login');
+    setToken(null);
+    setUser(null);
+    setCtxUser(null);
+    router.replace('/');
   };
 
   const isActive = (path: string) => {

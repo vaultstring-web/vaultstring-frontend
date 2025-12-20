@@ -1,14 +1,16 @@
-import { apiFetch, delay } from '@/src/lib/api/api-client';
+import { apiFetch, delay, setToken, setUser } from '@/src/lib/api/api-client';
 
 type LoginPayload = { email: string; password: string; rememberMe?: boolean };
 type SignupPayload = { email: string; password: string; accountType?: string };
 
-const USE_MOCK = !process.env.NEXT_PUBLIC_API_URL;
+const USE_MOCK = !process.env.NEXT_PUBLIC_GATEWAY_URL;
 
 export async function login(payload: LoginPayload) {
   if (USE_MOCK) {
     await delay(700);
     if (payload.email === 'demo@example.com' && payload.password === 'Password1!') {
+      setToken('demo-token');
+      setUser({ email: payload.email, first_name: 'Demo', last_name: 'User', phone: '', user_type: 'individual' });
       return { ok: true, user: { email: payload.email, name: 'Demo User' }, token: 'demo-token' };
     }
     const err: any = new Error('Invalid credentials');
@@ -16,10 +18,18 @@ export async function login(payload: LoginPayload) {
     throw err;
   }
 
-  return apiFetch('/auth/login', {
+  const res = await apiFetch('/auth/login', {
     method: 'POST',
-    body: JSON.stringify(payload)
+    body: JSON.stringify({
+      email: String(payload.email || '').trim(),
+      password: String(payload.password || '').trim()
+    })
   });
+  const token = (res as any)?.access_token || (res as any)?.token;
+  if (token) setToken(String(token));
+  const user = (res as any)?.user;
+  if (user) setUser(user);
+  return res;
 }
 
 export async function signup(payload: SignupPayload) {
@@ -28,7 +38,7 @@ export async function signup(payload: SignupPayload) {
     return { ok: true, message: 'Verification code sent', email: payload.email };
   }
 
-  return apiFetch('/auth/signup', {
+  return apiFetch('/auth/register', {
     method: 'POST',
     body: JSON.stringify(payload)
   });

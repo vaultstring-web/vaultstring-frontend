@@ -1,13 +1,14 @@
 // app/layout.tsx
 import "./globals.css";
 import { ReactNode } from "react";
+import { AuthProvider } from "@/src/context/AuthContext";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
 // Placeholder providers
 function AppProviders({ children }: { children: ReactNode }) {
-  return <>{children}</>;
+  return <AuthProvider>{children}</AuthProvider>;
 }
 
 export const metadata = {
