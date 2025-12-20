@@ -1,0 +1,188 @@
+Felix
+1. Multi-Step Send Money Form
+Step 1: Recipient Selection
+Search/Select Recipient:
+
+Saved recipients list (mock data)
+
+Add new recipient option
+
+Search by name, email, phone, or account number
+
+Recent recipients (last 3)
+
+Recipient Types:
+
+VaultString user (internal)
+
+Bank transfer (external)
+
+Mobile money
+
+Crypto wallet (placeholder)
+
+New Recipient Form:
+
+Full name
+
+Email address
+
+Phone number
+
+Bank details (account number, routing)
+
+Save for future checkbox
+
+Step 2: Amount & Currency
+Currency Selection:
+
+From: User's available wallets (Kwacha, Yuan, USD)
+
+To: Recipient's currency/account type
+
+Real-time conversion rate display (mock)
+
+Amount Entry:
+
+Numeric input with currency formatting
+
+"Send all" option
+
+Available balance display
+
+Min/max limits indicator
+
+Fee calculator (percentage + fixed)
+
+Step 3: Description & Details
+Transaction Description:
+
+Optional text input
+
+Character limit: 140 characters
+
+Counter display
+
+Common templates dropdown (optional)
+
+Additional Options:
+
+Schedule for later (date picker placeholder)
+
+Recurring payment option (toggle)
+
+Priority/express delivery toggle
+
+Reference number auto-generation
+
+Step 4: Review & Confirm
+Summary Card:
+
+Recipient details
+
+Amount breakdown
+
+Delivery estimate
+
+Exchange rate used
+
+Security Verification:
+
+2FA input placeholder
+
+PIN entry modal
+
+"I confirm..." checkbox
+
+Terms & conditions link
+
+2. Form Components & Validation
+Input Validation:
+Recipient: Required, valid account format
+
+Amount: Required, numeric, within balance, min/max
+
+Currency: Required, valid currency pair
+
+Description: Optional, max length validation
+
+Real-time Validation:
+Balance check as user types amount
+
+Recipient format validation
+
+Fee calculation updates
+
+Character count for description
+
+Error States:
+Insufficient balance
+
+Invalid account/recipient
+
+Network error (mock)
+
+Daily limit exceeded
+
+Invalid currency conversion
+
+3. Success & Status Flow
+Successful Send:
+Confirmation animation
+
+Transaction ID display
+
+Estimated delivery time
+
+"Send another" button
+
+"View transaction" link
+
+Status Tracking (Placeholder):
+Pending status badge
+
+Processing timeline
+
+Completion notification
+
+Receipt generation option
+
+4. Responsive Design
+Mobile: Vertical steps, simplified inputs
+
+Tablet: Side-by-side layout where possible
+
+Desktop: Full-width, advanced options exposed
+
+5. Accessibility Requirements
+Form labels for all inputs
+
+Keyboard navigation through steps
+
+Screen reader announcements
+
+Focus management between steps
+
+Error announcement for validation
+
+
+Deliverables Checklist
+Multi-step form component
+
+Recipient selection/search component
+
+Amount input with currency selector
+
+Fee calculator component
+
+Review & confirmation step
+
+Success state component
+
+Form validation system
+
+Responsive mobile design
+
+Loading/error states
+
+Mock API service layer
