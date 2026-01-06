@@ -21,7 +21,7 @@ __turbopack_context__.s([
     ()=>setUser
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$1_$5f$react$40$19$2e$2$2e$1$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/Desktop/VaultString/Projects/vaultstring-frontend/node_modules/.pnpm/next@16.0.8_react-dom@19.2.0_react@19.2.1__react@19.2.1/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
-const GATEWAY = ("TURBOPACK compile-time value", "http://127.0.0.1:9000") || '';
+const GATEWAY = ("TURBOPACK compile-time value", "http://localhost:9000") || 'http://localhost:9000';
 const API_BASE = ("TURBOPACK compile-time truthy", 1) ? `${GATEWAY.replace(/\/$/, '')}/api/v1` : "TURBOPACK unreachable";
 const TOKEN_KEY = 'kyd_access_token';
 const USER_KEY = 'kyd_user_profile';
@@ -86,17 +86,25 @@ async function apiFetch(path, init = {}) {
         res = await fetch(url, {
             ...init,
             headers,
-            credentials: 'include'
+            credentials: 'include',
+            mode: 'cors'
         });
         text = await res.text();
-    } catch (_err) {
+    } catch (err) {
+        console.error('API fetch error:', err, 'URL:', url);
         await delay(300);
-        res = await fetch(url, {
-            ...init,
-            headers,
-            credentials: 'include'
-        });
-        text = await res.text();
+        try {
+            res = await fetch(url, {
+                ...init,
+                headers,
+                credentials: 'include',
+                mode: 'cors'
+            });
+            text = await res.text();
+        } catch (retryErr) {
+            console.error('API fetch retry failed:', retryErr);
+            throw new Error(`Failed to connect to API at ${url}. Make sure backend is running.`);
+        }
     }
     const contentType = res.headers.get('content-type') || '';
     const isJson = contentType.toLowerCase().includes('application/json');

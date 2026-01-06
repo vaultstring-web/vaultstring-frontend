@@ -465,7 +465,7 @@ function triggerUpdate(msg) {
 "[hmr-entry]/hmr-entry.js { ENTRY => \"[project]/Desktop/VaultString/Projects/vaultstring-frontend/pages/_error\" }", ((__turbopack_context__) => {
 "use strict";
 
-__turbopack_context__.r("[next]/entry/page-loader.ts { PAGE => \"[project]/Desktop/VaultString/Projects/vaultstring-frontend/node_modules/.pnpm/next@16.0.8_react-dom@19.2.0_react@19.2.1__react@19.2.1/node_modules/next/error.js [client] (ecmascript)\" } [client] (ecmascript)");
+__turbopack_context__.r("[next]/entry/page-loader.ts { PAGE => \"[project]/Desktop/VaultString/Projects/vaultstring-frontend/node_modules/.pnpm/next@16.0.8_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/error.js [client] (ecmascript)\" } [client] (ecmascript)");
 }),
 ]);
 

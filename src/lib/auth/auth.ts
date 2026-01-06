@@ -3,7 +3,7 @@ import { apiFetch, delay, setToken, setUser } from '@/src/lib/api/api-client';
 type LoginPayload = { email: string; password: string; rememberMe?: boolean };
 type SignupPayload = { email: string; password: string; accountType?: string };
 
-const USE_MOCK = !process.env.NEXT_PUBLIC_GATEWAY_URL;
+const USE_MOCK = false;
 
 export async function login(payload: LoginPayload) {
   if (USE_MOCK) {

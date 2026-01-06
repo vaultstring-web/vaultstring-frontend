@@ -36,7 +36,8 @@ export default function LoginPage() {
             rememberMe: Boolean(formValues.rememberMe)
           });
 
-          if (resp?.ok === true || resp?.token || resp?.access_token) {
+          // Check for successful login - API returns access_token or token
+          if (resp?.access_token || resp?.token || (resp as any)?.user) {
             showSuccess('Login successful!');
             setTimeout(() => router.push('/dashboard'), 500);
             return;
