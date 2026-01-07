@@ -2,7 +2,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { apiFetch, isAuthenticated } from '@/src/lib/api/api-client';
+import { apiFetch, isAuthenticated, getUser } from '@/src/lib/api/api-client';
 import TransactionsTable from '@/src/components/dashboard/TransactionsTable';
 import PageHeader from '@/src/components/shared/PageHeader';
 import { Input } from '@/src/components/ui/input';
@@ -14,6 +14,8 @@ export default function TransactionsPage() {
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState<string>('all');
   const [tab, setTab] = useState<'all' | 'sent' | 'received' | 'topup' | 'pending_settlement'>('all');
+  const user = typeof window !== 'undefined' ? getUser() : null;
+  const userId = user?.id || user?.ID || null;
 
   useEffect(() => {
     if (!isAuthenticated()) return;
@@ -91,15 +93,18 @@ export default function TransactionsPage() {
         </div>
       </div>
 
-      <TransactionsTable transactions={txs.filter((t) => {
+      <TransactionsTable userId={userId} transactions={txs.filter((t) => {
         const q = query.trim().toLowerCase();
         const matchesQuery = q ? (String(t.reference || '').toLowerCase().includes(q) || String(t.amount || '').toLowerCase().includes(q)) : true;
         const matchesStatus = status === 'all' ? true : String(t.status || '').toLowerCase() === status;
         const matchesTab = (() => {
-          const type = String(t.type || '').toLowerCase();
+          const type = String(t.transaction_type || t.type || '').toLowerCase();
+          const sid = String(t.sender_id || t.senderId || '').toLowerCase();
+          const rid = String(t.receiver_id || t.receiverId || '').toLowerCase();
+          const uid = String(userId || '').toLowerCase();
           if (tab === 'all') return true;
-          if (tab === 'sent') return type === 'payment';
-          if (tab === 'received') return type === 'withdrawal'; // placeholder categorization
+          if (tab === 'sent') return uid && sid === uid;
+          if (tab === 'received') return uid && rid === uid;
           if (tab === 'topup') return type === 'deposit';
           if (tab === 'pending_settlement') return String(t.status || '').toLowerCase() === 'pending';
           return true;

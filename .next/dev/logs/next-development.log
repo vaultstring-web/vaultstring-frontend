@@ -51,3 +51,5 @@
 [00:00:50.930] Server  ERROR    ⨯ "unhandledRejection: " Error: EPERM: operation not permitted, rename 'C:\Users\gondwe\Desktop\VaultString\Projects\vaultstring-frontend\.next\dev\server\next-font-manifest.js.tmp.q847vgyihke' -> 'C:\Users\gondwe\Desktop\VaultString\Projects\vaultstring-frontend\.next\dev\server\next-font-manifest.js'
 [00:00:51.568] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
 [00:00:51.841] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/icons/avatar-default.png" "received" null
+[01:00:54.488] Server  LOG      ✓ Compiled in 426ms
+[01:01:26.856] Server  LOG      ✓ Compiled in 195ms
