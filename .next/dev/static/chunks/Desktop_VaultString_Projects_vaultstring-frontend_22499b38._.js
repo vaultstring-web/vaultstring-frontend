@@ -157,6 +157,8 @@ function RatePreviewCard({ fromCurrency, toCurrency, amount }) {
     _s();
     const [rate, setRate] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [converted, setConverted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [fee, setFee] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [net, setNet] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
@@ -188,14 +190,21 @@ function RatePreviewCard({ fromCurrency, toCurrency, amount }) {
                         const br = typeof rateRes?.buy_rate === 'number' ? rateRes.buy_rate : typeof rateRes?.buy_rate === 'string' ? parseFloat(rateRes.buy_rate) : null;
                         const r = br ?? (typeof calc?.rate === 'number' ? calc.rate : typeof calc?.rate === 'string' ? parseFloat(calc.rate) : null);
                         const conv = typeof calc?.converted_amount === 'number' ? calc.converted_amount : typeof calc?.converted_amount === 'string' ? parseFloat(calc.converted_amount) : null;
+                        const feeSourceAmt = typeof calc?.fee_amount === 'number' ? calc.fee_amount : typeof calc?.fee_amount === 'string' ? parseFloat(calc?.fee_amount) : null;
+                        const feeInTarget = feeSourceAmt != null && r != null ? feeSourceAmt * r : null;
+                        const netAmt = conv != null && feeInTarget != null ? Math.max(conv - feeInTarget, 0) : typeof calc?.net_amount === 'number' ? calc.net_amount : typeof calc?.net_amount === 'string' ? parseFloat(calc?.net_amount) : null;
                         if (!mounted) return;
                         setRate(r);
                         setConverted(conv ?? (r ? amount * r : null));
+                        setFee(feeInTarget ?? null);
+                        setNet(netAmt ?? (conv != null ? conv : null));
                     } catch (e) {
                         if (!mounted) return;
                         setError(e?.message || 'Failed to load rate');
                         setRate(null);
                         setConverted(null);
+                        setFee(null);
+                        setNet(null);
                     } finally{
                         if (!mounted) return;
                         setLoading(false);
@@ -221,12 +230,12 @@ function RatePreviewCard({ fromCurrency, toCurrency, amount }) {
                     children: "Rate Preview"
                 }, void 0, false, {
                     fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
-                    lineNumber: 56,
+                    lineNumber: 65,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
-                lineNumber: 55,
+                lineNumber: 64,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -241,7 +250,7 @@ function RatePreviewCard({ fromCurrency, toCurrency, amount }) {
                                     children: "From"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
-                                    lineNumber: 61,
+                                    lineNumber: 70,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -249,13 +258,13 @@ function RatePreviewCard({ fromCurrency, toCurrency, amount }) {
                                     children: String(fromCurrency).toUpperCase()
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
-                                    lineNumber: 62,
+                                    lineNumber: 71,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
-                            lineNumber: 60,
+                            lineNumber: 69,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -266,7 +275,7 @@ function RatePreviewCard({ fromCurrency, toCurrency, amount }) {
                                     children: "To"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
-                                    lineNumber: 65,
+                                    lineNumber: 74,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -274,13 +283,13 @@ function RatePreviewCard({ fromCurrency, toCurrency, amount }) {
                                     children: String(toCurrency).toUpperCase()
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
-                                    lineNumber: 66,
+                                    lineNumber: 75,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
-                            lineNumber: 64,
+                            lineNumber: 73,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -291,7 +300,7 @@ function RatePreviewCard({ fromCurrency, toCurrency, amount }) {
                                     children: "Buy Rate"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
-                                    lineNumber: 69,
+                                    lineNumber: 78,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -299,13 +308,13 @@ function RatePreviewCard({ fromCurrency, toCurrency, amount }) {
                                     children: loading ? '...' : rate ?? '—'
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
-                                    lineNumber: 70,
+                                    lineNumber: 79,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
-                            lineNumber: 68,
+                            lineNumber: 77,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -316,7 +325,7 @@ function RatePreviewCard({ fromCurrency, toCurrency, amount }) {
                                     children: "Converted Amount"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
-                                    lineNumber: 73,
+                                    lineNumber: 82,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -326,42 +335,96 @@ function RatePreviewCard({ fromCurrency, toCurrency, amount }) {
                                     })} ${String(toCurrency).toUpperCase()}` : '—'
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
-                                    lineNumber: 74,
+                                    lineNumber: 83,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
-                            lineNumber: 72,
+                            lineNumber: 81,
                             columnNumber: 11
+                        }, this),
+                        fee != null && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex justify-between",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "text-slate-500",
+                                    children: "FX Spread (Company Earnings)"
+                                }, void 0, false, {
+                                    fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
+                                    lineNumber: 89,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "font-semibold",
+                                    children: loading ? '...' : `${fee.toLocaleString(undefined, {
+                                        maximumFractionDigits: 2
+                                    })} ${String(toCurrency).toUpperCase()}`
+                                }, void 0, false, {
+                                    fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
+                                    lineNumber: 90,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
+                            lineNumber: 88,
+                            columnNumber: 13
+                        }, this),
+                        net != null && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex justify-between",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "text-slate-500",
+                                    children: "Recipient Gets (Net)"
+                                }, void 0, false, {
+                                    fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
+                                    lineNumber: 97,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "font-semibold",
+                                    children: loading ? '...' : `${net.toLocaleString(undefined, {
+                                        maximumFractionDigits: 2
+                                    })} ${String(toCurrency).toUpperCase()}`
+                                }, void 0, false, {
+                                    fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
+                                    lineNumber: 98,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
+                            lineNumber: 96,
+                            columnNumber: 13
                         }, this),
                         error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "text-red-600 text-sm",
                             children: error
                         }, void 0, false, {
                             fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
-                            lineNumber: 79,
+                            lineNumber: 104,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
-                    lineNumber: 59,
+                    lineNumber: 68,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
-                lineNumber: 58,
+                lineNumber: 67,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx",
-        lineNumber: 54,
+        lineNumber: 63,
         columnNumber: 5
     }, this);
 }
-_s(RatePreviewCard, "K4EvhSG3ZwZbIstw8wBUxX9iuRQ=");
+_s(RatePreviewCard, "/rMN0bXPUA0+oynNN4b/Q4Rfzys=");
 _c = RatePreviewCard;
 var _c;
 __turbopack_context__.k.register(_c, "RatePreviewCard");
@@ -642,6 +705,7 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/VaultString/Projects/vaultstring-frontend/node_modules/.pnpm/next@16.0.8_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/VaultString/Projects/vaultstring-frontend/node_modules/.pnpm/next@16.0.8_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$src$2f$lib$2f$api$2f$api$2d$client$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/lib/api/api-client.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/VaultString/Projects/vaultstring-frontend/node_modules/.pnpm/next@16.0.8_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$src$2f$components$2f$dashboard$2f$RatePreviewCard$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/dashboard/RatePreviewCard.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$src$2f$components$2f$shared$2f$PageHeader$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/shared/PageHeader.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/VaultString/Projects/vaultstring-frontend/src/components/ui/input.tsx [app-client] (ecmascript)");
@@ -659,8 +723,10 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
+;
 function SendMoneyPage() {
     _s();
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const [form, setForm] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
         receiver_id: '',
         amount: '',
@@ -686,7 +752,7 @@ function SendMoneyPage() {
     const [previewLoading, setPreviewLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [previewError, setPreviewError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [previewFee, setPreviewFee] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [fundingSource, setFundingSource] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [fundingSource, setFundingSource] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('wallet_balance');
     const [payoutMethod, setPayoutMethod] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     const DEMO_WANG_ID = '04e30bdc-4d04-4e90-a241-456fd96fcba3';
     const isUUID = (v)=>/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{4}-[0-9a-f]{12}$/i.test(v);
@@ -711,6 +777,11 @@ function SendMoneyPage() {
         "SendMoneyPage.useMemo[fundingOptions]": ()=>{
             if (form.currency === 'MWK') {
                 return [
+                    {
+                        value: 'wallet_balance',
+                        label: 'VaultString Wallet (Demo)',
+                        channel: 'wallet'
+                    },
                     {
                         value: 'airtel_money',
                         label: 'Airtel Money',
@@ -761,6 +832,11 @@ function SendMoneyPage() {
             if (form.currency === 'CNY') {
                 return [
                     {
+                        value: 'wallet_balance',
+                        label: 'VaultString Wallet (Demo)',
+                        channel: 'wallet'
+                    },
+                    {
                         value: 'alipay',
                         label: 'Alipay',
                         channel: 'mobile_money'
@@ -803,6 +879,11 @@ function SendMoneyPage() {
                 ];
             }
             return [
+                {
+                    value: 'wallet_balance',
+                    label: 'VaultString Wallet (Demo)',
+                    channel: 'wallet'
+                },
                 {
                     value: 'visa_mastercard',
                     label: 'Visa/Mastercard',
@@ -1024,7 +1105,11 @@ function SendMoneyPage() {
                 throw new Error('Wallet ID must be a valid UUID');
             }
             const selectedFunding = fundingOptions.find((o)=>o.value === fundingSource);
-            const derivedChannel = selectedFunding?.channel || form.channel;
+            const rawChannel = selectedFunding?.channel || 'web';
+            const derivedChannel = rawChannel === 'mobile_money' ? 'mobile' : rawChannel === 'wallet' ? 'web' : rawChannel === 'bank' ? 'api' : rawChannel === 'card' ? 'api' : 'web';
+            if (!payoutMethod) {
+                throw new Error('Please select a payout method');
+            }
             const payload = {
                 receiver_wallet_id: rid,
                 amount: Number(form.amount),
@@ -1040,7 +1125,13 @@ function SendMoneyPage() {
             setResult(res);
         } catch (e) {
             const msg = e?.data?.error || e?.message || 'Payment failed';
-            setError(msg);
+            const lower = String(msg).toLowerCase();
+            if (e?.status === 401 || lower.includes('invalid token')) {
+                setError('Please login to continue');
+                setTimeout(()=>router.push('/login'), 600);
+            } else {
+                setError(msg);
+            }
         } finally{
             setLoading(false);
         }
@@ -1055,7 +1146,7 @@ function SendMoneyPage() {
                 variant: "hero"
             }, void 0, false, {
                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                lineNumber: 198,
+                lineNumber: 217,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -1070,7 +1161,7 @@ function SendMoneyPage() {
                                 children: "How much do you want to send?"
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                lineNumber: 202,
+                                lineNumber: 221,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1083,7 +1174,7 @@ function SendMoneyPage() {
                                         children: "International"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 204,
+                                        lineNumber: 223,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1093,19 +1184,19 @@ function SendMoneyPage() {
                                         children: "Same Currency"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 211,
+                                        lineNumber: 230,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                lineNumber: 203,
+                                lineNumber: 222,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                        lineNumber: 201,
+                        lineNumber: 220,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1122,7 +1213,7 @@ function SendMoneyPage() {
                                                 children: "Recipient Wallet ID (UUID)"
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                lineNumber: 224,
+                                                lineNumber: 243,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -1138,7 +1229,7 @@ function SendMoneyPage() {
                                                 inputMode: "text"
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                lineNumber: 225,
+                                                lineNumber: 244,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1148,7 +1239,7 @@ function SendMoneyPage() {
                                                         children: "Sanitized:"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                        lineNumber: 238,
+                                                        lineNumber: 257,
                                                         columnNumber: 17
                                                     }, this),
                                                     " ",
@@ -1157,19 +1248,19 @@ function SendMoneyPage() {
                                                         children: sanitizedRid || '—'
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                        lineNumber: 238,
+                                                        lineNumber: 257,
                                                         columnNumber: 41
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                lineNumber: 237,
+                                                lineNumber: 256,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 223,
+                                        lineNumber: 242,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1182,7 +1273,7 @@ function SendMoneyPage() {
                                                         children: "You will send"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                        lineNumber: 244,
+                                                        lineNumber: 263,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1200,7 +1291,7 @@ function SendMoneyPage() {
                                                                 className: "w-full px-4 py-3 outline-none text-slate-900 placeholder:text-slate-400"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                lineNumber: 246,
+                                                                lineNumber: 265,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1216,7 +1307,7 @@ function SendMoneyPage() {
                                                                             children: "MWK"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                            lineNumber: 264,
+                                                                            lineNumber: 283,
                                                                             columnNumber: 23
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1224,7 +1315,7 @@ function SendMoneyPage() {
                                                                             children: "CNY"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                            lineNumber: 265,
+                                                                            lineNumber: 284,
                                                                             columnNumber: 23
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1232,30 +1323,30 @@ function SendMoneyPage() {
                                                                             children: "USD"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                            lineNumber: 266,
+                                                                            lineNumber: 285,
                                                                             columnNumber: 23
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                    lineNumber: 258,
+                                                                    lineNumber: 277,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                lineNumber: 257,
+                                                                lineNumber: 276,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                        lineNumber: 245,
+                                                        lineNumber: 264,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                lineNumber: 243,
+                                                lineNumber: 262,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1265,7 +1356,7 @@ function SendMoneyPage() {
                                                         children: "Recipient will get (preview)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                        lineNumber: 272,
+                                                        lineNumber: 291,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1278,7 +1369,7 @@ function SendMoneyPage() {
                                                                 className: "w-full px-4 py-3 outline-none text-slate-900 placeholder:text-slate-400"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                lineNumber: 274,
+                                                                lineNumber: 293,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1294,7 +1385,7 @@ function SendMoneyPage() {
                                                                             children: "CNY"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                            lineNumber: 287,
+                                                                            lineNumber: 306,
                                                                             columnNumber: 23
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1302,7 +1393,7 @@ function SendMoneyPage() {
                                                                             children: "USD"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                            lineNumber: 288,
+                                                                            lineNumber: 307,
                                                                             columnNumber: 23
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1310,30 +1401,30 @@ function SendMoneyPage() {
                                                                             children: "MWK"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                            lineNumber: 289,
+                                                                            lineNumber: 308,
                                                                             columnNumber: 23
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                    lineNumber: 281,
+                                                                    lineNumber: 300,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                lineNumber: 280,
+                                                                lineNumber: 299,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                        lineNumber: 273,
+                                                        lineNumber: 292,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                lineNumber: 271,
+                                                lineNumber: 290,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1343,46 +1434,36 @@ function SendMoneyPage() {
                                                         children: "Funding Source"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                        lineNumber: 295,
+                                                        lineNumber: 314,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                                         value: fundingSource,
                                                         onChange: (e)=>setFundingSource(e.target.value),
                                                         className: "mt-1 w-full border rounded-md px-3 py-2 text-slate-900 bg-white",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                value: "",
-                                                                children: "Select source"
-                                                            }, void 0, false, {
+                                                        children: fundingOptions.map((opt)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                value: opt.value,
+                                                                children: opt.label
+                                                            }, opt.value, false, {
                                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                lineNumber: 297,
-                                                                columnNumber: 19
-                                                            }, this),
-                                                            fundingOptions.map((opt)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                    value: opt.value,
-                                                                    children: opt.label
-                                                                }, opt.value, false, {
-                                                                    fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                    lineNumber: 299,
-                                                                    columnNumber: 21
-                                                                }, this))
-                                                        ]
-                                                    }, void 0, true, {
+                                                                lineNumber: 317,
+                                                                columnNumber: 21
+                                                            }, this))
+                                                    }, void 0, false, {
                                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                        lineNumber: 296,
+                                                        lineNumber: 315,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                lineNumber: 294,
+                                                lineNumber: 313,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 242,
+                                        lineNumber: 261,
                                         columnNumber: 13
                                     }, this),
                                     showPreview && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1393,12 +1474,12 @@ function SendMoneyPage() {
                                             amount: amountNumber
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                            lineNumber: 307,
+                                            lineNumber: 325,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 306,
+                                        lineNumber: 324,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1411,7 +1492,7 @@ function SendMoneyPage() {
                                                         children: "Payout Method"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                        lineNumber: 317,
+                                                        lineNumber: 335,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -1424,7 +1505,7 @@ function SendMoneyPage() {
                                                                 children: "Select method"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                lineNumber: 319,
+                                                                lineNumber: 337,
                                                                 columnNumber: 19
                                                             }, this),
                                                             payoutOptions.map((opt)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1432,19 +1513,19 @@ function SendMoneyPage() {
                                                                     children: opt.label
                                                                 }, opt.value, false, {
                                                                     fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                    lineNumber: 321,
+                                                                    lineNumber: 339,
                                                                     columnNumber: 21
                                                                 }, this))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                        lineNumber: 318,
+                                                        lineNumber: 336,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                lineNumber: 316,
+                                                lineNumber: 334,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1454,7 +1535,7 @@ function SendMoneyPage() {
                                                         children: "Category"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                        lineNumber: 326,
+                                                        lineNumber: 344,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -1465,19 +1546,19 @@ function SendMoneyPage() {
                                                         className: "text-slate-900 placeholder:text-slate-500 bg-white"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                        lineNumber: 327,
+                                                        lineNumber: 345,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                lineNumber: 325,
+                                                lineNumber: 343,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 315,
+                                        lineNumber: 333,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1487,7 +1568,7 @@ function SendMoneyPage() {
                                                 children: "Description"
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                lineNumber: 331,
+                                                lineNumber: 349,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -1498,19 +1579,19 @@ function SendMoneyPage() {
                                                 className: "text-slate-900 placeholder:text-slate-500 bg-white"
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                lineNumber: 332,
+                                                lineNumber: 350,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 330,
+                                        lineNumber: 348,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                lineNumber: 222,
+                                lineNumber: 241,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1524,7 +1605,7 @@ function SendMoneyPage() {
                                                 children: "Summary"
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                lineNumber: 338,
+                                                lineNumber: 356,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1538,7 +1619,7 @@ function SendMoneyPage() {
                                                                 children: "Fees"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                lineNumber: 340,
+                                                                lineNumber: 358,
                                                                 columnNumber: 55
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1546,13 +1627,13 @@ function SendMoneyPage() {
                                                                 children: previewFee != null ? `${Number(previewFee).toFixed(2)} ${form.currency}` : '—'
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                lineNumber: 340,
+                                                                lineNumber: 358,
                                                                 columnNumber: 99
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                        lineNumber: 340,
+                                                        lineNumber: 358,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1563,7 +1644,7 @@ function SendMoneyPage() {
                                                                 children: "You will pay"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                lineNumber: 341,
+                                                                lineNumber: 359,
                                                                 columnNumber: 55
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1575,13 +1656,13 @@ function SendMoneyPage() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                lineNumber: 341,
+                                                                lineNumber: 359,
                                                                 columnNumber: 107
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                        lineNumber: 341,
+                                                        lineNumber: 359,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1592,7 +1673,7 @@ function SendMoneyPage() {
                                                                 children: "Guaranteed rate (12h)"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                lineNumber: 342,
+                                                                lineNumber: 360,
                                                                 columnNumber: 55
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1600,19 +1681,19 @@ function SendMoneyPage() {
                                                                 children: previewRate != null ? String(previewRate) : '—'
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                                lineNumber: 342,
+                                                                lineNumber: 360,
                                                                 columnNumber: 116
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                        lineNumber: 342,
+                                                        lineNumber: 360,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                lineNumber: 339,
+                                                lineNumber: 357,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1623,18 +1704,18 @@ function SendMoneyPage() {
                                                     children: "Set Schedule"
                                                 }, void 0, false, {
                                                     fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                    lineNumber: 345,
+                                                    lineNumber: 363,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                                lineNumber: 344,
+                                                lineNumber: 362,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 337,
+                                        lineNumber: 355,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -1644,25 +1725,25 @@ function SendMoneyPage() {
                                         children: loading ? 'Processing...' : 'Send Payment'
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 349,
+                                        lineNumber: 367,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                lineNumber: 336,
+                                lineNumber: 354,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                        lineNumber: 221,
+                        lineNumber: 240,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                lineNumber: 200,
+                lineNumber: 219,
                 columnNumber: 7
             }, this),
             error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1670,7 +1751,7 @@ function SendMoneyPage() {
                 children: error
             }, void 0, false, {
                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                lineNumber: 357,
+                lineNumber: 375,
                 columnNumber: 9
             }, this),
             result?.transaction && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1681,7 +1762,7 @@ function SendMoneyPage() {
                         children: "Payment Result"
                     }, void 0, false, {
                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                        lineNumber: 362,
+                        lineNumber: 380,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1695,7 +1776,7 @@ function SendMoneyPage() {
                                         children: "Reference"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 364,
+                                        lineNumber: 382,
                                         columnNumber: 51
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1703,13 +1784,13 @@ function SendMoneyPage() {
                                         children: String(result.transaction.reference)
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 364,
+                                        lineNumber: 382,
                                         columnNumber: 100
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                lineNumber: 364,
+                                lineNumber: 382,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1720,7 +1801,7 @@ function SendMoneyPage() {
                                         children: "Status"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 365,
+                                        lineNumber: 383,
                                         columnNumber: 51
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1728,13 +1809,13 @@ function SendMoneyPage() {
                                         children: String(result.transaction.status)
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 365,
+                                        lineNumber: 383,
                                         columnNumber: 97
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                lineNumber: 365,
+                                lineNumber: 383,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1745,7 +1826,7 @@ function SendMoneyPage() {
                                         children: "Amount"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 366,
+                                        lineNumber: 384,
                                         columnNumber: 51
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1753,13 +1834,13 @@ function SendMoneyPage() {
                                         children: String(result.transaction.amount)
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 366,
+                                        lineNumber: 384,
                                         columnNumber: 97
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                lineNumber: 366,
+                                lineNumber: 384,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1770,7 +1851,7 @@ function SendMoneyPage() {
                                         children: "Currency"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 367,
+                                        lineNumber: 385,
                                         columnNumber: 51
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1778,13 +1859,13 @@ function SendMoneyPage() {
                                         children: String(result.transaction.currency)
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 367,
+                                        lineNumber: 385,
                                         columnNumber: 99
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                lineNumber: 367,
+                                lineNumber: 385,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1795,7 +1876,7 @@ function SendMoneyPage() {
                                         children: "Converted"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 368,
+                                        lineNumber: 386,
                                         columnNumber: 51
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1807,13 +1888,13 @@ function SendMoneyPage() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 368,
+                                        lineNumber: 386,
                                         columnNumber: 100
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                lineNumber: 368,
+                                lineNumber: 386,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1824,7 +1905,7 @@ function SendMoneyPage() {
                                         children: "Receiver Wallet ID"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 369,
+                                        lineNumber: 387,
                                         columnNumber: 51
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1832,13 +1913,13 @@ function SendMoneyPage() {
                                         children: String(result.transaction.receiver_wallet_id || '')
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 369,
+                                        lineNumber: 387,
                                         columnNumber: 109
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                lineNumber: 369,
+                                lineNumber: 387,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1849,7 +1930,7 @@ function SendMoneyPage() {
                                         children: "Receiver User ID"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 370,
+                                        lineNumber: 388,
                                         columnNumber: 51
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1857,36 +1938,37 @@ function SendMoneyPage() {
                                         children: String(result.transaction.receiver_id || '')
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                        lineNumber: 370,
+                                        lineNumber: 388,
                                         columnNumber: 107
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                                lineNumber: 370,
+                                lineNumber: 388,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                        lineNumber: 363,
+                        lineNumber: 381,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-                lineNumber: 361,
+                lineNumber: 379,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/Desktop/VaultString/Projects/vaultstring-frontend/app/dashboard/send-money/page.tsx",
-        lineNumber: 197,
+        lineNumber: 216,
         columnNumber: 5
     }, this);
 }
-_s(SendMoneyPage, "nY4sK2/MRUUQVUAbTjjsGEUQBKg=", false, function() {
+_s(SendMoneyPage, "rbyWELru8483/azc02pYbfaJGJ0=", false, function() {
     return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$8_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
         __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$VaultString$2f$Projects$2f$vaultstring$2d$frontend$2f$src$2f$context$2f$AuthContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"]
     ];
 });

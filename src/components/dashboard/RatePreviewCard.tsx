@@ -11,6 +11,8 @@ interface RatePreviewCardProps {
 export default function RatePreviewCard({ fromCurrency, toCurrency, amount }: RatePreviewCardProps) {
   const [rate, setRate] = useState<number | null>(null);
   const [converted, setConverted] = useState<number | null>(null);
+  const [fee, setFee] = useState<number | null>(null);
+  const [net, setNet] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -33,14 +35,21 @@ export default function RatePreviewCard({ fromCurrency, toCurrency, amount }: Ra
         const br = typeof rateRes?.buy_rate === 'number' ? rateRes.buy_rate : (typeof rateRes?.buy_rate === 'string' ? parseFloat(rateRes.buy_rate) : null);
         const r = br ?? (typeof calc?.rate === 'number' ? calc.rate : (typeof calc?.rate === 'string' ? parseFloat(calc.rate) : null));
         const conv = typeof calc?.converted_amount === 'number' ? calc.converted_amount : (typeof calc?.converted_amount === 'string' ? parseFloat(calc.converted_amount) : null);
+        const feeSourceAmt = typeof calc?.fee_amount === 'number' ? calc.fee_amount : (typeof calc?.fee_amount === 'string' ? parseFloat(calc?.fee_amount) : null);
+        const feeInTarget = feeSourceAmt != null && r != null ? feeSourceAmt * r : null;
+        const netAmt = conv != null && feeInTarget != null ? Math.max(conv - feeInTarget, 0) : (typeof calc?.net_amount === 'number' ? calc.net_amount : (typeof calc?.net_amount === 'string' ? parseFloat(calc?.net_amount) : null));
         if (!mounted) return;
         setRate(r);
         setConverted(conv ?? (r ? amount * r : null));
+        setFee(feeInTarget ?? null);
+        setNet(netAmt ?? (conv != null ? conv : null));
       } catch (e: any) {
         if (!mounted) return;
         setError(e?.message || 'Failed to load rate');
         setRate(null);
         setConverted(null);
+        setFee(null);
+        setNet(null);
       } finally {
         if (!mounted) return;
         setLoading(false);
@@ -75,6 +84,22 @@ export default function RatePreviewCard({ fromCurrency, toCurrency, amount }: Ra
               {loading ? '...' : (converted !== null ? `${converted.toLocaleString(undefined, { maximumFractionDigits: 2 })} ${String(toCurrency).toUpperCase()}` : '—')}
             </span>
           </div>
+          {fee != null && (
+            <div className="flex justify-between">
+              <span className="text-slate-500">FX Spread (Company Earnings)</span>
+              <span className="font-semibold">
+                {loading ? '...' : `${fee.toLocaleString(undefined, { maximumFractionDigits: 2 })} ${String(toCurrency).toUpperCase()}`}
+              </span>
+            </div>
+          )}
+          {net != null && (
+            <div className="flex justify-between">
+              <span className="text-slate-500">Recipient Gets (Net)</span>
+              <span className="font-semibold">
+                {loading ? '...' : `${net.toLocaleString(undefined, { maximumFractionDigits: 2 })} ${String(toCurrency).toUpperCase()}`}
+              </span>
+            </div>
+          )}
           {error && (
             <div className="text-red-600 text-sm">{error}</div>
           )}

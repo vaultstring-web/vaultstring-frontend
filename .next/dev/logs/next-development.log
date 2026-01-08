@@ -53,3 +53,33 @@
 [00:00:51.841] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/icons/avatar-default.png" "received" null
 [01:00:54.488] Server  LOG      ✓ Compiled in 426ms
 [01:01:26.856] Server  LOG      ✓ Compiled in 195ms
+[11:18:35.411] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[11:18:42.052] Server  LOG      ○ Compiling /dashboard/compliance ...
+[11:19:03.968] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[11:19:04.123] Browser WARN    Image with src "/images/vs2.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[11:19:13.793] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/icons/avatar-default.png" "received" null
+[11:19:28.712] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[11:19:28.724] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/icons/avatar-default.png" "received" null
+[11:19:55.349] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[11:20:05.825] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[11:20:07.323] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[11:20:07.474] Browser WARN    Image with src "/images/vs2.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[11:20:21.522] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/icons/avatar-default.png" "received" null
+[11:20:25.312] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[11:20:25.557] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/icons/avatar-default.png" "received" null
+[11:20:56.636] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[11:20:56.831] Browser WARN    Image with src "/images/vs2.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[11:23:24.099] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/icons/avatar-default.png" "received" null
+[11:23:24.122] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/icons/avatar-default.png" "received" null
+[11:23:24.343] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/icons/avatar-default.png" "received" null
+[11:23:24.490] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/icons/avatar-default.png" "received" null
+[11:23:25.085] Browser WARN    Image with src "/icons/avatar-default.png" has "fill" and a height value of 0. This is likely because the parent element of the image has not been styled to have a set height.
+[11:41:03.121] Server  LOG      ✓ Compiled in 1181ms
+[11:58:21.066] Server  LOG      ✓ Compiled in 2.4s
+[12:24:15.266] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[12:24:15.323] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/icons/avatar-default.png" "received" null
+[12:36:42.739] Server  LOG      ✓ Compiled in 2.1s
+[12:56:50.920] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[12:56:51.091] Browser WARN    Image with src "/images/vs2.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[12:56:59.715] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/icons/avatar-default.png" "received" null
+[13:03:01.080] Server  LOG      ✓ Compiled in 764ms

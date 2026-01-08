@@ -3,6 +3,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { apiFetch, isAuthenticated } from '@/src/lib/api/api-client';
+import { useRouter } from 'next/navigation';
 import RatePreviewCard from '@/src/components/dashboard/RatePreviewCard';
 import PageHeader from '@/src/components/shared/PageHeader';
 import { Input } from '@/src/components/ui/input';
@@ -11,6 +12,7 @@ import { Button } from '@/src/components/ui/button';
 import { useAuth } from '@/src/context/AuthContext';
 
 export default function SendMoneyPage() {
+  const router = useRouter();
   const [form, setForm] = useState({ receiver_id: '', amount: '', currency: 'MWK', description: '', channel: 'web', category: 'transfer' });
   const [targetCurrency, setTargetCurrency] = useState<'MWK' | 'CNY' | 'USD'>('CNY');
   const [flowType, setFlowType] = useState<'INTERNATIONAL' | 'SAME'>('INTERNATIONAL');
@@ -25,7 +27,7 @@ export default function SendMoneyPage() {
   const [previewLoading, setPreviewLoading] = useState(false);
   const [previewError, setPreviewError] = useState<string | null>(null);
   const [previewFee, setPreviewFee] = useState<number | null>(null);
-  const [fundingSource, setFundingSource] = useState<string>('');
+  const [fundingSource, setFundingSource] = useState<string>('wallet_balance');
   const [payoutMethod, setPayoutMethod] = useState<string>('');
   const DEMO_WANG_ID = '04e30bdc-4d04-4e90-a241-456fd96fcba3';
   const isUUID = (v: string) => /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{4}-[0-9a-f]{12}$/i.test(v);
@@ -48,6 +50,7 @@ export default function SendMoneyPage() {
   const fundingOptions = useMemo(() => {
     if (form.currency === 'MWK') {
       return [
+        { value: 'wallet_balance', label: 'VaultString Wallet (Demo)', channel: 'wallet' },
         { value: 'airtel_money', label: 'Airtel Money', channel: 'mobile_money' },
         { value: 'tnm_mpamba', label: 'TNM Mpamba', channel: 'mobile_money' },
         { value: 'nbm', label: 'National Bank of Malawi', channel: 'bank' },
@@ -61,6 +64,7 @@ export default function SendMoneyPage() {
     }
     if (form.currency === 'CNY') {
       return [
+        { value: 'wallet_balance', label: 'VaultString Wallet (Demo)', channel: 'wallet' },
         { value: 'alipay', label: 'Alipay', channel: 'mobile_money' },
         { value: 'wechat_pay', label: 'WeChat Pay', channel: 'mobile_money' },
         { value: 'icbc', label: 'ICBC', channel: 'bank' },
@@ -72,6 +76,7 @@ export default function SendMoneyPage() {
       ];
     }
     return [
+      { value: 'wallet_balance', label: 'VaultString Wallet (Demo)', channel: 'wallet' },
       { value: 'visa_mastercard', label: 'Visa/Mastercard', channel: 'card' },
       { value: 'standard_bank_intl', label: 'Standard Bank (International)', channel: 'bank' },
       { value: 'ecobank_intl', label: 'Ecobank (International)', channel: 'bank' },
@@ -172,7 +177,15 @@ export default function SendMoneyPage() {
         throw new Error('Wallet ID must be a valid UUID');
       }
       const selectedFunding = fundingOptions.find((o) => o.value === fundingSource);
-      const derivedChannel = selectedFunding?.channel || form.channel;
+      const rawChannel = selectedFunding?.channel || 'web';
+      const derivedChannel = rawChannel === 'mobile_money' ? 'mobile'
+        : rawChannel === 'wallet' ? 'web'
+        : rawChannel === 'bank' ? 'api'
+        : rawChannel === 'card' ? 'api'
+        : 'web';
+      if (!payoutMethod) {
+        throw new Error('Please select a payout method');
+      }
       const payload = {
         receiver_wallet_id: rid,
         amount: Number(form.amount),
@@ -185,7 +198,13 @@ export default function SendMoneyPage() {
       setResult(res);
     } catch (e: any) {
       const msg = e?.data?.error || e?.message || 'Payment failed';
-      setError(msg);
+      const lower = String(msg).toLowerCase();
+      if (e?.status === 401 || lower.includes('invalid token')) {
+        setError('Please login to continue');
+        setTimeout(() => router.push('/login'), 600);
+      } else {
+        setError(msg);
+      }
     } finally {
       setLoading(false);
     }
@@ -294,7 +313,6 @@ export default function SendMoneyPage() {
               <div>
                 <Label className="text-slate-900">Funding Source</Label>
                 <select value={fundingSource} onChange={(e) => setFundingSource(e.target.value)} className="mt-1 w-full border rounded-md px-3 py-2 text-slate-900 bg-white">
-                  <option value="">Select source</option>
                   {fundingOptions.map((opt) => (
                     <option key={opt.value} value={opt.value}>{opt.label}</option>
                   ))}

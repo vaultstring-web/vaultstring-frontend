@@ -1,8 +1,11 @@
 {
   "/(auth)/login/page": "app/(auth)/login/page.js",
   "/_not-found/page": "app/_not-found/page.js",
+  "/dashboard/compliance/page": "app/dashboard/compliance/page.js",
   "/dashboard/page": "app/dashboard/page.js",
+  "/dashboard/profile/page": "app/dashboard/profile/page.js",
   "/dashboard/send-money/page": "app/dashboard/send-money/page.js",
   "/dashboard/transactions/page": "app/dashboard/transactions/page.js",
-  "/dashboard/wallet/page": "app/dashboard/wallet/page.js"
+  "/dashboard/wallet/page": "app/dashboard/wallet/page.js",
+  "/page": "app/page.js"
 }
