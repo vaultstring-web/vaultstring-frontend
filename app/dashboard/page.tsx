@@ -12,71 +12,64 @@ export default function DashboardPage() {
   const { user } = useAuth();
   const [wallets, setWallets] = useState<any[]>([]);
   const [payments, setPayments] = useState<any[]>([]);
-  const [rates, setRates] = useState<{
-    mwkToCny?: number;
-    cnyToMwk?: number;
-    mwkToCnyBuy?: number;
-    mwkToCnySell?: number;
-    cnyToMwkBuy?: number;
-    cnyToMwkSell?: number;
-  }>({});
+  const [rates, setRates] = useState<{ mwkToCny?: number; cnyToMwk?: number; usdToMwk?: number }>({});
 
   useEffect(() => {
     let mounted = true;
-    if (!isAuthenticated()) return;
+    
+    // Only fetch data if user is authenticated (or attempting to load)
+    // Adding user as dependency ensures we re-fetch when auth state settles
+    
     (async () => {
       try {
-        const [wRes, pRes, rMWKCNY, rCNYMWK] = await Promise.all([
-          apiFetch('/wallets').catch(() => null),
-          apiFetch('/payments?limit=20&offset=0').catch(() => null),
-          apiFetch('/forex/rate/MWK/CNY').catch(() => null),
-          apiFetch('/forex/rate/CNY/MWK').catch(() => null),
+        const [wRes, pRes, rRes, uRes] = await Promise.all([
+          apiFetch('/wallets', { cache: 'no-store' }).catch(() => null),
+          apiFetch('/payments?limit=20&offset=0', { cache: 'no-store' }).catch(() => null),
+          apiFetch('/forex/rate/MWK/CNY', { cache: 'no-store' }).catch(() => null),
+          apiFetch('/forex/rate/USD/MWK', { cache: 'no-store' }).catch(() => null),
         ]);
         if (!mounted) return;
         setWallets(Array.isArray(wRes?.wallets) ? wRes.wallets : []);
         setPayments(Array.isArray(pRes?.transactions) ? pRes.transactions : []);
-        const base = typeof rMWKCNY?.rate === 'number' ? rMWKCNY.rate : EXCHANGE_RATE_MWK_TO_CNY;
-        const buy = typeof rMWKCNY?.buy_rate === 'number' ? rMWKCNY.buy_rate : base;
-        const sell = typeof rMWKCNY?.sell_rate === 'number' ? rMWKCNY.sell_rate : base;
-        const invBase = typeof rCNYMWK?.rate === 'number' ? rCNYMWK.rate : (buy ? 1 / buy : EXCHANGE_RATE_CNY_TO_MWK);
-        const invBuy = typeof rCNYMWK?.buy_rate === 'number' ? rCNYMWK.buy_rate : invBase;
-        const invSell = typeof rCNYMWK?.sell_rate === 'number' ? rCNYMWK.sell_rate : invBase;
-        setRates({
-          mwkToCny: buy,
-          cnyToMwk: buy ? 1 / buy : EXCHANGE_RATE_CNY_TO_MWK,
-          mwkToCnyBuy: buy,
-          mwkToCnySell: sell,
-          cnyToMwkBuy: invBuy,
-          cnyToMwkSell: invSell,
-        });
+        const rate = typeof rRes?.rate === 'number' ? rRes.rate : EXCHANGE_RATE_MWK_TO_CNY;
+        const usdRate = typeof uRes?.rate === 'number' ? uRes.rate : 1745;
+        setRates({ mwkToCny: rate, cnyToMwk: rate ? 1 / rate : EXCHANGE_RATE_CNY_TO_MWK, usdToMwk: usdRate });
       } catch {}
     })();
     return () => { mounted = false; };
-  }, []);
+  }, [user]); // Re-run when user profile loads/updates
 
   const walletStats = useMemo(() => {
-    let totalMWK = 0;
-    let totalCNY = 0;
-    let totalUSD = 0;
-    wallets.forEach((w) => {
+    const totalMWK = wallets.reduce((sum, w) => {
+      const bal = parseFloat(String(w.available_balance ?? w.balance ?? 0));
+      if (String(w.currency).toUpperCase() === 'MWK') return sum + bal;
+      if (String(w.currency).toUpperCase() === 'CNY') return sum + bal * (rates.cnyToMwk || EXCHANGE_RATE_CNY_TO_MWK);
+      if (String(w.currency).toUpperCase() === 'USD') return sum + bal * (rates.usdToMwk || 1745);
+      return sum + bal;
+    }, 0);
+    const totalCNY = wallets.reduce((sum, w) => {
       const bal = parseFloat(String(w.available_balance ?? w.balance ?? 0));
       const cur = String(w.currency).toUpperCase();
-      if (cur === 'MWK') totalMWK += bal;
-      else if (cur === 'CNY') totalCNY += bal;
-      else if (cur === 'USD') totalUSD += bal;
-    });
-    const country = String(user?.countryCode || '').trim().toUpperCase();
-    const primaryCurrency = country === 'CN' ? 'CNY' : country === 'MW' ? 'MWK' : (String(wallets[0]?.currency || 'MWK').toUpperCase());
+      if (cur === 'CNY') return sum + bal;
+      if (cur === 'MWK') return sum + bal * (rates.mwkToCny || EXCHANGE_RATE_MWK_TO_CNY);
+      if (cur === 'USD') {
+        const usdToMwk = (rates.usdToMwk || 1745);
+        const mwkToCny = (rates.mwkToCny || EXCHANGE_RATE_MWK_TO_CNY);
+        return sum + bal * usdToMwk * mwkToCny;
+      }
+      return sum + bal;
+    }, 0);
+    const countryCode = String(user?.countryCode || '').toUpperCase();
+    const primaryCurrency = countryCode === 'CN' ? 'CNY' : 'MWK';
     return {
       balanceMWK: Math.round(totalMWK),
       balanceCNY: Math.round(totalCNY),
-      balanceUSD: Math.round(totalUSD),
       primaryCurrency: primaryCurrency as any,
       lastDepositDate: new Date().toISOString().slice(0, 10),
       monthlyLimit: 5000000,
-      spentThisMonth: Math.round((primaryCurrency === 'MWK' ? totalMWK : primaryCurrency === 'CNY' ? totalCNY : totalUSD) * 0.15),
+      spentThisMonth: Math.round((primaryCurrency === 'CNY' ? totalCNY : totalMWK) * 0.15),
     };
-  }, [wallets, user]);
+  }, [wallets, rates, user]);
 
   const recentTransactions: Transaction[] = useMemo(() => {
     return payments.map((t: any) => ({

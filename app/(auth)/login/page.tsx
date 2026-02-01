@@ -1,16 +1,17 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, Suspense } from 'react';
 import { AuthLayout } from '@/src/components/shared/AuthLayout';
 import { InputField } from '@/src/components/forms/InputField';
 import { Button } from '@/src/components/forms/Button';
 import { SocialAuthDivider, SocialButton } from '@/src/components/forms/SocialAuthDivider';
-import { ToastContainer } from '@/src/components/shared/Toast';
 import { useFormValidation } from '@/src/hooks/useFormValidation';
-import { useToast } from '@/src/hooks/useToast';
+import { useToast } from '@/src/hooks/use-toast';
 import { validators } from '@/src/lib/utils/validation';
 import { login as loginApi } from '@/src/lib/auth/auth';
+import { useAuth } from '@/src/context/AuthContext';
 import { colors, spacing } from '@/src/styles/tokens';
 
 const loginValidationSchema = {
@@ -21,9 +22,27 @@ const loginValidationSchema = {
   }
 };
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
-  const { toasts, removeToast, showSuccess, showError } = useToast();
+  const searchParams = useSearchParams();
+  const { refreshUser } = useAuth();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    if (searchParams.get('expired') === 'true') {
+      toast({
+        variant: "destructive",
+        title: "Session Expired",
+        description: "Please log in again."
+      });
+    } else if (searchParams.get('logout') === 'true') {
+      toast({
+        title: "Logged Out",
+        description: "Successfully logged out.",
+        variant: "default"
+      });
+    }
+  }, [searchParams, toast]);
 
   const { values, errors, isSubmitting, handleChange, handleSubmit, setFieldError } =
     useFormValidation(
@@ -38,17 +57,31 @@ export default function LoginPage() {
 
           // Check for successful login - API returns access_token or token
           if (resp?.access_token || resp?.token || (resp as any)?.user) {
-            showSuccess('Login successful!');
-            setTimeout(() => router.push('/dashboard'), 500);
+            toast({
+              title: "Welcome back!",
+              description: "Login successful.",
+              variant: "default"
+            });
+            await refreshUser(); // Refresh user context before navigation
+            // Force a hard reload to ensure all dashboard states (sockets, cache) are fresh
+            window.location.href = '/dashboard';
             return;
           }
 
           setFieldError('email', 'Invalid credentials');
-          showError('Invalid email or password');
+          toast({
+            variant: "destructive",
+            title: "Login Failed",
+            description: "Invalid email or password"
+          });
         } catch (err: any) {
           const msg = err?.message || 'Login failed. Please try again.';
           setFieldError('email', msg);
-          showError(msg);
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: msg
+          });
         }
       },
       loginValidationSchema
@@ -102,61 +135,67 @@ export default function LoginPage() {
             </Link>
           </div>
 
-          <InputField
-            label="Remember me"
-            name="rememberMe"
-            type="checkbox"
-            value={values.rememberMe}
-            onChange={handleChange}
-          />
+          <div style={{ display: 'flex', alignItems: 'center', gap: spacing.xs }}>
+            <input
+              type="checkbox"
+              id="rememberMe"
+              name="rememberMe"
+              checked={values.rememberMe}
+              onChange={handleChange}
+              style={{
+                accentColor: colors.primary.green,
+                width: '16px',
+                height: '16px',
+                cursor: 'pointer'
+              }}
+            />
+            <label 
+              htmlFor="rememberMe" 
+              style={{ 
+                fontSize: '0.875rem', 
+                color: colors.neutral[600],
+                cursor: 'pointer',
+                userSelect: 'none'
+              }}
+            >
+              Remember me
+            </label>
+          </div>
 
-          <Button type="submit" loading={isSubmitting}>
+          <Button type="submit" variant="primary" fullWidth isLoading={isSubmitting}>
             Sign In
           </Button>
 
           <SocialAuthDivider />
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: spacing.md }}>
-            <SocialButton
-              icon={<img src="/icons/google-icon.svg" alt="Google" width={20} height={20} />}
-              label="Google"
-              onClick={() => showError('Google auth coming soon')}
-            />
-            <SocialButton
-              icon={<img src="/icons/apple-logo.svg" alt="Apple" width={20} height={20} />}
-              label="Apple"
-              onClick={() => showError('Apple auth coming soon')}
-            />
+          <div style={{ display: 'flex', gap: spacing.md }}>
+            <SocialButton provider="google" onClick={() => console.log('Google login')} />
+            <SocialButton provider="apple" onClick={() => console.log('Apple login')} />
           </div>
 
-          <p
-            style={{
-              textAlign: 'center',
-              fontSize: '0.9375rem',
-              color: colors.neutral[600],
-            }}
-          >
+          <div style={{ textAlign: 'center', marginTop: spacing.md, fontSize: '0.875rem', color: colors.neutral[600] }}>
             Don't have an account?{' '}
             <Link
               href="/signup"
               style={{
                 color: colors.primary.green,
+                fontWeight: 600,
                 textDecoration: 'none',
-                fontWeight: '600',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.textDecoration = 'underline';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.textDecoration = 'none';
               }}
             >
               Sign up
             </Link>
-          </p>
+          </div>
         </form>
       </AuthLayout>
-      <ToastContainer toasts={toasts} removeToast={removeToast} />
     </>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginForm />
+    </Suspense>
   );
 }

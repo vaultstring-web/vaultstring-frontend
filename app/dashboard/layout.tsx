@@ -26,7 +26,7 @@ export default function DashboardLayout({
   }, [router]);
 
   return (
-    <div className="h-screen bg-slate-50 flex overflow-hidden">
+    <div className="h-screen bg-background text-foreground flex overflow-hidden">
       {/* Sidebar */}
       <Sidebar 
         isOpen={isMobileMenuOpen}

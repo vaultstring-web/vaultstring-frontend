@@ -6,9 +6,8 @@ import { useState, Suspense } from 'react';
 import { AuthLayout } from '@/src/components/shared/AuthLayout';
 import { InputField } from '@/src/components/forms/InputField';
 import { Button } from '@/src/components/forms/Button';
-import { ToastContainer } from '@/src/components/shared/Toast';
 import { useFormValidation } from '@/src/hooks/useFormValidation';
-import { useToast } from '@/src/hooks/useToast';
+import { useToast } from '@/src/hooks/use-toast';
 import { validators } from '@/src/lib/utils/validation';
 import { requestPasswordReset, resetPassword } from '@/src/lib/auth/auth';
 
@@ -17,18 +16,26 @@ function ResetPasswordContent() {
   const params = useSearchParams();
   const token = params?.get('token') || '';
   const [stage, setStage] = useState<'email' | 'reset' | 'success'>(token ? 'reset' : 'email');
-  const { toasts, removeToast, showSuccess, showError } = useToast();
+  const { toast } = useToast();
 
   const emailForm = useFormValidation(
     { email: '' },
     async (values) => {
       try {
         await requestPasswordReset(String(values.email || ''));
-        showSuccess('If the email exists, a reset link has been sent.');
+        toast({
+          title: "Success",
+          description: "If the email exists, a reset link has been sent.",
+          variant: "default"
+        });
         setStage('email');
       } catch (err: any) {
         emailForm.setFieldError('email', err?.message || 'Failed to send reset email');
-        showError(err?.message || 'Failed to send reset email');
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: err?.message || 'Failed to send reset email'
+        });
       }
     },
     { email: validators.email }
@@ -40,22 +47,38 @@ function ResetPasswordContent() {
       try {
         if (values.password !== values.confirmPassword) {
           resetForm.setFieldError('confirmPassword', 'Passwords do not match');
-          showError('Passwords do not match');
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: "Passwords do not match"
+          });
           return;
         }
 
         if (!token) {
           resetForm.setFieldError('password', 'Invalid or expired reset link');
-          showError('Invalid or expired reset link');
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: "Invalid or expired reset link"
+          });
           return;
         }
 
         await resetPassword(token, String(values.password || ''));
-        showSuccess('Password reset successfully!');
+        toast({
+          title: "Success",
+          description: "Password reset successfully!",
+          variant: "default"
+        });
         setStage('success');
       } catch (err: any) {
         resetForm.setFieldError('password', err?.message || 'Password reset failed');
-        showError(err?.message || 'Password reset failed');
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: err?.message || 'Password reset failed'
+        });
       }
     }
   );
@@ -86,7 +109,6 @@ function ResetPasswordContent() {
             </p>
           </form>
         </AuthLayout>
-        <ToastContainer toasts={toasts} removeToast={removeToast} />
       </>
     );
   }
@@ -127,7 +149,6 @@ function ResetPasswordContent() {
             </Button>
           </form>
         </AuthLayout>
-        <ToastContainer toasts={toasts} removeToast={removeToast} />
       </>
     );
   }
@@ -141,7 +162,6 @@ function ResetPasswordContent() {
           <Button onClick={() => router.push('/login')}>Return to Sign In</Button>
         </div>
       </AuthLayout>
-      <ToastContainer toasts={toasts} removeToast={removeToast} />
     </>
   );
 }

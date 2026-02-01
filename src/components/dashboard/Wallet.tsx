@@ -15,38 +15,73 @@ const Wallet: React.FC<WalletProps> = ({ wallet, transactions }) => {
     <div className="space-y-6">
       <h2 className="text-2xl font-bold text-slate-800">My Wallet</h2>
 
-      {/* Main Wallet Card */}
-      <div className="bg-slate-900 rounded-2xl p-8 text-white shadow-xl max-w-3xl mx-auto md:mx-0">
-        <div className="flex justify-between items-start mb-8">
-            <div>
-                <p className="text-slate-400 font-medium mb-1">Total Available Balance</p>
-                <h3 className="text-5xl font-bold tracking-tight">MWK {wallet.balanceMWK.toLocaleString()}</h3>
-            </div>
-            <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
-                <Banknote className="text-green-400" />
-            </div>
-        </div>
+      {/* Modern Gradient Wallet Card */}
+      <div className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-2xl p-8 text-white shadow-2xl max-w-sm mx-auto md:mx-0 relative overflow-hidden">
+        {/* Abstract shapes for decoration */}
+        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white opacity-10 blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 rounded-full bg-blue-500 opacity-20 blur-3xl"></div>
 
-        <div className="grid grid-cols-2 gap-4 mb-8">
-            <div className="bg-white/5 rounded-lg p-4 backdrop-blur-sm">
-                <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Last Deposit</p>
-                <p className="text-lg font-semibold">{new Date(wallet.lastDepositDate).toLocaleDateString()}</p>
+        <div className="relative z-10 flex flex-col h-full justify-between min-h-[220px]">
+          {/* Top Row: Chip & Contactless */}
+          <div className="flex justify-between items-center mb-8">
+            <div className="w-12 h-9 bg-yellow-400 rounded-md bg-opacity-80 border border-yellow-600 flex items-center justify-center">
+                 {/* Simple Chip Graphic */}
+                 <div className="grid grid-cols-2 gap-1">
+                    <div className="w-3 h-4 border border-yellow-700 rounded-sm"></div>
+                    <div className="w-3 h-4 border border-yellow-700 rounded-sm"></div>
+                 </div>
             </div>
-             <div className="bg-white/5 rounded-lg p-4 backdrop-blur-sm">
-                <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Monthly Usage</p>
-                <p className="text-lg font-semibold">{((wallet.spentThisMonth / wallet.monthlyLimit) * 100).toFixed(1)}%</p>
+            <div className="transform rotate-90">
+                <Banknote className="text-white opacity-80" size={24} />
             </div>
-        </div>
+          </div>
 
-        <div className="flex flex-col sm:flex-row gap-4">
-            <button className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors">
-                <Plus size={20} /> Deposit Funds
+          {/* Balance Display */}
+          <div className="mb-6">
+            <p className="text-xs text-white/80 font-medium tracking-wider mb-1">Current Balance</p>
+            <h3 className="text-3xl font-bold tracking-tight">
+              {wallet.primaryCurrency === 'CNY' ? '¥' : wallet.primaryCurrency === 'USD' ? '$' : 'MWK'} {wallet.balanceMWK.toLocaleString()}
+            </h3>
+          </div>
+
+          {/* Card Number */}
+          <div className="mb-6">
+             <p className="text-xl font-mono tracking-widest text-white drop-shadow-md">
+                {wallet.formattedWalletAddress || '•••• •••• •••• ••••'}
+             </p>
+          </div>
+
+          {/* Bottom Row: Name, Expiry, Logo */}
+          <div className="flex justify-between items-end">
+             <div>
+                <p className="text-[10px] text-white/60 uppercase tracking-widest mb-0.5">Card Holder</p>
+                <p className="text-sm font-medium tracking-wide uppercase">{wallet.cardholderName || 'VAULT USER'}</p>
+             </div>
+             
+             <div className="flex flex-col items-center mr-4">
+                 <p className="text-[8px] text-white/60 uppercase tracking-widest mb-0.5">Expires</p>
+                 <p className="text-sm font-medium">{wallet.expiryDate || '12/28'}</p>
+             </div>
+
+             <div className="flex items-center">
+                 {/* Mastercard Circles */}
+                 <div className="relative flex">
+                    <div className="w-8 h-8 rounded-full bg-red-500/90 z-10"></div>
+                    <div className="w-8 h-8 rounded-full bg-yellow-500/90 -ml-4 z-0"></div>
+                 </div>
+             </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col sm:flex-row gap-4 max-w-sm">
+            <button className="flex-1 bg-slate-900 hover:bg-slate-800 text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors shadow-lg">
+                <Plus size={20} /> Deposit
             </button>
-            <button className="flex-1 bg-white hover:bg-slate-100 text-slate-900 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors">
+            <button className="flex-1 bg-white hover:bg-slate-50 text-slate-900 border border-slate-200 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors shadow-sm">
                 <Minus size={20} /> Withdraw
             </button>
         </div>
-      </div>
 
       {/* Deposit Options */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

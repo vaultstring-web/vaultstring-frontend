@@ -1,4 +1,4 @@
-import { apiFetch, delay, setToken, setUser } from '@/src/lib/api/api-client';
+import { apiFetch, delay, setToken, setUser, getDeviceId } from '@/src/lib/api/api-client';
 
 type LoginPayload = { email: string; password: string; rememberMe?: boolean };
 type SignupPayload = { email: string; password: string; accountType?: string };
@@ -22,7 +22,9 @@ export async function login(payload: LoginPayload) {
     method: 'POST',
     body: JSON.stringify({
       email: String(payload.email || '').trim(),
-      password: String(payload.password || '').trim()
+      password: String(payload.password || '').trim(),
+      device_id: getDeviceId(),
+      device_name: navigator.userAgent || 'Web Browser'
     })
   });
   const token = (res as any)?.access_token || (res as any)?.token;

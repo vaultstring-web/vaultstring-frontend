@@ -1,98 +1,19 @@
-// app/dashboard/wallet/page.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
 import { apiFetch, isAuthenticated } from '@/src/lib/api/api-client';
-import WalletGrid from '@/src/components/dashboard/WalletGrid';
-import PageHeader from '@/src/components/shared/PageHeader';
-import { Button } from '@/src/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/src/components/ui/dialog';
-import { Label } from '@/src/components/ui/label';
-import { Input } from '@/src/components/ui/input';
 import { useAuth } from '@/src/context/AuthContext';
+import { Wifi, Copy, Plus } from 'lucide-react';
+import { Button } from '@/src/components/ui/button';
 
 export default function WalletPage() {
+  const { user } = useAuth();
   const [wallets, setWallets] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { user } = useAuth();
-  const UI_ONLY = true;
-  const [openCreate, setOpenCreate] = useState(false);
-  const [openFunds, setOpenFunds] = useState(false);
-  const [newCurrency, setNewCurrency] = useState('MWK');
-  const [creating, setCreating] = useState(false);
-  const [createError, setCreateError] = useState<string | null>(null);
-  const [createSuccess, setCreateSuccess] = useState<string | null>(null);
-  const [fundAmount, setFundAmount] = useState('');
-  const [fundCurrency, setFundCurrency] = useState('MWK');
-  const [fundWalletId, setFundWalletId] = useState<string>('');
-  const [funding, setFunding] = useState(false);
-  const [fundError, setFundError] = useState<string | null>(null);
-  const [fundSuccess, setFundSuccess] = useState<string | null>(null);
-  const [fundSource, setFundSource] = useState<string>('');
-  const [fundReceipt, setFundReceipt] = useState<any | null>(null);
-  const allowedCurrencies = (() => {
-    const cc = String(user?.countryCode || '').toUpperCase();
-    if (cc === 'CN') return ['CNY'];
-    if (cc === 'MW') return ['MWK'];
-    return ['MWK'];
-  })();
-  const providerGroups = (() => {
-    if (fundCurrency === 'MWK') {
-      return {
-        mobile_money: [
-          { value: 'airtel_money', label: 'Airtel Money' },
-          { value: 'tnm_mpamba', label: 'TNM Mpamba' },
-        ],
-        bank: [
-          { value: 'nbm', label: 'National Bank of Malawi' },
-          { value: 'standard_bank_mw', label: 'Standard Bank Malawi' },
-          { value: 'fdh_bank', label: 'FDH Bank' },
-          { value: 'nbs_bank', label: 'NBS Bank' },
-          { value: 'first_capital_bank', label: 'First Capital Bank' },
-          { value: 'ecobank_mw', label: 'Ecobank Malawi' },
-        ],
-        card: [
-          { value: 'visa_mastercard', label: 'Visa/Mastercard' },
-        ],
-      };
-    }
-    if (fundCurrency === 'CNY') {
-      return {
-        mobile_money: [
-          { value: 'alipay', label: 'Alipay' },
-          { value: 'wechat_pay', label: 'WeChat Pay' },
-        ],
-        bank: [
-          { value: 'icbc', label: 'ICBC' },
-          { value: 'ccb', label: 'China Construction Bank' },
-          { value: 'boc', label: 'Bank of China' },
-          { value: 'abc', label: 'Agricultural Bank of China' },
-          { value: 'cmb', label: 'China Merchants Bank' },
-        ],
-        card: [
-          { value: 'unionpay_card', label: 'UnionPay Card' },
-        ],
-      };
-    }
-    return {
-      mobile_money: [],
-      bank: [
-        { value: 'wire_transfer', label: 'Bank Wire Transfer' },
-        { value: 'standard_bank_intl', label: 'Standard Bank (International)' },
-        { value: 'ecobank_intl', label: 'Ecobank (International)' },
-      ],
-      card: [
-        { value: 'visa_mastercard', label: 'Visa/Mastercard' },
-      ],
-    };
-  })();
 
   useEffect(() => {
-    if (!isAuthenticated()) {
-      setLoading(false);
-      return;
-    }
+    // if (!isAuthenticated()) return; // Removed to prevent blocking fetch on initial load; apiFetch handles auth redirection
     (async () => {
       try {
         const res = await apiFetch('/wallets');
@@ -103,274 +24,139 @@ export default function WalletPage() {
         setLoading(false);
       }
     })();
-  }, []);
-  
-  const onSelectWallet = (id: string) => {
-    setFundWalletId(id);
-    const w = wallets.find((x) => String(x.id) === String(id));
-    if (w && w.currency) {
-      setFundCurrency(String(w.currency));
+  }, [user]);
+
+  const getGradient = (currency: string) => {
+    switch (String(currency).toUpperCase()) {
+      case 'MWK': return 'bg-gradient-to-br from-emerald-600 to-teal-800';
+      case 'CNY': return 'bg-gradient-to-br from-rose-500 to-red-800';
+      case 'USD': return 'bg-gradient-to-br from-blue-600 to-indigo-900';
+      default: return 'bg-gradient-to-br from-slate-700 to-slate-900';
     }
   };
 
-  const onCreateWallet = async () => {
-    setCreating(true);
-    setCreateError(null);
-    setCreateSuccess(null);
-    try {
-      if (UI_ONLY) {
-        const id = crypto?.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2);
-        const wallet = {
-          id,
-          currency: newCurrency,
-          available_balance: 0,
-          ledger_balance: 0,
-          status: 'active',
-        };
-        setWallets((ws) => [wallet, ...ws]);
-        setCreateSuccess('Wallet created (UI only)');
-      } else {
-        const res = await apiFetch('/wallets', { method: 'POST', body: JSON.stringify({ currency: newCurrency }) });
-        const updated = await apiFetch('/wallets');
-        setWallets(Array.isArray(updated?.wallets) ? updated.wallets : wallets.concat(res));
-        setOpenCreate(false);
-      }
-    } catch (e: any) {
-      setCreateError(e?.message || 'Failed to create wallet');
-    } finally {
-      setCreating(false);
-    }
+  const generateFallbackWalletNumber = (id: string) => {
+    // Deterministic fallback from UUID to ensure a stable 16-digit number
+    const map: Record<string, string> = {
+      'a': '1', 'b': '2', 'c': '3', 'd': '4', 'e': '5', 'f': '6', '-': ''
+    };
+    const numStr = id.toLowerCase().split('').map(c => map[c] || c).join('').replace(/\D/g, '');
+    return (numStr + '4539102834756192').slice(0, 16);
   };
-  
-  const onProceedFunds = async () => {
-    setFunding(true);
-    setFundError(null);
-    setFundSuccess(null);
-    try {
-      if (!fundWalletId) throw new Error('Select a wallet to fund');
-      const amt = Number(fundAmount || 0);
-      if (!amt || amt <= 0) throw new Error('Enter a valid amount');
-      if (UI_ONLY) {
-        const ref = `DEP-${Date.now()}`;
-        const ts = new Date().toISOString();
-        setWallets((ws) =>
-          ws.map((w) => {
-            if (String(w.id) !== String(fundWalletId)) return w;
-            const current = parseFloat(String(w.available_balance ?? w.balance ?? 0));
-            const next = current + amt;
-            return {
-              ...w,
-              available_balance: next,
-              ledger_balance: typeof w.ledger_balance !== 'undefined' ? next : w.ledger_balance,
-              last_transaction_at: new Date().toISOString(),
-            };
-          })
-        );
-        setFundSuccess('Funds added (UI only)');
-        setFundReceipt({
-          reference: ref,
-          wallet_id: fundWalletId,
-          amount: amt,
-          currency: fundCurrency,
-          source: fundSource,
-          created_at: ts,
-        });
-      } else {
-        const res = await apiFetch(`/wallets/${fundWalletId}/deposit`, {
-          method: 'POST',
-          body: JSON.stringify({ amount: amt, currency: fundCurrency, source: fundSource })
-        });
-        setFundSuccess('Deposit requested');
-        const updated = await apiFetch('/wallets');
-        setWallets(Array.isArray(updated?.wallets) ? updated.wallets : wallets);
-        setOpenFunds(false);
-        setFundAmount('');
-        setFundCurrency('MWK');
-        setFundWalletId('');
-        setFundSource('');
-      }
-    } catch (e: any) {
-      const msg = e?.data?.error || e?.message || '';
-      const shouldSimulate = true;
-      if (shouldSimulate) {
-        setFundSuccess('Deposit simulated (pending backend endpoint)');
-        setFundError(null);
-        setWallets((ws) =>
-          ws.map((w) => {
-            if (String(w.id) !== String(fundWalletId)) return w;
-            const current = parseFloat(String(w.available_balance ?? w.balance ?? 0));
-            const next = current + Number(fundAmount || 0);
-            return {
-              ...w,
-              available_balance: next,
-              ledger_balance: typeof w.ledger_balance !== 'undefined' ? next : w.ledger_balance,
-              last_transaction_at: new Date().toISOString(),
-            };
-          })
-        );
-      } else {
-        setFundError(msg || 'Failed to deposit');
-      }
-    } finally {
-      setFunding(false);
-    }
+
+  const formatWalletNumber = (num: string) => {
+    const cleaned = num.replace(/\D/g, '');
+    const target = cleaned.padEnd(16, '0').slice(0, 16);
+    return target.match(/.{1,4}/g)?.join(' ') || target;
   };
 
   return (
-    <div className="space-y-6">
-      <PageHeader 
-        title="My Wallets" 
-        subtitle="View balances across currencies."
-        variant="hero"
-        action={(
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={() => setOpenCreate(true)}>Create Wallet</Button>
-            <Button onClick={() => setOpenFunds(true)}>Add Funds</Button>
-          </div>
-        )}
-      />
+    <div className="space-y-8 max-w-6xl mx-auto">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">My Wallets</h1>
+          <p className="text-slate-500 mt-1">Manage your cards and balances.</p>
+        </div>
+        <Button className="hidden md:flex gap-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full px-6">
+          <Plus size={18} /> Add New Card
+        </Button>
+      </div>
 
       {loading && (
-        <div className="bg-white rounded-xl border p-6">Loading wallets...</div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2].map(i => (
+                <div key={i} className="aspect-[1.586/1] rounded-3xl bg-slate-100 animate-pulse" />
+            ))}
+        </div>
       )}
 
       {error && (
-        <div className="bg-red-50 text-red-600 border border-red-200 rounded-xl p-4">{error}</div>
+        <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl p-6 text-center">
+            <p className="font-medium">Failed to load wallets</p>
+            <p className="text-sm mt-1 opacity-80">{error}</p>
+        </div>
       )}
 
-      <WalletGrid wallets={wallets} />
+      {!loading && !error && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {wallets.map((w) => {
+            const bal = parseFloat(String(w.available_balance ?? w.balance ?? 0));
+            const currency = String(w.currency).toUpperCase();
+            
+            // Use wallet_address if available and NOT old format (VS-), otherwise deterministic fallback
+            let rawWalletNumber = w.wallet_address;
+            if (!rawWalletNumber || String(rawWalletNumber).startsWith('VS-')) {
+               rawWalletNumber = generateFallbackWalletNumber(String(w.user_id || w.id || ''));
+            }
+            
+            const displayWalletNumber = formatWalletNumber(rawWalletNumber);
 
-      <Dialog open={openCreate} onOpenChange={setOpenCreate}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Create Wallet</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <div>
-              <Label className="text-slate-900">Currency</Label>
-              <select value={newCurrency} onChange={(e) => setNewCurrency(e.target.value)} className="mt-1 w-full border rounded-md px-3 py-2 text-slate-900 bg-white">
-                {allowedCurrencies.includes('MWK') && <option value="MWK">MWK</option>}
-                {allowedCurrencies.includes('CNY') && <option value="CNY">CNY</option>}
-                {allowedCurrencies.includes('USD') && <option value="USD">USD</option>}
-              </select>
-            </div>
-            {createError && <div className="text-sm text-red-600">{createError}</div>}
-            {createSuccess && <div className="text-sm text-green-600">{createSuccess}</div>}
-            <div className="flex gap-2">
-              <Button onClick={onCreateWallet} disabled={creating}>{creating ? 'Creating...' : 'Create'}</Button>
-              <Button variant="outline" onClick={() => setOpenCreate(false)}>Cancel</Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+            return (
+              <div key={String(w.id)} className={`relative group rounded-3xl shadow-2xl p-8 text-white overflow-hidden ${getGradient(currency)} aspect-[1.586/1] transition-transform hover:-translate-y-1 duration-300`}>
+                
+                {/* Background Noise/Texture */}
+                <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
+                
+                {/* Abstract Shapes */}
+                <div className="absolute -top-24 -right-24 w-64 h-64 bg-white/20 rounded-full blur-3xl"></div>
+                <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-black/20 rounded-full blur-3xl"></div>
 
-      <Dialog open={openFunds} onOpenChange={setOpenFunds}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Add Funds</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <div>
-              <Label className="text-slate-900">Wallet</Label>
-              <select value={fundWalletId} onChange={(e) => onSelectWallet(e.target.value)} className="mt-1 w-full border rounded-md px-3 py-2 text-slate-900 bg-white">
-                <option value="">Select wallet</option>
-                {wallets.map((w) => (
-                  <option key={String(w.id)} value={String(w.id)}>
-                    {String(w.currency)} • {String(w.id)}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Label className="text-slate-900">Amount</Label>
-                <Input value={fundAmount} onChange={(e) => setFundAmount(e.target.value)} type="number" min="0" step="0.01" placeholder="0.00" className="text-slate-900" />
-              </div>
-              <div>
-                <Label className="text-slate-900">Currency</Label>
-                <select value={fundCurrency} onChange={(e) => setFundCurrency(e.target.value)} className="mt-1 w-full border rounded-md px-3 py-2 text-slate-900 bg-white">
-                  <option value="MWK">MWK</option>
-                  <option value="CNY">CNY</option>
-                  <option value="USD">USD</option>
-                </select>
-              </div>
-            </div>
-            <div className="space-y-3">
-              <Label className="text-slate-900">Funding Source</Label>
-              <div className="text-xs text-slate-600">Currency: {String(fundCurrency)}</div>
-              {providerGroups.mobile_money.length > 0 && (
-                <div>
-                  <div className="text-xs text-slate-500 mb-2">Mobile Money</div>
-                  <div className="grid grid-cols-2 gap-2">
-                    {providerGroups.mobile_money.map((opt) => (
-                      <button
-                        key={opt.value}
-                        onClick={() => setFundSource(opt.value)}
-                        className={`border rounded-md px-3 py-2 text-sm ${fundSource === opt.value ? 'border-green-600 bg-green-50 text-green-700' : 'border-slate-300 bg-white text-slate-900'}`}
-                      >
-                        {opt.label}
-                      </button>
-                    ))}
+                <div className="relative h-full flex flex-col justify-between z-10">
+                  {/* Top Row: Chip and Contactless */}
+                  <div className="flex justify-between items-start">
+                    <div className="w-12 h-9 bg-gradient-to-br from-yellow-200 to-yellow-400 rounded-md border border-yellow-500/30 relative overflow-hidden shadow-sm">
+                         <div className="absolute inset-0 grid grid-cols-2 gap-[1px] opacity-60">
+                            <div className="border-r border-yellow-600/40"></div>
+                            <div className="border-r border-yellow-600/40"></div>
+                         </div>
+                         <div className="absolute w-full h-[1px] bg-yellow-600/40 top-1/2 -translate-y-1/2"></div>
+                         <div className="absolute w-full h-[1px] bg-yellow-600/40 top-1/4 -translate-y-1/2"></div>
+                         <div className="absolute w-full h-[1px] bg-yellow-600/40 bottom-1/4 -translate-y-1/2"></div>
+                    </div>
+                    <Wifi className="w-8 h-8 opacity-80 rotate-90" strokeWidth={1.5} />
+                  </div>
+
+                  {/* Middle: Card Number */}
+                  <div className="mt-4">
+                    <div className="font-mono text-xl md:text-2xl tracking-[0.15em] font-medium drop-shadow-sm flex items-center gap-4">
+                        {displayWalletNumber}
+                        <button 
+                            onClick={() => navigator.clipboard.writeText(rawWalletNumber)}
+                            className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-white/20 rounded"
+                            title="Copy Number"
+                        >
+                            <Copy size={14} />
+                        </button>
+                    </div>
+                  </div>
+
+                  {/* Bottom: Details */}
+                  <div className="flex justify-between items-end mt-auto">
+                    <div>
+                        <div className="text-[10px] uppercase tracking-wider opacity-70 font-medium mb-1">Card Holder</div>
+                        <div className="font-medium tracking-wide text-sm md:text-base uppercase truncate max-w-[150px]">
+                            {user?.name || 'VaultString User'}
+                        </div>
+                    </div>
+                    <div className="text-right">
+                         <div className="text-[10px] uppercase tracking-wider opacity-70 font-medium mb-1">Balance</div>
+                         <div className="font-bold text-lg md:text-xl tracking-tight">
+                            {currency} {bal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                         </div>
+                    </div>
                   </div>
                 </div>
-              )}
-              {providerGroups.bank.length > 0 && (
-                <div>
-                  <div className="text-xs text-slate-500 mb-2">Banks</div>
-                  <div className="grid grid-cols-2 gap-2">
-                    {providerGroups.bank.map((opt) => (
-                      <button
-                        key={opt.value}
-                        onClick={() => setFundSource(opt.value)}
-                        className={`border rounded-md px-3 py-2 text-sm ${fundSource === opt.value ? 'border-green-600 bg-green-50 text-green-700' : 'border-slate-300 bg-white text-slate-900'}`}
-                      >
-                        {opt.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-              {providerGroups.card.length > 0 && (
-                <div>
-                  <div className="text-xs text-slate-500 mb-2">Cards</div>
-                  <div className="grid grid-cols-2 gap-2">
-                    {providerGroups.card.map((opt) => (
-                      <button
-                        key={opt.value}
-                        onClick={() => setFundSource(opt.value)}
-                        className={`border rounded-md px-3 py-2 text-sm ${fundSource === opt.value ? 'border-green-600 bg-green-50 text-green-700' : 'border-slate-300 bg-white text-slate-900'}`}
-                      >
-                        {opt.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className="flex gap-2">
-              <Button onClick={onProceedFunds} disabled={funding || !fundWalletId || !fundAmount || !fundSource}>{funding ? 'Processing...' : 'Proceed'}</Button>
-              <Button variant="outline" onClick={() => setOpenFunds(false)}>Cancel</Button>
-            </div>
-            {fundError && <div className="text-sm text-red-600">{fundError}</div>}
-            {!fundError && <div className="text-xs text-slate-600">Deposit endpoint may not be active yet.</div>}
-            {fundReceipt && (
-              <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
-                <div className="text-sm font-semibold text-slate-900 mb-2">Deposit Summary</div>
-                <div className="space-y-1 text-sm">
-                  <div className="flex justify-between"><span className="text-slate-600">Reference</span><span className="font-mono text-slate-900">{String(fundReceipt.reference)}</span></div>
-                  <div className="flex justify-between"><span className="text-slate-600">Wallet</span><span className="font-mono text-slate-900">{String(fundReceipt.wallet_id)}</span></div>
-                  <div className="flex justify-between"><span className="text-slate-600">Amount</span><span className="text-slate-900">{String(fundReceipt.amount)} {String(fundReceipt.currency)}</span></div>
-                  <div className="flex justify-between"><span className="text-slate-600">Source</span><span className="text-slate-900">{String(fundReceipt.source)}</span></div>
-                  <div className="flex justify-between"><span className="text-slate-600">Time</span><span className="text-slate-900">{String(fundReceipt.created_at)}</span></div>
-                </div>
-                <div className="mt-3">
-                  <Button variant="outline" onClick={() => { setOpenFunds(false); setFundReceipt(null); setFundAmount(''); setFundSource(''); }}>Close</Button>
+                
+                {/* Brand Logo (Mastercard style circles) */}
+                <div className="absolute top-6 right-6 flex opacity-80">
+                    <div className="w-8 h-8 rounded-full bg-red-500/80 mix-blend-hard-light"></div>
+                    <div className="w-8 h-8 rounded-full bg-orange-500/80 mix-blend-hard-light -ml-4"></div>
                 </div>
               </div>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

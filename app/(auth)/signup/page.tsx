@@ -8,9 +8,8 @@ import { InputField } from '@/src/components/forms/InputField';
 import { Button } from '@/src/components/forms/Button';
 import { PasswordStrengthIndicator } from '@/src/components/forms/PasswordStrengthIndicator';
 import { SocialAuthDivider, SocialButton } from '@/src/components/forms/SocialAuthDivider';
-import { ToastContainer } from '@/src/components/shared/Toast';
 import { useFormValidation } from '@/src/hooks/useFormValidation';
-import { useToast } from '@/src/hooks/useToast';
+import { useToast } from '@/src/hooks/use-toast';
 import { validators } from '@/src/lib/utils/validation';
 import { signup as signupApi } from '@/src/lib/auth/auth';
 import { colors, spacing } from '@/src/styles/tokens';
@@ -33,7 +32,7 @@ const signupValidationSchema = {
 
 export default function SignupPage() {
   const router = useRouter();
-  const { toasts, removeToast, showSuccess, showError } = useToast();
+  const { toast } = useToast();
   const [accountType, setAccountType] = useState<'individual' | 'business'>('individual');
 
   const { values, errors, isSubmitting, handleChange, handleSubmit, setFieldError } =
@@ -43,13 +42,21 @@ export default function SignupPage() {
         try {
           if (formValues.confirmPassword !== formValues.password) {
             setFieldError('confirmPassword', 'Passwords do not match');
-            showError('Passwords do not match');
+            toast({
+              variant: "destructive",
+              title: "Error",
+              description: "Passwords do not match"
+            });
             return;
           }
 
           if (accountType === 'business' && !formValues.businessName) {
             setFieldError('businessName', 'Business name is required for business accounts');
-            showError('Business name is required for business accounts');
+            toast({
+              variant: "destructive",
+              title: "Error",
+              description: "Business name is required for business accounts"
+            });
             return;
           }
 
@@ -60,17 +67,29 @@ export default function SignupPage() {
           });
 
           if (resp?.ok) {
-            showSuccess('Account created! Check your email to verify.');
+            toast({
+              title: "Success",
+              description: "Account created! Check your email to verify.",
+              variant: "default"
+            });
             setTimeout(() => router.push(`/verification?email=${encodeURIComponent(String(formValues.email))}`), 1000);
             return;
           }
 
           setFieldError('email', resp?.message || 'Signup failed.');
-          showError(resp?.message || 'Signup failed. Please try again.');
+          toast({
+            variant: "destructive",
+            title: "Signup Failed",
+            description: resp?.message || 'Signup failed. Please try again.'
+          });
         } catch (error: any) {
           const msg = error?.message || 'Signup failed. Please try again.';
           setFieldError('email', msg);
-          showError(msg);
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: msg
+          });
         }
       },
       signupValidationSchema
@@ -197,12 +216,12 @@ export default function SignupPage() {
             <SocialButton
               icon={<img src="/icons/google-icon.svg" alt="Google" width={20} height={20} />}
               label="Google"
-              onClick={() => showError('Google auth coming soon')}
+              onClick={() => toast({ title: "Info", description: "Google auth coming soon" })}
             />
             <SocialButton
               icon={<img src="/icons/apple-logo.svg" alt="Apple" width={20} height={20} />}
               label="Apple"
-              onClick={() => showError('Apple auth coming soon')}
+              onClick={() => toast({ title: "Info", description: "Apple auth coming soon" })}
             />
           </div>
 
@@ -231,7 +250,6 @@ export default function SignupPage() {
           </p>
         </form>
       </AuthLayout>
-      <ToastContainer toasts={toasts} removeToast={removeToast} />
     </>
   );
 }

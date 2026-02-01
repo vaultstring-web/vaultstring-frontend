@@ -36,13 +36,13 @@ export default function RatePreviewCard({ fromCurrency, toCurrency, amount }: Ra
         const r = br ?? (typeof calc?.rate === 'number' ? calc.rate : (typeof calc?.rate === 'string' ? parseFloat(calc.rate) : null));
         const conv = typeof calc?.converted_amount === 'number' ? calc.converted_amount : (typeof calc?.converted_amount === 'string' ? parseFloat(calc.converted_amount) : null);
         const feeSourceAmt = typeof calc?.fee_amount === 'number' ? calc.fee_amount : (typeof calc?.fee_amount === 'string' ? parseFloat(calc?.fee_amount) : null);
-        const feeInTarget = feeSourceAmt != null && r != null ? feeSourceAmt * r : null;
-        const netAmt = conv != null && feeInTarget != null ? Math.max(conv - feeInTarget, 0) : (typeof calc?.net_amount === 'number' ? calc.net_amount : (typeof calc?.net_amount === 'string' ? parseFloat(calc?.net_amount) : null));
+        const totalSourceAmt = typeof calc?.total_amount === 'number' ? calc.total_amount : (typeof calc?.total_amount === 'string' ? parseFloat(calc?.total_amount) : null);
+        
         if (!mounted) return;
         setRate(r);
         setConverted(conv ?? (r ? amount * r : null));
-        setFee(feeInTarget ?? null);
-        setNet(netAmt ?? (conv != null ? conv : null));
+        setFee(feeSourceAmt ?? null);
+        setNet(conv); // Recipient gets the full converted amount (Sender pays fee)
       } catch (e: any) {
         if (!mounted) return;
         setError(e?.message || 'Failed to load rate');
@@ -86,15 +86,15 @@ export default function RatePreviewCard({ fromCurrency, toCurrency, amount }: Ra
           </div>
           {fee != null && (
             <div className="flex justify-between">
-              <span className="text-slate-500">FX Spread (Company Earnings)</span>
+              <span className="text-slate-500">Fees (You Pay)</span>
               <span className="font-semibold">
-                {loading ? '...' : `${fee.toLocaleString(undefined, { maximumFractionDigits: 2 })} ${String(toCurrency).toUpperCase()}`}
+                {loading ? '...' : `${fee.toLocaleString(undefined, { maximumFractionDigits: 2 })} ${String(fromCurrency).toUpperCase()}`}
               </span>
             </div>
           )}
           {net != null && (
             <div className="flex justify-between">
-              <span className="text-slate-500">Recipient Gets (Net)</span>
+              <span className="text-slate-500">Recipient Gets</span>
               <span className="font-semibold">
                 {loading ? '...' : `${net.toLocaleString(undefined, { maximumFractionDigits: 2 })} ${String(toCurrency).toUpperCase()}`}
               </span>

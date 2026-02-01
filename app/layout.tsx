@@ -3,6 +3,11 @@ import "./globals.css";
 import { ReactNode } from "react";
 import { AuthProvider } from "@/src/context/AuthContext";
 import { Inter } from "next/font/google";
+import { ThemeProvider } from "next-themes";
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+
+import { Toaster } from "@/src/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,11 +26,18 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const messages = await getMessages();
+  
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <AppProviders>{children}</AppProviders>
+        <NextIntlClientProvider messages={messages}>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <AppProviders>{children}</AppProviders>
+            <Toaster />
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

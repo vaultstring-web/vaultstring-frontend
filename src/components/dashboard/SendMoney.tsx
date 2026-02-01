@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { ArrowRight, CheckCircle2, AlertCircle, RefreshCw, ChevronLeft } from 'lucide-react';
 import { EXCHANGE_RATE_MWK_TO_CNY } from '@/src/lib/constants';
 import { useRouter } from 'next/navigation';
+import { apiFetch, getDeviceId, getDeviceCountry } from '@/src/lib/api/api-client';
+import { useToast } from '@/src/hooks/use-toast';
 
 interface SendMoneyProps {
   currentBalance: number;
@@ -12,10 +14,13 @@ interface SendMoneyProps {
 
 const SendMoney: React.FC<SendMoneyProps> = ({ currentBalance }) => {
   const router = useRouter();
+  const { toast } = useToast();
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [mwkAmount, setMwkAmount] = useState<number | ''>('');
   const [recipientId, setRecipientId] = useState('');
   const [recipientNote, setRecipientNote] = useState('');
+  // Store reference in state to ensure idempotency across retries of the same attempt
+  const [transactionRef, setTransactionRef] = useState(''); 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -39,16 +44,73 @@ const SendMoney: React.FC<SendMoneyProps> = ({ currentBalance }) => {
       return;
     }
     setError(null);
+    // Generate reference ONCE when moving to review step
+    // This ensures if user clicks "Confirm" multiple times or retries, 
+    // the SAME reference is sent, allowing backend to detect duplicate safely.
+    setTransactionRef(`web-${Date.now()}-${Math.floor(Math.random() * 1000)}`);
     setStep(2);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     setIsLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
+      const deviceCountry = await getDeviceCountry();
+      await apiFetch('/payments', {
+        method: 'POST',
+        body: JSON.stringify({
+          amount: Number(mwkAmount),
+          currency: 'MWK',
+          destination_currency: 'CNY',
+          receiver_wallet_number: recipientId,
+          description: recipientNote,
+          channel: 'web',
+          category: 'transfer',
+          reference: transactionRef, // Use the stable reference
+          device_id: getDeviceId(),
+          device_country: deviceCountry
+        })
+      });
       setStep(3);
-    }, 2000);
+    } catch (err: any) {
+      console.error("Payment failed", err);
+      const validationErrors = err?.data?.validation_errors;
+      let msg = err.message || "Transaction failed";
+      
+      if (validationErrors) {
+         // Combine validation errors for display
+         const details = Object.values(validationErrors).join(', ');
+         msg = `Validation failed: ${details}`;
+      }
+
+      // Log error for debugging
+      console.log("Payment Error Object:", err);
+      console.log("Payment Error Message:", msg);
+
+      // Handle "Duplicate request" (from idempotency or network retry race conditions)
+      // We treat this as success because the transaction DID process.
+      if (
+        msg.toLowerCase().includes('duplicate') || 
+        msg.toLowerCase().includes('idempotency') ||
+        msg.includes('already processed')
+      ) {
+        toast({
+          title: "Transaction Processed",
+          description: "Transaction confirmed (duplicate request detected).",
+          variant: "default"
+        });
+        setStep(3);
+        return;
+      }
+
+      setError(msg);
+      toast({
+        variant: "destructive",
+        title: "Transaction Failed",
+        description: msg
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleReset = () => {

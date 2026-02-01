@@ -33,6 +33,10 @@ export interface WalletStats {
   lastDepositDate: string;
   monthlyLimit: number;
   spentThisMonth: number;
+  formattedWalletAddress?: string;
+  cardholderName?: string;
+  expiryDate?: string;
+  cardType?: string;
 }
 
 export enum AppView {

@@ -23,14 +23,7 @@ interface DashboardProps {
   user: UserProfile;
   wallet: WalletStats;
   recentTransactions: Transaction[];
-  rates?: {
-    mwkToCny?: number;
-    cnyToMwk?: number;
-    mwkToCnyBuy?: number;
-    mwkToCnySell?: number;
-    cnyToMwkBuy?: number;
-    cnyToMwkSell?: number;
-  };
+  rates?: { mwkToCny?: number; cnyToMwk?: number };
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ user, wallet, recentTransactions, rates }) => {
@@ -41,12 +34,12 @@ const Dashboard: React.FC<DashboardProps> = ({ user, wallet, recentTransactions,
   // Currency Converter Logic
   const getConversionResult = () => {
     if (!convertAmount) return '0.00';
+    const mwkToCny = Number(rates?.mwkToCny ?? EXCHANGE_RATE_MWK_TO_CNY);
+    const cnyToMwk = Number(rates?.cnyToMwk ?? EXCHANGE_RATE_CNY_TO_MWK);
     if (conversionDirection === 'MWK_TO_CNY') {
-      const r = (rates?.mwkToCnySell ?? rates?.mwkToCny) ?? EXCHANGE_RATE_MWK_TO_CNY;
-      return (convertAmount * r).toFixed(2);
+      return (convertAmount * mwkToCny).toFixed(2);
     } else {
-      const r = (rates?.cnyToMwkBuy ?? rates?.cnyToMwk) ?? EXCHANGE_RATE_CNY_TO_MWK;
-      return (convertAmount * r).toFixed(2);
+      return (convertAmount * cnyToMwk).toFixed(2);
     }
   };
 
@@ -79,20 +72,9 @@ const Dashboard: React.FC<DashboardProps> = ({ user, wallet, recentTransactions,
             <h2 className="text-slate-300 text-sm font-medium mb-1">Total Available Balance</h2>
             <div className="flex items-baseline gap-2 mb-6">
               <span className="text-4xl font-bold">
-                {(() => {
-                  const c = wallet.primaryCurrency || 'MWK';
-                  const amt = c === 'CNY' ? (wallet.balanceCNY ?? 0) : c === 'USD' ? (wallet.balanceUSD ?? 0) : (wallet.balanceMWK ?? 0);
-                  return `${c} ${Number(amt).toLocaleString()}`;
-                })()}
+                {wallet.primaryCurrency === 'CNY' ? 'CNY' : 'MWK'}{' '}
+                {(wallet.primaryCurrency === 'CNY' ? (wallet.balanceCNY ?? 0) : (wallet.balanceMWK ?? 0)).toLocaleString()}
               </span>
-            </div>
-            <div className="flex flex-wrap gap-3 mb-4">
-              {typeof wallet.balanceCNY === 'number' && (
-                <span className="bg-white/10 text-white px-3 py-1 rounded-md text-sm">CNY {Number(wallet.balanceCNY).toLocaleString()}</span>
-              )}
-              {typeof wallet.balanceUSD === 'number' && (
-                <span className="bg-white/10 text-white px-3 py-1 rounded-md text-sm">USD {Number(wallet.balanceUSD).toLocaleString()}</span>
-              )}
             </div>
             <div className="flex flex-wrap gap-3">
               <Link
@@ -119,25 +101,13 @@ const Dashboard: React.FC<DashboardProps> = ({ user, wallet, recentTransactions,
                Current Rate
              </h3>
              <div className="space-y-4">
-               <div className="pb-3 border-b border-slate-50 space-y-2">
-                 <div className="flex justify-between items-center">
-                   <span className="text-slate-500">1 MWK (Buy)</span>
-                   <span className="font-mono font-medium text-slate-900">{((rates?.mwkToCnyBuy ?? rates?.mwkToCny) ?? EXCHANGE_RATE_MWK_TO_CNY).toFixed(4)} CNY</span>
-                 </div>
-                 <div className="flex justify-between items-center">
-                   <span className="text-slate-500">1 MWK (Sell)</span>
-                   <span className="font-mono font-medium text-slate-900">{((rates?.mwkToCnySell ?? rates?.mwkToCny) ?? EXCHANGE_RATE_MWK_TO_CNY).toFixed(4)} CNY</span>
-                 </div>
+               <div className="flex justify-between items-center pb-3 border-b border-slate-50">
+                 <span className="text-slate-500">1 MWK =</span>
+                 <span className="font-mono font-medium text-slate-900">{Number(rates?.mwkToCny ?? EXCHANGE_RATE_MWK_TO_CNY)} CNY</span>
                </div>
-               <div className="space-y-2">
-                 <div className="flex justify-between items-center">
-                   <span className="text-slate-500">1 CNY (Buy)</span>
-                   <span className="font-mono font-medium text-slate-900">{((rates?.cnyToMwkBuy ?? rates?.cnyToMwk) ?? EXCHANGE_RATE_CNY_TO_MWK).toFixed(2)} MWK</span>
-                 </div>
-                 <div className="flex justify-between items-center">
-                   <span className="text-slate-500">1 CNY (Sell)</span>
-                   <span className="font-mono font-medium text-slate-900">{((rates?.cnyToMwkSell ?? rates?.cnyToMwk) ?? EXCHANGE_RATE_CNY_TO_MWK).toFixed(2)} MWK</span>
-                 </div>
+               <div className="flex justify-between items-center">
+                 <span className="text-slate-500">1 CNY =</span>
+                 <span className="font-mono font-medium text-slate-900">{Number(rates?.cnyToMwk ?? EXCHANGE_RATE_CNY_TO_MWK).toFixed(2)} MWK</span>
                </div>
              </div>
           </div>
@@ -240,7 +210,10 @@ const Dashboard: React.FC<DashboardProps> = ({ user, wallet, recentTransactions,
                 <YAxis axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} tickFormatter={(value) => `${value/1000}k`} />
                 <Tooltip 
                   contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-                  formatter={(value: number) => [`MWK ${value.toLocaleString()}`, 'Balance']}
+                  formatter={(value: number) => [
+                    `${wallet.primaryCurrency === 'CNY' ? 'CNY' : 'MWK'} ${value.toLocaleString()}`, 
+                    'Balance'
+                  ]}
                 />
                 <Area type="monotone" dataKey="balance" stroke="#22c55e" strokeWidth={2} fillOpacity={1} fill="url(#colorBalance)" />
               </AreaChart>
