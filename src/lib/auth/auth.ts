@@ -116,4 +116,17 @@ export async function sendMagicLink(email: string) {
   });
 }
 
-export default { login, signup, requestPasswordReset, resetPassword, verifyEmail, resendVerificationCode, sendMagicLink };
+export async function verifyEmailToken(token: string) {
+  if (USE_MOCK) {
+    await delay(600);
+    return { ok: true };
+  }
+
+  // The backend endpoint is GET /auth/verify?token=...
+  // apiFetch automatically handles the base URL
+  return apiFetch(`/auth/verify?token=${token}`, {
+    method: 'GET'
+  });
+}
+
+export default { login, signup, requestPasswordReset, resetPassword, verifyEmail, verifyEmailToken, resendVerificationCode, sendMagicLink };

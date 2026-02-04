@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -214,13 +214,11 @@ export default function SignupPage() {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: spacing.md }}>
             <SocialButton
-              icon={<img src="/icons/google-icon.svg" alt="Google" width={20} height={20} />}
-              label="Google"
+              provider="google"
               onClick={() => toast({ title: "Info", description: "Google auth coming soon" })}
             />
             <SocialButton
-              icon={<img src="/icons/apple-logo.svg" alt="Apple" width={20} height={20} />}
-              label="Apple"
+              provider="apple"
               onClick={() => toast({ title: "Info", description: "Apple auth coming soon" })}
             />
           </div>

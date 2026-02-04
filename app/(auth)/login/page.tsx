@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, Suspense } from 'react';
 import { AuthLayout } from '@/src/components/shared/AuthLayout';
@@ -169,8 +170,14 @@ function LoginForm() {
           <SocialAuthDivider />
 
           <div style={{ display: 'flex', gap: spacing.md }}>
-            <SocialButton provider="google" onClick={() => console.log('Google login')} />
-            <SocialButton provider="apple" onClick={() => console.log('Apple login')} />
+            <SocialButton 
+              provider="google"
+              onClick={() => console.log('Google login')} 
+            />
+            <SocialButton 
+              provider="apple"
+              onClick={() => console.log('Apple login')} 
+            />
           </div>
 
           <div style={{ textAlign: 'center', marginTop: spacing.md, fontSize: '0.875rem', color: colors.neutral[600] }}>
