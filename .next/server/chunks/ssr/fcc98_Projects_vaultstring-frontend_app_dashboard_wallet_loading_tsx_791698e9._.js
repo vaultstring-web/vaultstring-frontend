@@ -1,0 +1,3 @@
+module.exports=[9074,a=>{"use strict";var b=a.i(60803);function c(){return(0,b.jsxs)("div",{className:"space-y-8 max-w-6xl mx-auto p-8",children:[(0,b.jsx)("div",{className:"h-10 w-48 bg-slate-200 rounded-lg animate-pulse"}),(0,b.jsx)("div",{className:"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8",children:[1,2,3].map(a=>(0,b.jsx)("div",{className:"aspect-[1.586/1] rounded-3xl bg-slate-200 animate-pulse shadow-xl"},a))})]})}a.s(["default",()=>c])}];
+
+//# sourceMappingURL=fcc98_Projects_vaultstring-frontend_app_dashboard_wallet_loading_tsx_791698e9._.js.map

@@ -1,0 +1,15 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/send-money/layout,_N_T_/send-money/page,_N_T_/send-money"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/send-money/__PAGE__",
+    "/send-money",
+    "/_index",
+    "/_head"
+  ]
+}

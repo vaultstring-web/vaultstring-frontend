@@ -1,0 +1,3 @@
+module.exports=[93148,a=>{"use strict";var b=a.i(22035);function c(){return(0,b.jsx)("div",{className:"p-6",children:(0,b.jsxs)("div",{className:"bg-white rounded-xl border p-6",children:[(0,b.jsx)("h1",{className:"text-xl font-semibold text-slate-900",children:"Transactions"}),(0,b.jsx)("p",{className:"text-slate-600 mt-2",children:"Please use the Dashboard to view transactions."})]})})}a.s(["default",()=>c])}];
+
+//# sourceMappingURL=3d860_VaultString_Projects_vaultstring-frontend_app_transactions_page_tsx_787b1452._.js.map
