@@ -8,7 +8,9 @@ import {
   UserCircle, 
   LogOut, 
   X,
-  ShieldCheck
+  ShieldCheck,
+  Globe,
+  Settings
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -31,7 +33,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
     { path: '/dashboard/send-money', label: 'Send Money', icon: Send },
     { path: '/dashboard/transactions', label: 'Transactions', icon: History },
     { path: '/dashboard/compliance', label: 'Compliance (KYC)', icon: ShieldCheck },
-    { path: '/dashboard/profile', label: 'Profile & Security', icon: UserCircle },
+    { path: '/dashboard/translation', label: 'Translation', icon: Globe },
+    { path: '/dashboard/profile', label: 'Profile', icon: UserCircle },
+    { path: '/dashboard/settings', label: 'Settings', icon: Settings },
   ];
 
   const handleSignOut = () => {
@@ -60,12 +64,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
 
       {/* Sidebar Container */}
       <aside className={`
-        fixed top-0 left-0 z-50 h-full w-64 bg-slate-900 text-white transition-transform duration-300 ease-in-out flex flex-col
+        fixed top-0 left-0 z-50 h-full w-64 bg-white dark:bg-slate-900 text-slate-900 dark:text-white transition-transform duration-300 ease-in-out flex flex-col border-r border-slate-200 dark:border-slate-800
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         lg:translate-x-0 lg:static lg:h-screen
       `}>
         {/* Header */}
-        <div className="flex items-center justify-between h-16 px-6 border-b border-slate-800 shrink-0">
+        <div className="flex items-center justify-between h-16 px-6 border-b border-slate-100 dark:border-slate-800 shrink-0">
           <Link 
             href="/dashboard" 
             className="flex items-center justify-center w-full"
@@ -79,7 +83,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
           </Link>
           <button 
             onClick={() => setIsOpen(false)}
-            className="lg:hidden text-slate-400 hover:text-white"
+            className="lg:hidden text-slate-400 hover:text-slate-900 dark:hover:text-white"
           >
             <X size={24} />
           </button>
@@ -97,10 +101,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
                 href={item.path}
                 onClick={() => setIsOpen(false)}
                 className={`
-                  w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors
+                  w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 font-bold
                   ${active 
-                    ? 'bg-green-600 text-white' 
-                    : 'text-slate-400 hover:bg-slate-800 hover:text-white'}
+                    ? 'bg-slate-900 dark:bg-green-600 text-white shadow-lg shadow-slate-200 dark:shadow-none' 
+                    : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'}
                 `}
               >
                 <Icon size={20} />
@@ -111,10 +115,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
         </nav>
 
         {/* Footer */}
-        <div className="p-4 border-t border-slate-800 shrink-0">
+        <div className="p-4 border-t border-slate-100 dark:border-slate-800 shrink-0">
           <button 
             onClick={handleSignOut}
-            className="w-full flex items-center space-x-3 px-4 py-3 text-slate-400 hover:text-red-400 hover:bg-slate-800 rounded-lg transition-colors"
+            className="w-full flex items-center space-x-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-xl transition-colors font-bold"
           >
             <LogOut size={20} />
             <span className="font-medium">Sign Out</span>

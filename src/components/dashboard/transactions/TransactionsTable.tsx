@@ -66,25 +66,25 @@ export default function TransactionsTable({ transactions, userId }: Transactions
     switch (status.toLowerCase()) {
       case 'completed':
       case 'success':
-        return { color: 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200', icon: CheckCircle2 };
+        return { color: 'bg-emerald-100 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-200 dark:hover:bg-emerald-900/30', icon: CheckCircle2 };
       case 'pending':
       case 'processing':
-        return { color: 'bg-amber-100 text-amber-700 hover:bg-amber-200', icon: Clock };
+        return { color: 'bg-amber-100 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 hover:bg-amber-200 dark:hover:bg-amber-900/30', icon: Clock };
       case 'failed':
       case 'cancelled':
-        return { color: 'bg-red-100 text-red-700 hover:bg-red-200', icon: XCircle };
+        return { color: 'bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/30', icon: XCircle };
       default:
-        return { color: 'bg-slate-100 text-slate-700 hover:bg-slate-200', icon: AlertCircle };
+        return { color: 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700', icon: AlertCircle };
     }
   };
 
   return (
-    <div className="bg-white rounded-xl overflow-hidden">
+    <div className="bg-white dark:bg-slate-900 rounded-xl overflow-hidden border border-transparent dark:border-slate-800">
       {/* Receipt Modal */}
       {receipt && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden animate-in fade-in zoom-in duration-200">
-            <div className="bg-slate-900 p-6 text-white text-center relative">
+        <div className="fixed inset-0 bg-black/50 dark:bg-black/80 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden animate-in fade-in zoom-in duration-200 border border-transparent dark:border-slate-800">
+            <div className="bg-slate-900 dark:bg-slate-950 p-6 text-white text-center relative">
               <button 
                 onClick={() => setReceipt(null)}
                 className="absolute top-4 right-4 text-white/70 hover:text-white text-xl font-bold transition-colors"
@@ -102,8 +102,8 @@ export default function TransactionsTable({ transactions, userId }: Transactions
             
             <div className="p-8 space-y-6">
               <div className="text-center">
-                <div className="text-slate-500 text-sm font-medium uppercase tracking-wide">Total Amount</div>
-                <div className="text-4xl font-bold text-slate-900 mt-2 tracking-tight">
+                <div className="text-slate-500 dark:text-slate-400 text-sm font-medium uppercase tracking-wide">Total Amount</div>
+                <div className="text-4xl font-bold text-slate-900 dark:text-white mt-2 tracking-tight">
                   {formatCurrency(receipt.total_debited || receipt.amount, receipt.currency)}
                 </div>
                 <Badge variant="outline" className={`mt-3 capitalize ${getStatusConfig(receipt.status).color.split(' ')[1]}`}>
@@ -111,42 +111,42 @@ export default function TransactionsTable({ transactions, userId }: Transactions
                 </Badge>
               </div>
 
-              <div className="space-y-4 pt-6 border-t border-slate-100">
+              <div className="space-y-4 pt-6 border-t border-slate-100 dark:border-slate-800">
                 <div className="flex justify-between text-sm group">
-                  <span className="text-slate-500">Reference ID</span>
-                  <span className="font-mono font-medium text-slate-700 group-hover:text-indigo-600 transition-colors cursor-pointer" onClick={() => navigator.clipboard.writeText(receipt.reference)}>
+                  <span className="text-slate-500 dark:text-slate-400">Reference ID</span>
+                  <span className="font-mono font-medium text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors cursor-pointer" onClick={() => navigator.clipboard.writeText(receipt.reference)}>
                     {receipt.reference}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-slate-500">Sender</span>
-                  <span className="font-medium text-slate-900">{receipt.sender_name}</span>
+                  <span className="text-slate-500 dark:text-slate-400">Sender</span>
+                  <span className="font-medium text-slate-900 dark:text-white">{receipt.sender_name}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-slate-500">Receiver</span>
-                  <span className="font-medium text-slate-900">{receipt.receiver_name}</span>
+                  <span className="text-slate-500 dark:text-slate-400">Receiver</span>
+                  <span className="font-medium text-slate-900 dark:text-white">{receipt.receiver_name}</span>
                 </div>
-                <div className="bg-slate-50 p-3 rounded-lg space-y-2 mt-2">
+                <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg space-y-2 mt-2 border border-slate-100 dark:border-slate-800">
                   <div className="flex justify-between text-xs">
-                    <span className="text-slate-500">Subtotal</span>
-                    <span className="font-medium text-slate-700">{formatCurrency(receipt.amount, receipt.currency)}</span>
+                    <span className="text-slate-500 dark:text-slate-400">Subtotal</span>
+                    <span className="font-medium text-slate-700 dark:text-slate-300">{formatCurrency(receipt.amount, receipt.currency)}</span>
                   </div>
                   <div className="flex justify-between text-xs">
-                    <span className="text-slate-500">Service Fee</span>
-                    <span className="font-medium text-slate-700">{formatCurrency(receipt.fee, receipt.currency)}</span>
+                    <span className="text-slate-500 dark:text-slate-400">Service Fee</span>
+                    <span className="font-medium text-slate-700 dark:text-slate-300">{formatCurrency(receipt.fee, receipt.currency)}</span>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="bg-slate-50 p-4 text-center">
-              <p className="text-xs text-slate-400 font-medium">Verified by VaultString Security</p>
+            <div className="bg-slate-50 dark:bg-slate-950 p-4 text-center border-t border-slate-100 dark:border-slate-800">
+              <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">Verified by VaultString Security</p>
             </div>
           </div>
         </div>
       )}
 
       {/* Transactions List */}
-      <div className="divide-y divide-slate-100">
+      <div className="divide-y divide-slate-100 dark:divide-slate-800">
         {transactions.map((t, index) => {
            // Determine direction and participants
            const sid = String(t.sender_id || t.senderId || '');
@@ -156,9 +156,16 @@ export default function TransactionsTable({ transactions, userId }: Transactions
            const currency = String(t.currency).toUpperCase();
            const date = new Date(t.created_at || t.initiated_at || Date.now());
            
-           const counterpartyName = direction === 'sent' 
-              ? (t.receiver_name || t.ReceiverName || 'Unknown Receiver') 
-              : (t.sender_name || t.SenderName || 'Unknown Sender');
+           // Robust name resolution
+           let counterpartyName = direction === 'sent' 
+              ? (t.receiver_name || t.ReceiverName) 
+              : (t.sender_name || t.SenderName);
+
+           // Fallback to wallet/ID if name is missing
+           if (!counterpartyName || counterpartyName === 'Unknown Receiver' || counterpartyName === 'Unknown Sender') {
+              const wallet = direction === 'sent' ? (t.receiver_wallet || t.receiver_wallet_number) : (t.sender_wallet || t.sender_wallet_number);
+              counterpartyName = wallet ? `Wallet ${formatWalletNumber(wallet)}` : (direction === 'sent' ? 'Recipient' : 'Sender');
+           }
 
            const status = String(t.status || 'pending');
            const statusConfig = getStatusConfig(status);
@@ -166,6 +173,7 @@ export default function TransactionsTable({ transactions, userId }: Transactions
            // Simulate "unread" state for the first item or if status is pending action
            const isUnread = t.is_read !== undefined ? !t.is_read : (index === 0 && status === 'pending');
            const type = String(t.transaction_type || t.type || 'payment').replace(/_/g, ' ');
+           const description = t.description || (direction === 'sent' ? `Sent to ${counterpartyName}` : `Received from ${counterpartyName}`);
 
            // Avatar Initials
            const initials = counterpartyName
@@ -179,19 +187,19 @@ export default function TransactionsTable({ transactions, userId }: Transactions
              <div 
                key={t.id || t.reference} 
                className={cn(
-                 "group flex items-start gap-4 p-4 transition-all hover:bg-slate-50",
-                 isUnread ? "bg-indigo-50/30" : ""
+                 "group flex items-start gap-4 p-4 transition-all hover:bg-slate-50 dark:hover:bg-slate-800/50",
+                 isUnread ? "bg-indigo-50/30 dark:bg-indigo-900/10" : ""
                )}
              >
                {/* Avatar Section */}
                <div className="relative">
-                 <Avatar className="h-12 w-12 border-2 border-white shadow-sm">
+                 <Avatar className="h-12 w-12 border-2 border-white dark:border-slate-800 shadow-sm">
                    <AvatarImage src={`https://ui-avatars.com/api/?name=${encodeURIComponent(counterpartyName)}&background=random`} />
-                   <AvatarFallback className="bg-slate-100 text-slate-600 font-bold">{initials}</AvatarFallback>
+                   <AvatarFallback className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-bold">{initials}</AvatarFallback>
                  </Avatar>
                  <div className={cn(
-                   "absolute -bottom-1 -right-1 p-1 rounded-full border-2 border-white text-white shadow-sm text-[10px]",
-                   direction === 'sent' ? "bg-slate-700" : "bg-emerald-500"
+                   "absolute -bottom-1 -right-1 p-1 rounded-full border-2 border-white dark:border-slate-900 text-white shadow-sm text-[10px]",
+                   direction === 'sent' ? "bg-slate-700 dark:bg-slate-600" : "bg-emerald-500"
                  )}>
                    {direction === 'sent' ? <ArrowUpRight size={10} strokeWidth={3} /> : <ArrowDownLeft size={10} strokeWidth={3} />}
                  </div>
@@ -201,19 +209,19 @@ export default function TransactionsTable({ transactions, userId }: Transactions
                <div className="flex-1 min-w-0 pt-0.5">
                  <div className="flex items-start justify-between gap-2">
                    <div className="space-y-1">
-                     <p className={cn("text-sm text-slate-900 leading-snug", isUnread ? "font-semibold" : "font-medium")}>
+                     <p className={cn("text-sm text-slate-900 dark:text-white leading-snug", isUnread ? "font-semibold" : "font-medium")}>
                        {direction === 'sent' ? (
                          <>
-                           You sent <span className="text-slate-900 font-bold">{formatCurrency(amount, currency)}</span> to <span className="text-indigo-600">{counterpartyName}</span>
+                           Sent <span className="text-slate-900 dark:text-white font-bold">{formatCurrency(amount, currency)}</span> to <span className="text-indigo-600 dark:text-indigo-400">{counterpartyName}</span>
                          </>
                        ) : (
                          <>
-                           <span className="text-indigo-600">{counterpartyName}</span> sent you <span className="text-emerald-600 font-bold">{formatCurrency(amount, currency)}</span>
+                           Received <span className="text-emerald-600 dark:text-emerald-400 font-bold">{formatCurrency(amount, currency)}</span> from <span className="text-indigo-600 dark:text-indigo-400">{counterpartyName}</span>
                          </>
                        )}
                      </p>
-                     <div className="flex items-center gap-2 text-xs text-slate-500">
-                       <span className="capitalize">{type}</span>
+                     <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                       <span className="capitalize">{description}</span>
                        <span>•</span>
                        <span>{date.toLocaleDateString()} at {date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                      </div>
@@ -227,7 +235,7 @@ export default function TransactionsTable({ transactions, userId }: Transactions
                      
                      <DropdownMenu>
                        <DropdownMenuTrigger asChild>
-                         <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 hover:text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                         <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity">
                            <MoreHorizontal size={16} />
                          </Button>
                        </DropdownMenuTrigger>
@@ -238,7 +246,7 @@ export default function TransactionsTable({ transactions, userId }: Transactions
                            <Eye className="mr-2 h-4 w-4" />
                            View Receipt
                          </DropdownMenuItem>
-                         <DropdownMenuItem className="text-slate-500">
+                         <DropdownMenuItem className="text-slate-500 dark:text-slate-400">
                            <Archive className="mr-2 h-4 w-4" />
                            Archive
                          </DropdownMenuItem>
@@ -263,7 +271,7 @@ export default function TransactionsTable({ transactions, userId }: Transactions
       </div>
 
       {totalPages > 1 && (
-        <div className="p-4 border-t border-slate-100 flex justify-center">
+        <div className="p-4 border-t border-slate-100 dark:border-slate-800 flex justify-center">
           <Pagination>
             <PaginationContent>
               <PaginationItem>

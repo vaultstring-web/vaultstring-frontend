@@ -5,6 +5,8 @@ export interface ApiTransaction {
   senderId?: string; // Legacy/Compat
   receiver_id: string;
   receiverId?: string; // Legacy/Compat
+  sender_wallet_id?: string;
+  receiver_wallet_id?: string;
   amount: number | string;
   net_amount?: number | string;
   currency: string;

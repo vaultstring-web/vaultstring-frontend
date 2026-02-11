@@ -10,57 +10,36 @@ interface AuthLayoutProps {
 
 export function AuthLayout({ children, title, subtitle }: AuthLayoutProps) {
   return (
-    <div
-      className="min-h-screen flex items-center justify-center"
-      style={{
-        backgroundColor: '#f8f9fa',
-        padding: spacing.lg,
-      }}
-    >
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 p-6">
       <div className="w-full max-w-md">
         {/* Card container */}
-        <div
-          className="bg-white rounded-2xl"
-          style={{
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.06)',
-            padding: `${spacing.xl} ${spacing.lg}`,
-          }}
-        >
+        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm dark:shadow-none border border-slate-200 dark:border-slate-800 p-8">
           {/* Logo */}
-          <div style={{ textAlign: 'center', marginBottom: spacing.xl }}>
+          <div className="text-center mb-8 relative h-20 w-20 mx-auto">
             <Image
               src="/images/vs2.png"
               alt="VaultString Logo"
-              width={80}
-              height={80}
+              fill
+              className="object-contain dark:hidden invert"
               priority
-              style={{ margin: '0 auto', display: 'block' }}
+            />
+            <Image
+              src="/images/vs2.png"
+              alt="VaultString Logo"
+              fill
+              className="object-contain hidden dark:block"
+              priority
             />
           </div>
 
           {/* Header section */}
           {title && (
-            <div style={{ textAlign: 'center', marginBottom: spacing.xl }}>
-              <h1
-                className="font-bold text-neutral-900"
-                style={{
-                  fontSize: '1.75rem',
-                  lineHeight: '2.125rem',
-                  letterSpacing: '-0.015em',
-                  marginBottom: spacing.sm,
-                }}
-              >
+            <div className="text-center mb-8">
+              <h1 className="font-bold text-slate-900 dark:text-white text-2xl mb-2 tracking-tight">
                 {title}
               </h1>
               {subtitle && (
-                <p
-                  className="text-neutral-500"
-                  style={{
-                    fontSize: '0.9375rem',
-                    lineHeight: '1.5rem',
-                    fontWeight: '500',
-                  }}
-                >
+                <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">
                   {subtitle}
                 </p>
               )}
@@ -69,21 +48,12 @@ export function AuthLayout({ children, title, subtitle }: AuthLayoutProps) {
 
           {/* Divider */}
           {title && (
-            <div
-              style={{
-                height: '1px',
-                backgroundColor: colors.neutral[200],
-                marginBottom: spacing.lg,
-              }}
-            />
+            <div className="h-px bg-slate-200 dark:bg-slate-800 mb-8" />
           )}
 
           {/* Content */}
           {children}
         </div>
-
-        {/* Footer text (optional security note) */}
-        
       </div>
     </div>
   );

@@ -75,9 +75,14 @@ export async function apiFetch(path: string, init: RequestInit = {}) {
   const url = API_BASE ? `${API_BASE.replace(/\/$/, '')}${path.startsWith('/') ? path : '/' + path}` : path;
 
   const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
+    'X-Device-ID': getDeviceId(),
     ...(init.headers as Record<string, string> || {})
   };
+
+  // Only set Content-Type to application/json if not sending FormData
+  if (!(init.body instanceof FormData) && !headers['Content-Type']) {
+    headers['Content-Type'] = 'application/json';
+  }
 
   const token = getToken();
   const openAuthPaths = [
@@ -134,13 +139,24 @@ export async function apiFetch(path: string, init: RequestInit = {}) {
     text = await res.text();
   } catch (err) {
     console.error('API fetch error:', err, 'URL:', url);
+    console.error('API fetch error details:', {
+        message: err instanceof Error ? err.message : String(err),
+        url,
+        method,
+        headers: { ...headers, Authorization: headers.Authorization ? '(hidden)' : undefined }
+    });
     
-    // Only retry for safe methods (GET, HEAD) to avoid idempotency issues (Duplicate Request)
+    // Retry logic
     const isSafeMethod = ['GET', 'HEAD', 'OPTIONS'].includes(method);
+    const hasIdempotencyKey = !!headers['Idempotency-Key'];
     
-    // Explicitly disable retry for POST/PUT/DELETE to prevent Duplicate Request errors
-    if (isSafeMethod) {
-      await delay(300);
+    // Allow retry for safe methods OR unsafe methods with Idempotency-Key
+    if (isSafeMethod || hasIdempotencyKey) {
+      if (hasIdempotencyKey) {
+        console.log(`[DEBUG-FIX] Retrying ${method} request with Idempotency-Key: ${headers['Idempotency-Key']}`);
+      }
+      
+      await delay(500); // Wait a bit longer for retry
       try {
         res = await fetch(url, { 
           ...init, 
@@ -151,11 +167,11 @@ export async function apiFetch(path: string, init: RequestInit = {}) {
         text = await res.text();
       } catch (retryErr) {
         console.error('API fetch retry failed:', retryErr);
-        throw new Error(`Failed to connect to API at ${url}. Make sure backend is running.`);
+        throw new Error(`Failed to connect to API at ${url}. Backend may be unreachable.`);
       }
     } else {
-      // For unsafe methods, re-throwing allows the caller to handle it (or user to retry manually with new keys)
-      throw new Error(`Network request failed: ${err instanceof Error ? err.message : String(err)}`);
+      // For unsafe methods without idempotency key, re-throwing allows the caller to handle it
+      throw new Error(`Network request failed [${method} ${url}]: ${err instanceof Error ? err.message : String(err)}`);
     }
   }
   const contentType = res.headers.get('content-type') || '';
@@ -189,8 +205,7 @@ export async function apiFetch(path: string, init: RequestInit = {}) {
   return data ?? (isJson ? null : (text || null));
 }
 
-// Small helper to simulate latency in mock mode
-export function delay(ms = 500) {
+function delay(ms = 500) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
@@ -215,4 +230,4 @@ function getCsrfToken() {
   return null;
 }
 
-export default { apiFetch, delay, getToken, setToken, getUser, setUser };
+export default { apiFetch, getToken, setToken, getUser, setUser };

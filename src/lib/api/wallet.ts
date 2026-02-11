@@ -57,11 +57,6 @@ export async function depositToWallet(walletId: string, amount: number, sourceId
   });
 
   if (!res.ok) {
-     // Fallback for demo if endpoint doesn't exist yet (404)
-     if (res.status === 404) {
-        console.warn("Deposit endpoint not found, returning mock success for UI demo");
-        return { success: true, message: "Deposit simulated (endpoint missing)" };
-     }
      const errorData = await res.json().catch(() => ({}));
      throw new Error(errorData.error || errorData.message || 'Failed to deposit');
   }

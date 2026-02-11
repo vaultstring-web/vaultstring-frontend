@@ -39,13 +39,13 @@ export default function WalletPage() {
           <div className="flex items-center gap-2 text-green-600 font-black text-[10px] uppercase tracking-[0.3em] mb-2">
             <Sparkles size={14} /> Account Balances
           </div>
-          <h1 className="text-4xl font-black text-slate-900 tracking-tighter">My Wallets</h1>
-          <p className="text-slate-500 font-medium mt-1">Manage your cards, digital assets, and liquidity tiers.</p>
+          <h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter">My Wallets</h1>
+          <p className="text-slate-500 dark:text-slate-400 font-medium mt-1">Manage your cards, digital assets, and liquidity tiers.</p>
         </div>
         
         <Button 
-          className={`h-14 rounded-2xl px-8 font-black transition-all shadow-xl shadow-green-100 ${
-            !isVerified ? 'bg-slate-200 text-slate-400' : 'bg-slate-900 hover:bg-black text-white'
+          className={`h-14 rounded-2xl px-8 font-black transition-all shadow-xl shadow-green-100 dark:shadow-none ${
+            !isVerified ? 'bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-500' : 'bg-slate-900 dark:bg-white hover:bg-black dark:hover:bg-slate-200 text-white dark:text-slate-900'
           }`}
           onClick={handleCreateWallet}
         >
@@ -55,9 +55,9 @@ export default function WalletPage() {
 
       {/* Verification Shield Notice */}
       {!isVerified && (
-        <div className="bg-amber-50 border border-amber-100 p-5 rounded-[28px] flex items-center gap-4 animate-pulse">
-           <ShieldCheck className="text-amber-600" size={24} />
-           <p className="text-sm font-bold text-amber-800">
+        <div className="bg-amber-50 dark:bg-amber-500/10 border border-amber-100 dark:border-amber-500/20 p-5 rounded-[28px] flex items-center gap-4 animate-pulse">
+           <ShieldCheck className="text-amber-600 dark:text-amber-400" size={24} />
+           <p className="text-sm font-bold text-amber-800 dark:text-amber-300">
              Verify your identity to increase limits and add more currency cards.
            </p>
         </div>
@@ -67,7 +67,7 @@ export default function WalletPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
         {loading ? (
           [1, 2, 3].map((i) => (
-            <div key={i} className="aspect-[1.586/1] bg-slate-100 rounded-[32px] animate-pulse" />
+            <div key={i} className="aspect-[1.586/1] bg-slate-100 dark:bg-slate-800 rounded-[32px] animate-pulse" />
           ))
         ) : (
           <>
@@ -86,8 +86,8 @@ export default function WalletPage() {
               onClick={handleCreateWallet}
               className={`relative aspect-[1.586/1] rounded-[40px] border-2 border-dashed transition-all group overflow-hidden ${
                   !isVerified 
-                  ? 'border-slate-200 bg-slate-50/30 opacity-60 cursor-not-allowed' 
-                  : 'border-slate-200 hover:border-green-400 hover:bg-green-50/10 shadow-sm'
+                  ? 'border-slate-200 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/30 opacity-60 cursor-not-allowed' 
+                  : 'border-slate-200 dark:border-slate-800 hover:border-green-400 dark:hover:border-green-500 hover:bg-green-50/10 dark:hover:bg-green-500/5 shadow-sm'
               }`}
             >
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-green-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -95,16 +95,16 @@ export default function WalletPage() {
               <div className="relative z-10 flex flex-col items-center justify-center gap-5 p-10">
                 <div className={`w-20 h-20 rounded-[28px] flex items-center justify-center transition-all ${
                     !isVerified 
-                    ? 'bg-slate-100 text-slate-300' 
-                    : 'bg-slate-900 text-white shadow-xl group-hover:scale-110'
+                    ? 'bg-slate-100 dark:bg-slate-800 text-slate-300 dark:text-slate-600' 
+                    : 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-xl group-hover:scale-110'
                 }`}>
                   <CreditCard size={32} strokeWidth={2.5} />
                 </div>
                 <div className="text-center">
-                    <span className={`block text-lg font-black tracking-tight ${!isVerified ? 'text-slate-400' : 'text-slate-900 group-hover:text-green-600'}`}>
+                    <span className={`block text-lg font-black tracking-tight ${!isVerified ? 'text-slate-400 dark:text-slate-600' : 'text-slate-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400'}`}>
                         {isVerified ? 'Add Multi-Currency Card' : 'Verification Required'}
                     </span>
-                    <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-tighter">Unlock global spending</p>
+                    <p className="text-xs font-bold text-slate-400 dark:text-slate-500 mt-1 uppercase tracking-tighter">Unlock global spending</p>
                 </div>
               </div>
             </button>

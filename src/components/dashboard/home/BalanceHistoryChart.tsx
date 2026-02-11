@@ -6,6 +6,14 @@ interface BalanceHistoryChartProps {
   wallet: WalletStats;
 }
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/src/components/ui/select";
+
 export default function BalanceHistoryChart({ wallet }: BalanceHistoryChartProps) {
   // Mock data for chart
   const chartData = [
@@ -19,16 +27,22 @@ export default function BalanceHistoryChart({ wallet }: BalanceHistoryChartProps
   ];
 
   return (
-    <div className="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+    <div className="lg:col-span-2 bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="font-semibold text-slate-800 flex items-center gap-2">
-          <TrendingUp size={20} className="text-slate-400" />
+        <h3 className="font-semibold text-slate-800 dark:text-white flex items-center gap-2">
+          <TrendingUp size={20} className="text-slate-400 dark:text-slate-500" />
           Balance History
         </h3>
-        <select className="text-sm border-slate-200 rounded-md text-slate-500 focus:ring-green-500 focus:border-green-500">
-          <option>Last 7 Days</option>
-          <option>Last 30 Days</option>
-        </select>
+        <Select defaultValue="7days">
+          <SelectTrigger className="w-[140px] h-9 text-xs font-medium bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200">
+            <SelectValue placeholder="Select period" />
+          </SelectTrigger>
+          <SelectContent className="dark:bg-slate-800 dark:border-slate-700">
+            <SelectItem value="7days" className="dark:text-slate-200 dark:focus:bg-slate-700">Last 7 Days</SelectItem>
+            <SelectItem value="30days" className="dark:text-slate-200 dark:focus:bg-slate-700">Last 30 Days</SelectItem>
+            <SelectItem value="90days" className="dark:text-slate-200 dark:focus:bg-slate-700">Last 3 Months</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
       <div className="h-64 w-full">
         <ResponsiveContainer width="100%" height="100%">
@@ -39,11 +53,12 @@ export default function BalanceHistoryChart({ wallet }: BalanceHistoryChartProps
                 <stop offset="95%" stopColor="#22c55e" stopOpacity={0}/>
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" className="dark:stroke-slate-800" />
             <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} dy={10} />
             <YAxis axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} tickFormatter={(value) => `${value/1000}k`} />
             <Tooltip 
               contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+              itemStyle={{ color: '#0f172a' }}
               formatter={(value: number) => [
                 `${wallet.primaryCurrency === 'CNY' ? 'CNY' : 'MWK'} ${value.toLocaleString()}`, 
                 'Balance'

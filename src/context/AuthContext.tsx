@@ -28,6 +28,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     else if (type === 'agent') accountLabel = 'Agent Account';
 
     return {
+      id: raw?.id || raw?.ID || '',
       name,
       email: String(raw?.email || ''),
       phone: String(raw?.phone || ''),

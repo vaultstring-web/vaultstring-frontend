@@ -7,20 +7,27 @@ export const generateFallbackWalletNumber = (id: string) => {
   return (numStr + '4539102834756192').slice(0, 16);
 };
 
-export const formatWalletNumber = (num: string) => {
-  const cleaned = num.replace(/\D/g, '');
+export const formatWalletNumber = (num: string | null | undefined) => {
+  if (!num) return '.... .... .... ....';
+  const cleaned = String(num).replace(/\D/g, '');
   const target = cleaned.padEnd(16, '0').slice(0, 16);
   return target.match(/.{1,4}/g)?.join(' ') || target;
 };
 
-export const formatCurrency = (amount: number | string, currency: string) => {
-  const val = parseFloat(String(amount));
+export const formatCurrency = (amount: number | string | null | undefined, currency: string = 'MWK') => {
+  const val = parseFloat(String(amount || 0));
   if (isNaN(val)) return '0.00';
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: currency,
-    minimumFractionDigits: 2
-  }).format(val);
+  
+  try {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: currency || 'MWK',
+      minimumFractionDigits: 2
+    }).format(val);
+  } catch (e) {
+    // Fallback if currency code is invalid
+    return `${currency} ${val.toFixed(2)}`;
+  }
 };
 
 export const getStatusColor = (status: string) => {

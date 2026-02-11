@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import { Button } from "@/src/components/ui/button"
+import { getToken } from "@/src/lib/api/api-client"
 
 interface DocumentationStepProps {
   onNext: (data: any) => void
@@ -23,6 +24,7 @@ export function DocumentationStep({ onNext }: DocumentationStepProps) {
   })
 
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleFileChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -49,10 +51,44 @@ export function DocumentationStep({ onNext }: DocumentationStepProps) {
     return Object.keys(newErrors).length === 0
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (validateForm()) {
-      onNext({ documents: files })
+      setIsSubmitting(true)
+      try {
+        const formData = new FormData()
+        if (files.incorporation) formData.append("incorporation", files.incorporation)
+        if (files.articles) formData.append("articles", files.articles)
+        if (files.shareholders) formData.append("shareholders", files.shareholders)
+
+        const token = getToken()
+        const GATEWAY = typeof window === 'undefined' 
+            ? (process.env.GATEWAY_INTERNAL_URL || process.env.NEXT_PUBLIC_GATEWAY_URL || 'http://127.0.0.1:9000')
+            : (window.location.origin.includes('localhost') ? 'http://127.0.0.1:9000' : '/api/v1');
+
+        // Use direct fetch to handle FormData properly (avoid Content-Type application/json)
+        const response = await fetch(`${GATEWAY}/api/v1/compliance/kyc/submit`, {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            // Do NOT set Content-Type, browser sets it with boundary
+          },
+          body: formData,
+        })
+
+        if (!response.ok) {
+          throw new Error("Failed to upload documents")
+        }
+
+        const data = await response.json()
+        console.log("Upload success:", data)
+        onNext({ documents: files })
+      } catch (err) {
+        console.error("Upload failed", err)
+        setErrors({ submit: "Failed to upload documents. Please try again." })
+      } finally {
+        setIsSubmitting(false)
+      }
     }
   }
 
@@ -107,10 +143,12 @@ export function DocumentationStep({ onNext }: DocumentationStepProps) {
           {errors[key] && <p className="text-red-600 text-sm mt-1">{errors[key]}</p>}
         </div>
       ))}
+      
+      {errors.submit && <p className="text-red-600 text-sm text-center">{errors.submit}</p>}
 
       <div className="flex justify-end gap-2 pt-4">
-        <Button type="submit" className="bg-secondary hover:bg-secondary/90 text-white">
-          Continue to Next Step
+        <Button type="submit" className="bg-secondary hover:bg-secondary/90 text-white" disabled={isSubmitting}>
+          {isSubmitting ? "Uploading..." : "Continue to Next Step"}
         </Button>
       </div>
     </form>

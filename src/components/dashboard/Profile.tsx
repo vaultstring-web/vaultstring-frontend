@@ -13,7 +13,7 @@ interface ProfileProps {
 const Profile: React.FC<ProfileProps> = ({ user }) => {
   return (
     <div className="max-w-4xl space-y-8 animate-in fade-in duration-500">
-      <h2 className="text-2xl font-bold text-slate-800">Profile & Security</h2>
+      <h2 className="text-2xl font-bold text-slate-800 dark:text-white">Profile & Security</h2>
 
       {/* Personal Details */}
       <PersonalDetails user={user} />

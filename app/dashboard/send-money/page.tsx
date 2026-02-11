@@ -41,7 +41,8 @@ export default function SendMoneyPage() {
     previewRate, previewConverted, previewLoading, previewError, previewFee,
     amountNumber,
     onChange,
-    onSubmit
+    onSubmit,
+    formErrors
   } = useSendMoneyForm(t);
 
   const showPreview = form.currency && targetCurrency && amountNumber > 0;
@@ -49,7 +50,7 @@ export default function SendMoneyPage() {
   return (
     <div className="space-y-8 max-w-7xl mx-auto px-4 py-8">
       {/* Premium Dark Header */}
-      <div className="relative overflow-hidden bg-slate-900 rounded-[40px] p-8 md:p-12 text-white shadow-2xl">
+      <div className="relative overflow-hidden bg-slate-900 dark:bg-slate-950 rounded-[40px] p-8 md:p-12 text-white shadow-2xl">
         <div className="absolute top-0 right-0 w-80 h-80 bg-green-500/10 blur-[120px] rounded-full" />
         <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <div className="space-y-2">
@@ -66,17 +67,17 @@ export default function SendMoneyPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Interactive Form */}
         <div className="lg:col-span-8 space-y-6">
-          <Card className="border-none shadow-[0_30px_60px_rgba(0,0,0,0.04)] rounded-[40px] overflow-hidden bg-white">
+          <Card className="border-none shadow-[0_30px_60px_rgba(0,0,0,0.04)] rounded-[40px] bg-white dark:bg-slate-900">
             <CardContent className="p-8 md:p-12">
               <form id="payment-form" onSubmit={onSubmit} className="space-y-12">
                 
                 {/* Section 1: Receiver */}
-                <div className="space-y-6">
+                <div className="space-y-6 relative z-30">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-xl bg-slate-900 text-white flex items-center justify-center text-xs font-black">1</div>
-                    <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest">Recipient Details</h3>
+                    <div className="w-8 h-8 rounded-xl bg-slate-900 dark:bg-slate-800 text-white flex items-center justify-center text-xs font-black">1</div>
+                    <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-widest">Recipient Details</h3>
                   </div>
-                  <div className="p-6 bg-slate-50 rounded-[32px] border border-slate-100">
+                  <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-[32px] border border-slate-100 dark:border-slate-800 relative">
                     <ReceiverLookup
                       value={form.receiver_id}
                       onChange={onChange}
@@ -91,17 +92,31 @@ export default function SendMoneyPage() {
                       }}
                       receiverName={receiverName}
                     />
+                    {formErrors.receiver_id && (
+                      <p className="text-sm text-red-500 font-medium mt-2 px-1 flex items-center gap-2 animate-in fade-in slide-in-from-top-1">
+                        <AlertCircle size={14} />
+                        {formErrors.receiver_id.message}
+                      </p>
+                    )}
                   </div>
                 </div>
 
                 {/* Section 2: Amount & Currency */}
-                <div className="space-y-6">
+                <div className="space-y-6 relative z-10">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-xl bg-slate-900 text-white flex items-center justify-center text-xs font-black">2</div>
-                    <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest">Transfer Amount</h3>
+                    <div className="w-8 h-8 rounded-xl bg-slate-900 dark:bg-slate-800 text-white flex items-center justify-center text-xs font-black">2</div>
+                    <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-widest">Transfer Amount</h3>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <AmountInput amount={form.amount} currency={form.currency} onChange={onChange} />
+                    <div className="space-y-2">
+                      <AmountInput amount={form.amount} currency={form.currency} onChange={onChange} />
+                      {formErrors.amount && (
+                        <p className="text-sm text-red-500 font-medium px-1 flex items-center gap-2 animate-in fade-in slide-in-from-top-1">
+                          <AlertCircle size={14} />
+                          {formErrors.amount.message}
+                        </p>
+                      )}
+                    </div>
                     {flowType === 'INTERNATIONAL' && (
                         <TargetCurrencySelector
                           targetCurrency={targetCurrency}
@@ -115,8 +130,8 @@ export default function SendMoneyPage() {
                 {/* Section 3: Payment Method */}
                 <div className="space-y-6">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-xl bg-slate-900 text-white flex items-center justify-center text-xs font-black">3</div>
-                    <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest">Payment Path</h3>
+                    <div className="w-8 h-8 rounded-xl bg-slate-900 dark:bg-slate-800 text-white flex items-center justify-center text-xs font-black">3</div>
+                    <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-widest">Payment Path</h3>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <FundingSourceSelector currency={form.currency} walletBalance={walletBalance} value={fundingSource} onChange={setFundingSource} />
@@ -159,20 +174,26 @@ export default function SendMoneyPage() {
                 />
              </div>
           ) : (
-            <div className="p-8 bg-white rounded-[32px] border border-dashed border-slate-200 text-center space-y-4 shadow-sm">
-                <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mx-auto text-slate-300">
+            <div className="p-8 bg-white dark:bg-slate-900 rounded-[32px] border border-dashed border-slate-200 dark:border-slate-800 text-center space-y-4 shadow-sm">
+                <div className="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center mx-auto text-slate-300 dark:text-slate-600">
                     <Globe size={32} />
                 </div>
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest leading-relaxed">Enter an amount to see<br/>live exchange rates</p>
+                <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest leading-relaxed">Enter an amount to see<br/>live exchange rates</p>
             </div>
           )}
 
           {error && (
-            <div className="bg-red-50 border border-red-100 p-6 rounded-[32px] flex items-start gap-4 shadow-sm">
-               <AlertCircle className="text-red-500 shrink-0" size={24} />
+            <div className="bg-red-500 text-white p-6 rounded-[32px] flex items-start gap-4 shadow-lg shadow-red-500/20 animate-in fade-in slide-in-from-bottom-2">
+               <div className="bg-white/20 p-2 rounded-full shrink-0 backdrop-blur-sm">
+                  <AlertCircle className="text-white" size={24} />
+               </div>
                <div>
-                 <p className="font-black text-red-900 text-sm">Transaction Blocked</p>
-                 <p className="text-xs text-red-600 font-medium mt-1 leading-relaxed">{error}</p>
+                 <p className="font-black text-white text-sm uppercase tracking-wide">Transaction Blocked</p>
+                 <p className="text-sm text-white/90 font-medium mt-1 leading-relaxed">
+                    {error.includes('untrusted device') 
+                        ? "New device detected. For security, please log out and log in again to verify this device."
+                        : error}
+                 </p>
                </div>
             </div>
           )}
@@ -191,9 +212,9 @@ export default function SendMoneyPage() {
             />
           )}
 
-          <div className="p-6 bg-slate-100/50 rounded-[32px] border border-slate-100 flex items-start gap-3">
-              <Info size={18} className="text-slate-400 shrink-0 mt-0.5" />
-              <p className="text-[11px] font-medium text-slate-500 leading-relaxed">
+          <div className="p-6 bg-slate-100/50 dark:bg-slate-800/50 rounded-[32px] border border-slate-100 dark:border-slate-800 flex items-start gap-3">
+              <Info size={18} className="text-slate-400 dark:text-slate-500 shrink-0 mt-0.5" />
+              <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 leading-relaxed">
                 Fees are calculated dynamically based on liquidity and network volume at the time of transfer.
               </p>
           </div>

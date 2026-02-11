@@ -3,29 +3,62 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/src/context/AuthContext';
 import { apiFetch, isAuthenticated } from '@/src/lib/api/api-client';
 import { getFundingOptions } from '@/src/lib/constants/funding';
+import { getDeviceId } from '@/src/lib/utils/device';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 
-export interface SendMoneyFormState {
-  receiver_id: string;
-  amount: string;
-  currency: string;
-  description: string;
-  channel: string;
-  category: string;
-}
+const sendMoneySchema = z.object({
+  receiver_id: z.string()
+    .min(16, "Wallet ID must be exactly 16 digits")
+    .max(16, "Wallet ID must be exactly 16 digits")
+    .regex(/^\d+$/, "Wallet ID must be numeric"),
+  amount: z.string()
+    .min(1, "Amount is required")
+    .refine((val) => !isNaN(Number(val)) && Number(val) > 0, "Amount must be greater than 0"),
+  currency: z.string().min(1, "Currency is required"),
+  description: z.string().optional(),
+  channel: z.string().default('web'),
+  category: z.string().default('transfer')
+});
+
+export type SendMoneyFormValues = z.infer<typeof sendMoneySchema>;
+
+// Interface for backward compatibility
+export interface SendMoneyFormState extends SendMoneyFormValues {}
 
 export function useSendMoneyForm(t: any) {
   const router = useRouter();
   const { user, refreshUser } = useAuth();
-  
-  // Form State
-  const [form, setForm] = useState<SendMoneyFormState>({ 
-    receiver_id: '', 
-    amount: '', 
-    currency: 'MWK', 
-    description: '', 
-    channel: 'web', 
-    category: 'transfer' 
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+    reset,
+    trigger
+  } = useForm<SendMoneyFormValues>({
+    resolver: zodResolver(sendMoneySchema),
+    defaultValues: {
+      receiver_id: '',
+      amount: '',
+      currency: 'MWK',
+      description: '',
+      channel: 'web',
+      category: 'transfer'
+    },
+    mode: "onChange"
   });
+
+  // Watch values for effects and compatibility
+  const watchedReceiverId = watch('receiver_id');
+  const watchedAmount = watch('amount');
+  const watchedCurrency = watch('currency');
+  const watchedDescription = watch('description');
+  const watchedChannel = watch('channel');
+  const watchedCategory = watch('category');
   
   const [targetCurrency, setTargetCurrency] = useState<'MWK' | 'CNY' | 'ZMW'>('CNY');
   const [flowType, setFlowType] = useState<'INTERNATIONAL' | 'SAME'>('INTERNATIONAL');
@@ -34,7 +67,7 @@ export function useSendMoneyForm(t: any) {
 
   // Status State
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [serverError, setServerError] = useState<string | null>(null);
   const [result, setResult] = useState<any | null>(null);
   
   // Wallet State
@@ -53,7 +86,7 @@ export function useSendMoneyForm(t: any) {
   const [previewError, setPreviewError] = useState<string | null>(null);
   const [previewFee, setPreviewFee] = useState<number | null>(null);
 
-  const amountNumber = useMemo(() => Number(form.amount || 0), [form.amount]);
+  const amountNumber = useMemo(() => Number(watchedAmount || 0), [watchedAmount]);
 
   // Determine home currency
   const homeCurrency = useMemo<'MWK' | 'CNY' | 'ZMW'>(() => {
@@ -67,28 +100,28 @@ export function useSendMoneyForm(t: any) {
   // Auto-set currency based on home currency
   const [didAutoSetCurrency, setDidAutoSetCurrency] = useState(false);
   useEffect(() => {
-    if (!didAutoSetCurrency && homeCurrency && form.currency === 'MWK' && homeCurrency !== 'MWK') {
-      setForm((f) => ({ ...f, currency: homeCurrency }));
+    if (!didAutoSetCurrency && homeCurrency && watchedCurrency === 'MWK' && homeCurrency !== 'MWK') {
+      setValue('currency', homeCurrency);
       setDidAutoSetCurrency(true);
     }
-  }, [homeCurrency, didAutoSetCurrency, form.currency]);
+  }, [homeCurrency, didAutoSetCurrency, watchedCurrency, setValue]);
 
   // Fetch Wallet Balance
   useEffect(() => {
     apiFetch('/wallets').then((res) => {
       if (res && res.wallets && res.wallets.length > 0) {
-        const w = res.wallets.find((w: any) => w.currency === form.currency) || res.wallets[0];
+        const w = res.wallets.find((w: any) => w.currency === watchedCurrency) || res.wallets[0];
         const bal = parseFloat(w.available_balance || w.balance || '0');
         setWalletBalance(bal);
       }
     }).catch(() => {});
-  }, [form.currency]);
+  }, [watchedCurrency]);
 
   // Forex Calculation Effect
   useEffect(() => {
     let mounted = true;
     const run = async () => {
-      if (!form.currency || !targetCurrency || !amountNumber || amountNumber <= 0) {
+      if (!watchedCurrency || !targetCurrency || !amountNumber || amountNumber <= 0) {
         setPreviewRate(null);
         setPreviewConverted(null);
         setPreviewError(null);
@@ -99,7 +132,7 @@ export function useSendMoneyForm(t: any) {
       try {
         const calc = await apiFetch('/forex/calculate', {
           method: 'POST',
-          body: JSON.stringify({ from: form.currency, to: targetCurrency, amount: amountNumber }),
+          body: JSON.stringify({ from: watchedCurrency, to: targetCurrency, amount: amountNumber }),
         }).catch(() => null);
         
         const r = typeof calc?.rate === 'number' ? calc.rate : (typeof calc?.rate === 'string' ? parseFloat(calc?.rate) : null);
@@ -122,12 +155,12 @@ export function useSendMoneyForm(t: any) {
     };
     run();
     return () => { mounted = false; };
-  }, [form.currency, targetCurrency, amountNumber]);
+  }, [watchedCurrency, targetCurrency, amountNumber]);
 
   // Receiver Lookup Effect
   useEffect(() => {
     const checkReceiver = async () => {
-      const val = form.receiver_id.trim();
+      const val = (watchedReceiverId || '').trim();
       if (val.length < 3) {
         setSuggestions([]);
         setShowSuggestions(false);
@@ -179,25 +212,25 @@ export function useSendMoneyForm(t: any) {
     
     const timeoutId = setTimeout(checkReceiver, 400);
     return () => clearTimeout(timeoutId);
-  }, [form.receiver_id]);
+  }, [watchedReceiverId]);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  // Adapter for old onChange
+  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement> | { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
-    setForm((f) => ({ ...f, [name]: value }));
+    setValue(name as keyof SendMoneyFormValues, value, { shouldValidate: true });
   };
 
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const processSubmit = async (data: SendMoneyFormValues) => {
     if (loading) return;
     
     setLoading(true);
-    setError(null);
+    setServerError(null);
     setResult(null);
     
     try {
       if (!isAuthenticated()) throw new Error('Please login to send a payment');
       
-      const fundingOptions = getFundingOptions(form.currency, walletBalance);
+      const fundingOptions = getFundingOptions(data.currency, walletBalance);
       const selectedFunding = fundingOptions.find((o) => o.value === fundingSource);
       const rawChannel = selectedFunding?.channel || 'web';
       const derivedChannel = rawChannel === 'mobile_money' ? 'mobile'
@@ -211,16 +244,22 @@ export function useSendMoneyForm(t: any) {
       }
 
       const payload = {
-        receiver_wallet_number: String(form.receiver_id || '').trim(),
-        amount: Number(form.amount),
-        currency: form.currency,
-        description: form.description,
+        receiver_wallet_number: String(data.receiver_id || '').trim(),
+        amount: Number(data.amount),
+        currency: data.currency,
+        destination_currency: flowType === 'INTERNATIONAL' ? targetCurrency : data.currency,
+        description: data.description,
         channel: derivedChannel,
-        category: fundingSource || form.category,
+        category: fundingSource || data.category,
+        location: 'MW', // Default to Malawi for now
+        device_id: getDeviceId(),
       };
-      
-      const res = await apiFetch('/payments/initiate', { method: 'POST', body: JSON.stringify(payload) });
-      
+
+      const res = await apiFetch('/payments/initiate', {
+        method: 'POST',
+        body: JSON.stringify(payload),
+      });
+
       // Fallback receiver name if backend doesn't return it
       if (!res.receiver_name && receiverName) {
         res.receiver_name = receiverName;
@@ -238,7 +277,7 @@ export function useSendMoneyForm(t: any) {
       // Refresh local wallet balance
       apiFetch('/wallets').then((wRes) => {
         if (wRes && wRes.wallets && wRes.wallets.length > 0) {
-           const w = wRes.wallets.find((w: any) => w.currency === form.currency) || wRes.wallets[0];
+           const w = wRes.wallets.find((w: any) => w.currency === data.currency) || wRes.wallets[0];
            const bal = parseFloat(w.available_balance || w.balance || '0');
            setWalletBalance(bal);
         }
@@ -248,14 +287,14 @@ export function useSendMoneyForm(t: any) {
       const msg = e?.data?.error || e?.message || 'Payment failed';
       const lower = String(msg).toLowerCase();
       if (e?.status === 401 || lower.includes('invalid token')) {
-        setError('Please login to continue');
+        setServerError('Please login to continue');
         setTimeout(() => router.push('/login'), 600);
       } else if (lower.includes('duplicate request')) {
-        setError(t('errors.duplicateRequest'));
+        setServerError(t('errors.duplicateRequest') || 'Duplicate request detected');
       } else if (lower.includes('insufficient balance')) {
-        setError(t('errors.insufficientBalance'));
+        setServerError(t('errors.insufficientBalance') || 'Insufficient balance');
       } else {
-        setError(msg);
+        setServerError(msg);
       }
     } finally {
       setLoading(false);
@@ -263,17 +302,43 @@ export function useSendMoneyForm(t: any) {
   };
 
   return {
-    form, setForm,
+    form: {
+      receiver_id: watchedReceiverId,
+      amount: watchedAmount,
+      currency: watchedCurrency,
+      description: watchedDescription,
+      channel: watchedChannel,
+      category: watchedCategory
+    },
+    setForm: (update: any) => {
+      // Compatibility adapter for setForm(f => ({...f, key: val})) pattern
+      if (typeof update === 'function') {
+        const current = {
+          receiver_id: watchedReceiverId,
+          amount: watchedAmount,
+          currency: watchedCurrency,
+          description: watchedDescription,
+          channel: watchedChannel,
+          category: watchedCategory
+        };
+        const next = update(current);
+        Object.keys(next).forEach(k => setValue(k as any, next[k], { shouldValidate: true }));
+      } else {
+        Object.keys(update).forEach(k => setValue(k as any, update[k], { shouldValidate: true }));
+      }
+    },
+    register,
+    formErrors: errors,
     targetCurrency, setTargetCurrency,
     flowType, setFlowType,
     fundingSource, setFundingSource,
     payoutMethod, setPayoutMethod,
-    loading, error, result, setResult,
+    loading, error: serverError, result, setResult,
     walletBalance,
     receiverName, setReceiverName, receiverLoading, suggestions, showSuggestions, setSuggestions, setShowSuggestions,
     previewRate, previewConverted, previewLoading, previewError, previewFee,
     amountNumber,
     onChange,
-    onSubmit
+    onSubmit: handleSubmit(processSubmit)
   };
 }

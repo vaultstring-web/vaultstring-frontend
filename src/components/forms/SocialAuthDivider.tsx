@@ -4,9 +4,9 @@ import { Button } from '@/src/components/ui/button';
 export function SocialAuthDivider() {
   return (
     <div className="flex items-center gap-4 my-6">
-      <div className="flex-1 h-px bg-gray-300" />
-      <span className="text-sm text-gray-500">Or continue with</span>
-      <div className="flex-1 h-px bg-gray-300" />
+      <div className="flex-1 h-px bg-gray-300 dark:bg-slate-700" />
+      <span className="text-sm text-gray-500 dark:text-slate-400">Or continue with</span>
+      <div className="flex-1 h-px bg-gray-300 dark:bg-slate-700" />
     </div>
   );
 }
@@ -16,9 +16,10 @@ interface SocialButtonProps {
   icon?: React.ReactNode;
   label?: string;
   onClick?: () => void;
+  className?: string;
 }
 
-export function SocialButton({ provider, icon, label, onClick }: SocialButtonProps) {
+export function SocialButton({ provider, icon, label, onClick, className }: SocialButtonProps) {
   let displayIcon = icon;
   let displayLabel = label;
 
@@ -46,10 +47,10 @@ export function SocialButton({ provider, icon, label, onClick }: SocialButtonPro
       type="button"
       variant="outline"
       onClick={onClick}
-      className="w-full flex items-center justify-center gap-2 h-10"
+      className={`w-full flex items-center justify-center gap-2 h-10 ${className || ''}`}
     >
       {displayIcon && <span className="flex items-center justify-center">{displayIcon}</span>}
-      <span className="text-sm font-medium text-gray-700">{displayLabel}</span>
+      <span className="text-sm font-medium text-gray-700 dark:text-slate-200">{displayLabel}</span>
     </Button>
   );
 }

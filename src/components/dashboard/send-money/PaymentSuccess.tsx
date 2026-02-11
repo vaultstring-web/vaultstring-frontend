@@ -22,30 +22,30 @@ export default function PaymentSuccess({
   onReset,
 }: PaymentSuccessProps) {
   return (
-    <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 px-6 py-6 rounded-xl shadow-md animate-in fade-in zoom-in-95">
+    <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 px-6 py-6 rounded-xl shadow-md animate-in fade-in zoom-in-95">
       <div className="flex flex-col items-center text-center">
-        <div className="h-16 w-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4 text-emerald-600">
+        <div className="h-16 w-16 bg-emerald-100 dark:bg-emerald-900/50 rounded-full flex items-center justify-center mb-4 text-emerald-600 dark:text-emerald-400">
           <CheckCircle2 size={32} />
         </div>
-        <h3 className="text-xl font-bold text-emerald-900 mb-2">Payment Successful!</h3>
-        <p className="text-emerald-700 mb-4">
+        <h3 className="text-xl font-bold text-emerald-900 dark:text-emerald-100 mb-2">Payment Successful!</h3>
+        <p className="text-emerald-700 dark:text-emerald-300 mb-4">
           Your transaction has been processed securely.
         </p>
         
-        <div className="w-full bg-white rounded-lg border border-emerald-100 p-4 text-left space-y-2 mb-4">
+        <div className="w-full bg-white dark:bg-slate-900 rounded-lg border border-emerald-100 dark:border-emerald-900 p-4 text-left space-y-2 mb-4">
           <div className="flex justify-between text-sm">
-            <span className="text-emerald-600">Transaction ID</span>
-            <span className="font-mono font-medium">{result.transaction_id?.substring(0, 8)}...</span>
+            <span className="text-emerald-600 dark:text-emerald-400">Transaction ID</span>
+            <span className="font-mono font-medium dark:text-slate-200">{result.transaction_id?.substring(0, 8)}...</span>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-emerald-600">Receiver</span>
-            <span className="font-medium">
+            <span className="text-emerald-600 dark:text-emerald-400">Receiver</span>
+            <span className="font-medium dark:text-slate-200">
               {result.receiver_name || receiverName || result.receiver_wallet_number}
             </span>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-emerald-600">Amount Sent</span>
-            <span className="font-bold">
+            <span className="text-emerald-600 dark:text-emerald-400">Amount Sent</span>
+            <span className="font-bold dark:text-slate-200">
               {formatCurrency(amount, currency)}
             </span>
           </div>
@@ -53,7 +53,7 @@ export default function PaymentSuccess({
 
         <Button 
           variant="outline" 
-          className="w-full border-emerald-200 text-emerald-700 hover:bg-emerald-100 hover:text-emerald-800"
+          className="w-full border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 hover:text-emerald-800 dark:hover:text-emerald-200"
           onClick={onReset}
         >
           Send Another Payment

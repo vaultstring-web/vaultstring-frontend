@@ -6,6 +6,7 @@ import { ApiTransaction, PaginatedResponse } from '@/src/types/api';
 export interface TransactionFilters {
   query: string;
   status: string;
+  walletId?: string | null;
   tab: 'all' | 'sent' | 'received' | 'topup' | 'pending_settlement';
 }
 
@@ -24,6 +25,7 @@ export function useTransactions(initialLimit = 10) {
   const [filters, setFilters] = useState<TransactionFilters>({
     query: '',
     status: 'all',
+    walletId: null,
     tab: 'all',
   });
 
@@ -31,8 +33,16 @@ export function useTransactions(initialLimit = 10) {
     setLoading(true);
     try {
       const offset = (page - 1) * limit;
-      const res = await apiFetch<PaginatedResponse<ApiTransaction>>(`/payments?limit=${limit}&offset=${offset}`);
-      setTransactions(Array.isArray(res?.transactions) ? res.transactions : []);
+      let url = `/payments?limit=${limit}&offset=${offset}`;
+      
+      if (filters.walletId) {
+        url += `&wallet_id=${filters.walletId}`;
+      }
+      
+      const res = await apiFetch<PaginatedResponse<ApiTransaction>>(url);
+      // Ensure transactions is an array and filter out any null/undefined items immediately
+      const safeTransactions = (Array.isArray(res?.transactions) ? res.transactions : []).filter(Boolean);
+      setTransactions(safeTransactions);
       setTotal(res?.total || 0);
       setError(null);
     } catch (e: any) {
@@ -48,13 +58,14 @@ export function useTransactions(initialLimit = 10) {
     if (user) {
       fetchTransactions();
     }
-  }, [user, page, limit]);
+  }, [user, page, limit, filters.walletId]);
 
   // Derived state (Filtered Transactions)
   // Note: This filters only the current page of results, which is a known limitation 
   // until backend supports full search/filtering params.
   const filteredTransactions = useMemo(() => {
     return transactions.filter((t) => {
+      if (!t) return false;
       const q = filters.query.trim().toLowerCase();
       const sid = String(t.sender_id || t.senderId || '');
       const rid = String(t.receiver_id || t.receiverId || '');
@@ -75,6 +86,11 @@ export function useTransactions(initialLimit = 10) {
 
       const matchesStatus = filters.status === 'all' ? true : String(t.status || '').toLowerCase() === filters.status;
 
+      const matchesWallet = filters.walletId ? (
+        String(t.sender_wallet_id || '').toLowerCase() === filters.walletId.toLowerCase() ||
+        String(t.receiver_wallet_id || '').toLowerCase() === filters.walletId.toLowerCase()
+      ) : true;
+
       const matchesTab = (() => {
         const type = String(t.transaction_type || t.type || '').toLowerCase();
         const sidL = sid.toLowerCase();
@@ -89,17 +105,19 @@ export function useTransactions(initialLimit = 10) {
         return true;
       })();
 
-      return matchesQuery && matchesStatus && matchesTab;
+      return matchesQuery && matchesStatus && matchesTab && matchesWallet;
     });
   }, [transactions, filters, userId]);
 
   const stats = useMemo(() => {
     return {
       total: total || transactions.length,
-      completed: transactions.filter((t) => String(t.status || '').toLowerCase() === 'completed').length,
-      pending: transactions.filter((t) => String(t.status || '').toLowerCase() === 'pending').length,
+      completed: transactions.filter((t) => t && String(t.status || '').toLowerCase() === 'completed').length,
+      pending: transactions.filter((t) => t && String(t.status || '').toLowerCase() === 'pending').length,
+      received: transactions.filter((t) => t && String(t.receiver_id || t.receiverId || '') === String(userId || '')).length,
+      sent: transactions.filter((t) => t && String(t.sender_id || t.senderId || '') === String(userId || '')).length,
     };
-  }, [transactions, total]);
+  }, [transactions, total, userId]);
 
   const totalPages = Math.ceil(total / limit);
 

@@ -15,6 +15,7 @@ export interface Transaction {
 }
 
 export interface UserProfile {
+  id: string;
   name: string;
   email: string;
   phone: string;
@@ -46,4 +47,13 @@ export enum AppView {
   HISTORY = 'HISTORY',
   PROFILE = 'PROFILE',
   COMPLIANCE = 'COMPLIANCE',
+}
+
+export interface ExchangeRateDetail {
+  rate: number;
+  change24h: number;
+  changePercent: number;
+  high24h: number;
+  low24h: number;
+  lastUpdated: string;
 }

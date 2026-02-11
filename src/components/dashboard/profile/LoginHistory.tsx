@@ -37,9 +37,9 @@ const LoginHistory: React.FC<LoginHistoryProps> = ({ history = DEFAULT_HISTORY }
   const paginatedHistory = history.slice((page - 1) * limit, page * limit);
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-      <div className="p-6 border-b border-slate-100">
-        <h3 className="font-semibold text-slate-800 flex items-center gap-2">
+    <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+      <div className="p-6 border-b border-slate-100 dark:border-slate-800">
+        <h3 className="font-semibold text-slate-800 dark:text-white flex items-center gap-2">
           <History size={20} className="text-slate-400" />
           Login History
         </h3>
@@ -47,13 +47,13 @@ const LoginHistory: React.FC<LoginHistoryProps> = ({ history = DEFAULT_HISTORY }
       <div className="p-6">
         <table className="min-w-full">
           <thead>
-            <tr className="text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+            <tr className="text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               <th className="pb-3">Device</th>
               <th className="pb-3">Location</th>
               <th className="pb-3 text-right">Date & Time</th>
             </tr>
           </thead>
-          <tbody className="text-sm text-slate-700">
+          <tbody className="text-sm text-slate-700 dark:text-slate-300">
             {paginatedHistory.map((record, index) => (
               <tr key={index}>
                 <td className="py-3 font-medium">{record.device}</td>
@@ -65,7 +65,7 @@ const LoginHistory: React.FC<LoginHistoryProps> = ({ history = DEFAULT_HISTORY }
         </table>
 
         {totalPages > 1 && (
-          <div className="mt-4 pt-4 border-t border-slate-100 flex justify-end">
+          <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-end">
             <Pagination>
               <PaginationContent>
                 <PaginationItem>

@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 16, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/Desktop/VaultString/Projects/vaultstring-frontend/middleware.ts"],"sourcesContent":["import { NextResponse } from 'next/server'\r\nimport type { NextRequest } from 'next/server'\r\n\r\nexport function middleware(request: NextRequest) {\r\n  return NextResponse.next()\r\n}\r\n\r\nexport const config = {\r\n  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],\r\n}\r\n"],"names":[],"mappings":";;;;;;AAAA;AAAA;;AAGO,SAAS,WAAW,OAAoB;IAC7C,OAAO,gYAAY,CAAC,IAAI;AAC1B;AAEO,MAAM,SAAS;IACpB,SAAS;QAAC;KAAoD;AAChE"}}]
+}

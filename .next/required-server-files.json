@@ -11,7 +11,7 @@
     "cleanDistDir": true,
     "assetPrefix": "",
     "cacheMaxMemorySize": 52428800,
-    "configOrigin": "next.config.mjs",
+    "configOrigin": "next.config.ts",
     "useFileSystemPublicRoutes": true,
     "generateEtags": true,
     "pageExtensions": [
@@ -62,7 +62,27 @@
           "search": ""
         }
       ],
-      "remotePatterns": [],
+      "remotePatterns": [
+        {
+          "protocol": "https",
+          "hostname": "picsum.photos",
+          "pathname": "/**"
+        },
+        {
+          "protocol": "https",
+          "hostname": "images.unsplash.com",
+          "pathname": "/**"
+        },
+        {
+          "protocol": "https",
+          "hostname": "example.com",
+          "pathname": "/**"
+        },
+        {
+          "protocol": "https",
+          "hostname": "**.example.com"
+        }
+      ],
       "qualities": [
         75
       ],
@@ -287,7 +307,7 @@
     },
     "htmlLimitedBots": "[\\w-]+-Google|Google-[\\w-]+|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight",
     "bundlePagesRouterDependencies": false,
-    "configFileName": "next.config.mjs",
+    "configFileName": "next.config.ts",
     "eslint": {
       "ignoreDuringBuilds": true
     },
@@ -301,6 +321,10 @@
     "_originalRewrites": {
       "beforeFiles": [],
       "afterFiles": [
+        {
+          "source": "/api/v1/:path*",
+          "destination": "http://kyd-gateway:8080/api/v1/:path*"
+        },
         {
           "source": "/api/:path*",
           "destination": "http://kyd-gateway:8080/api/:path*"
