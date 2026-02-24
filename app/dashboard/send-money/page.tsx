@@ -57,8 +57,8 @@ export default function SendMoneyPage() {
             <div className="flex items-center gap-2 text-green-400 font-bold text-[10px] uppercase tracking-[0.3em] mb-2">
               <Zap size={14} fill="currentColor" /> Instant Settlement
             </div>
-            <h1 className="text-4xl font-black tracking-tighter">Send Funds</h1>
-            <p className="text-slate-400 font-medium">Transfer money globally with bank-grade security.</p>
+            <h1 className="text-4xl font-black tracking-tighter">{t('title')}</h1>
+            <p className="text-slate-400 font-medium">{t('subtitle')}</p>
           </div>
           <FlowTypeSelector flowType={flowType} onChange={setFlowType} />
         </div>
@@ -144,7 +144,7 @@ export default function SendMoneyPage() {
                   <Button 
                     type="submit" 
                     disabled={loading} 
-                    className="w-full h-18 py-8 bg-green-600 hover:bg-green-700 text-white font-black text-xl rounded-[28px] shadow-2xl shadow-green-100 transition-all hover:scale-[1.01] active:scale-95"
+                    className="w-full h-18 py-8 bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-white font-black text-xl rounded-[28px] shadow-xl shadow-emerald-500/40 dark:shadow-black/50 transition-all hover:scale-[1.01] active:scale-95"
                   >
                     {loading ? <Loader2 className="animate-spin" /> : 'Confirm & Transfer Now'}
                   </Button>

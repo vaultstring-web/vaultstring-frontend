@@ -1,3 +1,0 @@
-module.exports=[14165,a=>{a.v({SendMoney:{title:"Send Money",subtitle:"Initiate cross-border transfers and payouts securely.",paymentDetails:"Payment Details",international:"International",sameCurrency:"Same Currency",amount:"Amount",currency:"Currency",errors:{duplicateRequest:"Duplicate request detected. Please wait or check your transaction history.",insufficientBalance:"Insufficient balance.",generic:"An error occurred. Please try again."}},Common:{submit:"Send Money",cancel:"Cancel",loading:"Processing..."}})}];
-
-//# sourceMappingURL=Desktop_VaultString_Projects_vaultstring-frontend_messages_en_json_eac383ed._.js.map

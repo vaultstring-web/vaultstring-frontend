@@ -1,0 +1,21 @@
+{
+  "SendMoney": {
+    "title": "送金する",
+    "subtitle": "安全に国際送金と支払いを開始します。",
+    "paymentDetails": "支払い詳細",
+    "international": "国際送金",
+    "sameCurrency": "同一通貨",
+    "amount": "金額",
+    "currency": "通貨",
+    "errors": {
+      "duplicateRequest": "重複したリクエストが検出されました。しばらく待つか取引履歴を確認してください。",
+      "insufficientBalance": "残高が不足しています。",
+      "generic": "エラーが発生しました。もう一度お試しください。"
+    }
+  },
+  "Common": {
+    "submit": "送金する",
+    "cancel": "キャンセル",
+    "loading": "処理中..."
+  }
+}

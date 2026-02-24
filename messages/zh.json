@@ -1,0 +1,21 @@
+{
+  "SendMoney": {
+    "title": "汇款",
+    "subtitle": "安全发起跨境转账和收款。",
+    "paymentDetails": "支付详情",
+    "international": "国际汇款",
+    "sameCurrency": "同币种转账",
+    "amount": "金额",
+    "currency": "货币",
+    "errors": {
+      "duplicateRequest": "检测到重复请求。请稍候或检查交易记录。",
+      "insufficientBalance": "余额不足。",
+      "generic": "发生错误，请重试。"
+    }
+  },
+  "Common": {
+    "submit": "汇款",
+    "cancel": "取消",
+    "loading": "处理中..."
+  }
+}

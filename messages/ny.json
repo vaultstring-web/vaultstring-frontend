@@ -1,0 +1,21 @@
+{
+  "SendMoney": {
+    "title": "Tumizani Ndalama",
+    "subtitle": "Yambitsani kutumiza ndalama padziko lonse motetezeka.",
+    "paymentDetails": "Tsatanetsatane wa Malipiro",
+    "international": "Zapadziko Lonse",
+    "sameCurrency": "Ndalama Zofanana",
+    "amount": "Ndalama",
+    "currency": "Mtundu wa Ndalama",
+    "errors": {
+      "duplicateRequest": "Pempho lobwereza lazedwa. Chonde dikirani kapena onani mbiri ya zochitika.",
+      "insufficientBalance": "Ndalama zokwanira zilibe.",
+      "generic": "Pachitika vuto. Chonde yesaninso."
+    }
+  },
+  "Common": {
+    "submit": "Tumizani Ndalama",
+    "cancel": "Lekani",
+    "loading": "Ikukonzekera..."
+  }
+}

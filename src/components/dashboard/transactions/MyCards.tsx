@@ -3,7 +3,7 @@ import { Card, CardContent } from '@/src/components/ui/card';
 import { Plus, CreditCard, ArrowUpRight, Loader2 } from 'lucide-react';
 import { Button } from '@/src/components/ui/button';
 import { useWalletStats } from '@/src/hooks/useWalletStats';
-import { formatCurrency, formatWalletNumber, getWalletGradient } from '@/src/lib/utils/formatters';
+import { formatCurrency, formatWalletNumber, getWalletGradient, generateFallbackWalletNumber } from '@/src/lib/utils/formatters';
 
 export interface MyCardsProps {
   selectedWalletId?: string | null;
@@ -13,11 +13,20 @@ export interface MyCardsProps {
 export default function MyCards({ selectedWalletId, onSelectWallet }: MyCardsProps) {
   const { stats, wallets, loading } = useWalletStats();
   
-  // Find primary wallet to display on big card
   const primaryWallet = wallets.find(w => w.currency === stats.primaryCurrency) || wallets[0];
   
-  // Other wallets for mini cards
-  const otherWallets = wallets.filter(w => w.id !== primaryWallet?.id); // Show all other wallets
+  const otherWallets = wallets.filter(w => w.id !== primaryWallet?.id);
+
+  const getDisplayWalletNumber = (wallet: any | undefined) => {
+    if (!wallet) return '•••• •••• •••• ••••';
+    let rawWalletNumber = wallet.wallet_address;
+    if (!rawWalletNumber || String(rawWalletNumber).startsWith('VS-')) {
+      rawWalletNumber = generateFallbackWalletNumber(String(wallet.user_id || wallet.id || ''));
+    }
+    return formatWalletNumber(rawWalletNumber);
+  };
+
+  const primaryWalletNumber = getDisplayWalletNumber(primaryWallet);
 
   const handleCardClick = (walletId: string) => {
     if (onSelectWallet) {
@@ -73,7 +82,7 @@ export default function MyCards({ selectedWalletId, onSelectWallet }: MyCardsPro
                 <div>
                     <p className="text-white/60 font-bold text-xs uppercase tracking-wider mb-1">Wallet ID</p>
                     <p className="font-mono text-white font-bold text-lg tracking-wider">
-                        {primaryWallet ? formatWalletNumber(primaryWallet.id) : '•••• •••• •••• ••••'}
+                        {primaryWalletNumber}
                     </p>
                 </div>
                 <div className="h-8 px-3 flex items-center bg-white/20 backdrop-blur-sm rounded-lg border border-white/10">
@@ -103,7 +112,7 @@ export default function MyCards({ selectedWalletId, onSelectWallet }: MyCardsPro
                 <div className="relative z-10">
                     <div className="flex justify-between mb-4">
                         <div className="text-white/60 font-mono text-xs">
-                            {formatWalletNumber(wallet.id).slice(-4).padStart(8, '• ')}
+                            {getDisplayWalletNumber(wallet).slice(-4).padStart(8, '• ')}
                         </div>
                         <CreditCard className="text-white/80" size={16} />
                     </div>

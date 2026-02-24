@@ -8,9 +8,7 @@ import {
   UserCircle, 
   LogOut, 
   X,
-  ShieldCheck,
-  Globe,
-  Settings
+  ShieldCheck
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -33,9 +31,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
     { path: '/dashboard/send-money', label: 'Send Money', icon: Send },
     { path: '/dashboard/transactions', label: 'Transactions', icon: History },
     { path: '/dashboard/compliance', label: 'Compliance (KYC)', icon: ShieldCheck },
-    { path: '/dashboard/translation', label: 'Translation', icon: Globe },
     { path: '/dashboard/profile', label: 'Profile', icon: UserCircle },
-    { path: '/dashboard/settings', label: 'Settings', icon: Settings },
   ];
 
   const handleSignOut = () => {

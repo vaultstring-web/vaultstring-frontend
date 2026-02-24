@@ -1,3 +1,0 @@
-(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["chunks/Desktop_VaultString_Projects_vaultstring-frontend_edge-wrapper_e4db849c.js",68732,(e,t,n)=>{self._ENTRIES||={};let r=Promise.resolve().then(()=>e.i(24555));r.catch(()=>{}),self._ENTRIES.middleware_middleware=new Proxy(r,{get(e,t){if("then"===t)return(t,n)=>e.then(t,n);let n=(...n)=>e.then(e=>(0,e[t])(...n));return n.then=(n,r)=>e.then(e=>e[t]).then(n,r),n}})}]);
-
-//# sourceMappingURL=Desktop_VaultString_Projects_vaultstring-frontend_edge-wrapper_e4db849c.js.map

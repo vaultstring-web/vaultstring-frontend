@@ -7,18 +7,11 @@ import { Input } from '@/src/components/ui/input';
 import { toast } from 'sonner';
 
 const languages = [
-  { code: 'en', name: 'English (US)', flag: '🇺🇸', region: 'United States' },
-  { code: 'en-gb', name: 'English (UK)', flag: '🇬🇧', region: 'United Kingdom' },
-  { code: 'es', name: 'Español (Spanish)', flag: '🇪🇸', region: 'España' },
-  { code: 'fr', name: 'Français (French)', flag: '🇫🇷', region: 'France' },
-  { code: 'de', name: 'Deutsch (German)', flag: '🇩🇪', region: 'Deutschland' },
-  { code: 'it', name: 'Italiano (Italian)', flag: '🇮🇹', region: 'Italia' },
-  { code: 'pt', name: 'Português (Portuguese)', flag: '🇵🇹', region: 'Portugal' },
-  { code: 'zh', name: '中文 (Chinese Simplified)', flag: '🇨🇳', region: '中国 (China)' },
+  { code: 'en', name: 'English', flag: '🇺🇸', region: 'English' },
+  { code: 'ny', name: 'Chichewa', flag: '🇲🇼', region: 'Malawi' },
+  { code: 'ny', name: 'Nyanja', flag: '🇲🇼', region: 'Malawi / Zambia' },
+  { code: 'zh', name: '中文 (Chinese)', flag: '🇨🇳', region: '中国 (China)' },
   { code: 'ja', name: '日本語 (Japanese)', flag: '🇯🇵', region: '日本 (Japan)' },
-  { code: 'ko', name: '한국어 (Korean)', flag: '🇰🇷', region: '대한민국 (South Korea)' },
-  { code: 'ru', name: 'Русский (Russian)', flag: '🇷🇺', region: 'Россия (Russia)' },
-  { code: 'ar', name: 'العربية (Arabic)', flag: '🇸🇦', region: 'المملكة العربية السعودية (Saudi Arabia)' },
 ];
 
 export default function TranslationPage() {
@@ -38,12 +31,18 @@ export default function TranslationPage() {
 
   const handleLanguageChange = (code: string) => {
     setIsTranslating(true);
-    // Simulate API call/loading
     setTimeout(() => {
       setSelectedLang(code);
-      localStorage.setItem('vs_language', code);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('vs_language', code);
+        const maxAge = 60 * 60 * 24 * 365;
+        document.cookie = `vs_locale=${code}; path=/; max-age=${maxAge}`;
+      }
       setIsTranslating(false);
       toast.success('Language updated successfully');
+      if (typeof window !== 'undefined') {
+        window.location.reload();
+      }
     }, 1000);
   };
 
