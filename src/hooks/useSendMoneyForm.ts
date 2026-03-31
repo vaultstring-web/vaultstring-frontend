@@ -248,10 +248,12 @@ export function useSendMoneyForm(t: any) {
         amount: Number(data.amount),
         currency: data.currency,
         destination_currency: flowType === 'INTERNATIONAL' ? targetCurrency : data.currency,
-        description: data.description,
+        description: data.description || 'Transfer via VaultString',
         channel: derivedChannel,
-        category: fundingSource || data.category,
-        location: 'MW', // Default to Malawi for now
+        category: data.category || 'transfer',
+        funding_source: fundingSource,
+        payout_method: payoutMethod,
+        location: user?.countryCode || 'MW',
         device_id: getDeviceId(),
       };
 

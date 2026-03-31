@@ -15,34 +15,42 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/src/context/AuthContext';
 import { setToken, setUser } from '@/src/lib/api/api-client';
 
+import { useTranslations } from 'next-intl';
+
 interface SidebarProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
+  const t = useTranslations('Sidebar');
   const pathname = usePathname();
   const router = useRouter();
-  const { setUser: setCtxUser } = useAuth();
+  const { user, setUser: setCtxUser } = useAuth();
+  const isVerified = user?.kycStatus === 'verified';
   
   const navItems = [
-    { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { path: '/dashboard/wallet', label: 'My Wallet', icon: Wallet },
-    { path: '/dashboard/send-money', label: 'Send Money', icon: Send },
-    { path: '/dashboard/transactions', label: 'Transactions', icon: History },
-    { path: '/dashboard/compliance', label: 'Compliance (KYC)', icon: ShieldCheck },
-    { path: '/dashboard/profile', label: 'Profile', icon: UserCircle },
+    { path: '/', label: t('dashboard'), icon: LayoutDashboard },
+    { path: '/wallet', label: t('wallet'), icon: Wallet },
+    { path: '/send-money', label: t('sendMoney'), icon: Send },
+    { path: '/transactions', label: t('transactions'), icon: History },
+    { path: '/profile', label: t('profile'), icon: UserCircle },
   ];
+
+  // Only show Verify Identity if not verified
+  if (!isVerified) {
+    navItems.splice(4, 0, { path: '/onboarding', label: t('verifyIdentity'), icon: ShieldCheck });
+  }
 
   const handleSignOut = () => {
     setToken(null);
     setUser(null);
     setCtxUser(null);
-    router.replace('/');
+    router.replace('/login');
   };
 
   const isActive = (path: string) => {
-    if (path === '/dashboard') {
+    if (path === '/') {
       return pathname === path;
     }
     return pathname.startsWith(path);
@@ -67,7 +75,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
         {/* Header */}
         <div className="flex items-center justify-between h-16 px-6 border-b border-slate-100 dark:border-slate-800 shrink-0">
           <Link 
-            href="/dashboard" 
+            href="/" 
             className="flex items-center justify-center w-full"
             onClick={() => setIsOpen(false)}
           >
@@ -103,8 +111,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
                     : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'}
                 `}
               >
-                <Icon size={20} />
-                <span className="font-medium">{item.label}</span>
+                <Icon size={20} className={active ? 'animate-pulse' : ''} />
+                <span>{item.label}</span>
               </Link>
             );
           })}
@@ -117,7 +125,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
             className="w-full flex items-center space-x-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-xl transition-colors font-bold"
           >
             <LogOut size={20} />
-            <span className="font-medium">Sign Out</span>
+            <span className="font-medium">{t('signOut')}</span>
           </button>
         </div>
       </aside>

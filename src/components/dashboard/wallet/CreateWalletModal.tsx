@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { createWallet } from '@/src/lib/api/wallet';
 import { Loader2, Plus, Wallet, Sparkles, ShieldCheck } from 'lucide-react';
 import { toast } from 'sonner';
+import { useTranslations } from 'next-intl';
 
 interface CreateWalletModalProps {
   open: boolean;
@@ -16,6 +17,7 @@ interface CreateWalletModalProps {
 }
 
 export function CreateWalletModal({ open, onOpenChange, onSuccess }: CreateWalletModalProps) {
+  const t = useTranslations('Wallet');
   const [loading, setLoading] = useState(false);
   const [currency, setCurrency] = useState('MWK');
   const [type, setType] = useState('personal');
@@ -25,11 +27,11 @@ export function CreateWalletModal({ open, onOpenChange, onSuccess }: CreateWalle
     setLoading(true);
     try {
       await createWallet({ currency, type });
-      toast.success('Wallet created successfully');
+      toast.success(t('createModal.success'));
       onSuccess();
       onOpenChange(false);
     } catch (error: any) {
-      toast.error(error.message || 'Failed to create wallet');
+      toast.error(error.message || t('createModal.error'));
     } finally {
       setLoading(false);
     }
@@ -43,13 +45,13 @@ export function CreateWalletModal({ open, onOpenChange, onSuccess }: CreateWalle
           <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/20 blur-3xl rounded-full" />
           <DialogHeader className="relative z-10 space-y-3">
             <div className="flex items-center gap-2 text-green-400 font-black text-[10px] uppercase tracking-[0.3em]">
-              <Sparkles size={14} /> New Asset
+              <Sparkles size={14} /> {t('createModal.badge')}
             </div>
             <DialogTitle className="text-3xl font-black tracking-tighter flex items-center gap-3 text-white">
-               Add Multi-Currency Wallet
+               {t('createModal.title')}
             </DialogTitle>
             <DialogDescription className="text-slate-400 font-medium">
-              Create a new liquidity card to start transacting globally.
+              {t('createModal.subtitle')}
             </DialogDescription>
           </DialogHeader>
         </div>
@@ -57,28 +59,28 @@ export function CreateWalletModal({ open, onOpenChange, onSuccess }: CreateWalle
         <form onSubmit={handleSubmit} className="p-10 space-y-8 bg-white dark:bg-slate-900">
           <div className="space-y-6">
             <div className="space-y-3">
-              <Label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Base Currency</Label>
+              <Label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">{t('createModal.baseCurrency')}</Label>
               <Select value={currency} onValueChange={setCurrency} disabled={loading}>
                 <SelectTrigger className="h-14 rounded-2xl bg-slate-50 dark:bg-slate-800 border-none font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-green-500/20">
-                  <SelectValue placeholder="Select currency" />
+                  <SelectValue placeholder={t('createModal.selectCurrency')} />
                 </SelectTrigger>
                 <SelectContent className="rounded-2xl border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-800 shadow-xl">
-                  <SelectItem value="MWK" className="font-bold py-3 dark:text-white focus:bg-slate-100 dark:focus:bg-slate-700">Malawian Kwacha (MWK)</SelectItem>
-                  <SelectItem value="CNY" className="font-bold py-3 dark:text-white focus:bg-slate-100 dark:focus:bg-slate-700">Chinese Yuan (CNY)</SelectItem>
-                  <SelectItem value="ZMW" className="font-bold py-3 dark:text-white focus:bg-slate-100 dark:focus:bg-slate-700">Zambian Kwacha (ZMW)</SelectItem>
+                  <SelectItem value="MWK" className="font-bold py-3 dark:text-white focus:bg-slate-100 dark:focus:bg-slate-700">{t('createModal.currencies.mwk')}</SelectItem>
+                  <SelectItem value="CNY" className="font-bold py-3 dark:text-white focus:bg-slate-100 dark:focus:bg-slate-700">{t('createModal.currencies.cny')}</SelectItem>
+                  <SelectItem value="ZMW" className="font-bold py-3 dark:text-white focus:bg-slate-100 dark:focus:bg-slate-700">{t('createModal.currencies.zmw')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-3">
-              <Label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Account Category</Label>
+              <Label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">{t('createModal.accountCategory')}</Label>
               <Select value={type} onValueChange={setType} disabled={loading}>
                 <SelectTrigger className="h-14 rounded-2xl bg-slate-50 dark:bg-slate-800 border-none font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-green-500/20">
-                  <SelectValue placeholder="Select type" />
+                  <SelectValue placeholder={t('createModal.selectType')} />
                 </SelectTrigger>
                 <SelectContent className="rounded-2xl border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-800 shadow-xl">
-                  <SelectItem value="personal" className="font-bold py-3 dark:text-white focus:bg-slate-100 dark:focus:bg-slate-700">Personal Use</SelectItem>
-                  <SelectItem value="business" className="font-bold py-3 dark:text-white focus:bg-slate-100 dark:focus:bg-slate-700">Business / Merchant</SelectItem>
+                  <SelectItem value="personal" className="font-bold py-3 dark:text-white focus:bg-slate-100 dark:focus:bg-slate-700">{t('createModal.types.personal')}</SelectItem>
+                  <SelectItem value="business" className="font-bold py-3 dark:text-white focus:bg-slate-100 dark:focus:bg-slate-700">{t('createModal.types.business')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -90,14 +92,14 @@ export function CreateWalletModal({ open, onOpenChange, onSuccess }: CreateWalle
               disabled={loading} 
               className="h-16 w-full bg-green-600 hover:bg-green-700 text-white font-black text-lg rounded-[24px] shadow-xl shadow-green-100 dark:shadow-none transition-all hover:scale-[1.02]"
             >
-              {loading ? <Loader2 className="animate-spin" /> : <><Plus size={20} className="mr-2" /> Create My Wallet</>}
+              {loading ? <Loader2 className="animate-spin" /> : <><Plus size={20} className="mr-2" /> {t('createModal.cta')}</>}
             </Button>
             <button 
               type="button" 
               onClick={() => onOpenChange(false)} 
               className="text-xs font-black text-slate-400 uppercase tracking-widest hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
             >
-              Discard Changes
+              {t('createModal.discard')}
             </button>
           </div>
         </form>

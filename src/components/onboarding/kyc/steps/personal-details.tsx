@@ -41,61 +41,61 @@ export function PersonalDetailsStep({ onNext }: PersonalDetailsStepProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="grid grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <label className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">First Name *</label>
           <Input
             type="text"
             placeholder="John"
             value={formData.firstName}
             onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-            className="w-full"
+            className="h-14 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 dark:text-white border-none focus-visible:ring-2 focus-visible:ring-green-500/20 dark:focus-visible:ring-green-500/10"
           />
-          {errors.firstName && <p className="text-red-600 text-sm mt-1">{errors.firstName}</p>}
+          {errors.firstName && <p className="text-red-500 text-[10px] font-bold uppercase tracking-tight ml-1">{errors.firstName}</p>}
         </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
+        <div className="space-y-2">
+          <label className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Last Name *</label>
           <Input
             type="text"
             placeholder="Doe"
             value={formData.lastName}
             onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-            className="w-full"
+            className="h-14 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 dark:text-white border-none focus-visible:ring-2 focus-visible:ring-green-500/20 dark:focus-visible:ring-green-500/10"
           />
-          {errors.lastName && <p className="text-red-600 text-sm mt-1">{errors.lastName}</p>}
+          {errors.lastName && <p className="text-red-500 text-[10px] font-bold uppercase tracking-tight ml-1">{errors.lastName}</p>}
         </div>
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Date of Birth *</label>
+      <div className="space-y-2">
+        <label className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Date of Birth *</label>
         <Input
           type="date"
           value={formData.dateOfBirth}
           onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
-          className="w-full"
+          className="h-14 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 dark:text-white border-none focus-visible:ring-2 focus-visible:ring-green-500/20 dark:focus-visible:ring-green-500/10"
         />
-        {errors.dateOfBirth && <p className="text-red-600 text-sm mt-1">{errors.dateOfBirth}</p>}
+        {errors.dateOfBirth && <p className="text-red-500 text-[10px] font-bold uppercase tracking-tight ml-1">{errors.dateOfBirth}</p>}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Nationality *</label>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <label className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Nationality *</label>
           <Input
             type="text"
             placeholder="United States"
             value={formData.nationality}
             onChange={(e) => setFormData({ ...formData, nationality: e.target.value })}
-            className="w-full"
+            className="h-14 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 dark:text-white border-none focus-visible:ring-2 focus-visible:ring-green-500/20 dark:focus-visible:ring-green-500/10"
           />
-          {errors.nationality && <p className="text-red-600 text-sm mt-1">{errors.nationality}</p>}
+          {errors.nationality && <p className="text-red-500 text-[10px] font-bold uppercase tracking-tight ml-1">{errors.nationality}</p>}
         </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">ID Type</label>
+        <div className="space-y-2">
+          <label className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">ID Type</label>
           <select
             value={formData.idType}
             onChange={(e) => setFormData({ ...formData, idType: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="w-full h-14 px-4 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 dark:text-white border-none focus:outline-none focus:ring-2 focus:ring-green-500/20 dark:focus:ring-green-500/10 appearance-none cursor-pointer"
           >
             <option value="passport">Passport</option>
             <option value="driver_license">Driver's License</option>
@@ -104,14 +104,17 @@ export function PersonalDetailsStep({ onNext }: PersonalDetailsStepProps) {
         </div>
       </div>
 
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <p className="text-sm text-blue-900">
+      <div className="bg-slate-100/50 dark:bg-slate-800/50 rounded-2xl p-4 border border-slate-200/50 dark:border-slate-700/50">
+        <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed text-center">
           Your personal information is encrypted and will only be used for verification purposes.
         </p>
       </div>
 
-      <div className="flex justify-end gap-2 pt-4">
-        <Button type="submit" className="bg-primary hover:bg-primary/90 text-white">
+      <div className="pt-4">
+        <Button 
+          type="submit" 
+          className="w-full h-14 rounded-2xl bg-green-500 hover:bg-green-600 text-white font-bold text-lg shadow-lg shadow-green-500/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
+        >
           Continue to Next Step
         </Button>
       </div>

@@ -20,8 +20,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/src/components/ui/select";
+import { useTranslations } from 'next-intl';
 
 export default function CurrencyConverter({ rates, primaryCurrency = 'MWK' }: CurrencyConverterProps) {
+  const t = useTranslations('Dashboard');
   const [convertAmount, setConvertAmount] = useState<number | ''>(1000);
   const [sourceCurrency, setSourceCurrency] = useState<string>(primaryCurrency);
   const [targetCurrency, setTargetCurrency] = useState<string>(primaryCurrency === 'MWK' ? 'CNY' : 'MWK');
@@ -96,17 +98,17 @@ export default function CurrencyConverter({ rates, primaryCurrency = 'MWK' }: Cu
       <div className="flex items-center justify-between mb-6">
         <h3 className="font-semibold text-slate-800 dark:text-white flex items-center gap-2">
           <RefreshCw size={20} className="text-slate-400 dark:text-slate-500" />
-          Currency Converter
+          {t('currencyConverter')}
         </h3>
         <div className="flex gap-2">
           <button className="text-sm text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-500/10 px-3 py-1 rounded-md transition-colors font-medium">
-            Set Alert
+            {t('converter.setAlert')}
           </button>
           <Link
-            href="/dashboard/transactions"
+            href="/transactions"
             className="text-sm text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 px-3 py-1 rounded-md transition-colors font-medium"
           >
-            View History
+            {t('converter.viewHistory')}
           </Link>
         </div>
       </div>
@@ -115,7 +117,7 @@ export default function CurrencyConverter({ rates, primaryCurrency = 'MWK' }: Cu
         
         {/* FROM Section */}
         <div className="md:col-span-3 space-y-2">
-          <label className="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider">From</label>
+          <label className="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t('converter.from')}</label>
           <div className="flex bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-green-500 shadow-sm">
             <div className="border-r border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800">
                 <Select value={sourceCurrency} onValueChange={(v: any) => setSourceCurrency(v)}>
@@ -151,7 +153,7 @@ export default function CurrencyConverter({ rates, primaryCurrency = 'MWK' }: Cu
 
         {/* TO Section */}
         <div className="md:col-span-3 space-y-2">
-          <label className="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider">To</label>
+          <label className="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t('converter.to')}</label>
             <div className="flex bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl overflow-hidden shadow-inner opacity-90">
             <div className="border-r border-slate-300 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-800/50">
                 <Select value={targetCurrency} onValueChange={(v: any) => setTargetCurrency(v)}>

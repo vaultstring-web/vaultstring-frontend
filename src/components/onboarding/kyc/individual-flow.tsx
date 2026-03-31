@@ -11,6 +11,8 @@ import { SecuritySetupStep } from "./steps/security-setup"
 import { TermsStep } from "./steps/terms"
 import { CompletionStep } from "./steps/completion"
 
+import { AuthLayout } from "@/src/components/shared/AuthLayout"
+
 const INDIVIDUAL_STEPS = [
   { id: "personal", title: "Personal Details" },
   { id: "contact", title: "Contact Information" },
@@ -47,7 +49,6 @@ export function IndividualFlow({ onChangeUserType }: IndividualFlowProps) {
   }
 
   const handleSaveAndExit = () => {
-    // Save to localStorage or backend
     localStorage.setItem(
       "kyc_individual_draft",
       JSON.stringify({
@@ -64,63 +65,46 @@ export function IndividualFlow({ onChangeUserType }: IndividualFlowProps) {
   }
 
   const step = INDIVIDUAL_STEPS[currentStep]
-  const progress = ((currentStep + 1) / INDIVIDUAL_STEPS.length) * 100
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
-        <div className="max-w-2xl mx-auto px-4 py-4 flex items-center justify-between">
-          <button onClick={onChangeUserType} className="text-sm text-gray-600 hover:text-gray-900 transition">
-            Change account type
+    <AuthLayout title={step.title} subtitle={`Step ${currentStep + 1} of ${INDIVIDUAL_STEPS.length}`}>
+      <div className="space-y-6">
+        <div className="flex justify-between items-center px-1">
+          <button 
+            onClick={onChangeUserType} 
+            className="text-[11px] font-bold text-slate-400 hover:text-green-600 uppercase tracking-widest transition-colors"
+          >
+            Change Type
           </button>
-          <span className="text-sm font-medium text-gray-600">
-            Step {currentStep + 1} of {INDIVIDUAL_STEPS.length}
-          </span>
-          <button onClick={handleSaveAndExit} className="text-sm text-primary hover:text-primary/80 transition">
-            Save & Exit
+          <button 
+            onClick={handleSaveAndExit} 
+            className="text-[11px] font-bold text-slate-400 hover:text-green-600 uppercase tracking-widest transition-colors"
+          >
+            Save Draft
           </button>
         </div>
-      </div>
 
-      {/* Progress Bar */}
-      <ProgressBar progress={progress} />
+        <ProgressBar progress={((currentStep + 1) / INDIVIDUAL_STEPS.length) * 100} />
 
-      {/* Main Content */}
-      <main className="max-w-2xl mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">{step.title}</h1>
-          <p className="text-gray-600">Complete this step to proceed with your verification</p>
-        </div>
-
-        {/* Step Content */}
-        <div className="bg-white rounded-lg border border-gray-200 p-8 mb-8">
+        <div className="pt-2">
           {currentStep === 0 && <PersonalDetailsStep onNext={handleNext} />}
           {currentStep === 1 && <ContactInfoStep onNext={handleNext} />}
           {currentStep === 2 && <IDVerificationStep onNext={handleNext} />}
           {currentStep === 3 && <SourceOfFundsStep onNext={handleNext} />}
           {currentStep === 4 && <SecuritySetupStep onNext={handleNext} />}
-          {currentStep === 5 && <TermsStep onNext={handleNext} />}
+          {currentStep === 5 && <TermsStep onNext={handleNext} allData={formData} />}
         </div>
 
-        {/* Navigation Buttons */}
-        <div className="flex gap-4">
+        {currentStep > 0 && (
           <Button
-            variant="outline"
+            variant="ghost"
             onClick={handlePrevious}
-            disabled={currentStep === 0}
-            className="flex-1 bg-transparent border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+            className="w-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 font-medium"
           >
-            Previous
+            Back to previous step
           </Button>
-          <Button
-            onClick={() => handleNext({})}
-            className="flex-1 bg-primary hover:bg-primary/90 text-white"
-          >
-            {currentStep === INDIVIDUAL_STEPS.length - 1 ? "Complete" : "Next"}
-          </Button>
-        </div>
-      </main>
-    </div>
+        )}
+      </div>
+    </AuthLayout>
   )
 }

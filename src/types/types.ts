@@ -24,6 +24,8 @@ export interface UserProfile {
   accountLabel?: string;
   countryCode?: string;
   userType?: string;
+  isEmailVerified?: boolean;
+  isTOTPEnabled?: boolean;
 }
 
 export interface WalletStats {

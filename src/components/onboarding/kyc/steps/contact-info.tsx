@@ -45,10 +45,10 @@ export function ContactInfoStep({ onNext }: ContactInfoStepProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="grid grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <label className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
             Phone Number *
           </label>
           <Input
@@ -58,14 +58,14 @@ export function ContactInfoStep({ onNext }: ContactInfoStepProps) {
             onChange={(e) =>
               setFormData({ ...formData, phone: e.target.value })
             }
-            className="w-full"
+            className="h-14 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 dark:text-white border-none focus-visible:ring-2 focus-visible:ring-green-500/20 dark:focus-visible:ring-green-500/10"
           />
           {errors.phone && (
-            <p className="text-red-600 text-sm mt-1">{errors.phone}</p>
+            <p className="text-red-500 text-[10px] font-bold uppercase tracking-tight ml-1">{errors.phone}</p>
           )}
         </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+        <div className="space-y-2">
+          <label className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
             Email Address *
           </label>
           <Input
@@ -75,16 +75,16 @@ export function ContactInfoStep({ onNext }: ContactInfoStepProps) {
             onChange={(e) =>
               setFormData({ ...formData, email: e.target.value })
             }
-            className="w-full"
+            className="h-14 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 dark:text-white border-none focus-visible:ring-2 focus-visible:ring-green-500/20 dark:focus-visible:ring-green-500/10"
           />
           {errors.email && (
-            <p className="text-red-600 text-sm mt-1">{errors.email}</p>
+            <p className="text-red-500 text-[10px] font-bold uppercase tracking-tight ml-1">{errors.email}</p>
           )}
         </div>
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+      <div className="space-y-2">
+        <label className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
           Address *
         </label>
         <Input
@@ -94,16 +94,16 @@ export function ContactInfoStep({ onNext }: ContactInfoStepProps) {
           onChange={(e) =>
             setFormData({ ...formData, address: e.target.value })
           }
-          className="w-full"
+          className="h-14 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 dark:text-white border-none focus-visible:ring-2 focus-visible:ring-green-500/20 dark:focus-visible:ring-green-500/10"
         />
         {errors.address && (
-          <p className="text-red-600 text-sm mt-1">{errors.address}</p>
+          <p className="text-red-500 text-[10px] font-bold uppercase tracking-tight ml-1">{errors.address}</p>
         )}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+      <div className="grid grid-cols-3 gap-4">
+        <div className="space-y-2">
+          <label className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
             City *
           </label>
           <Input
@@ -111,14 +111,14 @@ export function ContactInfoStep({ onNext }: ContactInfoStepProps) {
             placeholder="Lilongwe"
             value={formData.city}
             onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-            className="w-full"
+            className="h-14 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 dark:text-white border-none focus-visible:ring-2 focus-visible:ring-green-500/20 dark:focus-visible:ring-green-500/10"
           />
           {errors.city && (
-            <p className="text-red-600 text-sm mt-1">{errors.city}</p>
+            <p className="text-red-500 text-[10px] font-bold uppercase tracking-tight ml-1">{errors.city}</p>
           )}
         </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+        <div className="space-y-2">
+          <label className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
             Country *
           </label>
           <Input
@@ -128,14 +128,14 @@ export function ContactInfoStep({ onNext }: ContactInfoStepProps) {
             onChange={(e) =>
               setFormData({ ...formData, country: e.target.value })
             }
-            className="w-full"
+            className="h-14 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 dark:text-white border-none focus-visible:ring-2 focus-visible:ring-green-500/20 dark:focus-visible:ring-green-500/10"
           />
           {errors.country && (
-            <p className="text-red-600 text-sm mt-1">{errors.country}</p>
+            <p className="text-red-500 text-[10px] font-bold uppercase tracking-tight ml-1">{errors.country}</p>
           )}
         </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+        <div className="space-y-2">
+          <label className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
             Postal Code *
           </label>
           <Input
@@ -145,22 +145,22 @@ export function ContactInfoStep({ onNext }: ContactInfoStepProps) {
             onChange={(e) =>
               setFormData({ ...formData, postalCode: e.target.value })
             }
-            className="w-full"
+            className="h-14 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 dark:text-white border-none focus-visible:ring-2 focus-visible:ring-green-500/20 dark:focus-visible:ring-green-500/10"
           />
           {errors.postalCode && (
-            <p className="text-red-600 text-sm mt-1">{errors.postalCode}</p>
+            <p className="text-red-500 text-[10px] font-bold uppercase tracking-tight ml-1">{errors.postalCode}</p>
           )}
         </div>
       </div>
 
-      <div className="flex justify-end gap-2 pt-4">
+      <div className="pt-4">
         <Button
           type="submit"
-          className="bg-primary hover:bg-primary/90 text-white"
+          className="w-full h-14 rounded-2xl bg-green-500 hover:bg-green-600 text-white font-bold text-lg shadow-lg shadow-green-500/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
         >
           Continue to Next Step
         </Button>
       </div>
     </form>
-  );
+  )
 }

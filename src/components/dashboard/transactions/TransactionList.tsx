@@ -4,6 +4,7 @@ import { formatCurrency } from '@/src/lib/utils/formatters';
 import { Avatar, AvatarFallback, AvatarImage } from '@/src/components/ui/avatar';
 import { ArrowDownLeft, ArrowUpRight, Coffee, Monitor, ShoppingBag, Zap, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/src/components/ui/button';
+import { useTranslations } from 'next-intl';
 
 interface TransactionListProps {
   transactions: ApiTransaction[];
@@ -14,6 +15,7 @@ interface TransactionListProps {
 }
 
 export default function TransactionList({ transactions, userId, onViewReceipt, onViewAll, showViewAll = true }: TransactionListProps) {
+  const t = useTranslations('Transactions');
   
   // Helper to guess icon based on description/category
   const getIcon = (tx: ApiTransaction) => {
@@ -35,7 +37,7 @@ export default function TransactionList({ transactions, userId, onViewReceipt, o
   return (
     <div className="bg-white dark:bg-slate-900 rounded-[32px] p-8 shadow-sm border border-slate-100 dark:border-slate-800 h-full">
       <div className="flex items-center justify-between mb-8">
-        <h2 className="text-xl font-black text-slate-900 dark:text-white">Transactions</h2>
+        <h2 className="text-xl font-black text-slate-900 dark:text-white">{t('list.title')}</h2>
         {showViewAll && (
             <Button 
                 variant="ghost" 
@@ -43,14 +45,14 @@ export default function TransactionList({ transactions, userId, onViewReceipt, o
                 className="text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
                 onClick={onViewAll}
             >
-                View all
+                {t('list.viewAll')}
             </Button>
         )}
       </div>
 
       <div className="space-y-6">
         {transactions.length === 0 ? (
-            <div className="text-center py-10 text-slate-400 dark:text-slate-500 font-medium">No transactions yet</div>
+            <div className="text-center py-10 text-slate-400 dark:text-slate-500 font-medium">{t('list.empty')}</div>
         ) : (
             transactions.map((tx) => {
                 if (!tx) return null;
@@ -71,14 +73,16 @@ export default function TransactionList({ transactions, userId, onViewReceipt, o
                             </div>
                             <div className="flex-1 min-w-0">
                                 <div className="font-bold text-slate-900 dark:text-white mb-0.5">
-                                    {isReceived ? (tx.sender_name || tx.SenderName || tx.sender?.name || 'Unknown Sender') : (tx.receiver_name || tx.ReceiverName || tx.receiver?.name || tx.description || 'Unknown Receiver')}
+                                    {isReceived
+                                      ? (tx.sender_name || tx.SenderName || tx.sender?.name || t('list.unknownSender'))
+                                      : (tx.receiver_name || tx.ReceiverName || tx.receiver?.name || tx.description || t('list.unknownReceiver'))}
                                 </div>
                                 <div className="text-xs text-slate-400 dark:text-slate-500 font-medium" suppressHydrationWarning>
                                     {(() => {
                                         try {
-                                            return tx.created_at ? new Date(tx.created_at).toLocaleString('en-US', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'Date Pending';
+                                            return tx.created_at ? new Date(tx.created_at).toLocaleString('en-US', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : t('list.datePending');
                                         } catch {
-                                            return 'Invalid Date';
+                                            return t('list.invalidDate');
                                         }
                                     })()}
                                 </div>

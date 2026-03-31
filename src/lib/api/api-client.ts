@@ -6,6 +6,8 @@ const API_BASE = typeof window === 'undefined'
   ? `${GATEWAY.replace(/\/$/, '')}/api/v1`
   : '/api/v1';
 
+const DEBUG_API = typeof window !== 'undefined' && process.env.NEXT_PUBLIC_DEBUG_API === 'true';
+
 const TOKEN_KEY = 'kyd_access_token';
 const USER_KEY = 'kyd_user_profile';
 export function isAuthenticated() { return !!getToken(); }
@@ -71,7 +73,7 @@ export async function getDeviceCountry(): Promise<string> {
   return '';
 }
 
-export async function apiFetch(path: string, init: RequestInit = {}) {
+export async function apiFetch(path: string, init: RequestInit & { skipAuthRedirect?: boolean } = {}) {
   const url = API_BASE ? `${API_BASE.replace(/\/$/, '')}${path.startsWith('/') ? path : '/' + path}` : path;
 
   const headers: Record<string, string> = {
@@ -88,8 +90,10 @@ export async function apiFetch(path: string, init: RequestInit = {}) {
   const openAuthPaths = [
     '/auth/login',
     '/auth/register',
-    '/auth/password/reset',
-    '/auth/password/reset/confirm',
+    '/auth/forgot-password',
+    '/auth/reset-password',
+    '/auth/google/start',
+    '/auth/google/callback',
     '/auth/verify',
     '/auth/verify/resend',
     '/auth/magic-link'
@@ -111,20 +115,25 @@ export async function apiFetch(path: string, init: RequestInit = {}) {
   const requiresIdempotency = unsafe && !openAuthPaths.some(p => path.startsWith(p));
   if (requiresIdempotency && !headers['Idempotency-Key']) {
     const key = generateIdempotencyKey();
-    console.log(`[DEBUG-FIX] Generated NEW Idempotency-Key for ${method} ${path}: ${key}`);
+    if (DEBUG_API) console.log(`[DEBUG] Generated Idempotency-Key for ${method} ${path}: ${key}`);
     headers['Idempotency-Key'] = key;
   }
   
   // DEBUG: Trace API calls
-  if (path.includes('/payments/initiate')) {
-    console.log(`[DEBUG-FIX] Initiating Payment Call: ${method} ${path}`);
-    console.log(`[DEBUG-FIX] Idempotency-Key: ${headers['Idempotency-Key'] || 'NONE'}`);
-    console.log(`[DEBUG-FIX] Payload:`, init.body);
+  if (DEBUG_API && path.includes('/payments/initiate')) {
+    console.log(`[DEBUG] Initiating Payment Call: ${method} ${path}`);
+    console.log(`[DEBUG] Idempotency-Key: ${headers['Idempotency-Key'] || 'NONE'}`);
+    console.log(`[DEBUG] Payload:`, init.body);
   }
 
   if (unsafe) {
     const csrf = getCsrfToken();
     if (csrf) headers['X-CSRF-Token'] = csrf;
+    
+    // Add additional security headers
+    headers['X-Content-Type-Options'] = 'nosniff';
+    headers['X-Frame-Options'] = 'DENY';
+    headers['Referrer-Policy'] = 'strict-origin-when-cross-origin';
   }
 
   let res: Response;
@@ -138,13 +147,15 @@ export async function apiFetch(path: string, init: RequestInit = {}) {
     });
     text = await res.text();
   } catch (err) {
-    console.error('API fetch error:', err, 'URL:', url);
-    console.error('API fetch error details:', {
-        message: err instanceof Error ? err.message : String(err),
-        url,
-        method,
-        headers: { ...headers, Authorization: headers.Authorization ? '(hidden)' : undefined }
-    });
+    if (DEBUG_API) {
+      console.error('API fetch error:', err, 'URL:', url);
+      console.error('API fetch error details:', {
+          message: err instanceof Error ? err.message : String(err),
+          url,
+          method,
+          headers: { ...headers, Authorization: headers.Authorization ? '(hidden)' : undefined }
+      });
+    }
     
     // Retry logic
     const isSafeMethod = ['GET', 'HEAD', 'OPTIONS'].includes(method);
@@ -153,7 +164,7 @@ export async function apiFetch(path: string, init: RequestInit = {}) {
     // Allow retry for safe methods OR unsafe methods with Idempotency-Key
     if (isSafeMethod || hasIdempotencyKey) {
       if (hasIdempotencyKey) {
-        console.log(`[DEBUG-FIX] Retrying ${method} request with Idempotency-Key: ${headers['Idempotency-Key']}`);
+        if (DEBUG_API) console.log(`[DEBUG] Retrying ${method} request with Idempotency-Key: ${headers['Idempotency-Key']}`);
       }
       
       await delay(500); // Wait a bit longer for retry
@@ -166,7 +177,7 @@ export async function apiFetch(path: string, init: RequestInit = {}) {
         });
         text = await res.text();
       } catch (retryErr) {
-        console.error('API fetch retry failed:', retryErr);
+        if (DEBUG_API) console.error('API fetch retry failed:', retryErr);
         throw new Error(`Failed to connect to API at ${url}. Backend may be unreachable.`);
       }
     } else {
@@ -187,7 +198,7 @@ export async function apiFetch(path: string, init: RequestInit = {}) {
 
   if (!res.ok) {
     // Automatic logout on 401 for protected routes
-    if (res.status === 401 && !openAuthPaths.some(p => path.startsWith(p))) {
+    if (res.status === 401 && !openAuthPaths.some(p => path.startsWith(p)) && !init.skipAuthRedirect) {
       setToken(null);
       setUser(null);
       if (typeof window !== 'undefined' && !window.location.pathname.startsWith('/login')) {
@@ -195,9 +206,28 @@ export async function apiFetch(path: string, init: RequestInit = {}) {
       }
     }
 
-    const message = (data && (data.error || data.message)) || (text || res.statusText || 'API request failed');
-    const err: any = new Error(String(message));
+    let message = (data && (data.error || data.message)) || (text || res.statusText || 'API request failed');
+    
+    // If we got an HTML response for a 404 or other error, it's likely a misconfigured rewrite or server error
+    if (contentType.toLowerCase().includes('text/html') && res.status === 404) {
+      message = `API endpoint not found [${res.status} ${method} ${path}]`;
+    } else if (contentType.toLowerCase().includes('text/html')) {
+      message = `Server error [${res.status} ${res.statusText}]`;
+    }
+
+    // BANK-GRADE ERROR SANITIZATION:
+    // Never leak technical details (SQL errors, stack traces, path names) to the user.
+    let cleanMessage = String(message);
+    const technicalKeywords = ['sql', 'database', 'postgres', 'dial tcp', 'invalid memory', 'stack trace', 'panic', 'at /', 'line ', 'unexpected end', 'json:'];
+    
+    if (technicalKeywords.some(k => cleanMessage.toLowerCase().includes(k))) {
+      if (DEBUG_API) console.error('[SECURITY AUDIT] Technical error intercepted:', cleanMessage);
+      cleanMessage = "A secure processing error occurred. Our team has been notified. Please try again later.";
+    }
+
+    const err: any = new Error(cleanMessage);
     err.status = res.status;
+    err.technical_details = message; // Keep hidden for logging if needed
     err.data = data ?? text ?? null;
     throw err;
   }

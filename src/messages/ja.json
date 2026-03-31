@@ -1,0 +1,253 @@
+{
+  "Dashboard": {
+    "title": "ダッシュボード",
+    "subtitle": "財務概要",
+    "totalAvailableBalance": "利用可能残高（合計）",
+    "totalBalance": "総残高",
+    "sendMoney": "送金",
+    "addFunds": "入金する",
+    "wallet": "ウォレット",
+    "transactions": "取引履歴",
+    "recentActivity": "最近のアクティビティ",
+    "viewAll": "すべて表示",
+    "noRecentActivity": "最近のアクティビティはありません",
+    "currentRate": "現在のレート",
+    "lastUpdatedJustNow": "最終更新: たった今",
+    "verificationRequired": "本人確認が必要です",
+    "verificationSubtitle": "KYC を完了して多通貨ウォレットと上限引き上げを有効にします。",
+    "verifyNow": "今すぐ確認",
+    "forexAnalytics": "為替分析",
+    "currencyConverter": "通貨換算"
+    ,
+    "converter": {
+      "setAlert": "アラート設定",
+      "viewHistory": "履歴を見る",
+      "from": "送金元",
+      "to": "送金先"
+    },
+    "market": {
+      "overviewTitle": "マーケット概要",
+      "overviewSubtitle": "リアルタイム為替レートと分析",
+      "open": "市場オープン",
+      "high24h": "24時間高値",
+      "low24h": "24時間安値",
+      "timing": {
+        "title": "タイミング分析",
+        "buyBadge": "買い時",
+        "buyText": "レートは日次平均より大幅に低い（-{percent}%）。",
+        "waitBadge": "様子見",
+        "waitText": "現在レートは高め（+{percent}%）。下落を待つのも選択肢です。",
+        "stableBadge": "安定相場",
+        "stableText": "ボラティリティは小さく安定（{percent}%）。"
+      },
+      "source": {
+        "title": "データソース",
+        "body": "Google Finance 提供の参考レートです。提供元により差異が生じる場合があります。"
+      }
+    }
+  },
+  "Wallet": {
+    "title": "マイウォレット",
+    "subtitle": "カード、デジタル資産、流動性ティアを管理します。",
+    "accountBalances": "口座残高",
+    "addNewCard": "新しいカードを追加",
+    "addMultiCurrencyCard": "多通貨カードを追加",
+    "unlockGlobalSpending": "グローバル利用を有効化",
+    "verificationRequiredTitle": "本人確認が必要です",
+    "verificationNotice": "本人確認で上限を引き上げ、追加通貨カードを利用できます。",
+    "verifyNow": "今すぐ確認",
+    "availableBalance": "利用可能残高",
+    "deposit": "入金",
+    "withdraw": "出金",
+    "loading": "読み込み中...",
+    "errors": {
+      "identityRequiredTitle": "本人確認が必要です",
+      "identityRequiredSubtitle": "多通貨ウォレットを利用するにはKYCを完了してください。"
+    },
+    "createModal": {
+      "badge": "新規アセット",
+      "title": "多通貨ウォレットを追加",
+      "subtitle": "グローバル取引のための新しい流動性カードを作成します。",
+      "baseCurrency": "基軸通貨",
+      "selectCurrency": "通貨を選択",
+      "accountCategory": "アカウント区分",
+      "selectType": "種類を選択",
+      "types": {
+        "personal": "個人利用",
+        "business": "ビジネス / マーチャント"
+      },
+      "currencies": {
+        "mwk": "マラウイ・クワチャ (MWK)",
+        "cny": "中国人民元 (CNY)",
+        "zmw": "ザンビア・クワチャ (ZMW)"
+      },
+      "cta": "ウォレットを作成",
+      "discard": "変更を破棄",
+      "success": "ウォレットを作成しました",
+      "error": "ウォレット作成に失敗しました"
+    }
+  },
+  "Profile": {
+    "title": "アカウント設定",
+    "myProfile": "プロフィール",
+    "security": "セキュリティ",
+    "translation": "翻訳",
+    "notifications": "通知",
+    "settings": "設定",
+    "deleteAccount": "アカウント削除",
+    "personalInfo": "個人情報",
+    "fullName": "氏名",
+    "email": "メールアドレス",
+    "phone": "電話番号",
+    "address": "住所",
+    "saveChanges": "変更を保存",
+    "updatePassword": "パスワード更新",
+    "updating": "更新中...",
+    "mfa": "二要素認証",
+    "mfaSubtitle": "アカウントに追加のセキュリティ層を追加します。"
+    ,
+    "notificationPreferences": {
+      "title": "通知設定",
+      "subtitle": "通知の受け取り方法を選択します。",
+      "email": { "title": "メール通知", "subtitle": "メールで更新を受け取ります" },
+      "push": { "title": "プッシュ通知", "subtitle": "端末で更新を受け取ります" },
+      "sms": { "title": "SMS 通知", "subtitle": "SMS で更新を受け取ります" }
+    }
+  },
+  "Sidebar": {
+    "dashboard": "ダッシュボード",
+    "wallet": "マイウォレット",
+    "sendMoney": "送金",
+    "transactions": "取引履歴",
+    "profile": "プロフィール",
+    "verifyIdentity": "本人確認",
+    "signOut": "サインアウト"
+  },
+  "SendMoney": {
+    "title": "送金する",
+    "subtitle": "安全に国際送金と支払いを開始します。",
+    "instantSettlement": "即時決済",
+    "kycRequired": {
+      "title": "本人確認が必要です",
+      "subtitle": "国際送金と上限引き上げのためにKYCを完了してください。"
+    },
+    "sections": {
+      "recipientDetails": "受取人情報",
+      "transferAmount": "送金金額",
+      "paymentPath": "支払い経路"
+    },
+    "cta": {
+      "confirmTransfer": "確認して今すぐ送金"
+    },
+    "security": {
+      "aes256": "AES-256 で暗号化された送金"
+    },
+    "preview": {
+      "empty": "金額を入力して\nリアルタイム為替レートを表示"
+    },
+    "errors": {
+      "blockedTitle": "取引がブロックされました",
+      "untrustedDevice": "新しい端末が検出されました。安全のため、一度ログアウトして再ログインしてください。",
+      "duplicateRequest": "重複したリクエストが検出されました。しばらく待つか取引履歴を確認してください。",
+      "insufficientBalance": "残高が不足しています。",
+      "generic": "エラーが発生しました。もう一度お試しください。"
+    },
+    "feeNote": "手数料は送金時点の流動性とネットワーク状況に基づき動的に計算されます。",
+    "paymentDetails": "支払い詳細",
+    "international": "国際送金",
+    "sameCurrency": "同一通貨",
+    "amount": "金額",
+    "currency": "通貨"
+  },
+  "Common": {
+    "submit": "送金する",
+    "cancel": "キャンセル",
+    "loading": "処理中...",
+    "save": "保存",
+    "error": "エラー",
+    "success": "成功"
+  },
+  "Layout": {
+    "emailVerificationRequired": {
+      "title": "メール認証が必要です",
+      "subtitle": "送金などすべての機能を利用するにはメールアドレスを認証してください。",
+      "cta": "今すぐ認証"
+    }
+  },
+  "TopBar": {
+    "fallbackUser": "ユーザー",
+    "welcomeBack": "おかえりなさい、{name}",
+    "titles": {
+      "dashboard": "ダッシュボード",
+      "wallet": "マイウォレット",
+      "sendMoney": "送金",
+      "transactions": "取引履歴",
+      "compliance": "コンプライアンス / KYC",
+      "profile": "プロフィール / セキュリティ",
+      "translation": "言語設定",
+      "onboarding": "本人確認"
+    },
+    "search": {
+      "placeholder": "取引を検索..."
+    },
+    "notifications": {
+      "title": "通知",
+      "newCount": "新着 {count}",
+      "empty": "新しい通知はありません",
+      "viewAll": "すべての通知を見る"
+    },
+    "theme": {
+      "toggleAria": "テーマを切り替える"
+    },
+    "account": {
+      "signedInAs": "ログイン中",
+      "myProfile": "プロフィール",
+      "security": "セキュリティ",
+      "billing": "請求 / カード"
+    }
+  }
+  ,
+  "Transactions": {
+    "title": "取引概要",
+    "subtitle": "カード管理とアクティビティの確認。",
+    "actions": {
+      "selectDates": "日付を選択",
+      "export": "エクスポート"
+    },
+    "stats": {
+      "inflow": "入金",
+      "outflow": "出金",
+      "pendingSettlement": "保留中の決済"
+    },
+    "tabs": {
+      "all": "すべて",
+      "sent": "送金",
+      "received": "受取"
+    },
+    "search": {
+      "placeholder": "取引を検索..."
+    },
+    "loading": "読み込み中...",
+    "pagination": {
+      "pageOf": "{totalPages} 中 {page} ページ",
+      "previous": "前へ",
+      "next": "次へ"
+    },
+    "cards": {
+      "title": "マイカード",
+      "manage": "管理",
+      "totalBalance": "合計残高",
+      "walletId": "ウォレットID",
+      "addNewCard": "新しいカードを追加"
+    },
+    "list": {
+      "title": "取引",
+      "viewAll": "すべて表示",
+      "empty": "まだ取引がありません",
+      "unknownSender": "不明な送信者",
+      "unknownReceiver": "不明な受取人",
+      "datePending": "日付待ち",
+      "invalidDate": "無効な日付"
+    }
+  }
+}

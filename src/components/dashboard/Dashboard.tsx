@@ -1,12 +1,22 @@
 // src/components/dashboard/Dashboard.tsx
 'use client';
 
+import dynamic from 'next/dynamic';
 import { UserProfile, WalletStats, Transaction, ExchangeRateDetail } from '@/src/types/types';
 import BalanceCard from '@/src/components/dashboard/home/BalanceCard';
 import RateCard from '@/src/components/dashboard/home/RateCard';
 import CurrencyConverter from '@/src/components/dashboard/home/CurrencyConverter';
-import ForexAnalytics from '@/src/components/dashboard/forex/ForexAnalytics';
-import RecentActivityList from '@/src/components/dashboard/home/RecentActivityList';
+
+// Lazy load heavy dashboard sections
+const ForexAnalytics = dynamic(() => import('@/src/components/dashboard/forex/ForexAnalytics'), { 
+  ssr: false,
+  loading: () => <div className="h-[400px] w-full animate-pulse bg-muted/20 rounded-2xl" />
+});
+
+const RecentActivityList = dynamic(() => import('@/src/components/dashboard/home/RecentActivityList'), { 
+  ssr: false,
+  loading: () => <div className="h-[400px] w-full animate-pulse bg-muted/20 rounded-2xl" />
+});
 
 
 interface DashboardProps {

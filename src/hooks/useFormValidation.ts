@@ -14,9 +14,14 @@ export type ValidationSchema = {
   [key: string]: (value: any) => string | null;
 };
 
+type SubmitHelpers = {
+  setFieldError: (name: string, error: string) => void;
+  resetForm: () => void;
+};
+
 export function useFormValidation(
   initialValues: Record<string, string | boolean>,
-  onSubmit: (values: Record<string, string | boolean>) => Promise<void>,
+  onSubmit: (values: Record<string, string | boolean>, helpers?: SubmitHelpers) => Promise<void>,
   validationSchema?: ValidationSchema
 ) {
   const [values, setValues] = useState(initialValues);
@@ -73,23 +78,6 @@ export function useFormValidation(
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
-
-    setIsSubmitting(true);
-    try {
-      await onSubmit(values);
-    } catch (error) {
-      console.error('Form submission error:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   const setFieldError = (name: string, error: string) => {
     setErrors(prev => ({
       ...prev,
@@ -100,6 +88,21 @@ export function useFormValidation(
   const resetForm = () => {
     setValues(initialValues);
     setErrors({});
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      await onSubmit(values, { setFieldError, resetForm });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return {

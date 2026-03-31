@@ -16,8 +16,9 @@ export interface Wallet {
   id: string;
   user_id: string;
   currency: string;
-  balance: string;
   available_balance: string;
+  ledger_balance?: string;
+  reserved_balance?: string;
   type: string;
   status: string;
   wallet_address?: string;
@@ -25,41 +26,22 @@ export interface Wallet {
 }
 
 export async function createWallet(data: CreateWalletRequest): Promise<Wallet> {
-  const res = await apiFetch('/wallets', {
+  const wallet = await apiFetch('/wallets', {
     method: 'POST',
     body: JSON.stringify(data),
   });
-  
-  if (!res.ok) {
-    const errorData = await res.json().catch(() => ({}));
-    throw new Error(errorData.error || errorData.message || 'Failed to create wallet');
-  }
-
-  // Handle case where API returns wrapped response or direct object
-  const json = await res.json();
-  return json.wallet || json;
+  return wallet as Wallet;
 }
 
 export async function getWallets(): Promise<{ wallets: Wallet[] }> {
-    const res = await apiFetch('/wallets');
-    if (!res.ok) {
-        throw new Error('Failed to fetch wallets');
-    }
-    return res.json();
+  const data = await apiFetch('/wallets');
+  return data as { wallets: Wallet[] };
 }
 
 export async function depositToWallet(walletId: string, amount: number, sourceId: string, currency: string): Promise<any> {
-  // Simulating a deposit endpoint if not yet implemented on backend
-  // In a real scenario, this would POST to /wallets/{id}/deposit or /payments/deposit
-  const res = await apiFetch(`/wallets/${walletId}/deposit`, {
+  const wallet = await apiFetch(`/wallets/${walletId}/deposit`, {
     method: 'POST',
     body: JSON.stringify({ amount, source_id: sourceId, currency }),
   });
-
-  if (!res.ok) {
-     const errorData = await res.json().catch(() => ({}));
-     throw new Error(errorData.error || errorData.message || 'Failed to deposit');
-  }
-
-  return res.json();
+  return wallet;
 }

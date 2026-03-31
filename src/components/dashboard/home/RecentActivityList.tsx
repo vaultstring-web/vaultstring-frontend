@@ -3,6 +3,7 @@ import { Clock, ArrowUpRight, ArrowDownLeft } from 'lucide-react';
 import { Transaction } from '@/src/types/types';
 import { format } from 'date-fns';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import {
   Pagination,
   PaginationContent,
@@ -17,6 +18,7 @@ interface RecentActivityListProps {
 }
 
 export default function RecentActivityList({ recentTransactions }: RecentActivityListProps) {
+  const t = useTranslations('Dashboard');
   const [page, setPage] = useState(1);
   const limit = 5;
   const total = recentTransactions.length;
@@ -29,13 +31,13 @@ export default function RecentActivityList({ recentTransactions }: RecentActivit
       <div className="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center shrink-0">
         <h3 className="font-semibold text-slate-800 dark:text-white flex items-center gap-2">
           <Clock size={20} className="text-slate-400 dark:text-slate-500" />
-          Recent Activity
+          {t('recentActivity')}
         </h3>
         <Link
-          href="/dashboard/transactions"
+          href="/transactions"
           className="text-sm text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-medium"
         >
-          View All
+          {t('viewAll')}
         </Link>
       </div>
       <div className="overflow-y-auto flex-1 p-0">
@@ -66,7 +68,7 @@ export default function RecentActivityList({ recentTransactions }: RecentActivit
             </div>
           ))}
           {recentTransactions.length === 0 && (
-             <div className="p-8 text-center text-slate-500 dark:text-slate-400">No recent activity</div>
+             <div className="p-8 text-center text-slate-500 dark:text-slate-400">{t('noRecentActivity')}</div>
           )}
         </div>
       </div>

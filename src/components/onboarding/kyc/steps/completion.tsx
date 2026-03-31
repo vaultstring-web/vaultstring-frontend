@@ -8,66 +8,87 @@ interface CompletionStepProps {
   onChangeUserType: () => void
 }
 
+import { AuthLayout } from "@/src/components/shared/AuthLayout"
+import { CheckCircle2, Clock, Mail, ShieldCheck } from "lucide-react"
+
+interface CompletionStepProps {
+  type: "individual" | "business"
+  onChangeUserType: () => void
+}
+
 export function CompletionStep({ type, onChangeUserType }: CompletionStepProps) {
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl space-y-8">
-        {/* Success Card */}
-        <Card className="p-8 text-center space-y-4 border border-gray-200">
-          <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
-              <svg className="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clipRule="evenodd"
-                />
-              </svg>
+    <AuthLayout 
+      title={type === "individual" ? "KYC Submitted" : "Business KYC Submitted"} 
+      subtitle="Your verification is being processed"
+    >
+      <div className="space-y-8">
+        <div className="flex flex-col items-center justify-center py-4 space-y-6">
+          <div className="h-24 w-24 bg-green-50 dark:bg-green-500/10 rounded-full flex items-center justify-center border-4 border-white dark:border-slate-800 shadow-xl shadow-green-500/10">
+            <CheckCircle2 className="h-12 w-12 text-green-500" />
+          </div>
+          
+          <div className="text-center space-y-2">
+            <p className="text-slate-600 dark:text-slate-400 font-medium px-4">
+              Thank you for completing your verification. Our compliance team is now reviewing your application.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid gap-4">
+          <div className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+            <div className="h-10 w-10 rounded-xl bg-white dark:bg-slate-700 flex items-center justify-center shadow-sm">
+              <Clock className="h-5 w-5 text-green-600" />
+            </div>
+            <div>
+              <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Review Time</p>
+              <p className="text-sm font-bold text-slate-700 dark:text-slate-200">24 - 48 Hours</p>
             </div>
           </div>
 
-          <h1 className="text-3xl font-bold text-gray-900">
-            {type === "individual" ? "Personal KYC Completed" : "Business KYC Completed"}
-          </h1>
+          <div className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+            <div className="h-10 w-10 rounded-xl bg-white dark:bg-slate-700 flex items-center justify-center shadow-sm">
+              <Mail className="h-5 w-5 text-green-600" />
+            </div>
+            <div>
+              <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Confirmation</p>
+              <p className="text-sm font-bold text-slate-700 dark:text-slate-200">Email will be sent</p>
+            </div>
+          </div>
 
-          <p className="text-lg text-gray-600">
-            {type === "individual"
-              ? "Your personal information has been successfully verified. You can now access your account."
-              : "Your company information has been successfully verified. You can now access your business account."}
+          <div className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+            <div className="h-10 w-10 rounded-xl bg-white dark:bg-slate-700 flex items-center justify-center shadow-sm">
+              <ShieldCheck className="h-5 w-5 text-green-600" />
+            </div>
+            <div>
+              <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Security</p>
+              <p className="text-sm font-bold text-slate-700 dark:text-slate-200">Full access on approval</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-4 pt-2">
+          <Button
+            onClick={() => (window.location.href = "/")}
+            className="w-full h-14 rounded-2xl bg-green-500 hover:bg-green-600 text-white font-bold text-lg shadow-lg shadow-green-500/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
+          >
+            Go to Dashboard
+          </Button>
+          
+          <button 
+            onClick={onChangeUserType} 
+            className="w-full text-center text-[11px] font-bold text-slate-400 hover:text-green-600 uppercase tracking-widest transition-colors"
+          >
+            Start Another Verification
+          </button>
+        </div>
+
+        <div className="text-center">
+          <p className="text-[10px] text-slate-400 uppercase font-bold tracking-tighter">
+            Reference ID: KYC-{Date.now().toString().slice(-8).toUpperCase()}
           </p>
-
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-2 my-6">
-            <p className="font-medium text-blue-900">What happens next?</p>
-            <ul className="text-sm text-blue-800 space-y-1 text-left">
-              <li>Your information will be reviewed by our compliance team (24-48 hours)</li>
-              <li>You'll receive a confirmation email once approved</li>
-              <li>You can start using your account immediately</li>
-            </ul>
-          </div>
-
-          <div className="space-y-3 pt-4">
-            <Button
-              onClick={() => (window.location.href = "/dashboard")}
-              className="w-full bg-primary hover:bg-primary/90 text-white text-base py-3"
-            >
-              Go to Dashboard
-            </Button>
-            <Button 
-              onClick={onChangeUserType} 
-              variant="outline" 
-              className="w-full bg-transparent border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-            >
-              Start Another Verification
-            </Button>
-          </div>
-        </Card>
-
-        {/* Footer */}
-        <div className="text-center text-sm text-gray-600 space-y-1">
-          <p>If you have any questions, contact our support team</p>
-          <p className="text-xs text-gray-500">Reference ID: KYC-{Date.now().toString().slice(-8).toUpperCase()}</p>
         </div>
       </div>
-    </div>
+    </AuthLayout>
   )
 }

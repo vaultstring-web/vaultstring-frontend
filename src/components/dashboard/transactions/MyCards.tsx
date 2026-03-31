@@ -4,6 +4,7 @@ import { Plus, CreditCard, ArrowUpRight, Loader2 } from 'lucide-react';
 import { Button } from '@/src/components/ui/button';
 import { useWalletStats } from '@/src/hooks/useWalletStats';
 import { formatCurrency, formatWalletNumber, getWalletGradient, generateFallbackWalletNumber } from '@/src/lib/utils/formatters';
+import { useTranslations } from 'next-intl';
 
 export interface MyCardsProps {
   selectedWalletId?: string | null;
@@ -11,6 +12,7 @@ export interface MyCardsProps {
 }
 
 export default function MyCards({ selectedWalletId, onSelectWallet }: MyCardsProps) {
+  const t = useTranslations('Transactions');
   const { stats, wallets, loading } = useWalletStats();
   
   const primaryWallet = wallets.find(w => w.currency === stats.primaryCurrency) || wallets[0];
@@ -45,10 +47,10 @@ export default function MyCards({ selectedWalletId, onSelectWallet }: MyCardsPro
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-black text-slate-900 dark:text-white flex items-center gap-2">
-          My Cards <ArrowUpRight size={18} className="text-slate-400" />
+          {t('cards.title')} <ArrowUpRight size={18} className="text-slate-400" />
         </h2>
         <Button variant="ghost" size="sm" className="text-indigo-600 font-bold hover:text-indigo-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30">
-            Manage
+            {t('cards.manage')}
         </Button>
       </div>
 
@@ -67,7 +69,7 @@ export default function MyCards({ selectedWalletId, onSelectWallet }: MyCardsPro
           
           <div className="relative z-10 flex justify-between items-start">
             <div>
-              <p className="text-white/80 font-bold text-sm mb-1">Total Balance</p>
+              <p className="text-white/80 font-bold text-sm mb-1">{t('cards.totalBalance')}</p>
               <h3 className="text-3xl font-black text-white">
                 {formatCurrency(primaryWallet?.available_balance || 0, primaryWallet?.currency || 'MWK')}
               </h3>
@@ -80,7 +82,7 @@ export default function MyCards({ selectedWalletId, onSelectWallet }: MyCardsPro
           <div className="relative z-10">
             <div className="flex justify-between items-end">
                 <div>
-                    <p className="text-white/60 font-bold text-xs uppercase tracking-wider mb-1">Wallet ID</p>
+                    <p className="text-white/60 font-bold text-xs uppercase tracking-wider mb-1">{t('cards.walletId')}</p>
                     <p className="font-mono text-white font-bold text-lg tracking-wider">
                         {primaryWalletNumber}
                     </p>
@@ -99,7 +101,7 @@ export default function MyCards({ selectedWalletId, onSelectWallet }: MyCardsPro
             <div className="h-10 w-10 bg-white dark:bg-slate-700 rounded-full shadow-sm flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
                 <Plus className="text-slate-400 group-hover:text-indigo-600 dark:text-slate-400 dark:group-hover:text-indigo-400" />
             </div>
-            <span className="text-xs font-bold text-slate-500 group-hover:text-indigo-600 dark:text-slate-400 dark:group-hover:text-indigo-400">Add New Card</span>
+            <span className="text-xs font-bold text-slate-500 group-hover:text-indigo-600 dark:text-slate-400 dark:group-hover:text-indigo-400">{t('cards.addNewCard')}</span>
          </div>
          
          {otherWallets.map(wallet => (

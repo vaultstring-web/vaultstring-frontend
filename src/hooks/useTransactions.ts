@@ -39,6 +39,14 @@ export function useTransactions(initialLimit = 10) {
         url += `&wallet_id=${filters.walletId}`;
       }
       
+      if (filters.status !== 'all') {
+        url += `&status=${filters.status}`;
+      }
+      
+      if (filters.query) {
+        url += `&query=${encodeURIComponent(filters.query)}`;
+      }
+      
       const res = await apiFetch<PaginatedResponse<ApiTransaction>>(url);
       // Ensure transactions is an array and filter out any null/undefined items immediately
       const safeTransactions = (Array.isArray(res?.transactions) ? res.transactions : []).filter(Boolean);
@@ -46,7 +54,6 @@ export function useTransactions(initialLimit = 10) {
       setTotal(res?.total || 0);
       setError(null);
     } catch (e: any) {
-      console.error('Failed to fetch transactions:', e);
       setError(e?.message || 'Failed to load transactions');
       setTransactions([]);
     } finally {
@@ -58,7 +65,7 @@ export function useTransactions(initialLimit = 10) {
     if (user) {
       fetchTransactions();
     }
-  }, [user, page, limit, filters.walletId]);
+  }, [user, page, limit, filters.walletId, filters.status, filters.query]);
 
   // Derived state (Filtered Transactions)
   // Note: This filters only the current page of results, which is a known limitation 
@@ -101,7 +108,10 @@ export function useTransactions(initialLimit = 10) {
         if (filters.tab === 'sent') return uid && sidL === uid;
         if (filters.tab === 'received') return uid && ridL === uid;
         if (filters.tab === 'topup') return type === 'deposit';
-        if (filters.tab === 'pending_settlement') return String(t.status || '').toLowerCase() === 'pending';
+        if (filters.tab === 'pending_settlement') {
+          const status = String(t.status || '').toLowerCase();
+          return status === 'pending' || status === 'pending_settlement' || status === 'processing';
+        }
         return true;
       })();
 
@@ -113,7 +123,11 @@ export function useTransactions(initialLimit = 10) {
     return {
       total: total || transactions.length,
       completed: transactions.filter((t) => t && String(t.status || '').toLowerCase() === 'completed').length,
-      pending: transactions.filter((t) => t && String(t.status || '').toLowerCase() === 'pending').length,
+      pending: transactions.filter((t) => {
+        if (!t) return false;
+        const status = String(t.status || '').toLowerCase();
+        return status === 'pending' || status === 'pending_settlement' || status === 'processing';
+      }).length,
       received: transactions.filter((t) => t && String(t.receiver_id || t.receiverId || '') === String(userId || '')).length,
       sent: transactions.filter((t) => t && String(t.sender_id || t.senderId || '') === String(userId || '')).length,
     };

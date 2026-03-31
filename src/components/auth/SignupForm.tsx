@@ -19,13 +19,19 @@ import {
 import { Input } from "@/src/components/ui/input"
 import { Alert, AlertDescription, AlertTitle } from "@/src/components/ui/alert"
 import { signup as signupApi } from "@/src/lib/auth/auth"
+import { apiFetch } from "@/src/lib/api/api-client"
 import { PasswordStrengthIndicator } from "@/src/components/forms/PasswordStrengthIndicator"
 import { RadioGroup, RadioGroupItem } from "@/src/components/ui/radio-group"
 import { Checkbox } from "@/src/components/ui/checkbox"
+import { SocialAuthDivider, SocialButton } from '@/src/components/forms/SocialAuthDivider';
 
 const signupSchema = z.object({
   accountType: z.enum(["individual", "business"]),
   email: z.string().email({ message: "Please enter a valid email address" }),
+  firstName: z.string().min(1, { message: "First name is required" }),
+  lastName: z.string().min(1, { message: "Last name is required" }),
+  phone: z.string().min(10, { message: "Invalid phone number" }),
+  countryCode: z.string().length(2, { message: "2-character country code (e.g., MW)" }),
   businessName: z.string().optional(),
   password: z.string().min(8, { message: "Password must be at least 8 characters" }),
   confirmPassword: z.string(),
@@ -57,6 +63,10 @@ export function SignupForm() {
     defaultValues: {
       accountType: "individual",
       email: "",
+      firstName: "",
+      lastName: "",
+      phone: "",
+      countryCode: "MW",
       businessName: "",
       password: "",
       confirmPassword: "",
@@ -68,20 +78,44 @@ export function SignupForm() {
   const password = watch("password")
   const accountType = watch("accountType")
 
-  async function onSubmit(data: SignupFormValues) {
+  const handleGoogleLogin = async () => {
+    setGlobalError(null);
+    try {
+      const data = await apiFetch('/auth/google/start', { method: 'GET' })
+      if (!data?.auth_url) {
+        throw new Error('Failed to initiate Google OAuth')
+      }
+      window.location.href = data.auth_url
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to initiate Google authentication. Please try again."
+      setGlobalError(msg)
+    }
+  };
+
+  const handleAppleLogin = () => {
+    setGlobalError(null);
+    // Apple logic will be implemented later
+  };
+
+  async function onSubmit(values: SignupFormValues) {
     setGlobalError(null)
     
     try {
       const resp = await signupApi({
-        email: data.email,
-        password: data.password,
-        accountType: data.accountType,
+        email: values.email,
+        password: values.password,
+        first_name: values.firstName,
+        last_name: values.lastName,
+        phone: values.phone,
+        user_type: values.accountType === "business" ? "merchant" : "individual",
+        country_code: values.countryCode,
+        business_name: values.accountType === "business" ? values.businessName : undefined,
       })
 
-      if (resp?.ok) {
+      if (resp?.user?.id) {
         setIsSuccess(true)
         setTimeout(() => {
-            router.push(`/verification?email=${encodeURIComponent(data.email)}`)
+            router.push(`/verification?email=${encodeURIComponent(values.email)}`)
         }, 1500)
       } else {
         setGlobalError(resp?.message || "Signup failed. Please try again.")
@@ -180,6 +214,85 @@ export function SignupForm() {
             />
           )}
 
+          <div className="grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="firstName"
+              render={({ field }) => (
+                <FormItem className="space-y-2">
+                  <FormLabel className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">First Name</FormLabel>
+                  <FormControl>
+                    <Input 
+                      placeholder="Jane" 
+                      className="h-14 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 dark:text-white border-none focus-visible:ring-2 focus-visible:ring-green-500/20 dark:focus-visible:ring-green-500/10"
+                      {...field} 
+                    />
+                  </FormControl>
+                  <FormMessage className="text-red-500 ml-1" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="lastName"
+              render={({ field }) => (
+                <FormItem className="space-y-2">
+                  <FormLabel className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Last Name</FormLabel>
+                  <FormControl>
+                    <Input 
+                      placeholder="Doe" 
+                      className="h-14 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 dark:text-white border-none focus-visible:ring-2 focus-visible:ring-green-500/20 dark:focus-visible:ring-green-500/10"
+                      {...field} 
+                    />
+                  </FormControl>
+                  <FormMessage className="text-red-500 ml-1" />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="grid grid-cols-3 gap-4">
+            <div className="col-span-1">
+              <FormField
+                control={form.control}
+                name="countryCode"
+                render={({ field }) => (
+                  <FormItem className="space-y-2">
+                    <FormLabel className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Country</FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder="MW" 
+                        maxLength={2}
+                        className="h-14 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 dark:text-white border-none focus-visible:ring-2 focus-visible:ring-green-500/20 dark:focus-visible:ring-green-500/10 text-center uppercase"
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormMessage className="text-red-500 ml-1" />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="col-span-2">
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem className="space-y-2">
+                    <FormLabel className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Phone (E.164)</FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder="+265..." 
+                        className="h-14 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 dark:text-white border-none focus-visible:ring-2 focus-visible:ring-green-500/20 dark:focus-visible:ring-green-500/10"
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormMessage className="text-red-500 ml-1" />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+
           <FormField
             control={form.control}
             name="email"
@@ -274,6 +387,21 @@ export function SignupForm() {
               "Create Account"
             )}
           </Button>
+
+          <SocialAuthDivider />
+
+          <div className="grid grid-cols-2 gap-4">
+            <SocialButton 
+              provider="google" 
+              onClick={handleGoogleLogin}
+              className="h-12 rounded-xl border-slate-100 dark:border-slate-800 font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 dark:bg-transparent" 
+            />
+            <SocialButton 
+              provider="apple" 
+              onClick={handleAppleLogin}
+              className="h-12 rounded-xl border-slate-100 dark:border-slate-800 font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 dark:bg-transparent" 
+            />
+          </div>
         </form>
       </Form>
     </div>

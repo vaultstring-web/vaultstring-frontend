@@ -1,0 +1,253 @@
+{
+  "Dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Your financial overview",
+    "totalAvailableBalance": "Total Available Balance",
+    "totalBalance": "Total Balance",
+    "sendMoney": "Send Money",
+    "addFunds": "Add Funds",
+    "wallet": "Wallet",
+    "transactions": "Transactions",
+    "recentActivity": "Recent Activity",
+    "viewAll": "View All",
+    "noRecentActivity": "No recent activity",
+    "currentRate": "Current Rate",
+    "lastUpdatedJustNow": "Last updated: just now",
+    "verificationRequired": "Identity Verification Required",
+    "verificationSubtitle": "Unlock multi-currency wallets and higher limits by completing your KYC.",
+    "verifyNow": "Verify Now",
+    "forexAnalytics": "Forex Analytics",
+    "currencyConverter": "Currency Converter"
+    ,
+    "converter": {
+      "setAlert": "Set Alert",
+      "viewHistory": "View History",
+      "from": "From",
+      "to": "To"
+    },
+    "market": {
+      "overviewTitle": "Market Overview",
+      "overviewSubtitle": "Real-time exchange rates and analytics",
+      "open": "Market Open",
+      "high24h": "24h High",
+      "low24h": "24h Low",
+      "timing": {
+        "title": "Timing Insights",
+        "buyBadge": "Great Time to Buy",
+        "buyText": "Rates are significantly lower (-{percent}%) than the daily average.",
+        "waitBadge": "Consider Waiting",
+        "waitText": "Rates are currently high (+{percent}%). Consider waiting for a dip.",
+        "stableBadge": "Stable Market",
+        "stableText": "Rates are stable with minimal volatility ({percent}%)."
+      },
+      "source": {
+        "title": "Market Source",
+        "body": "Real-time data provided by Google Finance. Rates are indicative and may vary by provider."
+      }
+    }
+  },
+  "Wallet": {
+    "title": "My Wallets",
+    "subtitle": "Manage your cards, digital assets, and liquidity tiers.",
+    "accountBalances": "Account Balances",
+    "addNewCard": "Add New Card",
+    "addMultiCurrencyCard": "Add Multi-Currency Card",
+    "unlockGlobalSpending": "Unlock global spending",
+    "verificationRequiredTitle": "Verification Required",
+    "verificationNotice": "Verify your identity to increase limits and add more currency cards.",
+    "verifyNow": "Verify Now",
+    "availableBalance": "Available Balance",
+    "deposit": "Deposit",
+    "withdraw": "Withdraw",
+    "loading": "Loading...",
+    "errors": {
+      "identityRequiredTitle": "Identity Verification Required",
+      "identityRequiredSubtitle": "Please complete your KYC to unlock multi-currency wallets."
+    },
+    "createModal": {
+      "badge": "New Asset",
+      "title": "Add Multi-Currency Wallet",
+      "subtitle": "Create a new liquidity card to start transacting globally.",
+      "baseCurrency": "Base Currency",
+      "selectCurrency": "Select currency",
+      "accountCategory": "Account Category",
+      "selectType": "Select type",
+      "types": {
+        "personal": "Personal Use",
+        "business": "Business / Merchant"
+      },
+      "currencies": {
+        "mwk": "Malawian Kwacha (MWK)",
+        "cny": "Chinese Yuan (CNY)",
+        "zmw": "Zambian Kwacha (ZMW)"
+      },
+      "cta": "Create My Wallet",
+      "discard": "Discard Changes",
+      "success": "Wallet created successfully",
+      "error": "Failed to create wallet"
+    }
+  },
+  "Profile": {
+    "title": "Account Settings",
+    "myProfile": "My Profile",
+    "security": "Security",
+    "translation": "Translation",
+    "notifications": "Notifications",
+    "settings": "Settings",
+    "deleteAccount": "Delete Account",
+    "personalInfo": "Personal Information",
+    "fullName": "Full Name",
+    "email": "Email Address",
+    "phone": "Phone",
+    "address": "Address",
+    "saveChanges": "Save Changes",
+    "updatePassword": "Update Password",
+    "updating": "Updating...",
+    "mfa": "Two-Factor Authentication",
+    "mfaSubtitle": "Add an extra layer of security to your account."
+    ,
+    "notificationPreferences": {
+      "title": "Notification Preferences",
+      "subtitle": "Choose how you want to be notified.",
+      "email": { "title": "Email Notifications", "subtitle": "Receive updates via email" },
+      "push": { "title": "Push Notifications", "subtitle": "Receive updates on your device" },
+      "sms": { "title": "SMS Notifications", "subtitle": "Receive updates via SMS" }
+    }
+  },
+  "Sidebar": {
+    "dashboard": "Dashboard",
+    "wallet": "My Wallet",
+    "sendMoney": "Send Money",
+    "transactions": "Transactions",
+    "profile": "Profile",
+    "verifyIdentity": "Verify Identity",
+    "signOut": "Sign Out"
+  },
+  "SendMoney": {
+    "title": "Send Money",
+    "subtitle": "Initiate cross-border transfers and payouts securely.",
+    "instantSettlement": "Instant Settlement",
+    "kycRequired": {
+      "title": "Identity Verification Required",
+      "subtitle": "Please complete your KYC to unlock international transfers and higher limits."
+    },
+    "sections": {
+      "recipientDetails": "Recipient Details",
+      "transferAmount": "Transfer Amount",
+      "paymentPath": "Payment Path"
+    },
+    "cta": {
+      "confirmTransfer": "Confirm & Transfer Now"
+    },
+    "security": {
+      "aes256": "AES-256 Encrypted Payment"
+    },
+    "preview": {
+      "empty": "Enter an amount to see\nlive exchange rates"
+    },
+    "errors": {
+      "blockedTitle": "Transaction Blocked",
+      "untrustedDevice": "New device detected. For security, please log out and log in again to verify this device.",
+      "duplicateRequest": "Duplicate request detected. Please wait or check your transaction history.",
+      "insufficientBalance": "Insufficient balance.",
+      "generic": "An error occurred. Please try again."
+    },
+    "feeNote": "Fees are calculated dynamically based on liquidity and network volume at the time of transfer.",
+    "paymentDetails": "Payment Details",
+    "international": "International",
+    "sameCurrency": "Same Currency",
+    "amount": "Amount",
+    "currency": "Currency"
+  },
+  "Common": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "loading": "Processing...",
+    "save": "Save",
+    "error": "Error",
+    "success": "Success"
+  },
+  "Layout": {
+    "emailVerificationRequired": {
+      "title": "Email Verification Required",
+      "subtitle": "Please verify your email to unlock all features including sending money.",
+      "cta": "Verify Now"
+    }
+  },
+  "TopBar": {
+    "fallbackUser": "User",
+    "welcomeBack": "Welcome back, {name}",
+    "titles": {
+      "dashboard": "Dashboard",
+      "wallet": "My Wallet",
+      "sendMoney": "Send Money",
+      "transactions": "Transaction History",
+      "compliance": "Compliance & KYC",
+      "profile": "Profile & Security",
+      "translation": "Language Settings",
+      "onboarding": "Identity Verification"
+    },
+    "search": {
+      "placeholder": "Search transactions..."
+    },
+    "notifications": {
+      "title": "Notifications",
+      "newCount": "{count} New",
+      "empty": "No new notifications",
+      "viewAll": "View All Notifications"
+    },
+    "theme": {
+      "toggleAria": "Toggle theme"
+    },
+    "account": {
+      "signedInAs": "Signed in as",
+      "myProfile": "My Profile",
+      "security": "Security",
+      "billing": "Billing & Cards"
+    }
+  }
+  ,
+  "Transactions": {
+    "title": "Financial Overview",
+    "subtitle": "Manage your cards and review activity.",
+    "actions": {
+      "selectDates": "Select Dates",
+      "export": "Export"
+    },
+    "stats": {
+      "inflow": "Inflow",
+      "outflow": "Outflow",
+      "pendingSettlement": "Pending Settlement"
+    },
+    "tabs": {
+      "all": "All",
+      "sent": "Sent",
+      "received": "Received"
+    },
+    "search": {
+      "placeholder": "Search transactions..."
+    },
+    "loading": "Loading...",
+    "pagination": {
+      "pageOf": "Page {page} of {totalPages}",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "cards": {
+      "title": "My Cards",
+      "manage": "Manage",
+      "totalBalance": "Total Balance",
+      "walletId": "Wallet ID",
+      "addNewCard": "Add New Card"
+    },
+    "list": {
+      "title": "Transactions",
+      "viewAll": "View all",
+      "empty": "No transactions yet",
+      "unknownSender": "Unknown Sender",
+      "unknownReceiver": "Unknown Receiver",
+      "datePending": "Date Pending",
+      "invalidDate": "Invalid Date"
+    }
+  }
+}

@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import { Button } from "@/src/components/ui/button"
-import { getToken } from "@/src/lib/api/api-client"
+import { apiFetch } from "@/src/lib/api/api-client"
 
 interface DocumentationStepProps {
   onNext: (data: any) => void
@@ -61,26 +61,11 @@ export function DocumentationStep({ onNext }: DocumentationStepProps) {
         if (files.articles) formData.append("articles", files.articles)
         if (files.shareholders) formData.append("shareholders", files.shareholders)
 
-        const token = getToken()
-        const GATEWAY = typeof window === 'undefined' 
-            ? (process.env.GATEWAY_INTERNAL_URL || process.env.NEXT_PUBLIC_GATEWAY_URL || 'http://127.0.0.1:9000')
-            : (window.location.origin.includes('localhost') ? 'http://127.0.0.1:9000' : '/api/v1');
-
-        // Use direct fetch to handle FormData properly (avoid Content-Type application/json)
-        const response = await fetch(`${GATEWAY}/api/v1/compliance/kyc/submit`, {
+        const data = await apiFetch('/compliance/kyc/submit', {
           method: "POST",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            // Do NOT set Content-Type, browser sets it with boundary
-          },
           body: formData,
         })
 
-        if (!response.ok) {
-          throw new Error("Failed to upload documents")
-        }
-
-        const data = await response.json()
         console.log("Upload success:", data)
         onNext({ documents: files })
       } catch (err) {

@@ -22,6 +22,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/src/components/ui/ta
 import { Button } from '@/src/components/ui/button';
 import { Badge } from '@/src/components/ui/badge';
 import { ExchangeRateDetail } from '@/src/types/types';
+import { useTranslations } from 'next-intl';
 
 interface ForexAnalyticsProps {
   rates: Record<string, number>;
@@ -36,6 +37,7 @@ export default function ForexAnalytics({
   primaryCurrency = 'MWK',
   onRefresh 
 }: ForexAnalyticsProps) {
+  const t = useTranslations('Dashboard');
   const [selectedPair, setSelectedPair] = useState<string>('');
   const [history, setHistory] = useState<any[]>([]);
   const [loadingHistory, setLoadingHistory] = useState(false);
@@ -85,7 +87,6 @@ export default function ForexAnalytics({
           }
         })
         .catch(err => {
-          console.error("Failed to fetch history", err);
           setHistory([]);
         })
         .finally(() => setLoadingHistory(false));
@@ -147,14 +148,14 @@ export default function ForexAnalytics({
             <div>
                 <CardTitle className="flex items-center gap-2 text-lg">
                     <TrendingUp className="w-5 h-5 text-blue-600" />
-                    Market Overview
+                    {t('market.overviewTitle')}
                 </CardTitle>
-                <CardDescription>Real-time exchange rates and analytics</CardDescription>
+                <CardDescription>{t('market.overviewSubtitle')}</CardDescription>
             </div>
             <div className="flex items-center gap-2">
                 <Badge variant="outline" className="flex items-center gap-1 bg-green-50 text-green-700 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800">
                     <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                    Market Open
+                    {t('market.open')}
                 </Badge>
                 <Button variant="ghost" size="icon" onClick={onRefresh} className="h-8 w-8">
                     <RefreshCw className="w-4 h-4" />
@@ -236,13 +237,13 @@ export default function ForexAnalytics({
             <div className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
                     <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50">
-                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">24h High</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">{t('market.high24h')}</p>
                         <p className="text-lg font-semibold text-slate-900 dark:text-white">
                             {details.high24h > 0 ? details.high24h.toFixed(4) : '-'}
                         </p>
                     </div>
                     <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50">
-                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">24h Low</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">{t('market.low24h')}</p>
                         <p className="text-lg font-semibold text-slate-900 dark:text-white">
                             {details.low24h > 0 ? details.low24h.toFixed(4) : '-'}
                         </p>
@@ -252,28 +253,28 @@ export default function ForexAnalytics({
                 <div className="p-4 rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900">
                     <div className="flex items-center gap-2 mb-3">
                         <Clock className="w-4 h-4 text-blue-500" />
-                        <h3 className="font-medium text-slate-900 dark:text-white">Translation Timing</h3>
+                        <h3 className="font-medium text-slate-900 dark:text-white">{t('market.timing.title')}</h3>
                     </div>
                     
                     {details.changePercent < -0.5 ? (
                          <div className="space-y-2">
-                            <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">Great Time to Buy</Badge>
+                            <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">{t('market.timing.buyBadge')}</Badge>
                             <p className="text-sm text-slate-600 dark:text-slate-400">
-                                Rates are significantly lower (-{Math.abs(details.changePercent).toFixed(2)}%) than the daily average.
+                                {t('market.timing.buyText', { percent: Math.abs(details.changePercent).toFixed(2) })}
                             </p>
                         </div>
                     ) : details.changePercent > 0.5 ? (
                         <div className="space-y-2">
-                            <Badge variant="outline" className="bg-amber-50 text-amber-700 border-amber-200">Consider Waiting</Badge>
+                            <Badge variant="outline" className="bg-amber-50 text-amber-700 border-amber-200">{t('market.timing.waitBadge')}</Badge>
                             <p className="text-sm text-slate-600 dark:text-slate-400">
-                                Rates are currently high (+{details.changePercent.toFixed(2)}%). Consider waiting for a dip.
+                                {t('market.timing.waitText', { percent: details.changePercent.toFixed(2) })}
                             </p>
                         </div>
                     ) : (
                         <div className="space-y-2">
-                            <Badge variant="outline" className="bg-slate-50 text-slate-700 border-slate-200">Stable Market</Badge>
+                            <Badge variant="outline" className="bg-slate-50 text-slate-700 border-slate-200">{t('market.timing.stableBadge')}</Badge>
                             <p className="text-sm text-slate-600 dark:text-slate-400">
-                                Rates are stable with minimal volatility ({Math.abs(details.changePercent).toFixed(2)}%).
+                                {t('market.timing.stableText', { percent: Math.abs(details.changePercent).toFixed(2) })}
                             </p>
                         </div>
                     )}
@@ -282,10 +283,10 @@ export default function ForexAnalytics({
                 <div className="p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800">
                     <div className="flex items-center gap-2 mb-2">
                         <Globe className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                        <h3 className="font-medium text-blue-900 dark:text-blue-100">Market Source</h3>
+                        <h3 className="font-medium text-blue-900 dark:text-blue-100">{t('market.source.title')}</h3>
                     </div>
                     <p className="text-xs text-blue-700 dark:text-blue-300">
-                        Real-time data provided by Google Finance. Rates are indicative and may vary by provider.
+                        {t('market.source.body')}
                     </p>
                 </div>
             </div>

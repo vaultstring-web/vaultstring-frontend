@@ -1,5 +1,6 @@
 import { Coins } from 'lucide-react';
 import { EXCHANGE_RATE_MWK_TO_CNY, EXCHANGE_RATE_CNY_TO_MWK } from '@/src/lib/constants';
+import { useTranslations } from 'next-intl';
 
 interface RateCardProps {
   rates?: Record<string, number>;
@@ -7,6 +8,7 @@ interface RateCardProps {
 }
 
 export default function RateCard({ rates, primaryCurrency = 'MWK' }: RateCardProps) {
+  const t = useTranslations('Dashboard');
   // Determine rates to show based on availability
   // We want to show rates FROM the primary currency TO others
   
@@ -47,7 +49,7 @@ export default function RateCard({ rates, primaryCurrency = 'MWK' }: RateCardPro
       <div>
          <h3 className="font-semibold text-slate-800 dark:text-white flex items-center gap-2 mb-4">
            <Coins size={20} className="text-green-600 dark:text-green-400" />
-           Current Rate
+           {t('currentRate')}
          </h3>
          <div className="space-y-4">
            {displayRates.map((r, i) => (
@@ -59,7 +61,7 @@ export default function RateCard({ rates, primaryCurrency = 'MWK' }: RateCardPro
          </div>
       </div>
       <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
-         <p className="text-xs text-slate-400 dark:text-slate-500">Last updated: just now</p>
+         <p className="text-xs text-slate-400 dark:text-slate-500">{t('lastUpdatedJustNow')}</p>
       </div>
     </div>
   );

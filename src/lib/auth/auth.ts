@@ -1,7 +1,16 @@
 import { apiFetch, setToken, setUser, getDeviceId } from '@/src/lib/api/api-client';
 
-type LoginPayload = { email: string; password: string; rememberMe?: boolean };
-type SignupPayload = { email: string; password: string; accountType?: string };
+type LoginPayload = { email: string; password: string; rememberMe?: boolean; totp_code?: string };
+type SignupPayload = { 
+  email: string; 
+  password: string; 
+  first_name: string; 
+  last_name: string; 
+  phone: string; 
+  user_type: string; 
+  country_code: string;
+  business_name?: string;
+};
 
 export async function login(payload: LoginPayload) {
   const res = await apiFetch('/auth/login', {
@@ -9,6 +18,7 @@ export async function login(payload: LoginPayload) {
     body: JSON.stringify({
       email: String(payload.email || '').trim(),
       password: String(payload.password || '').trim(),
+      totp_code: payload.totp_code,
       device_id: getDeviceId(),
       device_name: navigator.userAgent || 'Web Browser'
     })
@@ -28,16 +38,16 @@ export async function signup(payload: SignupPayload) {
 }
 
 export async function requestPasswordReset(email: string) {
-  return apiFetch('/auth/password/reset', {
+  return apiFetch('/auth/forgot-password', {
     method: 'POST',
     body: JSON.stringify({ email })
   });
 }
 
 export async function resetPassword(token: string, newPassword: string) {
-  return apiFetch('/auth/password/reset/confirm', {
+  return apiFetch('/auth/reset-password', {
     method: 'POST',
-    body: JSON.stringify({ token, password: newPassword })
+    body: JSON.stringify({ token, new_password: newPassword })
   });
 }
 
