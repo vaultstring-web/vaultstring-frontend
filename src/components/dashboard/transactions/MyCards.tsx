@@ -21,10 +21,12 @@ export default function MyCards({ selectedWalletId, onSelectWallet }: MyCardsPro
 
   const getDisplayWalletNumber = (wallet: any | undefined) => {
     if (!wallet) return '•••• •••• •••• ••••';
-    let rawWalletNumber = wallet.wallet_address;
-    if (!rawWalletNumber || String(rawWalletNumber).startsWith('VS-')) {
-      rawWalletNumber = generateFallbackWalletNumber(String(wallet.user_id || wallet.id || ''));
-    }
+    const addr = String((wallet.wallet_address ?? '')).trim();
+    const numericAddr = addr.replace(/\D/g, '');
+    const shouldUseAddress = addr !== '' && !addr.startsWith('VS-') && numericAddr.length >= 12;
+    const rawWalletNumber = shouldUseAddress
+      ? numericAddr
+      : generateFallbackWalletNumber(String(wallet.id || ''));
     return formatWalletNumber(rawWalletNumber);
   };
 

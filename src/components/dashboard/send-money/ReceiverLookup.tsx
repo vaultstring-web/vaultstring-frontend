@@ -29,6 +29,11 @@ export default function ReceiverLookup({
   onSelectSuggestion,
   receiverName,
 }: ReceiverLookupProps) {
+  const formatWalletInput = (raw: string) => {
+    const digits = raw.replace(/\D/g, '').slice(0, 16);
+    return digits.replace(/(\d{4})(?=\d)/g, '$1 ');
+  };
+
   return (
     <div className="space-y-3">
       <Label className="text-sm font-medium text-slate-700 dark:text-slate-300">Recipient Wallet Number</Label>
@@ -37,7 +42,17 @@ export default function ReceiverLookup({
         <Input
           name="receiver_id"
           value={value}
-          onChange={onChange}
+          onChange={(e) => {
+            const formatted = formatWalletInput(e.target.value);
+            onChange({
+              ...e,
+              target: {
+                ...e.target,
+                name: 'receiver_id',
+                value: formatted,
+              },
+            } as React.ChangeEvent<HTMLInputElement>);
+          }}
           placeholder="Enter 16-digit Wallet Number"
           required
           className="pl-10 text-slate-900 dark:text-white border-slate-200 dark:border-slate-700 dark:bg-slate-900 focus:border-indigo-500 focus:ring-indigo-500 h-11"
@@ -45,7 +60,7 @@ export default function ReceiverLookup({
           autoCapitalize="off"
           spellCheck={false}
           inputMode="numeric"
-          maxLength={16}
+          maxLength={19}
         />
         <div className="absolute right-3 top-1/2 -translate-y-1/2">
           {loading ? (
@@ -98,6 +113,9 @@ export default function ReceiverLookup({
                 </div>
             </div>
         )}
+        <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+          Type a wallet number and select a suggested recipient to confirm you are sending to the correct user.
+        </p>
       </div>
     </div>
   );

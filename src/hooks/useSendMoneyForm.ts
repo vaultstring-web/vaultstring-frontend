@@ -10,9 +10,9 @@ import * as z from 'zod';
 
 const sendMoneySchema = z.object({
   receiver_id: z.string()
-    .min(16, "Wallet ID must be exactly 16 digits")
-    .max(16, "Wallet ID must be exactly 16 digits")
-    .regex(/^\d+$/, "Wallet ID must be numeric"),
+    .transform((v) => v.replace(/\s/g, ''))
+    .refine((v) => v.length === 16, "Wallet ID must be exactly 16 digits")
+    .refine((v) => /^\d+$/.test(v), "Wallet ID must be numeric"),
   amount: z.string()
     .min(1, "Amount is required")
     .refine((val) => !isNaN(Number(val)) && Number(val) > 0, "Amount must be greater than 0"),
@@ -28,6 +28,7 @@ export type SendMoneyFormValues = z.infer<typeof sendMoneySchema>;
 export interface SendMoneyFormState extends SendMoneyFormValues {}
 
 export function useSendMoneyForm(t: any) {
+  const normalizeWalletNumber = (value: string) => value.replace(/\D/g, '');
   const router = useRouter();
   const { user, refreshUser } = useAuth();
 
@@ -160,7 +161,7 @@ export function useSendMoneyForm(t: any) {
   // Receiver Lookup Effect
   useEffect(() => {
     const checkReceiver = async () => {
-      const val = (watchedReceiverId || '').trim();
+      const val = normalizeWalletNumber((watchedReceiverId || '').trim());
       if (val.length < 3) {
         setSuggestions([]);
         setShowSuggestions(false);
@@ -173,7 +174,7 @@ export function useSendMoneyForm(t: any) {
         setShowSuggestions(false);
         setReceiverLoading(true);
         try {
-          const res = await apiFetch(`/wallets/lookup?address=${val}`);
+          const res = await apiFetch(`/wallets/lookup?address=${encodeURIComponent(val)}`);
           if (res && res.name) {
             setReceiverName(res.name);
           } else {
@@ -193,7 +194,7 @@ export function useSendMoneyForm(t: any) {
       if (val.length >= 3 && val.length < 16) {
         setReceiverLoading(true);
         try {
-          const res = await apiFetch(`/wallets/search?q=${val}`);
+          const res = await apiFetch(`/wallets/search?q=${encodeURIComponent(val)}`);
           if (Array.isArray(res) && res.length > 0) {
             setSuggestions(res);
             setShowSuggestions(true);
@@ -244,7 +245,7 @@ export function useSendMoneyForm(t: any) {
       }
 
       const payload = {
-        receiver_wallet_number: String(data.receiver_id || '').trim(),
+        receiver_wallet_number: normalizeWalletNumber(String(data.receiver_id || '').trim()),
         amount: Number(data.amount),
         currency: data.currency,
         destination_currency: flowType === 'INTERNATIONAL' ? targetCurrency : data.currency,

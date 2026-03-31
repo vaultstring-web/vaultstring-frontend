@@ -13,11 +13,14 @@ export default function WalletCard({ wallet, userId, onDeposit }: WalletCardProp
   const bal = parseFloat(String(wallet.available_balance ?? wallet.balance ?? 0));
   const currency = String(wallet.currency).toUpperCase();
   
-  // Use wallet_address if available and NOT old format (VS-), otherwise deterministic fallback
-  let rawWalletNumber = (wallet as any).wallet_address;
-  if (!rawWalletNumber || String(rawWalletNumber).startsWith('VS-')) {
-     rawWalletNumber = generateFallbackWalletNumber(String((wallet as any).user_id || wallet.id || userId || ''));
-  }
+  // Use a numeric-looking wallet_address if present; otherwise generate a stable 16-digit display number.
+  // Many seeds use values like "WALLET-MWK-JOHN" which would format to all zeros if we just strip non-digits.
+  const addr = String(((wallet as any).wallet_address ?? '')).trim();
+  const numericAddr = addr.replace(/\\D/g, '');
+  const shouldUseAddress = addr !== '' && !addr.startsWith('VS-') && numericAddr.length >= 12;
+  const rawWalletNumber = shouldUseAddress
+    ? numericAddr
+    : generateFallbackWalletNumber(String(wallet.id || userId || ''));
   
   const displayWalletNumber = formatWalletNumber(rawWalletNumber);
 
