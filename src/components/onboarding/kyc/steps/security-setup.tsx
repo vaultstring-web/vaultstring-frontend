@@ -2,14 +2,26 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
+import { useTranslations } from "next-intl"
 import { Button } from "@/src/components/ui/button"
 
 interface SecuritySetupStepProps {
-  onNext: (data: any) => void
+  onNext: (data: Record<string, unknown>) => void
 }
 
+const QUESTION_KEYS = ["maidenName", "firstPet", "birthCity", "favoriteTeacher", "firstCar"] as const
+
 export function SecuritySetupStep({ onNext }: SecuritySetupStepProps) {
+  const t = useTranslations("Onboarding.securitySetup")
+  const tFlow = useTranslations("Onboarding.flow")
+  const tv = useTranslations("Onboarding.securitySetup.validation")
+
+  const questions = useMemo(
+    () => QUESTION_KEYS.map((key) => ({ key, label: t(`questions.${key}`) })),
+    [t],
+  )
+
   const [formData, setFormData] = useState({
     twoFAEnabled: false,
     securityQuestion1: "",
@@ -23,8 +35,8 @@ export function SecuritySetupStep({ onNext }: SecuritySetupStepProps) {
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
 
-    if (!formData.securityQuestion1) newErrors.securityQuestion1 = "Please select a security question"
-    if (!formData.securityAnswer1.trim()) newErrors.securityAnswer1 = "Please answer the security question"
+    if (!formData.securityQuestion1) newErrors.securityQuestion1 = tv("questionRequired")
+    if (!formData.securityAnswer1.trim()) newErrors.securityAnswer1 = tv("answerRequired")
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -37,14 +49,6 @@ export function SecuritySetupStep({ onNext }: SecuritySetupStepProps) {
     }
   }
 
-  const questions = [
-    "What is your mother's maiden name?",
-    "What was the name of your first pet?",
-    "In what city were you born?",
-    "What is the name of your favorite teacher?",
-    "What was the make of your first car?",
-  ]
-
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="flex items-center gap-3 p-4 bg-blue-50 rounded-lg border border-blue-100">
@@ -56,21 +60,21 @@ export function SecuritySetupStep({ onNext }: SecuritySetupStepProps) {
           className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
         />
         <label htmlFor="twoFA" className="text-sm text-gray-700 cursor-pointer">
-          Enable two-factor authentication (2FA) for enhanced security
+          {t("twoFaLabel")}
         </label>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Security Question 1 *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">{t("question1Label")}</label>
         <select
           value={formData.securityQuestion1}
           onChange={(e) => setFormData({ ...formData, securityQuestion1: e.target.value })}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
         >
-          <option value="">Select a question</option>
+          <option value="">{t("selectQuestion")}</option>
           {questions.map((q) => (
-            <option key={q} value={q}>
-              {q}
+            <option key={q.key} value={q.label}>
+              {q.label}
             </option>
           ))}
         </select>
@@ -78,10 +82,10 @@ export function SecuritySetupStep({ onNext }: SecuritySetupStepProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Your Answer *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">{t("answerLabel")}</label>
         <input
           type="text"
-          placeholder="Your answer"
+          placeholder={t("answerPlaceholder")}
           value={formData.securityAnswer1}
           onChange={(e) => setFormData({ ...formData, securityAnswer1: e.target.value })}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
@@ -90,14 +94,12 @@ export function SecuritySetupStep({ onNext }: SecuritySetupStepProps) {
       </div>
 
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <p className="text-sm text-blue-900">
-          These security questions help us verify your identity if you need to recover your account.
-        </p>
+        <p className="text-sm text-blue-900">{t("recoveryNote")}</p>
       </div>
 
       <div className="flex justify-end gap-2 pt-4">
         <Button type="submit" className="bg-primary hover:bg-primary/90 text-white">
-          Continue to Next Step
+          {tFlow("continue")}
         </Button>
       </div>
     </form>

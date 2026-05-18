@@ -8,27 +8,43 @@ import { getSupportedAfricanCurrencies } from '@/src/lib/utils/africa-utils';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { useTranslations } from 'next-intl';
 
-const sendMoneySchema = z.object({
-  receiver_id: z.string()
-    .transform((v) => v.replace(/\s/g, ''))
-    .refine((v) => v.length === 16, "Wallet ID must be exactly 16 digits")
-    .refine((v) => /^\d+$/.test(v), "Wallet ID must be numeric"),
-  amount: z.string()
-    .min(1, "Amount is required")
-    .refine((val) => !isNaN(Number(val)) && Number(val) > 0, "Amount must be greater than 0"),
-  currency: z.string().min(1, "Currency is required"),
-  description: z.string().optional(),
-  channel: z.string().default('web'),
-  category: z.string().default('transfer')
-});
-
-export type SendMoneyFormValues = z.infer<typeof sendMoneySchema>;
+export type SendMoneyFormValues = {
+  receiver_id: string;
+  amount: string;
+  currency: string;
+  description?: string;
+  channel: string;
+  category: string;
+};
 
 // Interface for backward compatibility
 export interface SendMoneyFormState extends SendMoneyFormValues {}
 
-export function useSendMoneyForm(t: any) {
+export function useSendMoneyForm() {
+  const tv = useTranslations('SendMoney.validation');
+
+  const sendMoneySchema = useMemo(
+    () =>
+      z.object({
+        receiver_id: z
+          .string()
+          .transform((v) => v.replace(/\s/g, ''))
+          .refine((v) => v.length === 16, tv('walletIdLength'))
+          .refine((v) => /^\d+$/.test(v), tv('walletIdNumeric')),
+        amount: z
+          .string()
+          .min(1, tv('amountRequired'))
+          .refine((val) => !isNaN(Number(val)) && Number(val) > 0, tv('amountPositive')),
+        currency: z.string().min(1, tv('currencyRequired')),
+        description: z.string().optional(),
+        channel: z.string().default('web'),
+        category: z.string().default('transfer'),
+      }),
+    [tv]
+  );
+  const SUCCESS_TX_STORAGE_KEY = 'kyd_last_success_tx_id';
   const normalizeWalletNumber = (value: string) => value.replace(/\D/g, '');
   const router = useRouter();
   const { user, refreshUser } = useAuth();
@@ -41,7 +57,7 @@ export function useSendMoneyForm(t: any) {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors },
+    formState: { errors, touchedFields },
     reset,
     trigger
   } = useForm<SendMoneyFormValues>({
@@ -62,9 +78,7 @@ export function useSendMoneyForm(t: any) {
   const watchedAmount = watch('amount');
   const watchedCurrency = watch('currency');
   const watchedDescription = watch('description');
-  const watchedChannel = watch('channel');
-  const watchedCategory = watch('category');
-  
+
   const [targetCurrency, setTargetCurrency] = useState<string>('CNY');
   const [flowType, setFlowType] = useState<'INTERNATIONAL' | 'SAME'>('INTERNATIONAL');
   
@@ -86,6 +100,7 @@ export function useSendMoneyForm(t: any) {
   
   // Wallet State
   const [walletBalance, setWalletBalance] = useState<number>(0);
+  const [walletCurrencies, setWalletCurrencies] = useState<string[]>([]);
   
   // Receiver Lookup State
   const [receiverName, setReceiverName] = useState<string | null>(null);
@@ -100,7 +115,14 @@ export function useSendMoneyForm(t: any) {
   const [previewError, setPreviewError] = useState<string | null>(null);
   const [previewFee, setPreviewFee] = useState<number | null>(null);
 
-  const amountNumber = useMemo(() => Number(watchedAmount || 0), [watchedAmount]);
+  const amountNumber = useMemo(() => {
+    const normalized = String(watchedAmount ?? '').replace(/,/g, '').trim();
+    if (!normalized) return 0;
+    const parsed = Number(normalized);
+    if (!Number.isFinite(parsed) || parsed <= 0) return 0;
+    return parsed;
+  }, [watchedAmount]);
+  const hasTouchedAmount = Boolean(touchedFields.amount);
 
   // Determine home currency dynamically from user country
   const homeCurrency = useMemo<string>(() => {
@@ -123,10 +145,23 @@ export function useSendMoneyForm(t: any) {
   // Fetch Wallet Balance
   useEffect(() => {
     apiFetch('/wallets').then((res) => {
-      if (res && res.wallets && res.wallets.length > 0) {
-        const w = res.wallets.find((w: any) => w.currency === watchedCurrency) || res.wallets[0];
-        const bal = parseFloat(w.available_balance || w.balance || '0');
-        setWalletBalance(bal);
+      const wallets = Array.isArray(res?.wallets) ? res.wallets : [];
+      const currencies = wallets
+        .map((w: any) => String(w?.currency || '').toUpperCase())
+        .filter(Boolean);
+      setWalletCurrencies(currencies);
+
+      if (wallets.length > 0) {
+        const exact = wallets.find((w: any) => String(w?.currency || '').toUpperCase() === String(watchedCurrency || '').toUpperCase());
+        if (exact) {
+          const bal = parseFloat(exact.available_balance || exact.balance || '0');
+          setWalletBalance(bal);
+        } else {
+          // Do not show another currency's balance under the selected send currency.
+          setWalletBalance(0);
+        }
+      } else {
+        setWalletBalance(0);
       }
     }).catch(() => {});
   }, [watchedCurrency]);
@@ -161,9 +196,9 @@ export function useSendMoneyForm(t: any) {
         setPreviewRate(r);
         setPreviewConverted(conv ?? (r ? amountNumber * r : null));
         setPreviewFee(fee ?? null);
-      } catch (e: any) {
+      } catch (err: unknown) {
         if (!mounted) return;
-        setPreviewError(e?.message || 'Failed to load rate');
+        setPreviewError(err instanceof Error ? err.message : 'Failed to load rate');
         setPreviewRate(null);
         setPreviewConverted(null);
       } finally {
@@ -197,7 +232,7 @@ export function useSendMoneyForm(t: any) {
           } else {
             setReceiverName(null);
           }
-        } catch (e) {
+        } catch {
           setReceiverName(null);
         } finally {
           setReceiverLoading(false);
@@ -219,7 +254,7 @@ export function useSendMoneyForm(t: any) {
             setSuggestions([]);
             setShowSuggestions(false);
           }
-        } catch (e) {
+        } catch {
           setSuggestions([]);
           setShowSuggestions(false);
         } finally {
@@ -235,7 +270,7 @@ export function useSendMoneyForm(t: any) {
   // Adapter for old onChange
   const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement> | { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
-    setValue(name as keyof SendMoneyFormValues, value, { shouldValidate: true });
+    setValue(name as keyof SendMoneyFormValues, value, { shouldValidate: true, shouldTouch: true });
   };
 
   const processSubmit = async (data: SendMoneyFormValues) => {
@@ -247,6 +282,19 @@ export function useSendMoneyForm(t: any) {
     
     try {
       if (!isAuthenticated()) throw new Error('Please login to send a payment');
+      // If we haven't loaded wallet currencies yet, refresh once to avoid false rejections.
+      let currencies = walletCurrencies;
+      if (!Array.isArray(currencies) || currencies.length === 0) {
+        const wres = await apiFetch('/wallets').catch(() => null);
+        const wallets = Array.isArray(wres?.wallets) ? wres.wallets : [];
+        currencies = wallets
+          .map((w: any) => String(w?.currency || '').toUpperCase())
+          .filter(Boolean);
+        setWalletCurrencies(currencies);
+      }
+      if (currencies.length > 0 && !currencies.includes(String(data.currency || '').toUpperCase())) {
+        throw new Error('Using wrong currency. Please select the wallet matching the payment currency.');
+      }
       
       const fundingOptions = getFundingOptions(data.currency, walletBalance);
       const selectedFunding = fundingOptions.find((o) => o.value === fundingSource);
@@ -260,8 +308,8 @@ export function useSendMoneyForm(t: any) {
       const payload = {
         receiver_wallet_number: normalizeWalletNumber(data.receiver_id),
         amount: parseFloat(data.amount),
-        currency: data.currency,
-        destination_currency: targetCurrency,
+        currency: String(data.currency || '').toUpperCase(),
+        destination_currency: String(targetCurrency || '').toUpperCase(),
         description: data.description,
         channel: derivedChannel,
         category: data.category,
@@ -272,8 +320,8 @@ export function useSendMoneyForm(t: any) {
         metadata: {
           flow_type: flowType,
           sender_country: user?.countryCode,
-          source_currency: data.currency,
-          target_currency: targetCurrency,
+          source_currency: String(data.currency || '').toUpperCase(),
+          target_currency: String(targetCurrency || '').toUpperCase(),
           pan_african_routing: true
         }
       };
@@ -286,9 +334,27 @@ export function useSendMoneyForm(t: any) {
       setResult(res);
       refreshUser();
       reset();
-      router.push(`/transactions/success?ref=${res.reference || res.id}`);
-    } catch (e: any) {
-      setServerError(e?.message || 'Transaction initiation failed');
+      const txId =
+        res?.transaction?.id ||
+        res?.transaction?.transaction_id ||
+        res?.transaction?.ID ||
+        res?.transaction_id ||
+        res?.id ||
+        res?.payment_id ||
+        res?.reference_id ||
+        null;
+
+      if (txId) {
+        if (typeof window !== 'undefined') {
+          localStorage.setItem(SUCCESS_TX_STORAGE_KEY, String(txId));
+        }
+        router.push(`/transactions/success?tx=${encodeURIComponent(String(txId))}`);
+      } else {
+        // Fallback route still opens success page where we auto-resolve latest tx.
+        router.push('/transactions/success');
+      }
+    } catch (err: unknown) {
+      setServerError(err instanceof Error ? err.message : 'Transaction initiation failed');
     } finally {
       setLoading(false);
     }
@@ -334,6 +400,7 @@ export function useSendMoneyForm(t: any) {
     previewError,
     previewFee,
     amountNumber,
+    hasTouchedAmount,
     homeCurrency,
     allSupportedCurrencies,
     onChange

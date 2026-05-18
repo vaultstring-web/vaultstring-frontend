@@ -20,7 +20,7 @@ export function AuthLayout({ children, title, subtitle }: AuthLayoutProps) {
               src="/images/vs2.png"
               alt="VaultString Logo"
               fill
-              className="object-contain dark:hidden invert"
+              className="object-contain dark:hidden"
               priority
             />
             <Image

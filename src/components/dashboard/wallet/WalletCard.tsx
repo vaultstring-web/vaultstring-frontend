@@ -2,6 +2,7 @@ import { Wifi, Copy, PlusCircle } from 'lucide-react';
 import { Wallet } from '@/src/hooks/useWalletStats';
 import { generateFallbackWalletNumber, formatWalletNumber, getWalletGradient } from '@/src/lib/utils/formatters';
 import { Button } from '@/src/components/ui/button';
+import { getCountryByCurrency } from '@/src/lib/utils/africa-utils';
 
 interface WalletCardProps {
   wallet: Wallet;
@@ -12,11 +13,13 @@ interface WalletCardProps {
 export default function WalletCard({ wallet, userId, onDeposit }: WalletCardProps) {
   const bal = parseFloat(String(wallet.available_balance ?? wallet.balance ?? 0));
   const currency = String(wallet.currency).toUpperCase();
+  const country = getCountryByCurrency(currency);
+  const symbol = country ? country.currencySymbol : (currency === 'CNY' ? '¥' : (currency === 'USD' ? '$' : currency));
   
   // Use a numeric-looking wallet_address if present; otherwise generate a stable 16-digit display number.
   // Many seeds use values like "WALLET-MWK-JOHN" which would format to all zeros if we just strip non-digits.
   const addr = String(((wallet as any).wallet_address ?? '')).trim();
-  const numericAddr = addr.replace(/\\D/g, '');
+  const numericAddr = addr.replace(/\D/g, '');
   const shouldUseAddress = addr !== '' && !addr.startsWith('VS-') && numericAddr.length >= 12;
   const rawWalletNumber = shouldUseAddress
     ? numericAddr
@@ -74,7 +77,7 @@ export default function WalletCard({ wallet, userId, onDeposit }: WalletCardProp
             <div>
                <p className="text-xs text-white/60 font-medium uppercase tracking-wider mb-1">Balance</p>
                <h3 className="text-3xl font-bold tracking-tight">
-                 {currency === 'MWK' ? 'MK' : currency === 'CNY' ? '¥' : '$'}
+                 <span className="text-xl mr-1">{symbol}</span>
                  {bal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                </h3>
             </div>

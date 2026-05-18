@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useTranslations } from "next-intl"
 import { Button } from "@/src/components/ui/button"
 import { ProgressBar } from "./progress-bar"
 import { PersonalDetailsStep } from "./steps/personal-details"
@@ -13,29 +14,25 @@ import { CompletionStep } from "./steps/completion"
 
 import { AuthLayout } from "@/src/components/shared/AuthLayout"
 
-const INDIVIDUAL_STEPS = [
-  { id: "personal", title: "Personal Details" },
-  { id: "contact", title: "Contact Information" },
-  { id: "id", title: "ID Verification" },
-  { id: "funds", title: "Source of Funds" },
-  { id: "security", title: "Security Setup" },
-  { id: "terms", title: "Terms & Agreements" },
-]
+const INDIVIDUAL_STEP_IDS = ["personal", "contact", "id", "funds", "security", "terms"] as const
 
 interface IndividualFlowProps {
   onChangeUserType: () => void
 }
 
 export function IndividualFlow({ onChangeUserType }: IndividualFlowProps) {
+  const tFlow = useTranslations("Onboarding.flow")
+  const tSteps = useTranslations("Onboarding.individualSteps")
+
   const [currentStep, setCurrentStep] = useState(0)
   const [formData, setFormData] = useState({})
   const [completed, setCompleted] = useState(false)
 
-  const handleNext = (stepData: any) => {
+  const handleNext = (stepData: Record<string, unknown>) => {
     const newData = { ...formData, ...stepData }
     setFormData(newData)
 
-    if (currentStep < INDIVIDUAL_STEPS.length - 1) {
+    if (currentStep < INDIVIDUAL_STEP_IDS.length - 1) {
       setCurrentStep(currentStep + 1)
     } else {
       setCompleted(true)
@@ -57,34 +54,41 @@ export function IndividualFlow({ onChangeUserType }: IndividualFlowProps) {
         timestamp: new Date().toISOString(),
       }),
     )
-    alert("Progress saved. You can resume later.")
+    alert(tFlow("draftSaved"))
   }
 
   if (completed) {
     return <CompletionStep type="individual" onChangeUserType={onChangeUserType} />
   }
 
-  const step = INDIVIDUAL_STEPS[currentStep]
+  const stepId = INDIVIDUAL_STEP_IDS[currentStep]
+  const stepTitle = tSteps(stepId)
 
   return (
-    <AuthLayout title={step.title} subtitle={`Step ${currentStep + 1} of ${INDIVIDUAL_STEPS.length}`}>
+    <AuthLayout
+      title={stepTitle}
+      subtitle={tFlow("stepSubtitle", {
+        current: currentStep + 1,
+        total: INDIVIDUAL_STEP_IDS.length,
+      })}
+    >
       <div className="space-y-6">
         <div className="flex justify-between items-center px-1">
-          <button 
-            onClick={onChangeUserType} 
+          <button
+            onClick={onChangeUserType}
             className="text-[11px] font-bold text-slate-400 hover:text-green-600 uppercase tracking-widest transition-colors"
           >
-            Change Type
+            {tFlow("changeType")}
           </button>
-          <button 
-            onClick={handleSaveAndExit} 
+          <button
+            onClick={handleSaveAndExit}
             className="text-[11px] font-bold text-slate-400 hover:text-green-600 uppercase tracking-widest transition-colors"
           >
-            Save Draft
+            {tFlow("saveDraft")}
           </button>
         </div>
 
-        <ProgressBar progress={((currentStep + 1) / INDIVIDUAL_STEPS.length) * 100} />
+        <ProgressBar progress={((currentStep + 1) / INDIVIDUAL_STEP_IDS.length) * 100} />
 
         <div className="pt-2">
           {currentStep === 0 && <PersonalDetailsStep onNext={handleNext} />}
@@ -101,7 +105,7 @@ export function IndividualFlow({ onChangeUserType }: IndividualFlowProps) {
             onClick={handlePrevious}
             className="w-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 font-medium"
           >
-            Back to previous step
+            {tFlow("back")}
           </Button>
         )}
       </div>

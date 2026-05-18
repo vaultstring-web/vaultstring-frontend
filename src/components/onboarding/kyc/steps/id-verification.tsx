@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
+import { useTranslations } from "next-intl"
 import { Button } from "@/src/components/ui/button"
 import { Input } from "@/src/components/ui/input"
 
@@ -11,6 +12,10 @@ interface IDVerificationStepProps {
 }
 
 export function IDVerificationStep({ onNext }: IDVerificationStepProps) {
+  const t = useTranslations("Onboarding.idVerification")
+  const tFlow = useTranslations("Onboarding.flow")
+  const tv = useTranslations("Onboarding.idVerification.validation")
+
   const [formData, setFormData] = useState({
     documentNumber: "",
     expiryDate: "",
@@ -38,9 +43,9 @@ export function IDVerificationStep({ onNext }: IDVerificationStepProps) {
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
 
-    if (!formData.documentNumber.trim()) newErrors.documentNumber = "Document number is required"
-    if (!formData.expiryDate) newErrors.expiryDate = "Expiry date is required"
-    if (!formData.file) newErrors.file = "Document file is required"
+    if (!formData.documentNumber.trim()) newErrors.documentNumber = tv("documentNumberRequired")
+    if (!formData.expiryDate) newErrors.expiryDate = tv("expiryDateRequired")
+    if (!formData.file) newErrors.file = tv("fileRequired")
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -57,10 +62,10 @@ export function IDVerificationStep({ onNext }: IDVerificationStepProps) {
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Document Number *</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">{t("documentNumberLabel")}</label>
           <Input
             type="text"
-            placeholder="ABC123456789"
+            placeholder={t("documentNumberPlaceholder")}
             value={formData.documentNumber}
             onChange={(e) => setFormData({ ...formData, documentNumber: e.target.value })}
             className="w-full"
@@ -68,7 +73,7 @@ export function IDVerificationStep({ onNext }: IDVerificationStepProps) {
           {errors.documentNumber && <p className="text-red-600 text-sm mt-1">{errors.documentNumber}</p>}
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Expiry Date *</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">{t("expiryDateLabel")}</label>
           <Input
             type="date"
             value={formData.expiryDate}
@@ -80,13 +85,13 @@ export function IDVerificationStep({ onNext }: IDVerificationStepProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Upload Document *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">{t("uploadLabel")}</label>
         <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:bg-gray-50 transition">
           <input type="file" accept="image/*,.pdf" onChange={handleFileChange} className="hidden" id="file-input" />
           <label htmlFor="file-input" className="cursor-pointer">
             {formData.preview ? (
               <div className="space-y-2">
-                <img src={formData.preview || "/placeholder.svg"} alt="Preview" className="max-h-32 mx-auto rounded" />
+                <img src={formData.preview || "/placeholder.svg"} alt={t("previewAlt")} className="max-h-32 mx-auto rounded" />
                 <p className="text-sm text-gray-600">{formData.file?.name}</p>
               </div>
             ) : (
@@ -99,8 +104,8 @@ export function IDVerificationStep({ onNext }: IDVerificationStepProps) {
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                 </svg>
-                <p className="text-sm font-medium text-gray-700">Click to upload or drag and drop</p>
-                <p className="text-xs text-gray-500">PNG, JPG, or PDF (max 10MB)</p>
+                <p className="text-sm font-medium text-gray-700">{t("uploadCta")}</p>
+                <p className="text-xs text-gray-500">{t("uploadFormats")}</p>
               </div>
             )}
           </label>
@@ -110,13 +115,13 @@ export function IDVerificationStep({ onNext }: IDVerificationStepProps) {
 
       <div className="bg-green-50 border border-green-200 rounded-lg p-4">
         <p className="text-sm text-green-900">
-          Your document is verified securely. We only use it to confirm your identity.
+          {t("secureNote")}
         </p>
       </div>
 
       <div className="flex justify-end gap-2 pt-4">
         <Button type="submit" className="bg-primary hover:bg-primary/90 text-white">
-          Continue to Next Step
+          {tFlow("continue")}
         </Button>
       </div>
     </form>

@@ -1,0 +1,81 @@
+export interface AfricanCountry {
+  code: string;
+  name: string;
+  currency: string;
+  currencyName: string;
+  currencySymbol: string;
+  languages: string[];
+  isRTL?: boolean;
+}
+
+export const AFRICAN_COUNTRIES: AfricanCountry[] = [
+  { code: 'DZ', name: 'Algeria', currency: 'DZD', currencyName: 'Algerian Dinar', currencySymbol: 'د.ج', languages: ['ar', 'fr'], isRTL: true },
+  { code: 'AO', name: 'Angola', currency: 'AOA', currencyName: 'Angolan Kwanza', currencySymbol: 'Kz', languages: ['pt'] },
+  { code: 'BJ', name: 'Benin', currency: 'XOF', currencyName: 'West African CFA Franc', currencySymbol: 'CFA', languages: ['fr'] },
+  { code: 'BW', name: 'Botswana', currency: 'BWP', currencyName: 'Botswana Pula', currencySymbol: 'P', languages: ['en', 'tn'] },
+  { code: 'BF', name: 'Burkina Faso', currency: 'XOF', currencyName: 'West African CFA Franc', currencySymbol: 'CFA', languages: ['fr'] },
+  { code: 'BI', name: 'Burundi', currency: 'BIF', currencyName: 'Burundian Franc', currencySymbol: 'FBu', languages: ['fr', 'rn'] },
+  { code: 'CV', name: 'Cabo Verde', currency: 'CVE', currencyName: 'Cabo Verdean Escudo', currencySymbol: '$', languages: ['pt'] },
+  { code: 'CM', name: 'Cameroon', currency: 'XAF', currencyName: 'Central African CFA Franc', currencySymbol: 'FCFA', languages: ['fr', 'en'] },
+  { code: 'CF', name: 'Central African Republic', currency: 'XAF', currencyName: 'Central African CFA Franc', currencySymbol: 'FCFA', languages: ['fr', 'sg'] },
+  { code: 'TD', name: 'Chad', currency: 'XAF', currencyName: 'Central African CFA Franc', currencySymbol: 'FCFA', languages: ['fr', 'ar'], isRTL: true },
+  { code: 'KM', name: 'Comoros', currency: 'KMF', currencyName: 'Comorian Franc', currencySymbol: 'CF', languages: ['ar', 'fr', 'km'], isRTL: true },
+  { code: 'CD', name: 'Democratic Republic of the Congo', currency: 'CDF', currencyName: 'Congolese Franc', currencySymbol: 'FC', languages: ['fr'] },
+  { code: 'CG', name: 'Republic of the Congo', currency: 'XAF', currencyName: 'Central African CFA Franc', currencySymbol: 'FCFA', languages: ['fr'] },
+  { code: 'CI', name: 'Côte d\'Ivoire', currency: 'XOF', currencyName: 'West African CFA Franc', currencySymbol: 'CFA', languages: ['fr'] },
+  { code: 'DJ', name: 'Djibouti', currency: 'DJF', currencyName: 'Djiboutian Franc', currencySymbol: 'Fdj', languages: ['fr', 'ar'], isRTL: true },
+  { code: 'EG', name: 'Egypt', currency: 'EGP', currencyName: 'Egyptian Pound', currencySymbol: 'E£', languages: ['ar'], isRTL: true },
+  { code: 'GQ', name: 'Equatorial Guinea', currency: 'XAF', currencyName: 'Central African CFA Franc', currencySymbol: 'FCFA', languages: ['es', 'fr', 'pt'] },
+  { code: 'ER', name: 'Eritrea', currency: 'ERN', currencyName: 'Eritrean Nakfa', currencySymbol: 'Nfk', languages: ['ti', 'ar', 'en'], isRTL: true },
+  { code: 'SZ', name: 'Eswatini', currency: 'SZL', currencyName: 'Swazi Lilangeni', currencySymbol: 'L', languages: ['en', 'ss'] },
+  { code: 'ET', name: 'Ethiopia', currency: 'ETB', currencyName: 'Ethiopian Birr', currencySymbol: 'Br', languages: ['am'] },
+  { code: 'GA', name: 'Gabon', currency: 'XAF', currencyName: 'Central African CFA Franc', currencySymbol: 'FCFA', languages: ['fr'] },
+  { code: 'GM', name: 'Gambia', currency: 'GMD', currencyName: 'Gambian Dalasi', currencySymbol: 'D', languages: ['en'] },
+  { code: 'GH', name: 'Ghana', currency: 'GHS', currencyName: 'Ghanaian Cedi', currencySymbol: 'GH₵', languages: ['en'] },
+  { code: 'GN', name: 'Guinea', currency: 'GNF', currencyName: 'Guinean Franc', currencySymbol: 'FG', languages: ['fr'] },
+  { code: 'GW', name: 'Guinea-Bissau', currency: 'XOF', currencyName: 'West African CFA Franc', currencySymbol: 'CFA', languages: ['pt'] },
+  { code: 'KE', name: 'Kenya', currency: 'KES', currencyName: 'Kenyan Shilling', currencySymbol: 'KSh', languages: ['sw', 'en'] },
+  { code: 'LS', name: 'Lesotho', currency: 'LSL', currencyName: 'Lesotho Loti', currencySymbol: 'L', languages: ['en', 'st'] },
+  { code: 'LR', name: 'Liberia', currency: 'LRD', currencyName: 'Liberian Dollar', currencySymbol: '$', languages: ['en'] },
+  { code: 'LY', name: 'Libya', currency: 'LYD', currencyName: 'Libyan Dinar', currencySymbol: 'LD', languages: ['ar'], isRTL: true },
+  { code: 'MG', name: 'Madagascar', currency: 'MGA', currencyName: 'Malagasy Ariary', currencySymbol: 'Ar', languages: ['mg', 'fr'] },
+  { code: 'MW', name: 'Malawi', currency: 'MWK', currencyName: 'Malawian Kwacha', currencySymbol: 'MK', languages: ['en', 'ny'] },
+  { code: 'ML', name: 'Mali', currency: 'XOF', currencyName: 'West African CFA Franc', currencySymbol: 'CFA', languages: ['fr'] },
+  { code: 'MR', name: 'Mauritania', currency: 'MRU', currencyName: 'Mauritanian Ouguiya', currencySymbol: 'UM', languages: ['ar'], isRTL: true },
+  { code: 'MU', name: 'Mauritius', currency: 'MUR', currencyName: 'Mauritian Rupee', currencySymbol: '₨', languages: ['en', 'fr'] },
+  { code: 'MA', name: 'Morocco', currency: 'MAD', currencyName: 'Moroccan Dirham', currencySymbol: 'DH', languages: ['ar', 'ber'], isRTL: true },
+  { code: 'MZ', name: 'Mozambique', currency: 'MZN', currencyName: 'Mozambican Metical', currencySymbol: 'MT', languages: ['pt'] },
+  { code: 'NA', name: 'Namibia', currency: 'NAD', currencyName: 'Namibian Dollar', currencySymbol: '$', languages: ['en', 'af', 'de'] },
+  { code: 'NE', name: 'Niger', currency: 'XOF', currencyName: 'West African CFA Franc', currencySymbol: 'CFA', languages: ['fr'] },
+  { code: 'NG', name: 'Nigeria', currency: 'NGN', currencyName: 'Nigerian Naira', currencySymbol: '₦', languages: ['en', 'yo', 'ha', 'ig'] },
+  { code: 'RW', name: 'Rwanda', currency: 'RWF', currencyName: 'Rwandan Franc', currencySymbol: 'FRw', languages: ['rw', 'fr', 'en', 'sw'] },
+  { code: 'ST', name: 'São Tomé and Príncipe', currency: 'STN', currencyName: 'São Tomé and Príncipe Dobra', currencySymbol: 'Db', languages: ['pt'] },
+  { code: 'SN', name: 'Senegal', currency: 'XOF', currencyName: 'West African CFA Franc', currencySymbol: 'CFA', languages: ['fr'] },
+  { code: 'SC', name: 'Seychelles', currency: 'SCR', currencyName: 'Seychellois Rupee', currencySymbol: '₨', languages: ['fr', 'en', 'crs'] },
+  { code: 'SL', name: 'Sierra Leone', currency: 'SLE', currencyName: 'Sierra Leonean Leone', currencySymbol: 'Le', languages: ['en'] },
+  { code: 'SO', name: 'Somalia', currency: 'SOS', currencyName: 'Somali Shilling', currencySymbol: 'Sh', languages: ['so', 'ar'], isRTL: true },
+  { code: 'ZA', name: 'South Africa', currency: 'ZAR', currencyName: 'South African Rand', currencySymbol: 'R', languages: ['en', 'af', 'zu', 'xh', 'nso', 'tn', 'st', 'ts', 'ss', 've', 'nr'] },
+  { code: 'SS', name: 'South Sudan', currency: 'SSP', currencyName: 'South Sudanese Pound', currencySymbol: '£', languages: ['en'] },
+  { code: 'SD', name: 'Sudan', currency: 'SDG', currencyName: 'Sudanese Pound', currencySymbol: 'S£', languages: ['ar', 'en'], isRTL: true },
+  { code: 'TZ', name: 'Tanzania', currency: 'TZS', currencyName: 'Tanzanian Shilling', currencySymbol: 'TSh', languages: ['sw', 'en'] },
+  { code: 'TG', name: 'Togo', currency: 'XOF', currencyName: 'West African CFA Franc', currencySymbol: 'CFA', languages: ['fr'] },
+  { code: 'TN', name: 'Tunisia', currency: 'TND', currencyName: 'Tunisian Dinar', currencySymbol: 'DT', languages: ['ar'], isRTL: true },
+  { code: 'UG', name: 'Uganda', currency: 'UGX', currencyName: 'Ugandan Shilling', currencySymbol: 'USh', languages: ['en', 'sw'] },
+  { code: 'ZM', name: 'Zambia', currency: 'ZMW', currencyName: 'Zambian Kwacha', currencySymbol: 'ZK', languages: ['en'] },
+  { code: 'ZW', name: 'Zimbabwe', currency: 'ZWL', currencyName: 'Zimbabwean Dollar', currencySymbol: '$', languages: ['en', 'sn', 'nd'] },
+];
+
+export const SUPPORTED_LANGUAGES = [
+  { code: 'en', name: 'English', flag: '🇺🇸', region: 'Global' },
+  { code: 'fr', name: 'Français', flag: '🇫🇷', region: 'Francophone Africa' },
+  { code: 'pt', name: 'Português', flag: '🇵🇹', region: 'Lusophone Africa' },
+  { code: 'ar', name: 'العربية (Arabic)', flag: '🇸🇦', region: 'North Africa', isRTL: true },
+  { code: 'sw', name: 'Kiswahili', flag: '🇰🇪', region: 'East Africa' },
+  { code: 'am', name: 'አማርኛ (Amharic)', flag: '🇪🇹', region: 'Ethiopia' },
+  { code: 'yo', name: 'Yorùbá', flag: '🇳🇬', region: 'Nigeria' },
+  { code: 'ha', name: 'Hausa', flag: '🇳🇬', region: 'West Africa' },
+  { code: 'zu', name: 'isiZulu', flag: '🇿🇦', region: 'South Africa' },
+  { code: 'ny', name: 'Chichewa', flag: '🇲🇼', region: 'Malawi' },
+  { code: 'zh', name: '中文 (Chinese)', flag: '🇨🇳', region: 'China' },
+  { code: 'ja', name: '日本語 (Japanese)', flag: '🇯🇵', region: 'Japan' },
+];

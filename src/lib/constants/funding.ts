@@ -53,10 +53,44 @@ export const getFundingOptions = (currency: string, walletBalance: number): Fund
     ];
   }
 
+  if (currency === 'NGN') {
+    return [
+      { value: 'wallet_balance', label: balLabel, channel: 'wallet', icon: Wallet },
+      { value: 'flutterwave_ng', label: 'Flutterwave', channel: 'mobile_money', icon: Smartphone },
+      { value: 'paystack_ng', label: 'Paystack', channel: 'mobile_money', icon: Smartphone },
+      { value: 'gtbank', label: 'GTBank', channel: 'bank', icon: Building },
+      { value: 'zenith_bank', label: 'Zenith Bank', channel: 'bank', icon: Building },
+      { value: 'visa_mastercard', label: 'Visa/Mastercard', channel: 'card', icon: CreditCard },
+    ];
+  }
+
+  if (currency === 'ZAR') {
+    return [
+      { value: 'wallet_balance', label: balLabel, channel: 'wallet', icon: Wallet },
+      { value: 'ozow_za', label: 'Ozow EFT', channel: 'bank', icon: Smartphone },
+      { value: 'standard_bank_za', label: 'Standard Bank SA', channel: 'bank', icon: Building },
+      { value: 'fnb_za', label: 'FNB', channel: 'bank', icon: Building },
+      { value: 'capitec', label: 'Capitec', channel: 'bank', icon: Building },
+      { value: 'visa_mastercard', label: 'Visa/Mastercard', channel: 'card', icon: CreditCard },
+    ];
+  }
+
+  if (currency === 'KES') {
+    return [
+      { value: 'wallet_balance', label: balLabel, channel: 'wallet', icon: Wallet },
+      { value: 'mpesa_ke', label: 'M-PESA', channel: 'mobile_money', icon: Smartphone },
+      { value: 'airtel_money_ke', label: 'Airtel Money Kenya', channel: 'mobile_money', icon: Smartphone },
+      { value: 'kcb_ke', label: 'KCB Bank', channel: 'bank', icon: Building },
+      { value: 'equity_ke', label: 'Equity Bank', channel: 'bank', icon: Building },
+      { value: 'visa_mastercard', label: 'Visa/Mastercard', channel: 'card', icon: CreditCard },
+    ];
+  }
+
   return [
-    { value: 'wallet_balance', label: 'VaultString Wallet', channel: 'wallet', icon: Wallet },
+    { value: 'wallet_balance', label: balLabel, channel: 'wallet', icon: Wallet },
     { value: 'visa_mastercard', label: 'Visa/Mastercard', channel: 'card', icon: CreditCard },
-    { value: 'wire_transfer', label: 'Bank Wire Transfer', channel: 'bank', icon: Building },
+    { value: 'bank_transfer', label: 'Local Bank Transfer', channel: 'bank', icon: Building },
+    { value: 'mobile_money_generic', label: 'Mobile Money', channel: 'mobile_money', icon: Smartphone },
   ];
 };
 
@@ -95,8 +129,34 @@ export const getPayoutOptions = (targetCurrency: string): FundingOption[] => {
       { value: 'absa_zm', label: 'ABSA Zambia', channel: 'bank', icon: Building },
     ];
   }
+  if (targetCurrency === 'NGN') {
+    return [
+      { value: 'wallet_topup_ngn', label: 'Wallet Top-up (NGN)', channel: 'wallet', icon: Wallet },
+      { value: 'flutterwave_ng', label: 'Flutterwave', channel: 'mobile_money', icon: Smartphone },
+      { value: 'paystack_ng', label: 'Paystack', channel: 'mobile_money', icon: Smartphone },
+      { value: 'gtbank', label: 'GTBank', channel: 'bank', icon: Building },
+      { value: 'zenith_bank', label: 'Zenith Bank', channel: 'bank', icon: Building },
+    ];
+  }
+  if (targetCurrency === 'ZAR') {
+    return [
+      { value: 'wallet_topup_zar', label: 'Wallet Top-up (ZAR)', channel: 'wallet', icon: Wallet },
+      { value: 'ozow_za', label: 'Ozow EFT', channel: 'bank', icon: Smartphone },
+      { value: 'standard_bank_za', label: 'Standard Bank SA', channel: 'bank', icon: Building },
+      { value: 'fnb_za', label: 'FNB', channel: 'bank', icon: Building },
+    ];
+  }
+  if (targetCurrency === 'KES') {
+    return [
+      { value: 'wallet_topup_kes', label: 'Wallet Top-up (KES)', channel: 'wallet', icon: Wallet },
+      { value: 'mpesa_ke', label: 'M-PESA', channel: 'mobile_money', icon: Smartphone },
+      { value: 'airtel_money_ke', label: 'Airtel Money Kenya', channel: 'mobile_money', icon: Smartphone },
+      { value: 'kcb_ke', label: 'KCB Bank', channel: 'bank', icon: Building },
+    ];
+  }
   return [
     { value: 'wire_transfer', label: 'Bank Wire Transfer', channel: 'bank', icon: Building },
+    { value: 'mobile_money_generic', label: 'Mobile Money', channel: 'mobile_money', icon: Smartphone },
     { value: 'visa_mastercard', label: 'Visa/Mastercard', channel: 'card', icon: CreditCard },
   ];
 };

@@ -2,15 +2,27 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
+import { useTranslations } from "next-intl"
 import { Button } from "@/src/components/ui/button"
 import { Input } from "@/src/components/ui/input"
 
 interface BusinessInfoStepProps {
-  onNext: (data: any) => void
+  onNext: (data: Record<string, unknown>) => void
 }
 
+const INDUSTRY_KEYS = ["technology", "finance", "healthcare", "retail", "manufacturing", "education", "other"] as const
+
 export function BusinessInfoStep({ onNext }: BusinessInfoStepProps) {
+  const t = useTranslations("Onboarding.businessInfo")
+  const tFlow = useTranslations("Onboarding.flow")
+  const tv = useTranslations("Onboarding.businessInfo.validation")
+
+  const industries = useMemo(
+    () => INDUSTRY_KEYS.map((key) => ({ key, label: t(`industries.${key}`) })),
+    [t],
+  )
+
   const [formData, setFormData] = useState({
     industry: "",
     companySize: "",
@@ -23,9 +35,9 @@ export function BusinessInfoStep({ onNext }: BusinessInfoStepProps) {
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
 
-    if (!formData.industry) newErrors.industry = "Industry is required"
-    if (!formData.companySize) newErrors.companySize = "Company size is required"
-    if (!formData.incorporationDate) newErrors.incorporationDate = "Incorporation date is required"
+    if (!formData.industry) newErrors.industry = tv("industryRequired")
+    if (!formData.companySize) newErrors.companySize = tv("companySizeRequired")
+    if (!formData.incorporationDate) newErrors.incorporationDate = tv("incorporationDateRequired")
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -38,21 +50,19 @@ export function BusinessInfoStep({ onNext }: BusinessInfoStepProps) {
     }
   }
 
-  const industries = ["Technology", "Finance", "Healthcare", "Retail", "Manufacturing", "Education", "Other"]
-
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Industry *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">{t("industryLabel")}</label>
         <select
           value={formData.industry}
           onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
         >
-          <option value="">Select an industry</option>
+          <option value="">{t("selectIndustry")}</option>
           {industries.map((ind) => (
-            <option key={ind} value={ind}>
-              {ind}
+            <option key={ind.key} value={ind.key}>
+              {ind.label}
             </option>
           ))}
         </select>
@@ -60,27 +70,27 @@ export function BusinessInfoStep({ onNext }: BusinessInfoStepProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Company Size *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">{t("companySizeLabel")}</label>
         <select
           value={formData.companySize}
           onChange={(e) => setFormData({ ...formData, companySize: e.target.value })}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
         >
-          <option value="">Select company size</option>
-          <option value="1-10">1-10 employees</option>
-          <option value="11-50">11-50 employees</option>
-          <option value="51-200">51-200 employees</option>
-          <option value="201-500">201-500 employees</option>
-          <option value="500+">500+ employees</option>
+          <option value="">{t("selectCompanySize")}</option>
+          <option value="1-10">{t("size1")}</option>
+          <option value="11-50">{t("size2")}</option>
+          <option value="51-200">{t("size3")}</option>
+          <option value="201-500">{t("size4")}</option>
+          <option value="500+">{t("size5")}</option>
         </select>
         {errors.companySize && <p className="text-red-600 text-sm mt-1">{errors.companySize}</p>}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Website (Optional)</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">{t("websiteLabel")}</label>
         <Input
           type="url"
-          placeholder="https://example.com"
+          placeholder={t("websitePlaceholder")}
           value={formData.website}
           onChange={(e) => setFormData({ ...formData, website: e.target.value })}
           className="w-full"
@@ -88,7 +98,7 @@ export function BusinessInfoStep({ onNext }: BusinessInfoStepProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Incorporation Date *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">{t("incorporationDateLabel")}</label>
         <Input
           type="date"
           value={formData.incorporationDate}
@@ -100,7 +110,7 @@ export function BusinessInfoStep({ onNext }: BusinessInfoStepProps) {
 
       <div className="flex justify-end gap-2 pt-4">
         <Button type="submit" className="bg-secondary hover:bg-secondary/90 text-white">
-          Continue to Next Step
+          {tFlow("continue")}
         </Button>
       </div>
     </form>

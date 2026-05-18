@@ -28,7 +28,11 @@ interface KYCDocument {
   created_at: string;
 }
 
+import { AFRICAN_COUNTRIES } from '@/src/lib/constants/africa';
+import { useTranslations } from 'next-intl';
+
 export default function CompliancePage() {
+  const t = useTranslations('Compliance');
   const { user, refreshUser } = useAuth();
   const [documents, setDocuments] = useState<KYCDocument[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -53,7 +57,7 @@ export default function CompliancePage() {
       }
     } catch (error) {
       console.error('Failed to fetch KYC status:', error);
-      toast.error('Failed to load compliance status');
+      toast.error(t('loadFailed'));
     } finally {
       setIsLoading(false);
     }
@@ -68,7 +72,7 @@ export default function CompliancePage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!docType || !docNumber || !country || !file) {
-      toast.error('Please fill in all fields and upload a document');
+      toast.error(t('fillAllFields'));
       return;
     }
 
@@ -84,7 +88,7 @@ export default function CompliancePage() {
         method: 'POST',
         body: formData,
       });
-      toast.success('KYC documents submitted successfully');
+      toast.success(t('submitSuccess'));
       setFile(null);
       setDocNumber('');
       setCountry('');
@@ -93,7 +97,7 @@ export default function CompliancePage() {
       await refreshUser(); // Update user status in context
     } catch (error: any) {
       console.error('KYC submission error:', error);
-      toast.error(error.message || 'Failed to submit documents');
+      toast.error(error.message || t('submitFailed'));
     } finally {
       setIsSubmitting(false);
     }
@@ -135,9 +139,9 @@ export default function CompliancePage() {
   return (
     <div className="min-h-screen bg-[#F8FAFC] dark:bg-slate-950 p-4 md:p-8 space-y-8 max-w-[1200px] mx-auto">
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Identity Verification</h1>
+        <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">{t('title')}</h1>
         <p className="text-slate-500 dark:text-slate-400">
-          Complete the KYC process to unlock higher limits and full account features.
+          {t('subtitle')}
         </p>
       </div>
 
@@ -146,7 +150,7 @@ export default function CompliancePage() {
         <div className="md:col-span-1 space-y-6">
           <Card className="border-slate-200 dark:border-slate-800 shadow-sm">
             <CardHeader>
-              <CardTitle>Current Status</CardTitle>
+              <CardTitle>{t('currentStatus')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex flex-col items-center justify-center py-6 text-center space-y-4">
@@ -166,14 +170,14 @@ export default function CompliancePage() {
                 
                 <div>
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                    {isVerified ? 'Verified' : hasPendingDocs ? 'Under Review' : 'Unverified'}
+                    {isVerified ? t('statusVerified') : hasPendingDocs ? t('statusReview') : t('statusUnverified')}
                   </h3>
                   <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
                     {isVerified 
-                      ? 'Your identity has been confirmed. You have full access.' 
+                      ? t('verifiedBody')
                       : hasPendingDocs 
-                        ? 'We are reviewing your documents. This usually takes 24-48 hours.'
-                        : 'Please submit your documents to verify your identity.'}
+                        ? t('reviewBody')
+                        : t('unverifiedBody')}
                   </p>
                 </div>
               </div>
@@ -184,7 +188,7 @@ export default function CompliancePage() {
           {documents.length > 0 && (
             <Card className="border-slate-200 dark:border-slate-800 shadow-sm">
               <CardHeader>
-                <CardTitle className="text-lg">History</CardTitle>
+                <CardTitle className="text-lg">{t('history')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {documents.map((doc) => (
@@ -198,7 +202,7 @@ export default function CompliancePage() {
                       </div>
                       {doc.rejection_reason && (
                         <div className="text-xs text-red-500 mt-1">
-                          Reason: {doc.rejection_reason}
+                          {t('rejectionReason', { reason: doc.rejection_reason })}
                         </div>
                       )}
                     </div>
@@ -218,44 +222,54 @@ export default function CompliancePage() {
           {showForm ? (
             <Card className="border-slate-200 dark:border-slate-800 shadow-sm">
               <CardHeader>
-                <CardTitle>Submit Documents</CardTitle>
+                <CardTitle>{t('submitTitle')}</CardTitle>
                 <CardDescription>
-                  Upload a valid government-issued ID to verify your identity.
+                  {t('submitSubtitle')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid gap-6 md:grid-cols-2">
                     <div className="space-y-2">
-                      <Label htmlFor="docType">Document Type</Label>
+                      <Label htmlFor="docType">{t('docType')}</Label>
                       <Select value={docType} onValueChange={setDocType}>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select type" />
+                          <SelectValue placeholder={t('selectType')} />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="passport">Passport</SelectItem>
-                          <SelectItem value="national_id">National ID</SelectItem>
-                          <SelectItem value="drivers_license">Driver's License</SelectItem>
+                          <SelectItem value="passport">{t('passport')}</SelectItem>
+                          <SelectItem value="national_id">{t('nationalId')}</SelectItem>
+                          <SelectItem value="drivers_license">{t('driversLicense')}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="country">Issuing Country</Label>
-                      <Input 
-                        id="country" 
-                        placeholder="e.g. United States" 
-                        value={country}
-                        onChange={(e) => setCountry(e.target.value)}
-                        required
-                      />
+                      <Label htmlFor="country">{t('issuingCountry')}</Label>
+                      <Select value={country} onValueChange={setCountry}>
+                        <SelectTrigger className="rounded-xl h-12 border-slate-200 dark:border-slate-800 dark:bg-slate-900 font-bold">
+                          <SelectValue placeholder={t('selectCountry')} />
+                        </SelectTrigger>
+                        <SelectContent className="rounded-2xl border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl max-h-[300px]">
+                          {AFRICAN_COUNTRIES.map((c) => (
+                            <SelectItem 
+                              key={c.code} 
+                              value={c.code} 
+                              className="font-bold py-3 dark:text-white focus:bg-slate-100 dark:focus:bg-slate-700"
+                            >
+                              {c.name}
+                            </SelectItem>
+                          ))}
+                          <SelectItem value="CN" className="font-bold py-3 dark:text-white focus:bg-slate-100 dark:focus:bg-slate-700">{t('china')}</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
 
                     <div className="space-y-2 md:col-span-2">
-                      <Label htmlFor="docNumber">Document Number</Label>
+                      <Label htmlFor="docNumber">{t('docNumber')}</Label>
                       <Input 
                         id="docNumber" 
-                        placeholder="Enter document ID number" 
+                        placeholder={t('docNumberPlaceholder')} 
                         value={docNumber}
                         onChange={(e) => setDocNumber(e.target.value)}
                         required
@@ -263,7 +277,7 @@ export default function CompliancePage() {
                     </div>
 
                     <div className="space-y-2 md:col-span-2">
-                      <Label htmlFor="file">Document Image (Front)</Label>
+                      <Label htmlFor="file">{t('docImage')}</Label>
                       <div className="flex items-center justify-center w-full">
                         <label htmlFor="file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-slate-300 border-dashed rounded-lg cursor-pointer bg-slate-50 dark:hover:bg-slate-800 dark:bg-slate-900 hover:bg-slate-100 dark:border-slate-700 dark:hover:border-slate-500">
                           <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -271,13 +285,13 @@ export default function CompliancePage() {
                               <>
                                 <FileText className="w-10 h-10 mb-3 text-indigo-500" />
                                 <p className="mb-2 text-sm text-slate-500 dark:text-slate-400 font-semibold">{file.name}</p>
-                                <p className="text-xs text-slate-500 dark:text-slate-400">Click to change</p>
+                                <p className="text-xs text-slate-500 dark:text-slate-400">{t('clickToChange')}</p>
                               </>
                             ) : (
                               <>
                                 <Upload className="w-10 h-10 mb-3 text-slate-400" />
-                                <p className="mb-2 text-sm text-slate-500 dark:text-slate-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-                                <p className="text-xs text-slate-500 dark:text-slate-400">SVG, PNG, JPG or GIF (MAX. 10MB)</p>
+                                <p className="mb-2 text-sm text-slate-500 dark:text-slate-400"><span className="font-semibold">{t('uploadHint')}</span> {t('uploadOrDrop')}</p>
+                                <p className="text-xs text-slate-500 dark:text-slate-400">{t('uploadFormats')}</p>
                               </>
                             )}
                           </div>
@@ -292,10 +306,10 @@ export default function CompliancePage() {
                       {isSubmitting ? (
                         <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          Submitting...
+                          {t('submitting')}
                         </>
                       ) : (
-                        'Submit Verification'
+                        t('submitButton')
                       )}
                     </Button>
                   </div>
@@ -307,12 +321,12 @@ export default function CompliancePage() {
               <div className="mx-auto w-16 h-16 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center text-emerald-600 dark:text-emerald-400">
                 <ShieldCheck size={32} />
               </div>
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">You are fully verified!</h2>
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">{t('fullyVerifiedTitle')}</h2>
               <p className="text-slate-600 dark:text-slate-400 max-w-md mx-auto">
-                Thank you for verifying your identity. You now have access to all platform features, higher transaction limits, and faster processing times.
+                {t('fullyVerifiedBody')}
               </p>
               <Button variant="outline" className="mt-4" onClick={() => window.location.href = '/dashboard'}>
-                Return to Dashboard
+                {t('returnDashboard')}
               </Button>
             </div>
           ) : (
@@ -320,9 +334,9 @@ export default function CompliancePage() {
                <div className="mx-auto w-16 h-16 bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center text-amber-600 dark:text-amber-400">
                 <Clock size={32} />
               </div>
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Verification in Progress</h2>
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">{t('inProgressTitle')}</h2>
               <p className="text-slate-600 dark:text-slate-400 max-w-md mx-auto">
-                Your documents have been received and are currently being reviewed by our compliance team. You will receive a notification once the review is complete.
+                {t('inProgressBody')}
               </p>
             </div>
           )}

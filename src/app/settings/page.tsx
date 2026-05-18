@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/src/components/ui/button';
 import { Label } from '@/src/components/ui/label';
 import { Switch } from '@/src/components/ui/switch';
@@ -23,6 +24,11 @@ import {
   Sun, 
   Bell, 
   Shield, 
+  Save,
+  Loader2,
+  CheckCircle2,
+  QrCode,
+  Smartphone
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { apiFetch } from '@/src/lib/api/api-client';
@@ -30,6 +36,8 @@ import { QRCodeSVG } from 'qrcode.react';
 import { useRouter } from 'next/navigation';
 
 export default function SettingsPage() {
+  const t = useTranslations('Settings');
+  const tProfile = useTranslations('Profile');
   const { theme, setTheme } = useTheme();
   const router = useRouter();
   
@@ -61,6 +69,7 @@ export default function SettingsPage() {
   // Backend settings
   const [twoFactor, setTwoFactor] = useState(false);
   const [is2FALoading, setIs2FALoading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   
   // 2FA Setup State
   const [show2FASetup, setShow2FASetup] = useState(false);
@@ -83,11 +92,22 @@ export default function SettingsPage() {
     fetchSettings();
   }, []);
 
-  const handleSave = () => {
-    localStorage.setItem('vs_settings_email', JSON.stringify(emailNotifications));
-    localStorage.setItem('vs_settings_push', JSON.stringify(pushNotifications));
-    localStorage.setItem('vs_settings_marketing', JSON.stringify(marketingEmails));
-    toast.success('Settings saved successfully');
+  const handleSave = async () => {
+    setIsSaving(true);
+    try {
+      localStorage.setItem('vs_settings_email', JSON.stringify(emailNotifications));
+      localStorage.setItem('vs_settings_push', JSON.stringify(pushNotifications));
+      localStorage.setItem('vs_settings_marketing', JSON.stringify(marketingEmails));
+      
+      // Simulate API call for local settings
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      toast.success(t('success'));
+    } catch {
+      toast.error(t('error'));
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handleTwoFactorToggle = async (checked: boolean) => {
@@ -100,7 +120,7 @@ export default function SettingsPage() {
         setShow2FASetup(true);
       } catch (error) {
         console.error('Failed to setup 2FA:', error);
-        toast.error('Failed to initiate 2FA setup');
+        toast.error(t('totp.error'));
       } finally {
         setIs2FALoading(false);
       }
@@ -110,10 +130,10 @@ export default function SettingsPage() {
       try {
         await apiFetch('/auth/totp/disable', { method: 'POST' });
         setTwoFactor(false);
-        toast.success('Two-factor authentication disabled');
+        toast.success(t('totp.disabled'));
       } catch (error) {
         console.error('Failed to disable 2FA:', error);
-        toast.error('Failed to disable 2FA');
+        toast.error(t('totp.error'));
       } finally {
         setIs2FALoading(false);
       }
@@ -132,25 +152,35 @@ export default function SettingsPage() {
       setTwoFactor(true);
       setShow2FASetup(false);
       setVerificationCode('');
-      toast.success('Two-factor authentication enabled successfully');
+      toast.success(t('totp.enabled'));
     } catch (error) {
       console.error('Failed to verify TOTP:', error);
-      toast.error('Invalid verification code');
+      toast.error(t('totp.invalidCode'));
     } finally {
       setIsVerifying(false);
     }
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
-      <div className="flex items-center gap-4 mb-8">
-        <div className="h-12 w-12 rounded-2xl bg-indigo-100 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
-          <Settings size={24} />
+    <div className="max-w-4xl mx-auto px-4 py-8 space-y-8 pb-24">
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center gap-4">
+          <div className="h-12 w-12 rounded-2xl bg-indigo-100 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+            <Settings size={24} />
+          </div>
+          <div>
+            <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">{t('title')}</h1>
+            <p className="text-slate-500 dark:text-slate-400 font-medium">{t('subtitle')}</p>
+          </div>
         </div>
-        <div>
-          <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Settings</h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">Manage your application preferences.</p>
-        </div>
+        <Button 
+          onClick={handleSave} 
+          disabled={isSaving}
+          className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl px-6 h-12 font-bold shadow-lg shadow-indigo-200 dark:shadow-none transition-all hover:scale-105 active:scale-95"
+        >
+          {isSaving ? <Loader2 className="animate-spin mr-2" size={18} /> : <Save className="mr-2" size={18} />}
+          {isSaving ? t('saving') : t('save')}
+        </Button>
       </div>
 
       {/* Appearance */}
@@ -160,27 +190,27 @@ export default function SettingsPage() {
             {theme === 'dark' ? <Moon size={20} /> : <Sun size={20} />}
           </div>
           <div>
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white">Appearance</h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Customize how VaultString looks on your device.</p>
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white">{t('appearance.title')}</h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">{t('appearance.subtitle')}</p>
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {['light', 'dark', 'system'].map((mode) => (
             <button
               key={mode}
               onClick={() => setTheme(mode)}
-              className={`p-4 rounded-2xl border-2 transition-all ${
+              className={`p-4 rounded-2xl border-2 transition-all text-left ${
                 theme === mode 
                   ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-300' 
                   : 'border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700 text-slate-600 dark:text-slate-400'
               }`}
             >
-              <div className="capitalize font-bold mb-1">{mode}</div>
+              <div className="capitalize font-bold mb-1">{t(`appearance.${mode}`)}</div>
               <div className="text-xs opacity-70">
-                {mode === 'light' && 'Light mode'}
-                {mode === 'dark' && 'Dark mode'}
-                {mode === 'system' && 'Follow system'}
+                {mode === 'light' && t('appearance.lightMode')}
+                {mode === 'dark' && t('appearance.darkMode')}
+                {mode === 'system' && t('appearance.followSystem')}
               </div>
             </button>
           ))}
@@ -194,30 +224,30 @@ export default function SettingsPage() {
             <Bell size={20} />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white">Notifications</h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Choose what we communicate to you.</p>
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white">{t('notifications.title')}</h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">{t('notifications.subtitle')}</p>
           </div>
         </div>
 
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
-              <Label className="text-base font-bold text-slate-900 dark:text-white">Email Notifications</Label>
-              <p className="text-sm text-slate-500 dark:text-slate-400">Receive emails about your account activity.</p>
+              <Label className="text-base font-bold text-slate-900 dark:text-white">{t('notifications.email.title')}</Label>
+              <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">{t('notifications.email.subtitle')}</p>
             </div>
             <Switch checked={emailNotifications} onCheckedChange={setEmailNotifications} />
           </div>
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
-              <Label className="text-base font-bold text-slate-900 dark:text-white">Push Notifications</Label>
-              <p className="text-sm text-slate-500 dark:text-slate-400">Receive push notifications on your device.</p>
+              <Label className="text-base font-bold text-slate-900 dark:text-white">{t('notifications.push.title')}</Label>
+              <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">{t('notifications.push.subtitle')}</p>
             </div>
             <Switch checked={pushNotifications} onCheckedChange={setPushNotifications} />
           </div>
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
-              <Label className="text-base font-bold text-slate-900 dark:text-white">Marketing Emails</Label>
-              <p className="text-sm text-slate-500 dark:text-slate-400">Receive emails about new features and offers.</p>
+              <Label className="text-base font-bold text-slate-900 dark:text-white">{t('notifications.marketing.title')}</Label>
+              <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">{t('notifications.marketing.subtitle')}</p>
             </div>
             <Switch checked={marketingEmails} onCheckedChange={setMarketingEmails} />
           </div>
@@ -231,16 +261,16 @@ export default function SettingsPage() {
             <Shield size={20} />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white">Security</h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Keep your account secure.</p>
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white">{t('security.title')}</h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">{t('security.subtitle')}</p>
           </div>
         </div>
 
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
-              <Label className="text-base font-bold text-slate-900 dark:text-white">Two-Factor Authentication</Label>
-              <p className="text-sm text-slate-500 dark:text-slate-400">Add an extra layer of security to your account.</p>
+              <Label className="text-base font-bold text-slate-900 dark:text-white">{t('security.twoFactor.title')}</Label>
+              <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">{t('security.twoFactor.subtitle')}</p>
             </div>
             <Switch 
               checked={twoFactor} 
@@ -252,56 +282,73 @@ export default function SettingsPage() {
           <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
             <Button 
               variant="outline" 
-              className="w-full sm:w-auto font-bold text-slate-600 dark:text-slate-300"
-              onClick={() => router.push('/dashboard/profile')}
+              className="w-full sm:w-auto font-bold text-slate-600 dark:text-slate-300 rounded-xl"
+              onClick={() => router.push('/profile')}
             >
-              Change Password
+              {tProfile('changePassword')}
             </Button>
           </div>
         </div>
       </div>
 
-      <div className="flex justify-end">
-        <Button onClick={handleSave} className="rounded-xl px-8 h-12 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg shadow-lg shadow-indigo-200 dark:shadow-none transition-all">
-          Save Changes
-        </Button>
-      </div>
-
       <Dialog open={show2FASetup} onOpenChange={setShow2FASetup}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Setup Two-Factor Authentication</DialogTitle>
-            <DialogDescription>
-              Scan the QR code below with your authenticator app, then enter the verification code.
+        <DialogContent className="sm:max-w-md rounded-[32px] p-8 bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 shadow-2xl">
+          <DialogHeader className="space-y-4">
+            <div className="h-12 w-12 rounded-2xl bg-indigo-100 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mx-auto">
+              <Shield size={24} />
+            </div>
+            <DialogTitle className="text-2xl font-black text-center text-slate-900 dark:text-white tracking-tight">
+              {t('security.twoFactor.setup.title')}
+            </DialogTitle>
+            <DialogDescription className="text-center text-slate-500 dark:text-slate-400 font-medium">
+              {t('security.twoFactor.setup.subtitle')}
             </DialogDescription>
           </DialogHeader>
-          <div className="flex flex-col items-center space-y-6 py-4">
-            <div className="bg-white p-4 rounded-xl border border-slate-200">
-              {otpUrl && <QRCodeSVG value={otpUrl} size={192} />}
+
+          <div className="flex flex-col items-center space-y-8 py-6">
+            <div className="space-y-4 w-full">
+              <div className="flex items-center gap-3 text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                <QrCode size={18} className="text-indigo-600" />
+                {t('security.twoFactor.setup.step1')}
+              </div>
+              <div className="p-6 bg-slate-50 dark:bg-white rounded-3xl flex justify-center shadow-inner">
+                {otpUrl && <QRCodeSVG value={otpUrl} size={180} />}
+              </div>
             </div>
-            <div className="space-y-2 w-full flex flex-col items-center">
-              <Label>Verification Code</Label>
-              <InputOTP
-                maxLength={6}
-                value={verificationCode}
-                onChange={setVerificationCode}
-              >
-                <InputOTPGroup>
-                  <InputOTPSlot index={0} />
-                  <InputOTPSlot index={1} />
-                  <InputOTPSlot index={2} />
-                  <InputOTPSlot index={3} />
-                  <InputOTPSlot index={4} />
-                  <InputOTPSlot index={5} />
-                </InputOTPGroup>
-              </InputOTP>
+
+            <div className="space-y-4 w-full">
+              <div className="flex items-center gap-3 text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                <Smartphone size={18} className="text-indigo-600" />
+                {t('security.twoFactor.setup.step2')}
+              </div>
+              <div className="flex justify-center">
+                <InputOTP
+                  maxLength={6}
+                  value={verificationCode}
+                  onChange={setVerificationCode}
+                  className="gap-2"
+                >
+                  <InputOTPGroup className="gap-2">
+                    <InputOTPSlot index={0} className="h-14 w-11 rounded-xl border-2 border-slate-200 dark:border-slate-700 font-black text-lg bg-white dark:bg-slate-950" />
+                    <InputOTPSlot index={1} className="h-14 w-11 rounded-xl border-2 border-slate-200 dark:border-slate-700 font-black text-lg bg-white dark:bg-slate-950" />
+                    <InputOTPSlot index={2} className="h-14 w-11 rounded-xl border-2 border-slate-200 dark:border-slate-700 font-black text-lg bg-white dark:bg-slate-950" />
+                  </InputOTPGroup>
+                  <InputOTPGroup className="gap-2">
+                    <InputOTPSlot index={3} className="h-14 w-11 rounded-xl border-2 border-slate-200 dark:border-slate-700 font-black text-lg bg-white dark:bg-slate-950" />
+                    <InputOTPSlot index={4} className="h-14 w-11 rounded-xl border-2 border-slate-200 dark:border-slate-700 font-black text-lg bg-white dark:bg-slate-950" />
+                    <InputOTPSlot index={5} className="h-14 w-11 rounded-xl border-2 border-slate-200 dark:border-slate-700 font-black text-lg bg-white dark:bg-slate-950" />
+                  </InputOTPGroup>
+                </InputOTP>
+              </div>
             </div>
-            <Button 
-              className="w-full" 
+
+            <Button
               onClick={verifyTOTP}
               disabled={verificationCode.length !== 6 || isVerifying}
+              className="w-full h-14 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold text-lg shadow-lg shadow-indigo-200 dark:shadow-none transition-all"
             >
-              {isVerifying ? 'Verifying...' : 'Verify & Enable'}
+              {isVerifying ? <Loader2 className="animate-spin mr-2" /> : <CheckCircle2 className="mr-2" />}
+              {isVerifying ? t('security.twoFactor.setup.verifying') : t('security.twoFactor.setup.verify')}
             </Button>
           </div>
         </DialogContent>

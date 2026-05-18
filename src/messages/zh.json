@@ -17,8 +17,7 @@
     "verificationSubtitle": "完成实名认证以解锁多币种钱包和更高额度。",
     "verifyNow": "立即认证",
     "forexAnalytics": "汇率分析",
-    "currencyConverter": "汇率转换"
-    ,
+    "currencyConverter": "汇率转换",
     "converter": {
       "setAlert": "设置提醒",
       "viewHistory": "查看历史",
@@ -98,20 +97,106 @@
     "personalInfo": "个人信息",
     "fullName": "姓名",
     "email": "电子邮件",
-    "phone": "电话",
-    "address": "地址",
+    "phone": "电话号码",
+    "address": "联系地址",
     "saveChanges": "保存更改",
     "updatePassword": "更新密码",
-    "updating": "更新中...",
+    "updating": "正在更新...",
     "mfa": "双重身份验证",
-    "mfaSubtitle": "为您的账户添加额外安全层。"
-    ,
+    "mfaSubtitle": "为您的账户添加额外的安全保障。",
+    "bio": "个人简介",
+    "country": "国家/地区",
+    "city": "城市/省份",
+    "taxId": "税务识别号",
+    "postalCode": "邮政编码",
+    "memberSince": "注册时间",
+    "accountStatus": "账户状态",
+    "verified": "已认证",
+    "unverified": "未认证",
+    "editProfile": "编辑资料",
+    "changePassword": "修改密码",
+    "currentPassword": "当前密码",
+    "newPassword": "新密码",
+    "confirmPassword": "确认新密码",
     "notificationPreferences": {
-      "title": "通知偏好",
+      "title": "通知设置",
       "subtitle": "选择您希望接收通知的方式。",
-      "email": { "title": "邮件通知", "subtitle": "通过邮件接收更新" },
-      "push": { "title": "推送通知", "subtitle": "在设备上接收更新" },
-      "sms": { "title": "短信通知", "subtitle": "通过短信接收更新" }
+      "email": {
+        "title": "邮件通知",
+        "subtitle": "通过电子邮件接收更新"
+      },
+      "push": {
+        "title": "推送通知",
+        "subtitle": "在您的设备上接收更新"
+      },
+      "sms": {
+        "title": "短信通知",
+        "subtitle": "通过短信接收更新"
+      }
+    },
+    "uploadAvatar": "上传头像",
+    "removeAvatar": "移除头像",
+    "tabs": {
+      "activity": "活动",
+      "wallets": "钱包",
+      "security": "安全",
+      "language": "语言"
+    },
+    "viewArchive": "查看归档",
+    "headerUsernameFallback": "账户",
+    "stats": {
+      "transactions": "笔交易",
+      "wallets": "个钱包",
+      "recipients": "位收款人"
+    },
+    "activityDevices": "活动与设备",
+    "activitySubtitle": "查看登录活动与设备，以发现可疑访问。",
+    "refresh": "刷新",
+    "knownDevices": "已知设备",
+    "recentEvents": "最近事件",
+    "lastLogin": "上次登录",
+    "cancel": "取消",
+    "devicesHeading": "设备",
+    "recentActivityHeading": "最近活动",
+    "badgeLive": "实时",
+    "badgeLoading": "加载中",
+    "noDevicesYet": "尚无设备记录。",
+    "noActivityYet": "尚无活动。",
+    "unknownDevice": "未知设备",
+    "ipUnavailable": "IP：不可用",
+    "lastSeen": "上次出现",
+    "trustedBadge": "受信任",
+    "untrustedBadge": "不受信任",
+    "dash": "—",
+    "walletCardTitle": "{currency} 钱包",
+    "noWalletsMessage": "此账户尚未找到钱包。",
+    "twoFactorShortTitle": "双重验证",
+    "twoFactorStatus": "状态",
+    "enabled": "已启用",
+    "disabled": "已关闭",
+    "twoFactorBlurb": "为账户增加一层安全保护。当您在新设备登录时，我们会要求输入验证码。",
+    "activeProtection": "保护已启用",
+    "secureAccountTitle": "保护账户",
+    "scanQrSubtitle": "使用 Google Authenticator、Authy 或其他兼容应用扫描此二维码。",
+    "enterSixDigitCode": "输入 6 位验证码",
+    "verifyAndEnable": "验证并启用",
+    "dialogIdentitySubtitle": "请在 VaultString 保持身份信息为最新。",
+    "bioPlaceholder": "介绍一下自己（可选）",
+    "defaultBioTagline": "VaultString 用户",
+    "toasts": {
+      "profileUpdated": "资料更新成功",
+      "profileFailed": "资料更新失败",
+      "passwordFieldsRequired": "请填写所有密码字段",
+      "passwordMismatch": "两次密码不一致",
+      "passwordUpdated": "密码更新成功",
+      "passwordFailed": "密码更新失败",
+      "totpSetupFailed": "双重验证设置失败",
+      "twoFactorDisabled": "已关闭双重验证",
+      "twoFactorDisableFailed": "关闭双重验证失败",
+      "twoFactorEnabled": "已启用双重验证",
+      "invalidTotpCode": "验证码无效",
+      "avatarUploading": "正在上传头像…",
+      "avatarUpdated": "头像已更新"
     }
   },
   "Sidebar": {
@@ -119,22 +204,22 @@
     "wallet": "我的钱包",
     "sendMoney": "汇款",
     "transactions": "交易记录",
-    "profile": "个人中心",
+    "profile": "个人资料",
     "verifyIdentity": "身份验证",
     "signOut": "退出登录"
   },
   "SendMoney": {
-    "title": "汇款",
-    "subtitle": "安全发起跨境转账和收款。",
-    "instantSettlement": "即时结算",
+    "title": "在线汇款",
+    "subtitle": "安全地进行跨境转账和结算。",
+    "instantSettlement": "即时到账",
     "kycRequired": {
       "title": "需要身份验证",
-      "subtitle": "请完成 KYC 以解锁国际转账和更高额度。"
+      "subtitle": "请完成实名认证以解锁国际转账和更高限额。"
     },
     "sections": {
       "recipientDetails": "收款人信息",
-      "transferAmount": "转账金额",
-      "paymentPath": "付款路径"
+      "transferAmount": "汇款金额",
+      "paymentPath": "支付路径"
     },
     "cta": {
       "confirmTransfer": "确认并立即转账"
@@ -146,18 +231,71 @@
       "empty": "输入金额以查看\n实时汇率"
     },
     "errors": {
-      "blockedTitle": "交易已拦截",
-      "untrustedDevice": "检测到新设备。为安全起见，请退出后重新登录以验证此设备。",
-      "duplicateRequest": "检测到重复请求。请稍候或检查交易记录。",
+      "blockedTitle": "交易被拦截",
+      "paymentFailedTitle": "付款未能发送",
+      "untrustedDevice": "检测到新设备。为了安全起见，请退出并重新登录以验证此设备。",
+      "duplicateRequest": "检测到重复请求。请稍候或检查您的交易历史。",
       "insufficientBalance": "余额不足。",
-      "generic": "发生错误，请重试。"
+      "generic": "发生错误。请稍后重试。"
     },
-    "feeNote": "手续费会根据转账时的流动性与网络负载动态计算。",
+    "feeNote": "手续费根据转账时的流动性和网络交易量动态计算。",
     "paymentDetails": "支付详情",
-    "international": "国际汇款",
+    "international": "国际转账",
     "sameCurrency": "同币种转账",
     "amount": "金额",
-    "currency": "货币"
+    "currency": "币种",
+    "fundingSource": "资金来源",
+    "payoutMethod": "付款方式",
+    "recipientWalletNumber": "收款人钱包号码",
+    "walletNumberPlaceholder": "输入 16 位钱包号码",
+    "suggestedReceivers": "建议的收款人",
+    "refineSearchHint": "继续输入数字以缩小范围",
+    "verifiedReceiver": "已验证收款人",
+    "recipientWalletHint": "输入钱包号码并选择建议收款人，以确认您正在向正确用户付款。",
+    "targetReceivesLabel": "收款人收款币种",
+    "selectPlaceholder": "选择",
+    "amountPlaceholder": "0.00",
+    "chinaLabel": "（中国）",
+    "funding": {
+      "walletWithBalance": "VaultString 钱包（{balance} {currency}）"
+    },
+    "payout": {
+      "walletTopUp": "钱包充值（{currency}）"
+    },
+    "channels": {
+      "wallet": "钱包",
+      "mobile_money": "移动支付",
+      "bank": "银行",
+      "card": "银行卡",
+      "api": "API 接口",
+      "web": "网页"
+    },
+    "previewCard": {
+      "title": "计算摘要",
+      "subtitle": "实时汇率",
+      "exchangeRate": "汇率",
+      "sendingAmount": "付款金额",
+      "serviceFee": "服务费",
+      "totalToPay": "应付总额",
+      "recipientGets": "收款人收到",
+      "secureRate": "所示汇率与费用为参考 — 结算时最终金额可能不同。",
+      "ratePair": "1 {from} = {rate} {to}"
+    },
+    "validation": {
+      "walletIdLength": "钱包 ID 必须为 16 位数字",
+      "walletIdNumeric": "钱包 ID 必须为数字",
+      "amountRequired": "金额为必填",
+      "amountPositive": "金额必须大于零",
+      "currencyRequired": "币种为必填"
+    },
+    "successCard": {
+      "title": "付款成功",
+      "subtitle": "您的交易已安全处理。",
+      "transactionId": "交易 ID",
+      "receiver": "收款人",
+      "amountSent": "已发送金额",
+      "sendAnother": "再付一笔"
+    }
   },
   "Common": {
     "submit": "提交",
@@ -169,8 +307,8 @@
   },
   "Layout": {
     "emailVerificationRequired": {
-      "title": "需要邮箱验证",
-      "subtitle": "请验证您的邮箱以解锁全部功能（包括汇款）。",
+      "title": "需要验证邮箱",
+      "subtitle": "请验证您的电子邮箱以解锁包括汇款在内的所有功能。",
       "cta": "立即验证"
     }
   },
@@ -180,10 +318,10 @@
     "titles": {
       "dashboard": "仪表板",
       "wallet": "我的钱包",
-      "sendMoney": "汇款",
-      "transactions": "交易记录",
-      "compliance": "合规与 KYC",
-      "profile": "个人中心与安全",
+      "sendMoney": "在线汇款",
+      "transactions": "交易历史",
+      "compliance": "合规与实名",
+      "profile": "个人资料与安全",
       "translation": "语言设置",
       "onboarding": "身份验证"
     },
@@ -192,21 +330,124 @@
     },
     "notifications": {
       "title": "通知",
-      "newCount": "{count} 条新消息",
+      "newCount": "{count} 条新通知",
       "empty": "暂无新通知",
-      "viewAll": "查看全部通知"
+      "viewAll": "查看所有通知"
     },
     "theme": {
       "toggleAria": "切换主题"
     },
     "account": {
-      "signedInAs": "当前登录",
+      "signedInAs": "已登录身份",
       "myProfile": "个人资料",
-      "security": "安全",
-      "billing": "账单与卡片"
+      "security": "安全设置",
+      "billing": "账单与卡片",
+      "settings": "应用设置",
+      "signOut": "退出登录"
     }
-  }
-  ,
+  },
+  "Settings": {
+    "title": "设置",
+    "subtitle": "管理您的应用偏好设置。",
+    "appearance": {
+      "title": "外观",
+      "subtitle": "自定义 VaultString 在您设备上的显示方式。",
+      "light": "浅色",
+      "dark": "深色",
+      "system": "跟随系统",
+      "lightMode": "浅色模式",
+      "darkMode": "深色模式",
+      "followSystem": "跟随系统"
+    },
+    "notifications": {
+      "title": "通知",
+      "subtitle": "选择我们与您的沟通方式。",
+      "email": {
+        "title": "邮件通知",
+        "subtitle": "通过电子邮件接收更新"
+      },
+      "push": {
+        "title": "推送通知",
+        "subtitle": "在您的设备上接收更新"
+      },
+      "marketing": {
+        "title": "营销邮件",
+        "subtitle": "接收新闻与优惠信息"
+      }
+    },
+    "security": {
+      "title": "安全",
+      "subtitle": "确保您的账户安全。",
+      "twoFactor": {
+        "title": "双重身份验证",
+        "subtitle": "为您的账户添加额外的安全保障。",
+        "enable": "启用 2FA",
+        "disable": "禁用 2FA",
+        "setup": {
+          "title": "设置双重身份验证",
+          "subtitle": "使用您的身份验证应用扫描二维码。",
+          "step1": "1. 扫描二维码",
+          "step2": "2. 输入验证码",
+          "verify": "验证并启用",
+          "verifying": "验证中...",
+          "placeholder": "输入 6 位验证码"
+        }
+      }
+    },
+    "save": "保存设置",
+    "saving": "正在保存...",
+    "success": "设置保存成功",
+    "error": "保存设置失败",
+    "totp": {
+      "enabled": "双重身份验证已成功启用",
+      "disabled": "双重身份验证已禁用",
+      "error": "更新 2FA 设置失败",
+      "invalidCode": "验证码无效"
+    }
+  },
+  "Notifications": {
+    "title": "通知",
+    "subtitle": "随时了解您的账户动态和安全警报。",
+    "filters": {
+      "all": "全部",
+      "unread": "未读",
+      "archive": "存档"
+    },
+    "actions": {
+      "markAllRead": "全部标记为已读",
+      "deleteAll": "全部删除",
+      "delete": "删除",
+      "markRead": "标记为已读",
+      "markUnread": "标记为未读",
+      "markAllReadSuccess": "所有通知已标记为已读",
+      "deleteSuccess": "已删除通知",
+      "archive": "归档"
+    },
+    "badge": "随时掌握动态",
+    "backToDashboard": "返回控制面板",
+    "demo": {
+      "paymentSuccessTitle": "付款成功",
+      "paymentSuccessBody": "您已成功发送 240 美元。",
+      "newLoginTitle": "新登录",
+      "newLoginBody": "您的账户在新设备上被访问。",
+      "walletReadyTitle": "钱包已就绪",
+      "walletReadyBody": "您的欧元钱包已可使用。"
+    },
+    "empty": {
+      "title": "暂无通知",
+      "subtitle": "当有重要事情发生时，我们会通知您。"
+    },
+    "types": {
+      "info": "信息",
+      "success": "成功",
+      "warning": "警告",
+      "error": "安全警报"
+    },
+    "loadMore": "加载更多",
+    "loading": "正在加载通知...",
+    "deleteConfirm": "您确定要删除此通知吗？",
+    "deleteAllConfirm": "您确定要删除所有通知吗？"
+  },
   "Transactions": {
     "title": "财务概览",
     "subtitle": "管理您的卡片并查看活动。",
@@ -215,13 +456,13 @@
       "export": "导出"
     },
     "stats": {
-      "inflow": "流入",
-      "outflow": "流出",
+      "inflow": "收入",
+      "outflow": "支出",
       "pendingSettlement": "待结算"
     },
     "tabs": {
       "all": "全部",
-      "sent": "已发送",
+      "sent": "已汇出",
       "received": "已接收"
     },
     "search": {
@@ -229,7 +470,7 @@
     },
     "loading": "加载中...",
     "pagination": {
-      "pageOf": "第 {page} 页 / 共 {totalPages} 页",
+      "pageOf": "第 {page} 页，共 {totalPages} 页",
       "previous": "上一页",
       "next": "下一页"
     },
@@ -237,17 +478,534 @@
       "title": "我的卡片",
       "manage": "管理",
       "totalBalance": "总余额",
-      "walletId": "钱包ID",
+      "walletId": "钱包 ID",
       "addNewCard": "添加新卡"
     },
     "list": {
-      "title": "交易",
+      "title": "交易记录",
       "viewAll": "查看全部",
-      "empty": "暂无交易",
-      "unknownSender": "未知发送方",
-      "unknownReceiver": "未知收款方",
+      "empty": "暂无交易记录",
+      "unknownSender": "未知付款人",
+      "unknownReceiver": "未知收款人",
       "datePending": "日期待定",
       "invalidDate": "无效日期"
+    }
+  },
+  "Receipt": {
+    "titleSuccess": "转账成功",
+    "titlePending": "转账已提交",
+    "titleFailed": "转账失败",
+    "subtitleDefault": "您的转账已安全记录。您可以下载凭证。",
+    "subtitleLoading": "正在获取收据…",
+    "subtitleNoId": "转账已提交，但我们无法自动加载收据。",
+    "backToTransactions": "交易",
+    "downloadPdf": "下载凭证（PDF）",
+    "proofHeading": "交易凭证",
+    "referencePending": "加载后将显示参考号",
+    "referenceLabel": "参考号：{ref}",
+    "loading": "正在加载收据…",
+    "errorTitle": "无法加载收据",
+    "backToTransactionsError": "返回交易",
+    "labelDate": "交易日期",
+    "labelTxnId": "交易 ID",
+    "labelSender": "付款人",
+    "labelReceiver": "收款人",
+    "labelAmount": "金额",
+    "labelFee": "处理费",
+    "labelTotalDebited": "扣款总额",
+    "labelRecipientReceives": "收款人实收",
+    "labelDescription": "摘要",
+    "sendAgain": "再转一笔",
+    "viewHistory": "查看交易记录",
+    "receiptUnavailableTitle": "收据不可用",
+    "receiptUnavailableBody": "我们未收到有效的交易 ID。请打开交易列表查看最新转账。",
+    "goToTransactions": "前往交易",
+    "errorResolveId": "无法为此收据解析有效的交易 ID。",
+    "loadFailed": "加载收据失败"
+  },
+  "Auth": {
+    "login": {
+      "title": "登录",
+      "subtitle": "欢迎回到 VaultString",
+      "alertMfaTitle": "需要 MFA",
+      "alertComingSoonTitle": "即将推出",
+      "alertLoginFailedTitle": "登录失败",
+      "errorInvalidCredentials": "凭据无效，请重试。",
+      "errorMfaRequired": "此账户需要双因素认证。",
+      "errorUnexpected": "发生意外错误，请重试。",
+      "errorGoogleInit": "无法启动 Google 认证，请重试。",
+      "errorAppleComingSoon": "Apple 登录尚不可用，请使用邮箱和密码。",
+      "emailLabel": "电子邮箱",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "密码",
+      "forgotPassword": "忘记密码？",
+      "authenticatorCodeLabel": "验证器代码",
+      "mfaHint": "请输入验证器应用中的 6 位代码以完成登录。",
+      "backToPassword": "返回密码",
+      "submitSigningIn": "正在登录…",
+      "submitVerifying": "正在验证…",
+      "submitSignIn": "登录 VaultString",
+      "submitVerifySignIn": "验证并登录",
+      "noAccount": "还没有账户？",
+      "createAccount": "创建一个",
+      "validation": {
+        "emailInvalid": "请输入有效的电子邮箱",
+        "passwordRequired": "密码为必填项"
+      }
+    },
+    "signup": {
+      "alertFailedTitle": "注册失败",
+      "alertSuccessTitle": "成功",
+      "alertSuccessBody": "账户已创建，正在跳转…",
+      "errorSignupFailed": "注册失败，请重试。",
+      "errorUnexpected": "发生意外错误。",
+      "errorGoogleInit": "无法启动 Google 认证，请重试。",
+      "accountTypeIndividual": "个人",
+      "accountTypeBusiness": "企业",
+      "businessNameLabel": "企业名称",
+      "businessNamePlaceholder": "您的企业名称",
+      "firstNameLabel": "名",
+      "firstNamePlaceholder": "明",
+      "lastNameLabel": "姓",
+      "lastNamePlaceholder": "李",
+      "countryLabel": "国家",
+      "countryPlaceholder": "CN",
+      "phoneLabel": "电话 (E.164)",
+      "phonePlaceholder": "+86…",
+      "emailLabel": "电子邮箱",
+      "emailPlaceholder": "you@example.cn",
+      "passwordLabel": "密码",
+      "confirmPasswordLabel": "确认密码",
+      "termsLabel": "我接受<terms>服务条款</terms>和<privacy>隐私政策</privacy>",
+      "termsLink": "服务条款",
+      "privacyLink": "隐私政策",
+      "submitCreating": "正在创建账户…",
+      "submitCreate": "创建账户",
+      "validation": {
+        "emailInvalid": "请输入有效的电子邮箱",
+        "firstNameRequired": "名为必填项",
+        "lastNameRequired": "姓为必填项",
+        "phoneInvalid": "电话号码无效",
+        "countryCode": "请使用 2 位国家代码（如 MW）",
+        "passwordMin": "密码至少需要 8 个字符",
+        "termsRequired": "您必须接受条款和条件",
+        "passwordMismatch": "密码不匹配",
+        "businessNameRequired": "企业账户需要填写企业名称"
+      }
+    }
+  },
+  "Translation": {
+    "subtitle": "选择您偏好的语言和地区。",
+    "appLanguage": "应用语言",
+    "appLanguageHint": "选择界面显示语言。",
+    "searchPlaceholder": "搜索语言...",
+    "languageUpdated": "语言已成功更新",
+    "translating": "翻译中…"
+  },
+  "Verification": {
+    "verifyingTitle": "正在验证邮箱",
+    "verifyingSubtitle": "请稍候，我们正在确认您的身份...",
+    "connectingServers": "正在连接安全服务器...",
+    "verifiedTitle": "邮箱已验证！",
+    "verifiedSubtitle": "您的身份已成功确认。",
+    "redirectingProfile": "正在跳转以完成个人资料设置...",
+    "failedTitle": "验证失败",
+    "failedSubtitle": "确认您的邮箱时出现问题。",
+    "backToLogin": "返回登录",
+    "resendCooldown": "{seconds}秒后可重新发送验证码",
+    "resendEmail": "尝试重新发送验证邮件",
+    "magicLinkTitle": "请查收邮件",
+    "magicLinkSubtitle": "我们已向 {email} 发送魔法链接",
+    "magicLinkBody": "请点击邮件中的链接完成验证。",
+    "useCodeInstead": "改用验证码",
+    "verifyTitle": "验证邮箱",
+    "verifySubtitle": "请输入发送至 {email} 的验证码",
+    "codeLabel": "验证码",
+    "codePlaceholder": "000000",
+    "verifyButton": "验证邮箱",
+    "resendCode": "重新发送验证码",
+    "useMagicLink": "改用魔法链接",
+    "invalidCode": "验证码无效",
+    "invalidLink": "验证链接无效或已过期",
+    "resendFailed": "重新发送验证码失败"
+  },
+  "ResetPassword": {
+    "emailTitle": "重置密码",
+    "emailSubtitle": "输入您的邮箱以接收重置说明",
+    "emailLabel": "电子邮箱",
+    "emailPlaceholder": "you@example.cn",
+    "sendLink": "发送重置链接",
+    "rememberPassword": "记得密码？",
+    "signIn": "登录",
+    "resetTitle": "创建新密码",
+    "resetSubtitle": "请在下方输入新密码",
+    "newPasswordLabel": "新密码",
+    "confirmPasswordLabel": "确认密码",
+    "passwordPlaceholder": "••••••••",
+    "expiryNote": "此重置链接将在1小时后失效",
+    "resetButton": "重置密码",
+    "successTitle": "密码重置成功",
+    "successSubtitle": "您的密码已更新",
+    "successBody": "密码已重置。您现在可以使用新密码登录。",
+    "returnSignIn": "返回登录",
+    "fallbackTitle": "重置密码",
+    "fallbackSubtitle": "创建新密码",
+    "toastSuccess": "成功",
+    "toastError": "错误",
+    "emailSent": "如果该邮箱存在，已发送重置链接。",
+    "passwordMismatch": "两次输入的密码不一致",
+    "invalidLink": "重置链接无效或已过期",
+    "resetSuccess": "密码重置成功！",
+    "sendFailed": "发送重置邮件失败",
+    "resetFailed": "密码重置失败"
+  },
+  "Compliance": {
+    "title": "身份验证",
+    "subtitle": "完成KYC流程以解锁更高限额和全部账户功能。",
+    "currentStatus": "当前状态",
+    "statusVerified": "已验证",
+    "statusReview": "审核中",
+    "statusUnverified": "未验证",
+    "verifiedBody": "您的身份已确认，可完全访问。",
+    "reviewBody": "我们正在审核您的文件，通常需要24-48小时。",
+    "unverifiedBody": "请提交文件以验证您的身份。",
+    "history": "历史记录",
+    "rejectionReason": "原因：{reason}",
+    "submitTitle": "提交文件",
+    "submitSubtitle": "上传有效的政府签发身份证件以验证身份。",
+    "docType": "证件类型",
+    "selectType": "选择类型",
+    "passport": "护照",
+    "nationalId": "国民身份证",
+    "driversLicense": "驾驶证",
+    "issuingCountry": "签发国家",
+    "selectCountry": "选择国家",
+    "china": "中国",
+    "docNumber": "证件号码",
+    "docNumberPlaceholder": "输入证件编号",
+    "docImage": "证件图片（正面）",
+    "clickToChange": "点击更换",
+    "uploadHint": "点击上传",
+    "uploadOrDrop": "或拖放文件",
+    "uploadFormats": "SVG、PNG、JPG 或 GIF（最大 10MB）",
+    "submitting": "提交中...",
+    "submitButton": "提交验证",
+    "fullyVerifiedTitle": "您已完成验证！",
+    "fullyVerifiedBody": "感谢您完成身份验证。您现在可使用全部功能、更高交易限额和更快处理速度。",
+    "returnDashboard": "返回仪表板",
+    "inProgressTitle": "验证进行中",
+    "inProgressBody": "我们已收到您的文件，合规团队正在审核。审核完成后您将收到通知。",
+    "loadFailed": "加载合规状态失败",
+    "fillAllFields": "请填写所有字段并上传文件",
+    "submitSuccess": "KYC文件提交成功",
+    "submitFailed": "文件提交失败"
+  },
+  "Onboarding": {
+    "userType": {
+      "title": "了解您的客户",
+      "subtitle": "选择账户类型以开始验证流程",
+      "individualTitle": "个人",
+      "individualDescription": "Verify as a private person. Takes about 10 minutes.",
+      "individualFeaturePersonal": "Personal information",
+      "individualFeatureId": "ID verification",
+      "individualFeatureAddress": "Address proof",
+      "individualCta": "以个人身份继续",
+      "businessTitle": "企业",
+      "businessDescription": "Verify your company. Takes about 15 minutes.",
+      "businessFeatureCompany": "Company details",
+      "businessFeatureUbo": "UBO disclosure",
+      "businessFeatureDocs": "Documentation",
+      "businessCta": "以企业身份继续",
+      "privacyNote": "We take your privacy seriously. Your information is encrypted and secure.",
+      "complianceNote": "Compliant with Malawi RBM and China PBOC regulations"
+    },
+    "flow": {
+      "changeType": "更改类型",
+      "saveDraft": "保存草稿",
+      "draftSaved": "进度已保存，您可以稍后继续。",
+      "back": "返回上一步",
+      "stepSubtitle": "第 {current} 步，共 {total} 步",
+      "continue": "继续下一步"
+    },
+    "individualSteps": {
+      "personal": "Personal Details",
+      "contact": "Contact Information",
+      "id": "ID Verification",
+      "funds": "Source of Funds",
+      "security": "Security Setup",
+      "terms": "Terms & Agreements"
+    },
+    "businessSteps": {
+      "company": "Company Details",
+      "business": "Business Information",
+      "reps": "Authorized Representatives",
+      "ubo": "UBO Disclosure",
+      "banking": "Banking Details",
+      "docs": "Documentation",
+      "compliance": "Compliance"
+    },
+    "personalDetails": {
+      "firstNameLabel": "First Name *",
+      "firstNamePlaceholder": "John",
+      "lastNameLabel": "Last Name *",
+      "lastNamePlaceholder": "Doe",
+      "dateOfBirthLabel": "Date of Birth *",
+      "nationalityLabel": "Nationality *",
+      "nationalityPlaceholder": "United States",
+      "idTypeLabel": "ID Type",
+      "idTypePassport": "Passport",
+      "idTypeDriverLicense": "Driver's License",
+      "idTypeNationalId": "National ID",
+      "encryptionNote": "Your personal information is encrypted and will only be used for verification purposes.",
+      "validation": {
+        "firstNameRequired": "First name is required",
+        "lastNameRequired": "Last name is required",
+        "dateOfBirthRequired": "Date of birth is required",
+        "nationalityRequired": "Nationality is required"
+      }
+    },
+    "contactInfo": {
+      "phoneLabel": "Phone Number *",
+      "phonePlaceholder": "+1 (555) 123-4567",
+      "emailLabel": "Email Address *",
+      "emailPlaceholder": "kelvin@example.com",
+      "addressLabel": "Address *",
+      "addressPlaceholder": "123 Main Street",
+      "cityLabel": "City *",
+      "cityPlaceholder": "Lilongwe",
+      "countryLabel": "Country *",
+      "countryPlaceholder": "Malawi",
+      "postalCodeLabel": "Postal Code *",
+      "postalCodePlaceholder": "10001",
+      "validation": {
+        "phoneRequired": "Phone number is required",
+        "emailRequired": "Email is required",
+        "addressRequired": "Address is required",
+        "cityRequired": "City is required",
+        "countryRequired": "Country is required",
+        "postalCodeRequired": "Postal code is required"
+      }
+    },
+    "idVerification": {
+      "documentNumberLabel": "Document Number *",
+      "documentNumberPlaceholder": "ABC123456789",
+      "expiryDateLabel": "Expiry Date *",
+      "uploadLabel": "Upload Document *",
+      "previewAlt": "Preview",
+      "uploadCta": "Click to upload or drag and drop",
+      "uploadFormats": "PNG, JPG, or PDF (max 10MB)",
+      "secureNote": "Your document is verified securely. We only use it to confirm your identity.",
+      "validation": {
+        "documentNumberRequired": "Document number is required",
+        "expiryDateRequired": "Expiry date is required",
+        "fileRequired": "Document file is required"
+      }
+    },
+    "sourceOfFunds": {
+      "employmentStatusLabel": "Employment Status *",
+      "employmentEmployed": "employed",
+      "employmentSelfEmployed": "self employed",
+      "employmentRetired": "retired",
+      "employmentStudent": "student",
+      "employmentOther": "other",
+      "currencyLabel": "Currency *",
+      "currencyMwk": "Malawian Kwacha (MWK)",
+      "currencyCny": "Chinese Yuan (CNY)",
+      "incomeRangeLabel": "Annual Income Range *",
+      "incomeMwk0": "0 - 100,000 MWK",
+      "incomeMwk1": "100,000 - 500,000 MWK",
+      "incomeMwk2": "500,000 - 1,000,000 MWK",
+      "incomeMwk3": "1,000,000 - 5,000,000 MWK",
+      "incomeMwk4": "5,000,000+ MWK",
+      "incomeCny0": "0 - 50,000 CNY",
+      "incomeCny1": "50,000 - 200,000 CNY",
+      "incomeCny2": "200,000 - 500,000 CNY",
+      "incomeCny3": "500,000 - 2,000,000 CNY",
+      "incomeCny4": "2,000,000+ CNY",
+      "amlNote": "This information helps us comply with anti-money laundering regulations."
+    },
+    "securitySetup": {
+      "twoFaLabel": "Enable two-factor authentication (2FA) for enhanced security",
+      "question1Label": "Security Question 1 *",
+      "selectQuestion": "Select a question",
+      "answerLabel": "Your Answer *",
+      "answerPlaceholder": "Your answer",
+      "recoveryNote": "These security questions help us verify your identity if you need to recover your account.",
+      "questions": {
+        "maidenName": "What is your mother's maiden name?",
+        "firstPet": "What was the name of your first pet?",
+        "birthCity": "In what city were you born?",
+        "favoriteTeacher": "What is the name of your favorite teacher?",
+        "firstCar": "What was the make of your first car?"
+      },
+      "validation": {
+        "questionRequired": "Please select a security question",
+        "answerRequired": "Please answer the security question"
+      }
+    },
+    "terms": {
+      "heading": "Terms and Conditions",
+      "body1": "By using our KYC verification service, you agree to comply with all applicable laws and regulations. You represent that all information provided is accurate and complete. We reserve the right to deny access or cancel accounts if we detect fraudulent activity or violation of our terms.",
+      "body2": "Your data will be processed securely and in compliance with international data protection regulations including GDPR and local standards.",
+      "privacyLabel": "I have read and agree to the <privacy>Privacy Policy</privacy> *",
+      "privacyLink": "Privacy Policy",
+      "termsLabel": "I have read and agree to the <terms>Terms of Service</terms> *",
+      "termsLink": "Terms of Service",
+      "dataLabel": "I consent to the secure storage of my personal data *",
+      "submit": "完成验证",
+      "submitting": "提交中…",
+      "validation": {
+        "privacyRequired": "You must accept the privacy policy",
+        "termsRequired": "You must accept the terms of service",
+        "dataRequired": "You must consent to data processing"
+      },
+      "errorSubmit": "Failed to submit KYC. Please try again."
+    },
+    "completion": {
+      "individualTitle": "KYC Submitted",
+      "businessTitle": "Business KYC Submitted",
+      "subtitle": "Your verification is being processed",
+      "thankYou": "Thank you for completing your verification. Our compliance team is now reviewing your application.",
+      "reviewTimeLabel": "Review Time",
+      "reviewTimeValue": "24 - 48 Hours",
+      "confirmationLabel": "Confirmation",
+      "confirmationValue": "Email will be sent",
+      "securityLabel": "Security",
+      "securityValue": "Full access on approval",
+      "goDashboard": "前往控制台",
+      "startAnother": "开始另一项验证",
+      "referenceId": "Reference ID: KYC-{id}"
+    },
+    "companyDetails": {
+      "legalNameLabel": "Legal Company Name *",
+      "legalNamePlaceholder": "ABC Corporation Ltd.",
+      "registrationLabel": "Registration Number *",
+      "registrationPlaceholder": "REG123456",
+      "taxIdLabel": "Tax ID *",
+      "taxIdPlaceholder": "TAX123456789",
+      "validation": {
+        "legalNameRequired": "Legal name is required",
+        "registrationRequired": "Registration number is required",
+        "taxIdRequired": "Tax ID is required"
+      }
+    },
+    "businessInfo": {
+      "industryLabel": "Industry *",
+      "selectIndustry": "Select an industry",
+      "industries": {
+        "technology": "Technology",
+        "finance": "Finance",
+        "healthcare": "Healthcare",
+        "retail": "Retail",
+        "manufacturing": "Manufacturing",
+        "education": "Education",
+        "other": "Other"
+      },
+      "companySizeLabel": "Company Size *",
+      "selectCompanySize": "Select company size",
+      "size1": "1-10 employees",
+      "size2": "11-50 employees",
+      "size3": "51-200 employees",
+      "size4": "201-500 employees",
+      "size5": "500+ employees",
+      "websiteLabel": "Website (Optional)",
+      "websitePlaceholder": "https://example.com",
+      "incorporationDateLabel": "Incorporation Date *",
+      "validation": {
+        "industryRequired": "Industry is required",
+        "companySizeRequired": "Company size is required",
+        "incorporationDateRequired": "Incorporation date is required"
+      }
+    },
+    "authorizedReps": {
+      "representativeTitle": "Representative {n}",
+      "remove": "Remove",
+      "fullNameLabel": "Full Name *",
+      "fullNamePlaceholder": "John Smith",
+      "emailLabel": "Email *",
+      "emailPlaceholder": "john@example.com",
+      "jobTitleLabel": "Job Title *",
+      "jobTitlePlaceholder": "CEO",
+      "addAnother": "Add Another Representative",
+      "validation": {
+        "nameRequired": "Name is required",
+        "emailRequired": "Email is required",
+        "titleRequired": "Title is required"
+      }
+    },
+    "uboDisclosure": {
+      "intro": "UBO (Ultimate Beneficial Owner) disclosure is required for compliance. Please provide information about the individuals who ultimately own or control the company.",
+      "ownershipStructureLabel": "Ownership Structure",
+      "directOwnership": "Direct ownership",
+      "indirectOwnership": "Indirect ownership (through another entity)",
+      "uboNameLabel": "UBO Full Name *",
+      "uboNamePlaceholder": "Ida Mateyu",
+      "ownershipPercentLabel": "Ownership Percentage *",
+      "ownershipPercentPlaceholder": "25",
+      "nationalityLabel": "Nationality *",
+      "nationalityPlaceholder": "Malawian",
+      "validation": {
+        "uboNameRequired": "UBO name is required",
+        "ownershipRequired": "Ownership percentage is required",
+        "nationalityRequired": "Nationality is required"
+      }
+    },
+    "bankingDetails": {
+      "bankNameLabel": "Bank Name *",
+      "bankNamePlaceholder": "Example Bank",
+      "accountNumberLabel": "Account Number *",
+      "accountNumberPlaceholder": "123456789",
+      "bankCodeLabel": "Bank Code / SWIFT Code *",
+      "bankCodePlaceholder": "SWIFTCODE",
+      "accountHolderLabel": "Account Holder Name *",
+      "accountHolderPlaceholder": "Company Name",
+      "encryptedNote": "Your banking details are encrypted and used only for payouts.",
+      "validation": {
+        "bankNameRequired": "Bank name is required",
+        "accountNumberRequired": "Account number is required",
+        "bankCodeRequired": "Bank code is required",
+        "accountHolderRequired": "Account holder name is required"
+      }
+    },
+    "documentation": {
+      "incorporationLabel": "Certificate of Incorporation",
+      "articlesLabel": "Articles of Association",
+      "shareholdersLabel": "Shareholder Register",
+      "uploadSuccess": "File uploaded successfully",
+      "uploadCta": "Click to upload",
+      "uploadFormats": "PDF or DOC (max 20MB)",
+      "uploading": "Uploading...",
+      "validation": {
+        "incorporationRequired": "Certificate of incorporation is required",
+        "articlesRequired": "Articles of association are required"
+      },
+      "errorUpload": "Failed to upload documents. Please try again."
+    },
+    "compliance": {
+      "businessPurposeLabel": "Business Purpose *",
+      "selectPurpose": "Select business purpose",
+      "purposes": {
+        "trading": "Trading",
+        "consulting": "Consulting",
+        "manufacturing": "Manufacturing",
+        "services": "Services",
+        "other": "Other"
+      },
+      "expectedVolumeLabel": "Expected Monthly Transaction Volume *",
+      "selectRange": "Select range",
+      "volume0": "$0 - $10,000",
+      "volume1": "$10,000 - $50,000",
+      "volume2": "$50,000 - $100,000",
+      "volume3": "$100,000+",
+      "confirmationHeading": "Compliance Confirmation",
+      "confirmationBody": "I confirm that my company complies with all applicable regulations in the jurisdictions where it operates, including Malawi RBM requirements and China PBOC merchant requirements.",
+      "checkboxLabel": "I confirm compliance with all applicable regulations *",
+      "submit": "Complete Business Verification",
+      "validation": {
+        "purposeRequired": "Business purpose is required",
+        "volumeRequired": "Expected transaction volume is required",
+        "complianceRequired": "You must accept the compliance confirmation"
+      }
     }
   }
 }

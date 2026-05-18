@@ -67,7 +67,7 @@ export async function getDeviceCountry(): Promise<string> {
         return country!;
       }
     }
-  } catch (e) {
+  } catch {
     // console.warn("Failed to fetch device country", e);
   }
   return '';
@@ -207,20 +207,40 @@ export async function apiFetch(path: string, init: RequestInit & { skipAuthRedir
     }
 
     let message = (data && (data.error || data.message)) || (text || res.statusText || 'API request failed');
+
+    // Immediate account lockout UX when backend marks account blocked.
+    if (res.status === 403) {
+      const lower = String(message).toLowerCase();
+      const blocked = lower.includes('account is blocked') || lower.includes('user is blocked');
+      if (blocked && !init.skipAuthRedirect) {
+        setToken(null);
+        setUser(null);
+        if (typeof window !== 'undefined' && !window.location.pathname.startsWith('/account-blocked')) {
+          window.location.href = '/account-blocked';
+        }
+      }
+    }
     
     // If we got an HTML response for a 404 or other error, it's likely a misconfigured rewrite or server error
     if (contentType.toLowerCase().includes('text/html') && res.status === 404) {
-      message = `API endpoint not found [${res.status} ${method} ${path}]`;
+      message = `API endpoint not found [${res.status} ${method} ${path}]. Please check if the gateway is routing correctly.`;
     } else if (contentType.toLowerCase().includes('text/html')) {
-      message = `Server error [${res.status} ${res.statusText}]`;
+      message = `Critical server error [${res.status} ${res.statusText}]. The backend may be experiencing issues.`;
     }
 
     // BANK-GRADE ERROR SANITIZATION:
     // Never leak technical details (SQL errors, stack traces, path names) to the user.
+    // Auth endpoints: show real failure reasons (e.g. service down) — still no raw SQL in normal flows.
     let cleanMessage = String(message);
-    const technicalKeywords = ['sql', 'database', 'postgres', 'dial tcp', 'invalid memory', 'stack trace', 'panic', 'at /', 'line ', 'unexpected end', 'json:'];
-    
-    if (technicalKeywords.some(k => cleanMessage.toLowerCase().includes(k))) {
+    // Hard leaks only — avoid false positives (e.g. "json:" in decode errors, "line " in unrelated text).
+    const hardTechnicalKeywords = ['sql', 'database', 'postgres', 'dial tcp', 'invalid memory', 'stack trace', 'panic', 'at /', 'unexpected end'];
+    const extraLooseKeywords = ['line ', 'json:'];
+    const isAuthPath = openAuthPaths.some((p) => path.startsWith(p));
+    const technicalKeywords = path.startsWith('/payments/')
+      ? hardTechnicalKeywords
+      : [...hardTechnicalKeywords, ...extraLooseKeywords];
+
+    if (!isAuthPath && technicalKeywords.some((k) => cleanMessage.toLowerCase().includes(k))) {
       if (DEBUG_API) console.error('[SECURITY AUDIT] Technical error intercepted:', cleanMessage);
       cleanMessage = "A secure processing error occurred. Our team has been notified. Please try again later.";
     }

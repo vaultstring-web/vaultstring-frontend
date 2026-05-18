@@ -1,0 +1,1011 @@
+{
+  "Dashboard": {
+    "title": "Allon bayani",
+    "subtitle": "Bayyani na kuɗin ku",
+    "totalAvailableBalance": "Jimlar ma'auni da ake da shi",
+    "totalBalance": "Jimlar ma'auni",
+    "sendMoney": "Aika kuɗi",
+    "addFunds": "Ƙara kuɗi",
+    "wallet": "Jakar kuɗi",
+    "transactions": "Ma'amaloli",
+    "recentActivity": "Ayyukan kwanan nan",
+    "viewAll": "Duba duka",
+    "noRecentActivity": "Babu ayyuka na kwanan nan",
+    "currentRate": "Farashin yanzu",
+    "lastUpdatedJustNow": "An sabunta: yanzu",
+    "verificationRequired": "Ana buƙatar tabbatar da shaida",
+    "verificationSubtitle": "Buɗe wallets na kuɗi da yawa da ƙarin iyaka ta kammala KYC.",
+    "verifyNow": "Tabbatar yanzu",
+    "forexAnalytics": "Binciken Forex",
+    "currencyConverter": "Mai canza kuɗi",
+    "converter": {
+      "setAlert": "Saita faɗakarwa",
+      "viewHistory": "Duba tarihi",
+      "from": "Daga",
+      "to": "Zuwa"
+    },
+    "market": {
+      "overviewTitle": "Bayyinin kasuwa",
+      "overviewSubtitle": "Farashin musaya da nazari a ainihin lokaci",
+      "open": "Kasuwa a buɗe",
+      "high24h": "Mafi girma 24h",
+      "low24h": "Mafi ƙasa 24h",
+      "timing": {
+        "title": "Bayanin lokaci",
+        "buyBadge": "Lokaci mai kyau don saya",
+        "buyText": "Farashi ya yi ƙasa sosai (-{percent}%) fiye da matsakaicin yau.",
+        "waitBadge": "Yi la'akari da jira",
+        "waitText": "Farashi yana da tsayi (+{percent}%). Yi la'akari da jira.",
+        "stableBadge": "Kasuwa mai kwanciyar hankali",
+        "stableText": "Farashi yana da kwanciyar hankali ({percent}%)."
+      },
+      "source": {
+        "title": "Tushen kasuwa",
+        "body": "Bayanan ainihin lokaci daga Google Finance. Farashi na nuni ne kuma na iya bambanta."
+      }
+    }
+  },
+  "Wallet": {
+    "title": "Wallet ɗina",
+    "subtitle": "Sarrafa katunan ku, kadarorin dijital, da matakan ruwa.",
+    "accountBalances": "Ma'auni na asusu",
+    "addNewCard": "Ƙara sabon kati",
+    "addMultiCurrencyCard": "Ƙara katin kuɗi da yawa",
+    "unlockGlobalSpending": "Buɗe ciyarwar duniya",
+    "verificationRequiredTitle": "Ana buƙatar tabbatarwa",
+    "verificationNotice": "Tabbatar da shaidar ku don ƙara iyaka da ƙarin katunan kuɗi.",
+    "verifyNow": "Tabbatar yanzu",
+    "availableBalance": "Ma'auni da ake da shi",
+    "deposit": "Ajiya",
+    "withdraw": "Cire",
+    "loading": "Ana lodawa…",
+    "errors": {
+      "identityRequiredTitle": "Ana buƙatar tabbatar da shaida",
+      "identityRequiredSubtitle": "Da fatan a kammala KYC don buɗe wallets na kuɗi da yawa."
+    },
+    "createModal": {
+      "badge": "Sabon kadara",
+      "title": "Ƙara wallet na kuɗi da yawa",
+      "subtitle": "Ƙirƙiri sabon katin ruwa don fara ma'amala a duniya.",
+      "baseCurrency": "Kuɗin asali",
+      "selectCurrency": "Zaɓi kuɗi",
+      "accountCategory": "Rukunin asusu",
+      "selectType": "Zaɓi nau'i",
+      "types": {
+        "personal": "Amfani na kanka",
+        "business": "Kasuwanci / Dan kasuwa"
+      },
+      "currencies": {
+        "mwk": "Malawi Kwacha (MWK)",
+        "cny": "Yuan na China (CNY)",
+        "zmw": "Zambia Kwacha (ZMW)"
+      },
+      "cta": "Ƙirƙiri Wallet ɗina",
+      "discard": "Yi watsi da canje-canje",
+      "success": "An ƙirƙiri wallet cikin nasara",
+      "error": "An kasa ƙirƙirar wallet"
+    }
+  },
+  "Profile": {
+    "title": "Bayanan martaba na asusu",
+    "myProfile": "Bayanan martaba na",
+    "security": "Tsaro",
+    "translation": "Fassara",
+    "notifications": "Sanarwa",
+    "settings": "Saituna",
+    "deleteAccount": "Share asusu",
+    "personalInfo": "Bayanan sirri",
+    "fullName": "Cikakken suna",
+    "email": "Adireshin imel",
+    "phone": "Wayar hannu",
+    "address": "Adireshi",
+    "saveChanges": "Ajiye canje-canje",
+    "updatePassword": "Sabunta kalmar sirri",
+    "updating": "Ana sabuntawa…",
+    "mfa": "Tabbatar da mataki biyu",
+    "mfaSubtitle": "Ƙara ƙarin matakin tsaro ga asusunku.",
+    "bio": "Takaitaccen bayani",
+    "country": "Ƙasa",
+    "city": "Gari/jihar",
+    "taxId": "ID na haraji",
+    "postalCode": "Lambar gidan waya",
+    "memberSince": "Memba tun",
+    "accountStatus": "Matsayin asusu",
+    "verified": "An tabbatar",
+    "unverified": "Ba a tabbatar ba",
+    "editProfile": "Gyara bayanan martaba",
+    "changePassword": "Canza kalmar sirri",
+    "currentPassword": "Kalmar sirri ta yanzu",
+    "newPassword": "Sabon kalmar sirri",
+    "confirmPassword": "Tabbatar da sabon kalmar sirri",
+    "notificationPreferences": {
+      "title": "Abubuwan da aka fi so na sanarwa",
+      "subtitle": "Zaɓi yadda kake son sanarwa.",
+      "email": {
+        "title": "Sanarwar imel",
+        "subtitle": "Karɓi sabuntawa ta imel"
+      },
+      "push": {
+        "title": "Sanarwar push",
+        "subtitle": "Karɓi sabuntawa a na'urarka"
+      },
+      "sms": {
+        "title": "Sanarwar SMS",
+        "subtitle": "Karɓi sabuntawa ta SMS"
+      }
+    },
+    "uploadAvatar": "Loda hoto",
+    "removeAvatar": "Cire hoto",
+    "tabs": {
+      "activity": "Ayyuka",
+      "wallets": "Wallet",
+      "security": "Tsaro",
+      "language": "Harshe"
+    },
+    "viewArchive": "Duba tarihin kuɗi",
+    "headerUsernameFallback": "asusu",
+    "stats": {
+      "transactions": "mu'amalla",
+      "wallets": "wallet",
+      "recipients": "masu karɓawa"
+    },
+    "activityDevices": "Ayyuka da na'urori",
+    "activitySubtitle": "Duba shiga asusu da wuraren da aka yi amfani dasu domin gano iyana da ba a zata ba.",
+    "refresh": "Sake loda",
+    "knownDevices": "Sanannen na'urori",
+    "recentEvents": "Lambobin tarihi na kusa",
+    "lastLogin": "Shiga ta karshe",
+    "cancel": "Soke",
+    "devicesHeading": "Na'urori",
+    "recentActivityHeading": "Ayyukan kusa",
+    "badgeLive": "Kai tsaye",
+    "badgeLoading": "Ana lodawa",
+    "noDevicesYet": "Babu rikodin na'uri a yanzu.",
+    "noActivityYet": "Babu ayyuka tukuna.",
+    "unknownDevice": "Ba a san na'uri ba",
+    "ipUnavailable": "IP: babu",
+    "lastSeen": "An ga shi karshe",
+    "trustedBadge": "An yarda da shi",
+    "untrustedBadge": "Ba'a yarda ba",
+    "dash": "—",
+    "walletCardTitle": "Wallet ta {currency}",
+    "noWalletsMessage": "Babu wallet ɗaya don wannan asusu a halin yanzu.",
+    "twoFactorShortTitle": "Tsaro mai matakai biyu (2FA)",
+    "twoFactorStatus": "Matsayi",
+    "enabled": "An kunna",
+    "disabled": "An kashe",
+    "twoFactorBlurb": "Kare asusunku da ɓangaren tsaro ƙari. Zamu nemi lamba duk lokacin da aka shiga daga sabon na'uri.",
+    "activeProtection": "Ana kiyaye",
+    "secureAccountTitle": "Karanta asusu",
+    "scanQrSubtitle": "Duba QR code ɗin tare da Google Authenticator, Authy, ko makaman hade.",
+    "enterSixDigitCode": "Shigar da lambar lamba 6",
+    "verifyAndEnable": "Tabbatar & kunna",
+    "dialogIdentitySubtitle": "Ci gaba da sabunta bayananku akan VaultString.",
+    "bioPlaceholder": "Fada game da kanku (na zaɓi)",
+    "defaultBioTagline": "Abokin ciniki na VaultString",
+    "toasts": {
+      "profileUpdated": "An sabunta bayanan profile cikin nasara",
+      "profileFailed": "An kasa sabunta profile",
+      "passwordFieldsRequired": "Da fatan a cika duk filayen kalmar sirri",
+      "passwordMismatch": "Kalmar sirri ba su dace ba",
+      "passwordUpdated": "An sabunta kalmar sirri cikin nasara",
+      "passwordFailed": "An kasa sabunta kalmar sirri",
+      "totpSetupFailed": "An kasa saita 2FA",
+      "twoFactorDisabled": "An kashe 2FA",
+      "twoFactorDisableFailed": "An kasa kashe 2FA",
+      "twoFactorEnabled": "An kunna 2FA cikin nasara",
+      "invalidTotpCode": "Lambar tabbatarwa ba daidai ba",
+      "avatarUploading": "Ana loda hoton fuska…",
+      "avatarUpdated": "An sabunta hoton fuska"
+    }
+  },
+  "Sidebar": {
+    "dashboard": "Babban allo",
+    "wallet": "Wallet na",
+    "sendMoney": "Aika kuɗi",
+    "transactions": "Ma'amala",
+    "profile": "Bayanan martaba",
+    "verifyIdentity": "Tabbatar da shaida",
+    "signOut": "Fita"
+  },
+  "SendMoney": {
+    "title": "Aika kuɗi",
+    "subtitle": "Fara wuce-wuce da biyan kuɗi tsakanin ƙasashe cikin tsaro.",
+    "instantSettlement": "Biyan nan take",
+    "kycRequired": {
+      "title": "Ana buƙatar tabbatar da shaida",
+      "subtitle": "Da fatan a kammala KYC don buɗe canja wuri na kasa da kasa da ƙarin iyaka."
+    },
+    "sections": {
+      "recipientDetails": "Bayanin mai karɓa",
+      "transferAmount": "Adadin aikawa",
+      "paymentPath": "Hanyar biya"
+    },
+    "cta": {
+      "confirmTransfer": "Tabbatar & aika yanzu"
+    },
+    "security": {
+      "aes256": "Biya da AES-256"
+    },
+    "preview": {
+      "empty": "Shigar da adadin don ganin\nkudaden canji na ainihi"
+    },
+    "errors": {
+      "blockedTitle": "An toshe ma'amala",
+      "paymentFailedTitle": "An kasa aika biyan kuɗi",
+      "untrustedDevice": "An gano sabuwar na'ura. Don tsaro, fita ka shiga don tabbatar da wannan na'urar.",
+      "duplicateRequest": "An gano buƙatar kwafi. Jira ko duba tarihin ma'amalolinku.",
+      "insufficientBalance": "Ma'auni bai isa ba.",
+      "generic": "An sami kuskure. Da fatan za a sake gwadawa."
+    },
+    "feeNote": "Kudade suna lissafawa bisa ruwa da girman hanyar sanarwa a lokacin aikawa.",
+    "paymentDetails": "Bayanin biya",
+    "international": "Na duniya",
+    "sameCurrency": "Kudin iri ɗaya",
+    "amount": "Adadi",
+    "currency": "Kudin",
+    "fundingSource": "Matsayin haɗin kuɗi",
+    "payoutMethod": "Hanyar biya",
+    "recipientWalletNumber": "Lambar wallet ta mai karɓa",
+    "walletNumberPlaceholder": "Shigar da lambar wallet ta lambobi 16",
+    "suggestedReceivers": "Masu karɓa da aka ba da shawara",
+    "refineSearchHint": "Ci gaba da shigar da lambobi don nemo",
+    "verifiedReceiver": "An tabbatar da mai karɓa",
+    "recipientWalletHint": "Rubuta lambar wallet kuma zaɓi mai karɓa don tabbatar da cewa kuna aika ga mai amfani daidai.",
+    "targetReceivesLabel": "Mai karɓa yana karɓa a",
+    "selectPlaceholder": "Zaɓi",
+    "amountPlaceholder": "0,00",
+    "chinaLabel": "(Sin)",
+    "funding": {
+      "walletWithBalance": "Wallet VaultString ({balance} {currency})"
+    },
+    "payout": {
+      "walletTopUp": "Cikar wallet ({currency})"
+    },
+    "channels": {
+      "wallet": "Jakar kuɗi",
+      "mobile_money": "Kudi na waya",
+      "bank": "Banki",
+      "card": "Kati",
+      "api": "Hanyar API",
+      "web": "Yanar gizo"
+    },
+    "previewCard": {
+      "title": "Taƙaitaccen lissafi",
+      "subtitle": "Kudaden canji na ainihi",
+      "exchangeRate": "Kudin canji",
+      "sendingAmount": "Adadin da ake aikawa",
+      "serviceFee": "Kudin sabis",
+      "totalToPay": "Jimlar biya",
+      "recipientGets": "Mai karɓa yana samu",
+      "secureRate": "Kudade da kudade masu nuni — jimlar na iya canzawa a lokacin biya.",
+      "ratePair": "1 {from} = {rate} {to}"
+    },
+    "validation": {
+      "walletIdLength": "Lambar wallet dole ce lamba 16",
+      "walletIdNumeric": "Lambar wallet dole ta zama lamba",
+      "amountRequired": "Ana buƙatar adadi",
+      "amountPositive": "Adadi dole ya fi sifili",
+      "currencyRequired": "Ana buƙatar kudin"
+    },
+    "successCard": {
+      "title": "An yi biyan kuɗi cikin nasara",
+      "subtitle": "An sarrafa ma'amalar ku cikin tsaro.",
+      "transactionId": "ID na ma'amala",
+      "receiver": "Mai karɓa",
+      "amountSent": "Adadin da aka aika",
+      "sendAnother": "Yi wani biya"
+    }
+  },
+  "Common": {
+    "submit": "Aika",
+    "cancel": "Soke",
+    "loading": "Ana sarrafawa…",
+    "save": "Ajiye",
+    "error": "Kuskure",
+    "success": "Nasara"
+  },
+  "Layout": {
+    "emailVerificationRequired": {
+      "title": "Ana buƙatar tabbatar da imel",
+      "subtitle": "Da fatan a tabbatar da imel don buɗe duk fasali ciki har da aika kuɗi.",
+      "cta": "Tabbatar yanzu"
+    }
+  },
+  "TopBar": {
+    "fallbackUser": "Mai amfani",
+    "welcomeBack": "Barka da dawowa, {name}",
+    "titles": {
+      "dashboard": "Babban allo",
+      "wallet": "Wallet na",
+      "sendMoney": "Aika kuɗi",
+      "transactions": "Tarihin ma'amala",
+      "compliance": "Bin doka & KYC",
+      "profile": "Bayanan martaba & tsaro",
+      "translation": "Saitunan yare",
+      "onboarding": "Tabbatar da shaida"
+    },
+    "search": {
+      "placeholder": "Nemo ma'amaloli…"
+    },
+    "notifications": {
+      "title": "Sanarwa",
+      "newCount": "{count} sabo",
+      "empty": "Babu sabbin sanarwa",
+      "viewAll": "Duba duk sanarwa"
+    },
+    "theme": {
+      "toggleAria": "Canza jigo"
+    },
+    "account": {
+      "signedInAs": "An shiga a matsayin",
+      "myProfile": "Bayanan martaba na",
+      "security": "Tsaro",
+      "billing": "Biyan kuɗi & katuna",
+      "settings": "Saituna",
+      "signOut": "Fita"
+    }
+  },
+  "Settings": {
+    "title": "Saituna",
+    "subtitle": "Sarrafa abubuwan da kuka fi so na app.",
+    "appearance": {
+      "title": "Kamanni",
+      "subtitle": "Keɓance yadda VaultString ke bayyana a na'urarka.",
+      "light": "Haske",
+      "dark": "Duhu",
+      "system": "Tsarin",
+      "lightMode": "Yanayin haske",
+      "darkMode": "Yanayin duhu",
+      "followSystem": "Bi tsarin"
+    },
+    "notifications": {
+      "title": "Sanarwa",
+      "subtitle": "Zaɓi abin da za mu sadarwa da ku.",
+      "email": {
+        "title": "Sanarwar imel",
+        "subtitle": "Karɓi sabuntawa ta imel"
+      },
+      "push": {
+        "title": "Sanarwar push",
+        "subtitle": "Karɓi sabuntawa a na'urarka"
+      },
+      "marketing": {
+        "title": "Imel na talla",
+        "subtitle": "Karɓi labarai da tayin"
+      }
+    },
+    "security": {
+      "title": "Tsaro",
+      "subtitle": "Kiyaye asusunku lafiya.",
+      "twoFactor": {
+        "title": "Tabbatar da mataki biyu",
+        "subtitle": "Ƙara ƙarin matakin tsaro.",
+        "enable": "Kunna 2FA",
+        "disable": "Kashe 2FA",
+        "setup": {
+          "title": "Saita tabbatar da mataki biyu",
+          "subtitle": "Duba lambar QR da app ɗin tabbatarwa.",
+          "step1": "1. Duba lambar QR",
+          "step2": "2. Shigar da lambar tabbatarwa",
+          "verify": "Tabbatar & kunna",
+          "verifying": "Ana tabbatarwa…",
+          "placeholder": "Shigar da lambar lambobi 6"
+        }
+      }
+    },
+    "save": "Ajiye saituna",
+    "saving": "Ana ajiyewa…",
+    "success": "An ajiye saituna cikin nasara",
+    "error": "An kasa ajiye saituna",
+    "totp": {
+      "enabled": "An kunna 2FA cikin nasara",
+      "disabled": "An kashe 2FA",
+      "error": "An kasa sabunta saitunan 2FA",
+      "invalidCode": "Lambar tabbatarwa ba ta da inganci"
+    }
+  },
+  "Notifications": {
+    "title": "Sanarwa",
+    "subtitle": "Kasance da sabbin labarai game da ayyukan asusu da faɗakarwar tsaro.",
+    "filters": {
+      "all": "Duka",
+      "unread": "Ba a karanta ba",
+      "archive": "Ajiya"
+    },
+    "actions": {
+      "markAllRead": "Alama duk an karanta",
+      "deleteAll": "Share duk",
+      "delete": "Share",
+      "markRead": "Alama an karanta",
+      "markUnread": "Alama ba a karanta ba",
+      "markAllReadSuccess": "An yi alamar duk sanarwa an karanta su",
+      "deleteSuccess": "An cire sanarwa",
+      "archive": "Ajiye a ɗakin ajiya"
+    },
+    "badge": "Ci gaba da samun sabbin labarai",
+    "backToDashboard": "Komawa zuwa dashboard",
+    "demo": {
+      "paymentSuccessTitle": "An yi biyan kuɗi cikin nasara",
+      "paymentSuccessBody": "Ka aika $240 cikin nasara.",
+      "newLoginTitle": "Sabon shiga",
+      "newLoginBody": "An shiga cikin asusunka daga sabon na'ura.",
+      "walletReadyTitle": "Wallet yana shirye",
+      "walletReadyBody": "Wallet ɗin EUR yana shirye don amfani."
+    },
+    "empty": {
+      "title": "Babu sanarwa tukuna",
+      "subtitle": "Za mu sanar da ku idan wani abu mai muhimmanci ya faru."
+    },
+    "types": {
+      "info": "Bayani",
+      "success": "Nasara",
+      "warning": "Gargadi",
+      "error": "Faɗakarwar tsaro"
+    },
+    "loadMore": "Loda ƙari",
+    "loading": "Ana lodin sanarwa…",
+    "deleteConfirm": "Ka tabbata kana son share wannan sanarwar?",
+    "deleteAllConfirm": "Ka tabbata kana son share duk sanarwa?"
+  },
+  "Transactions": {
+    "title": "Bayyinin kuɗi",
+    "subtitle": "Sarrafa katunan ku kuma duba ayyuka.",
+    "actions": {
+      "selectDates": "Zaɓi kwanakin",
+      "export": "Fitar da"
+    },
+    "stats": {
+      "inflow": "Shigarwa",
+      "outflow": "Fitarwa",
+      "pendingSettlement": "Biyan da ke jira"
+    },
+    "tabs": {
+      "all": "Duka",
+      "sent": "An aika",
+      "received": "An karɓa"
+    },
+    "search": {
+      "placeholder": "Nemo ma'amaloli…"
+    },
+    "loading": "Ana lodawa…",
+    "pagination": {
+      "pageOf": "Shafi {page} na {totalPages}",
+      "previous": "Na baya",
+      "next": "Na gaba"
+    },
+    "cards": {
+      "title": "Katuna na",
+      "manage": "Sarrafa",
+      "totalBalance": "Jimlar ma'auni",
+      "walletId": "ID na wallet",
+      "addNewCard": "Ƙara sabon kati"
+    },
+    "list": {
+      "title": "Ma'amaloli",
+      "viewAll": "Duba duka",
+      "empty": "Babu ma'amala tukuna",
+      "unknownSender": "Mai aikawa da ba a sani ba",
+      "unknownReceiver": "Mai karɓa da ba a sani ba",
+      "datePending": "Kwanan wata yana jira",
+      "invalidDate": "Kwanan wata ba daidai ba"
+    }
+  },
+  "Receipt": {
+    "titleSuccess": "Anyi aikawa cikin nasara",
+    "titlePending": "An ƙaddamar da aikawa",
+    "titleFailed": "Aikawa ya gaza",
+    "subtitleDefault": "An rikodi aikawar cikin tsaro. Kuna iya sauke shaidar PDF.",
+    "subtitleLoading": "Ana loda rasit…",
+    "subtitleNoId": "An ƙaddamar da aikawa, amma ba mu iya loda rasit ta atomatik ba.",
+    "backToTransactions": "Mu'amala",
+    "downloadPdf": "Sauke shaida (PDF)",
+    "proofHeading": "Shaidar ma'amala",
+    "referencePending": "Tunani zai bayyana bayan loda",
+    "referenceLabel": "Tunani: {ref}",
+    "loading": "Ana loda rasit…",
+    "errorTitle": "Ba a iya loda rasit ba",
+    "backToTransactionsError": "Koma zuwa mu'amala",
+    "labelDate": "Kwanan wata",
+    "labelTxnId": "ID na ma'amala",
+    "labelSender": "Mai aikawa",
+    "labelReceiver": "Mai karɓa",
+    "labelAmount": "Adadi",
+    "labelFee": "Kudin sarrafa",
+    "labelTotalDebited": "Jimlar an cire",
+    "labelRecipientReceives": "Mai karɓa yana samu",
+    "labelDescription": "Bayani",
+    "sendAgain": "Aika wani karo",
+    "viewHistory": "Duba tarihin mu'amala",
+    "receiptUnavailableTitle": "Rasit ba ya nan",
+    "receiptUnavailableBody": "Ba mu samu ID mai inganci ba. Buɗe jerin mu'amala domin ganin ƙarin aikawa.",
+    "goToTransactions": "Je zuwa mu'amala",
+    "errorResolveId": "Ba za mu iya nemo ID mai inganci ga wannan rasit ba.",
+    "loadFailed": "An kasa loda rasit"
+  },
+  "Auth": {
+    "login": {
+      "title": "Shiga",
+      "subtitle": "Barka da dawowa VaultString",
+      "alertMfaTitle": "Ana buƙatar MFA",
+      "alertComingSoonTitle": "Nan ba da jimawa ba",
+      "alertLoginFailedTitle": "Shiga ya gaza",
+      "errorInvalidCredentials": "Bayanan shaida ba daidai ba ne. Da fatan za a sake gwadawa.",
+      "errorMfaRequired": "Ana buƙatar tabbatar da mataki biyu don wannan asusun.",
+      "errorUnexpected": "An sami kuskure wanda ba a zata ba. Da fatan za a sake gwadawa.",
+      "errorGoogleInit": "An kasa fara tabbatar da Google. Da fatan za a sake gwadawa.",
+      "errorAppleComingSoon": "Shiga ta Apple bai samuwa ba tukuna. Yi amfani da imel da kalmar sirri.",
+      "emailLabel": "Adireshin imel",
+      "emailPlaceholder": "ku@misali.com",
+      "passwordLabel": "Kalmar sirri",
+      "forgotPassword": "Ka manta?",
+      "authenticatorCodeLabel": "Lambar tabbatarwa",
+      "mfaHint": "Shigar da lambar lambobi 6 daga app ɗin tabbatarwa don kammala shiga.",
+      "backToPassword": "Komawa kalmar sirri",
+      "submitSigningIn": "Ana shiga…",
+      "submitVerifying": "Ana tabbatarwa…",
+      "submitSignIn": "Shiga VaultString",
+      "submitVerifySignIn": "Tabbatar & shiga",
+      "noAccount": "Ba ka da asusu?",
+      "createAccount": "Ƙirƙiri ɗaya",
+      "validation": {
+        "emailInvalid": "Da fatan a shigar da adireshin imel mai inganci",
+        "passwordRequired": "Ana buƙatar kalmar sirri"
+      }
+    },
+    "signup": {
+      "alertFailedTitle": "Rajista ta gaza",
+      "alertSuccessTitle": "Nasara",
+      "alertSuccessBody": "An ƙirƙiri asusu. Ana turawa…",
+      "errorSignupFailed": "Rajista ta gaza. Da fatan za a sake gwadawa.",
+      "errorUnexpected": "An sami kuskure wanda ba a zata ba.",
+      "errorGoogleInit": "An kasa fara tabbatar da Google.",
+      "accountTypeIndividual": "Mutum",
+      "accountTypeBusiness": "Kasuwanci",
+      "businessNameLabel": "Sunan kasuwanci",
+      "businessNamePlaceholder": "Sunan kasuwancin ku",
+      "firstNameLabel": "Sunan farko",
+      "firstNamePlaceholder": "Amina",
+      "lastNameLabel": "Sunan mahaifi",
+      "lastNamePlaceholder": "Bello",
+      "countryLabel": "Ƙasa",
+      "countryPlaceholder": "NG",
+      "phoneLabel": "Wayar hannu (E.164)",
+      "phonePlaceholder": "+234…",
+      "emailLabel": "Adireshin imel",
+      "emailPlaceholder": "ku@misali.com",
+      "passwordLabel": "Kalmar sirri",
+      "confirmPasswordLabel": "Tabbatar da kalmar sirri",
+      "termsLabel": "Na yarda da <terms>Sharuɗɗan Sabis</terms> da <privacy>Manufar Sirri</privacy>",
+      "termsLink": "Sharuɗɗan Sabis",
+      "privacyLink": "Manufar Sirri",
+      "submitCreating": "Ana ƙirƙirar asusu…",
+      "submitCreate": "Ƙirƙiri asusu",
+      "validation": {
+        "emailInvalid": "Da fatan a shigar da adireshin imel mai inganci",
+        "firstNameRequired": "Ana buƙatar sunan farko",
+        "lastNameRequired": "Ana buƙatar sunan mahaifi",
+        "phoneInvalid": "Lambar waya ba ta da inganci",
+        "countryCode": "Yi amfani da lambar ƙasa mai haruffa 2 (misali MW)",
+        "passwordMin": "Kalmar sirri dole ta kasance aƙalla haruffa 8",
+        "termsRequired": "Dole ne ka yarda da sharuɗɗa da yanayi",
+        "passwordMismatch": "Kalmomin sirri ba su dace ba",
+        "businessNameRequired": "Ana buƙatar sunan kasuwanci don asusun kasuwanci"
+      }
+    }
+  },
+  "Translation": {
+    "subtitle": "Zaɓi yaren da yankin da kuka fi so.",
+    "appLanguage": "Yaren Manhaja",
+    "appLanguageHint": "Zaɓi yaren don fuska.",
+    "searchPlaceholder": "Nemo yaruka...",
+    "languageUpdated": "An sabunta yaren cikin nasara",
+    "translating": "Ana fassara…"
+  },
+  "Verification": {
+    "verifyingTitle": "Ana Tabbatar da Imel",
+    "verifyingSubtitle": "Da fatan za a jira yayin da muke tabbatar da ainihin ku...",
+    "connectingServers": "Ana haɗawa da sabobin tsaro...",
+    "verifiedTitle": "An Tabbatar da Imel!",
+    "verifiedSubtitle": "An tabbatar da ainihin ku cikin nasara.",
+    "redirectingProfile": "Ana tura ku don kammala saitin bayanin ku...",
+    "failedTitle": "Tabbatarwa Ta Gaza",
+    "failedSubtitle": "An sami matsala wajen tabbatar da imel ɗin ku.",
+    "backToLogin": "Komawa Shiga",
+    "resendCooldown": "Sake aika lambar a cikin {seconds}s",
+    "resendEmail": "Gwada sake aika imel na tabbatarwa",
+    "magicLinkTitle": "Duba Imel ɗin Ku",
+    "magicLinkSubtitle": "Mun aika hanyar sihiri zuwa {email}",
+    "magicLinkBody": "Danna hanyar a cikin imel ɗin ku don kammala tabbatarwa.",
+    "useCodeInstead": "Yi amfani da lamba maimakon",
+    "verifyTitle": "Tabbatar da Imel",
+    "verifySubtitle": "Shigar da lambar da aka aika zuwa {email}",
+    "codeLabel": "Lambar Tabbatarwa",
+    "codePlaceholder": "000000",
+    "verifyButton": "Tabbatar da Imel",
+    "resendCode": "Sake aika lamba",
+    "useMagicLink": "Yi amfani da hanyar sihiri maimakon",
+    "invalidCode": "Lambar tabbatarwa ba ta da inganci",
+    "invalidLink": "Hanyar tabbatarwa ba ta da inganci ko ta ƙare",
+    "resendFailed": "Sake aika lamba ya gaza"
+  },
+  "ResetPassword": {
+    "emailTitle": "Sake Saita Kalmar Sirri",
+    "emailSubtitle": "Shigar da imel ɗin ku don karɓar umarni",
+    "emailLabel": "Adireshin Imel",
+    "emailPlaceholder": "ku@misali.com",
+    "sendLink": "Aika Hanyar Sake Saita",
+    "rememberPassword": "Kuna tunawa da kalmar sirri?",
+    "signIn": "Shiga",
+    "resetTitle": "Ƙirƙiri Sabuwar Kalmar Sirri",
+    "resetSubtitle": "Shigar da sabuwar kalmar sirri a ƙasa",
+    "newPasswordLabel": "Sabuwar Kalmar Sirri",
+    "confirmPasswordLabel": "Tabbatar da Kalmar Sirri",
+    "passwordPlaceholder": "••••••••",
+    "expiryNote": "Wannan hanyar za ta ƙare cikin awa 1",
+    "resetButton": "Sake Saita Kalmar Sirri",
+    "successTitle": "An Sake Saita Kalmar Sirri",
+    "successSubtitle": "An sabunta kalmar sirrin ku",
+    "successBody": "An sake saita kalmar sirrin ku. Yanzu za ku iya shiga da sabuwar kalmar sirri.",
+    "returnSignIn": "Komawa Shiga",
+    "fallbackTitle": "Sake Saita Kalmar Sirri",
+    "fallbackSubtitle": "Ƙirƙiri sabuwar kalmar sirri",
+    "toastSuccess": "Nasara",
+    "toastError": "Kuskure",
+    "emailSent": "Idan imel ɗin yana nan, an aika hanyar sake saita.",
+    "passwordMismatch": "Kalmomin sirri ba su dace ba",
+    "invalidLink": "Hanyar sake saita ba ta da inganci ko ta ƙare",
+    "resetSuccess": "An sake saita kalmar sirri cikin nasara!",
+    "sendFailed": "Aika imel na sake saita ya gaza",
+    "resetFailed": "Sake saita kalmar sirri ya gaza"
+  },
+  "Compliance": {
+    "title": "Tabbatar da Ainihi",
+    "subtitle": "Kammala tsarin KYC don buɗe iyakoki masu girma da duk fasalolin asusu.",
+    "currentStatus": "Matsayi na Yanzu",
+    "statusVerified": "An Tabbatar",
+    "statusReview": "Ana Bita",
+    "statusUnverified": "Ba a Tabbatar ba",
+    "verifiedBody": "An tabbatar da ainihin ku. Kuna da cikakken iso.",
+    "reviewBody": "Muna bitar takardun ku. Yawanci yana ɗaukar sa'o'i 24-48.",
+    "unverifiedBody": "Da fatan a gabatar da takardun ku don tabbatar da ainihin ku.",
+    "history": "Tarihi",
+    "rejectionReason": "Dalili: {reason}",
+    "submitTitle": "Gabatar da Takardu",
+    "submitSubtitle": "Loda takardar shaida ta gwamnati mai inganci don tabbatar da ainihin ku.",
+    "docType": "Nau'in Takarda",
+    "selectType": "Zaɓi nau'i",
+    "passport": "Fasfo",
+    "nationalId": "ID na Ƙasa",
+    "driversLicense": "Lasisin Tuƙi",
+    "issuingCountry": "Ƙasar da Ta Bayar",
+    "selectCountry": "Zaɓi Ƙasa",
+    "china": "Sin",
+    "docNumber": "Lambar Takarda",
+    "docNumberPlaceholder": "Shigar da lambar takardar shaida",
+    "docImage": "Hoton Takarda (Gaba)",
+    "clickToChange": "Danna don canza",
+    "uploadHint": "Danna don loda",
+    "uploadOrDrop": "ko ja ka sauke",
+    "uploadFormats": "SVG, PNG, JPG ko GIF (IYAKA 10MB)",
+    "submitting": "Ana gabatarwa...",
+    "submitButton": "Gabatar da Tabbatarwa",
+    "fullyVerifiedTitle": "An tabbatar da ku gaba ɗaya!",
+    "fullyVerifiedBody": "Na gode da tabbatar da ainihin ku. Yanzu kuna da iso ga duk fasali, iyakoki masu girma, da saurin sarrafawa.",
+    "returnDashboard": "Komawa zuwa Dashboard",
+    "inProgressTitle": "Tabbatarwa Yana Ci Gaba",
+    "inProgressBody": "Mun karɓi takardun ku kuma ƙungiyar mu tana bita. Za ku karɓi sanarwa idan an gama bita.",
+    "loadFailed": "An kasa loda matsayin bin doka",
+    "fillAllFields": "Da fatan a cika duk filayen kuma a loda takarda",
+    "submitSuccess": "An gabatar da takardun KYC cikin nasara",
+    "submitFailed": "Gabatar da takardu ya gaza"
+  },
+  "Onboarding": {
+    "userType": {
+      "title": "San Abokin Cinikinka",
+      "subtitle": "Zaɓi nau'in asusun don fara tantancewa",
+      "individualTitle": "Individual",
+      "individualDescription": "Verify as a private person. Takes about 10 minutes.",
+      "individualFeaturePersonal": "Personal information",
+      "individualFeatureId": "ID verification",
+      "individualFeatureAddress": "Address proof",
+      "individualCta": "Ci gaba a matsayin Mutum",
+      "businessTitle": "Business",
+      "businessDescription": "Verify your company. Takes about 15 minutes.",
+      "businessFeatureCompany": "Company details",
+      "businessFeatureUbo": "UBO disclosure",
+      "businessFeatureDocs": "Documentation",
+      "businessCta": "Ci gaba a matsayin Kasuwanci",
+      "privacyNote": "We take your privacy seriously. Your information is encrypted and secure.",
+      "complianceNote": "Compliant with Malawi RBM and China PBOC regulations"
+    },
+    "flow": {
+      "changeType": "Canja Nau'i",
+      "saveDraft": "Ajiye Draft",
+      "draftSaved": "An ajiye ci gaba. Za ka iya ci gaba daga baya.",
+      "back": "Komawa mataki na baya",
+      "stepSubtitle": "Step {current} of {total}",
+      "continue": "Ci gaba zuwa Mataki na Gaba"
+    },
+    "individualSteps": {
+      "personal": "Personal Details",
+      "contact": "Contact Information",
+      "id": "ID Verification",
+      "funds": "Source of Funds",
+      "security": "Security Setup",
+      "terms": "Terms & Agreements"
+    },
+    "businessSteps": {
+      "company": "Company Details",
+      "business": "Business Information",
+      "reps": "Authorized Representatives",
+      "ubo": "UBO Disclosure",
+      "banking": "Banking Details",
+      "docs": "Documentation",
+      "compliance": "Compliance"
+    },
+    "personalDetails": {
+      "firstNameLabel": "First Name *",
+      "firstNamePlaceholder": "John",
+      "lastNameLabel": "Last Name *",
+      "lastNamePlaceholder": "Doe",
+      "dateOfBirthLabel": "Date of Birth *",
+      "nationalityLabel": "Nationality *",
+      "nationalityPlaceholder": "United States",
+      "idTypeLabel": "ID Type",
+      "idTypePassport": "Passport",
+      "idTypeDriverLicense": "Driver's License",
+      "idTypeNationalId": "National ID",
+      "encryptionNote": "Your personal information is encrypted and will only be used for verification purposes.",
+      "validation": {
+        "firstNameRequired": "First name is required",
+        "lastNameRequired": "Last name is required",
+        "dateOfBirthRequired": "Date of birth is required",
+        "nationalityRequired": "Nationality is required"
+      }
+    },
+    "contactInfo": {
+      "phoneLabel": "Phone Number *",
+      "phonePlaceholder": "+1 (555) 123-4567",
+      "emailLabel": "Email Address *",
+      "emailPlaceholder": "kelvin@example.com",
+      "addressLabel": "Address *",
+      "addressPlaceholder": "123 Main Street",
+      "cityLabel": "City *",
+      "cityPlaceholder": "Lilongwe",
+      "countryLabel": "Country *",
+      "countryPlaceholder": "Malawi",
+      "postalCodeLabel": "Postal Code *",
+      "postalCodePlaceholder": "10001",
+      "validation": {
+        "phoneRequired": "Phone number is required",
+        "emailRequired": "Email is required",
+        "addressRequired": "Address is required",
+        "cityRequired": "City is required",
+        "countryRequired": "Country is required",
+        "postalCodeRequired": "Postal code is required"
+      }
+    },
+    "idVerification": {
+      "documentNumberLabel": "Document Number *",
+      "documentNumberPlaceholder": "ABC123456789",
+      "expiryDateLabel": "Expiry Date *",
+      "uploadLabel": "Upload Document *",
+      "previewAlt": "Preview",
+      "uploadCta": "Click to upload or drag and drop",
+      "uploadFormats": "PNG, JPG, or PDF (max 10MB)",
+      "secureNote": "Your document is verified securely. We only use it to confirm your identity.",
+      "validation": {
+        "documentNumberRequired": "Document number is required",
+        "expiryDateRequired": "Expiry date is required",
+        "fileRequired": "Document file is required"
+      }
+    },
+    "sourceOfFunds": {
+      "employmentStatusLabel": "Employment Status *",
+      "employmentEmployed": "employed",
+      "employmentSelfEmployed": "self employed",
+      "employmentRetired": "retired",
+      "employmentStudent": "student",
+      "employmentOther": "other",
+      "currencyLabel": "Currency *",
+      "currencyMwk": "Malawian Kwacha (MWK)",
+      "currencyCny": "Chinese Yuan (CNY)",
+      "incomeRangeLabel": "Annual Income Range *",
+      "incomeMwk0": "0 - 100,000 MWK",
+      "incomeMwk1": "100,000 - 500,000 MWK",
+      "incomeMwk2": "500,000 - 1,000,000 MWK",
+      "incomeMwk3": "1,000,000 - 5,000,000 MWK",
+      "incomeMwk4": "5,000,000+ MWK",
+      "incomeCny0": "0 - 50,000 CNY",
+      "incomeCny1": "50,000 - 200,000 CNY",
+      "incomeCny2": "200,000 - 500,000 CNY",
+      "incomeCny3": "500,000 - 2,000,000 CNY",
+      "incomeCny4": "2,000,000+ CNY",
+      "amlNote": "This information helps us comply with anti-money laundering regulations."
+    },
+    "securitySetup": {
+      "twoFaLabel": "Enable two-factor authentication (2FA) for enhanced security",
+      "question1Label": "Security Question 1 *",
+      "selectQuestion": "Select a question",
+      "answerLabel": "Your Answer *",
+      "answerPlaceholder": "Your answer",
+      "recoveryNote": "These security questions help us verify your identity if you need to recover your account.",
+      "questions": {
+        "maidenName": "What is your mother's maiden name?",
+        "firstPet": "What was the name of your first pet?",
+        "birthCity": "In what city were you born?",
+        "favoriteTeacher": "What is the name of your favorite teacher?",
+        "firstCar": "What was the make of your first car?"
+      },
+      "validation": {
+        "questionRequired": "Please select a security question",
+        "answerRequired": "Please answer the security question"
+      }
+    },
+    "terms": {
+      "heading": "Terms and Conditions",
+      "body1": "By using our KYC verification service, you agree to comply with all applicable laws and regulations. You represent that all information provided is accurate and complete. We reserve the right to deny access or cancel accounts if we detect fraudulent activity or violation of our terms.",
+      "body2": "Your data will be processed securely and in compliance with international data protection regulations including GDPR and local standards.",
+      "privacyLabel": "I have read and agree to the <privacy>Privacy Policy</privacy> *",
+      "privacyLink": "Privacy Policy",
+      "termsLabel": "I have read and agree to the <terms>Terms of Service</terms> *",
+      "termsLink": "Terms of Service",
+      "dataLabel": "I consent to the secure storage of my personal data *",
+      "submit": "Kammala Tantancewa",
+      "submitting": "Ana aikawa...",
+      "validation": {
+        "privacyRequired": "You must accept the privacy policy",
+        "termsRequired": "You must accept the terms of service",
+        "dataRequired": "You must consent to data processing"
+      },
+      "errorSubmit": "Failed to submit KYC. Please try again."
+    },
+    "completion": {
+      "individualTitle": "KYC Submitted",
+      "businessTitle": "Business KYC Submitted",
+      "subtitle": "Your verification is being processed",
+      "thankYou": "Thank you for completing your verification. Our compliance team is now reviewing your application.",
+      "reviewTimeLabel": "Review Time",
+      "reviewTimeValue": "24 - 48 Hours",
+      "confirmationLabel": "Confirmation",
+      "confirmationValue": "Email will be sent",
+      "securityLabel": "Security",
+      "securityValue": "Full access on approval",
+      "goDashboard": "Je zuwa Dashboard",
+      "startAnother": "Fara wani Tantancewa",
+      "referenceId": "Reference ID: KYC-{id}"
+    },
+    "companyDetails": {
+      "legalNameLabel": "Legal Company Name *",
+      "legalNamePlaceholder": "ABC Corporation Ltd.",
+      "registrationLabel": "Registration Number *",
+      "registrationPlaceholder": "REG123456",
+      "taxIdLabel": "Tax ID *",
+      "taxIdPlaceholder": "TAX123456789",
+      "validation": {
+        "legalNameRequired": "Legal name is required",
+        "registrationRequired": "Registration number is required",
+        "taxIdRequired": "Tax ID is required"
+      }
+    },
+    "businessInfo": {
+      "industryLabel": "Industry *",
+      "selectIndustry": "Select an industry",
+      "industries": {
+        "technology": "Technology",
+        "finance": "Finance",
+        "healthcare": "Healthcare",
+        "retail": "Retail",
+        "manufacturing": "Manufacturing",
+        "education": "Education",
+        "other": "Other"
+      },
+      "companySizeLabel": "Company Size *",
+      "selectCompanySize": "Select company size",
+      "size1": "1-10 employees",
+      "size2": "11-50 employees",
+      "size3": "51-200 employees",
+      "size4": "201-500 employees",
+      "size5": "500+ employees",
+      "websiteLabel": "Website (Optional)",
+      "websitePlaceholder": "https://example.com",
+      "incorporationDateLabel": "Incorporation Date *",
+      "validation": {
+        "industryRequired": "Industry is required",
+        "companySizeRequired": "Company size is required",
+        "incorporationDateRequired": "Incorporation date is required"
+      }
+    },
+    "authorizedReps": {
+      "representativeTitle": "Representative {n}",
+      "remove": "Remove",
+      "fullNameLabel": "Full Name *",
+      "fullNamePlaceholder": "John Smith",
+      "emailLabel": "Email *",
+      "emailPlaceholder": "john@example.com",
+      "jobTitleLabel": "Job Title *",
+      "jobTitlePlaceholder": "CEO",
+      "addAnother": "Add Another Representative",
+      "validation": {
+        "nameRequired": "Name is required",
+        "emailRequired": "Email is required",
+        "titleRequired": "Title is required"
+      }
+    },
+    "uboDisclosure": {
+      "intro": "UBO (Ultimate Beneficial Owner) disclosure is required for compliance. Please provide information about the individuals who ultimately own or control the company.",
+      "ownershipStructureLabel": "Ownership Structure",
+      "directOwnership": "Direct ownership",
+      "indirectOwnership": "Indirect ownership (through another entity)",
+      "uboNameLabel": "UBO Full Name *",
+      "uboNamePlaceholder": "Ida Mateyu",
+      "ownershipPercentLabel": "Ownership Percentage *",
+      "ownershipPercentPlaceholder": "25",
+      "nationalityLabel": "Nationality *",
+      "nationalityPlaceholder": "Malawian",
+      "validation": {
+        "uboNameRequired": "UBO name is required",
+        "ownershipRequired": "Ownership percentage is required",
+        "nationalityRequired": "Nationality is required"
+      }
+    },
+    "bankingDetails": {
+      "bankNameLabel": "Bank Name *",
+      "bankNamePlaceholder": "Example Bank",
+      "accountNumberLabel": "Account Number *",
+      "accountNumberPlaceholder": "123456789",
+      "bankCodeLabel": "Bank Code / SWIFT Code *",
+      "bankCodePlaceholder": "SWIFTCODE",
+      "accountHolderLabel": "Account Holder Name *",
+      "accountHolderPlaceholder": "Company Name",
+      "encryptedNote": "Your banking details are encrypted and used only for payouts.",
+      "validation": {
+        "bankNameRequired": "Bank name is required",
+        "accountNumberRequired": "Account number is required",
+        "bankCodeRequired": "Bank code is required",
+        "accountHolderRequired": "Account holder name is required"
+      }
+    },
+    "documentation": {
+      "incorporationLabel": "Certificate of Incorporation",
+      "articlesLabel": "Articles of Association",
+      "shareholdersLabel": "Shareholder Register",
+      "uploadSuccess": "File uploaded successfully",
+      "uploadCta": "Click to upload",
+      "uploadFormats": "PDF or DOC (max 20MB)",
+      "uploading": "Uploading...",
+      "validation": {
+        "incorporationRequired": "Certificate of incorporation is required",
+        "articlesRequired": "Articles of association are required"
+      },
+      "errorUpload": "Failed to upload documents. Please try again."
+    },
+    "compliance": {
+      "businessPurposeLabel": "Business Purpose *",
+      "selectPurpose": "Select business purpose",
+      "purposes": {
+        "trading": "Trading",
+        "consulting": "Consulting",
+        "manufacturing": "Manufacturing",
+        "services": "Services",
+        "other": "Other"
+      },
+      "expectedVolumeLabel": "Expected Monthly Transaction Volume *",
+      "selectRange": "Select range",
+      "volume0": "$0 - $10,000",
+      "volume1": "$10,000 - $50,000",
+      "volume2": "$50,000 - $100,000",
+      "volume3": "$100,000+",
+      "confirmationHeading": "Compliance Confirmation",
+      "confirmationBody": "I confirm that my company complies with all applicable regulations in the jurisdictions where it operates, including Malawi RBM requirements and China PBOC merchant requirements.",
+      "checkboxLabel": "I confirm compliance with all applicable regulations *",
+      "submit": "Complete Business Verification",
+      "validation": {
+        "purposeRequired": "Business purpose is required",
+        "volumeRequired": "Expected transaction volume is required",
+        "complianceRequired": "You must accept the compliance confirmation"
+      }
+    }
+  }
+}

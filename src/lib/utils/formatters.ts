@@ -14,19 +14,23 @@ export const formatWalletNumber = (num: string | null | undefined) => {
   return target.match(/.{1,4}/g)?.join(' ') || target;
 };
 
-export const formatCurrency = (amount: number | string | null | undefined, currency: string = 'MWK') => {
+export const formatCurrency = (
+  amount: number | string | null | undefined, 
+  currency: string = 'MWK',
+  locale: string = 'en-US'
+) => {
   const val = parseFloat(String(amount || 0));
   if (isNaN(val)) return '0.00';
   
   try {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat(locale, {
       style: 'currency',
       currency: currency || 'MWK',
       minimumFractionDigits: 2
     }).format(val);
-  } catch (e) {
+  } catch {
     // Fallback if currency code is invalid
-    return `${currency} ${val.toFixed(2)}`;
+    return `${currency} ${val.toLocaleString(locale, { minimumFractionDigits: 2 })}`;
   }
 };
 
@@ -48,10 +52,28 @@ export const getStatusColor = (status: string) => {
 };
 
 export const getWalletGradient = (currency: string) => {
-  switch (String(currency).toUpperCase()) {
+  const c = String(currency).toUpperCase();
+  switch (c) {
     case 'MWK': return 'bg-gradient-to-br from-emerald-600 to-teal-800';
     case 'ZMW': return 'bg-gradient-to-br from-orange-500 to-amber-700';
     case 'CNY': return 'bg-gradient-to-br from-rose-500 to-red-800';
-    default: return 'bg-gradient-to-br from-slate-700 to-slate-900';
+    case 'NGN': return 'bg-gradient-to-br from-green-600 to-green-900';
+    case 'ZAR': return 'bg-gradient-to-br from-blue-600 to-indigo-900';
+    case 'KES': return 'bg-gradient-to-br from-red-600 to-red-900';
+    case 'GHS': return 'bg-gradient-to-br from-yellow-500 to-orange-700';
+    case 'EGP': return 'bg-gradient-to-br from-slate-600 to-slate-900';
+    default: {
+      // Hash-based deterministic gradient for other African currencies
+      const colors = [
+        'from-blue-600 to-indigo-800',
+        'from-purple-600 to-pink-800',
+        'from-emerald-600 to-teal-800',
+        'from-amber-500 to-orange-700',
+        'from-rose-500 to-red-800',
+        'from-slate-600 to-slate-900'
+      ];
+      const index = c.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % colors.length;
+      return `bg-gradient-to-br ${colors[index]}`;
+    }
   }
 };

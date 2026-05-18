@@ -46,6 +46,17 @@ export default function TransactionsTable({ transactions, userId }: Transactions
   const [page, setPage] = useState(1);
   const limit = 10;
 
+  const parseNum = (v: unknown) => {
+    if (typeof v === 'number') return v;
+    if (typeof v === 'string') {
+      const n = Number(v);
+      return Number.isFinite(n) ? n : 0;
+    }
+    return 0;
+  };
+
+  const upper = (v: unknown) => String(v || '').toUpperCase();
+
   const total = transactions.length;
   const totalPages = Math.ceil(total / limit);
   const paginatedTransactions = transactions.slice((page - 1) * limit, page * limit);
@@ -133,8 +144,16 @@ export default function TransactionsTable({ transactions, userId }: Transactions
                   </div>
                   <div className="flex justify-between text-xs">
                     <span className="text-slate-500 dark:text-slate-400">Service Fee</span>
-                    <span className="font-medium text-slate-700 dark:text-slate-300">{formatCurrency(receipt.fee, receipt.currency)}</span>
+                    <span className="font-medium text-slate-700 dark:text-slate-300">{formatCurrency(receipt.fee, receipt.fee_currency || receipt.currency)}</span>
                   </div>
+                  {(receipt.received_amount || receipt.received_currency) && (
+                    <div className="flex justify-between text-xs pt-2 border-t border-dashed border-slate-200 dark:border-slate-800">
+                      <span className="text-slate-500 dark:text-slate-400">Recipient Receives</span>
+                      <span className="font-semibold text-emerald-700 dark:text-emerald-400">
+                        {formatCurrency(parseNum(receipt.received_amount), receipt.received_currency || receipt.currency)}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -152,8 +171,11 @@ export default function TransactionsTable({ transactions, userId }: Transactions
            const sid = String(t.sender_id || t.senderId || '');
            const direction = t.direction || (sid === userId ? 'sent' : 'received');
            
-           const amount = parseFloat(String(t.net_amount ?? t.amount ?? 0));
-           const currency = String(t.currency).toUpperCase();
+           const fee = parseNum((t as any).fee_amount ?? 0);
+           const totalDebited = parseNum((t as any).total_debited ?? 0) || (parseNum(t.amount) + fee);
+           const isReceived = direction !== 'sent';
+           const amount = isReceived ? parseNum((t as any).converted_amount ?? t.net_amount ?? t.amount) : (totalDebited > 0 ? totalDebited : parseNum(t.amount));
+           const currency = isReceived ? upper((t as any).converted_currency || t.currency) : upper(t.currency);
            const date = new Date(t.created_at || t.initiated_at || Date.now());
            
            // Robust name resolution
@@ -210,7 +232,7 @@ export default function TransactionsTable({ transactions, userId }: Transactions
                  <div className="flex items-start justify-between gap-2">
                    <div className="space-y-1">
                      <p className={cn("text-sm text-slate-900 dark:text-white leading-snug", isUnread ? "font-semibold" : "font-medium")}>
-                       {direction === 'sent' ? (
+                      {direction === 'sent' ? (
                          <>
                            Sent <span className="text-slate-900 dark:text-white font-bold">{formatCurrency(amount, currency)}</span> to <span className="text-indigo-600 dark:text-indigo-400">{counterpartyName}</span>
                          </>

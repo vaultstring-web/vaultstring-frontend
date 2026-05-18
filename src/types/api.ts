@@ -9,10 +9,16 @@ export interface ApiTransaction {
   receiver_wallet_id?: string;
   amount: number | string;
   net_amount?: number | string;
+  converted_amount?: number | string;
   currency: string;
+  converted_currency?: string;
+  fee_amount?: number | string;
+  fee_currency?: string;
+  total_debited?: number | string;
   description?: string;
   category?: string;
   status: string;
+  status_reason?: string;
   created_at?: string;
   initiated_at?: string;
   sender_name?: string;

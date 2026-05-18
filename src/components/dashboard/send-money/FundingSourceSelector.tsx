@@ -1,6 +1,16 @@
+'use client';
+
 import { Label } from '@/src/components/ui/label';
 import { getFundingOptions } from '@/src/lib/constants/funding';
 import { useMemo } from 'react';
+import { useTranslations } from 'next-intl';
+
+const KNOWN_CHANNELS = ['wallet', 'mobile_money', 'bank', 'card', 'api', 'web'] as const;
+type KnownChannel = (typeof KNOWN_CHANNELS)[number];
+
+function isKnownChannel(c: string): c is KnownChannel {
+  return (KNOWN_CHANNELS as readonly string[]).includes(c);
+}
 
 interface FundingSourceSelectorProps {
   currency: string;
@@ -15,26 +25,49 @@ export default function FundingSourceSelector({
   value,
   onChange,
 }: FundingSourceSelectorProps) {
+  const t = useTranslations('SendMoney');
   const options = useMemo(
     () => getFundingOptions(currency, walletBalance),
     [currency, walletBalance]
   );
 
+  const channelLabel = (channel: string) => {
+    if (isKnownChannel(channel)) return t(`channels.${channel}` as Parameters<typeof t>[0]);
+    return channel.replace(/_/g, ' ');
+  };
+
   return (
     <div className="space-y-3">
-      <Label className="text-sm font-medium text-slate-700 dark:text-slate-300">Funding Source</Label>
+      <Label className="text-sm font-medium text-slate-700 dark:text-slate-300">
+        {t('fundingSource')}
+      </Label>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {options.map((opt) => {
           const Icon = opt.icon;
           const isSelected = value === opt.value;
+          const displayLabel =
+            opt.value === 'wallet_balance'
+              ? t('funding.walletWithBalance', {
+                  balance: walletBalance.toFixed(2),
+                  currency,
+                })
+              : opt.label;
           return (
             <div
               key={opt.value}
               onClick={() => onChange(opt.value)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  onChange(opt.value);
+                }
+              }}
               className={`
                 relative flex items-center p-3 rounded-xl border cursor-pointer transition-all duration-200
-                ${isSelected 
-                  ? 'border-indigo-600 bg-indigo-50 ring-1 ring-indigo-600 shadow-sm dark:bg-indigo-900/20 dark:border-indigo-500' 
+                ${isSelected
+                  ? 'border-indigo-600 bg-indigo-50 ring-1 ring-indigo-600 shadow-sm dark:bg-indigo-900/20 dark:border-indigo-500'
                   : 'border-slate-200 hover:border-indigo-300 hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800'
                 }
               `}
@@ -47,14 +80,14 @@ export default function FundingSourceSelector({
               </div>
               <div>
                 <div className={`font-medium text-sm ${isSelected ? 'text-indigo-900 dark:text-indigo-300' : 'text-slate-900 dark:text-slate-200'}`}>
-                  {opt.label}
+                  {displayLabel}
                 </div>
                 <div className="text-xs text-slate-500 dark:text-slate-400 capitalize">
-                  {opt.channel.replace('_', ' ')}
+                  {channelLabel(opt.channel)}
                 </div>
               </div>
               {isSelected && (
-                <div className="absolute top-2 right-2 h-2 w-2 rounded-full bg-indigo-600 dark:bg-indigo-500"></div>
+                <div className="absolute top-2 right-2 h-2 w-2 rounded-full bg-indigo-600 dark:bg-indigo-500" />
               )}
             </div>
           );

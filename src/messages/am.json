@@ -1,0 +1,1011 @@
+{
+  "Dashboard": {
+    "title": "ዳሽቦርድ",
+    "subtitle": "የፋይናንስ አጠቃላይ እይታ",
+    "totalAvailableBalance": "ጠቅላላ የሚገኝ ቀሪ ሂሳብ",
+    "totalBalance": "ጠቅላላ ቀሪ ሂሳብ",
+    "sendMoney": "ገንዘብ ላክ",
+    "addFunds": "ገንዘብ ጨምር",
+    "wallet": "የኪስ ቦርሳ",
+    "transactions": "ግብይቶች",
+    "recentActivity": "የቅርብ ጊዜ እንቅስቃሴ",
+    "viewAll": "ሁሉንም ተመልከት",
+    "noRecentActivity": "ምንም የቅርብ ጊዜ እንቅስቃሴ የለም",
+    "currentRate": "የአሁኑ ተመን",
+    "lastUpdatedJustNow": "የመጨረሻው ዝመና: አሁን",
+    "verificationRequired": "የማንነት ማረጋገጫ ያስፈልጋል",
+    "verificationSubtitle": "የእርስዎን KYC በማጠናቀቅ ባለብዙ ምንዛሪ የኪስ ቦርሳዎችን እና ከፍተኛ ገደቦችን ይክፈቱ።",
+    "verifyNow": "አሁን አረጋግጥ",
+    "forexAnalytics": "የፎርክስ ትንታኔ",
+    "currencyConverter": "የምንዛሬ መቀየሪያ",
+    "converter": {
+      "setAlert": "ማሳወቂያ ያዘጋጁ",
+      "viewHistory": "ታሪክ ይመልከቱ",
+      "from": "ከ",
+      "to": "ወደ"
+    },
+    "market": {
+      "overviewTitle": "የገበያ አጠቃላይ እይታ",
+      "overviewSubtitle": "የቀጥታ የምንዛሬ ተመኖች እና ትንታኔዎች",
+      "open": "ገበያ ክፍት ነው",
+      "high24h": "የ24 ሰዓት ከፍተኛ",
+      "low24h": "የ24 ሰዓት ዝቅተኛ",
+      "timing": {
+        "title": "የጊዜ ግንዛቤዎች",
+        "buyBadge": "ለመግዛት በጣም ጥሩ ጊዜ",
+        "buyText": "ተመኖች ከዕለታዊ አማካይ በእጅጉ ያነሱ ናቸው (-{percent}%)።",
+        "waitBadge": "መጠበቅን ያስቡበት",
+        "waitText": "ተመኖች በአሁኑ ጊዜ ከፍተኛ ናቸው (+{percent}%)። መውረዱን መጠበቅ ያስቡበት።",
+        "stableBadge": "የተረጋጋ ገበያ",
+        "stableText": "ተመኖች በትንሹ ተለዋዋጭነት የተረጋጋ ናቸው ({percent}%)።"
+      },
+      "source": {
+        "title": "የገበያ ምንጭ",
+        "body": "በGoogle Finance የቀረበ የቀጥታ ውሂብ። ተመኖች አመላካች ናቸው እና በአቅራቢው ሊለያዩ ይችላሉ።"
+      }
+    }
+  },
+  "Wallet": {
+    "title": "የእኔ የኪስ ቦርሳዎች",
+    "subtitle": "ካርዶችዎን፣ ዲጂታል ንብረቶችዎን እና የፈሳሽነት ደረጃዎችን ያስተዳድሩ።",
+    "accountBalances": "የሂሳብ ቀሪ ሂሳቦች",
+    "addNewCard": "አዲስ ካርድ ጨምር",
+    "addMultiCurrencyCard": "ባለብዙ ምንዛሪ ካርድ ጨምር",
+    "unlockGlobalSpending": "ዓለም አቀፍ ወጪን ይክፈቱ",
+    "verificationRequiredTitle": "ማረጋገጫ ያስፈልጋል",
+    "verificationNotice": "ገደቦችን ለመጨመር እና ተጨማሪ ምንዛሬ ካርዶችን ለመጨመር ማንነትዎን ያረጋግጡ።",
+    "verifyNow": "አሁን አረጋግጥ",
+    "availableBalance": "የሚገኝ ቀሪ ሂሳብ",
+    "deposit": "ተቀማጭ ገንዘብ",
+    "withdraw": "ማውጣት",
+    "loading": "በመጫን ላይ...",
+    "errors": {
+      "identityRequiredTitle": "የማንነት ማረጋገጫ ያስፈልጋል",
+      "identityRequiredSubtitle": "ባለብዙ ምንዛሪ የኪስ ቦርሳዎችን ለመክፈት እባክዎ KYC ያጠናቅቁ።"
+    },
+    "createModal": {
+      "badge": "አዲስ ንብረት",
+      "title": "ባለብዙ ምንዛሪ የኪስ ቦርሳ ይጨምሩ",
+      "subtitle": "በዓለም አቀፍ ደረጃ ግብይት ለመጀመር አዲስ የፈሳሽነት ካርድ ይፍጠሩ።",
+      "baseCurrency": "መሠረት ምንዛሬ",
+      "selectCurrency": "ምንዛሬ ይምረጡ",
+      "accountCategory": "የመለያ ምድብ",
+      "selectType": "ዓይነት ይምረጡ",
+      "types": {
+        "personal": "ለግል ጥቅም",
+        "business": "ንግድ / ነጋዴ"
+      },
+      "currencies": {
+        "mwk": "Malawi Kwacha (MWK)",
+        "cny": "የቻይና ዩዋን (CNY)",
+        "zmw": "የዛምቢያ ኩዋቻ (ZMW)"
+      },
+      "cta": "የኪስ ቦርሳዬን ፍጠር",
+      "discard": "ለውጦችን ተው",
+      "success": "የኪስ ቦርሳ በተሳካ ሁኔታ ተፈጥሯል",
+      "error": "የኪስ ቦርሳ መፍጠር አልተሳካም"
+    }
+  },
+  "Profile": {
+    "title": "የመለያ መገለጫ",
+    "myProfile": "የእኔ መገለጫ",
+    "security": "ደህንነት",
+    "translation": "ትርጉም",
+    "notifications": "ማሳወቂያዎች",
+    "settings": "ቅንብሮች",
+    "deleteAccount": "መለያ ሰርዝ",
+    "personalInfo": "የግል መረጃ",
+    "fullName": "ሙሉ ስም",
+    "email": "ኢሜይል አድራሻ",
+    "phone": "ስልክ",
+    "address": "አድራሻ",
+    "saveChanges": "ለውጦችን አስቀምጥ",
+    "updatePassword": "የይለፍ ቃል አዘምን",
+    "updating": "በማዘመን ላይ...",
+    "mfa": "ባለ ሁለት ደረጃ ማረጋገጫ",
+    "mfaSubtitle": "በመለያዎ ላይ ተጨማሪ የደህንነት ሽፋን ይጨምሩ።",
+    "bio": "ስለ እኔ",
+    "country": "ሀገር",
+    "city": "ከተማ/ክልል",
+    "taxId": "የግብር መታወቂያ",
+    "postalCode": "የፖስታ ኮድ",
+    "memberSince": "አባል የሆኑት ከ",
+    "accountStatus": "የመለያ ሁኔታ",
+    "verified": "የተረጋገጠ",
+    "unverified": "ያልተረጋገጠ",
+    "editProfile": "መገለጫ አርትዕ",
+    "changePassword": "የይለፍ ቃል ቀይር",
+    "currentPassword": "የአሁኑ የይለፍ ቃል",
+    "newPassword": "አዲስ የይለፍ ቃል",
+    "confirmPassword": "አዲሱን የይለፍ ቃል አረጋግጥ",
+    "notificationPreferences": {
+      "title": "የማሳወቂያ ምርጫዎች",
+      "subtitle": "እንዴት ማሳወቂያ ማግኘት እንደሚፈልጉ ይምረጡ።",
+      "email": {
+        "title": "የኢሜይል ማሳወቂያዎች",
+        "subtitle": "ዝመናዎችን በኢሜይል ያግኙ"
+      },
+      "push": {
+        "title": "የፑሽ ማሳወቂያዎች",
+        "subtitle": "በመሣሪያዎ ላይ ዝመናዎችን ያግኙ"
+      },
+      "sms": {
+        "title": "የኤስኤምኤስ ማሳወቂያዎች",
+        "subtitle": "ዝመናዎችን በኤስኤምኤስ ያግኙ"
+      }
+    },
+    "uploadAvatar": "ፎቶ ይጫኑ",
+    "removeAvatar": "ፎቶ ያስወግዱ",
+    "tabs": {
+      "activity": "እንቅስቃሴ",
+      "wallets": "የኪስ ገንዘብ",
+      "security": "ደህንነት",
+      "language": "ቋንቋ"
+    },
+    "viewArchive": "ማስቀመጫ ይመልከቱ",
+    "headerUsernameFallback": "መለያ",
+    "stats": {
+      "transactions": "ግብይቶች",
+      "wallets": "የኪስ ገንዘቦች",
+      "recipients": "ተቀባዮች"
+    },
+    "activityDevices": "እንቅስቃሴ እና መሳሪያዎች",
+    "activitySubtitle": "የመግቢያ እንቅስቃሴ እና መሳሪያዎችን ይገምግሙ ለአደጋ የሚጠረጠር መዳረሻ ይለዩ።",
+    "refresh": "አድስ",
+    "knownDevices": "የታወቁ መሳሪያዎች",
+    "recentEvents": "የቅርብ ጊዜ ክስተቶች",
+    "lastLogin": "የመጨረሻ መግቢያ",
+    "cancel": "ሰርዝ",
+    "devicesHeading": "መሳሪያዎች",
+    "recentActivityHeading": "የቅርብ ጊዜ እንቅስቃሴ",
+    "badgeLive": "ቀጥታ",
+    "badgeLoading": "በመጫን ላይ",
+    "noDevicesYet": "እስካሁን ምንም የመሳሪያ መዝገብ የለም።",
+    "noActivityYet": "እስካሁን ምንም እንቅስቃሴ የለም።",
+    "unknownDevice": "ያልታወቀ መሳሪያ",
+    "ipUnavailable": "IP: የለም",
+    "lastSeen": "ለመጨረሻ ጊዜ የታየ",
+    "trustedBadge": "ታምኗል",
+    "untrustedBadge": "አልታመነም",
+    "dash": "—",
+    "walletCardTitle": "{currency} የኪስ ገንዘብ",
+    "noWalletsMessage": "ለዚህ መለያ እስካሁን ምንም የኪስ ገንዘብ አልተገኘም።",
+    "twoFactorShortTitle": "የሁለት-ደረጃ ማረጋገጫ",
+    "twoFactorStatus": "ሁኔታ",
+    "enabled": "አንቃ",
+    "disabled": "አሰናክል",
+    "twoFactorBlurb": "መለያዎን በተጨማሪ ደህንነት ይጠብቁ። ከአዲስ መሳሪያ ሲገቡ ኮድ እንጠይቃለን።",
+    "activeProtection": "ንቁ ጥበቃ",
+    "secureAccountTitle": "መለያ ደህን ያድርጉ",
+    "scanQrSubtitle": "ይህን QR ኮድ በ Google Authenticator፣ Authy ወይም ተመሳሳይ መተግበሪያ ይቃኙ።",
+    "enterSixDigitCode": "የ 6 አሃዝ ኮድ ያስገቡ",
+    "verifyAndEnable": "አረጋግጥ እና አንቃ",
+    "dialogIdentitySubtitle": "በ VaultString ላይ የማንነት መረጃዎን ወቅታዊ ያድርጉ።",
+    "bioPlaceholder": "ስለ እርስዎ ይንገሩ (አማራጭ)",
+    "defaultBioTagline": "የ VaultString ደንበኛ",
+    "toasts": {
+      "profileUpdated": "መገለጫ በተሳካ ሁኔታ ተዘምኗል",
+      "profileFailed": "መገለጫ ማዘመን አልተሳካም",
+      "passwordFieldsRequired": "እባክዎ ሁሉንም የይለፍ ቃል መስኮች ይሙሉ",
+      "passwordMismatch": "የይለፍ ቃላት አይጣጣሙም",
+      "passwordUpdated": "የይለፍ ቃል በተሳካ ሁኔታ ተዘምኗል",
+      "passwordFailed": "የይለፍ ቃል ማዘመን አልተሳካም",
+      "totpSetupFailed": "የሁለት-ደረጃ ማረጋገጫ ማዋቅር አልተሳካም",
+      "twoFactorDisabled": "የሁለት-ደረጃ ማረጋገጫ ተሰናክሏል",
+      "twoFactorDisableFailed": "የሁለት-ደረጃ ማረጋገጫ ማሰናከል አልተሳካም",
+      "twoFactorEnabled": "የሁለት-ደረጃ ማረጋገጫ ነቅቷል",
+      "invalidTotpCode": "የማረጋገጫ ኮድ ትክክል አይደለም",
+      "avatarUploading": "ምስል በመጫን ላይ…",
+      "avatarUpdated": "ምስል ተዘምኗል"
+    }
+  },
+  "Sidebar": {
+    "dashboard": "ዳሽቦርድ",
+    "wallet": "የእኔ የኪስ ቦርሳ",
+    "sendMoney": "ገንዘብ ላክ",
+    "transactions": "ግብይቶች",
+    "profile": "መገለጫ",
+    "verifyIdentity": "ማንነትን አረጋግጥ",
+    "signOut": "ውጣ"
+  },
+  "SendMoney": {
+    "title": "ገንዘብ ላክ",
+    "subtitle": "የድንበር ተሻጋሪ ዝውውሮችን እና ክፍያዎችን በደህና ይጀምሩ።",
+    "instantSettlement": "ፈጣን ክፍያ",
+    "kycRequired": {
+      "title": "የማንነት ማረጋገጫ ያስፈልጋል",
+      "subtitle": "ዓለም አቀፍ ዝውውሮችን እና ከፍተኛ ገደቦችን ለመክፈት እባክዎ KYC ያጠናቅቁ።"
+    },
+    "sections": {
+      "recipientDetails": "የተቀባይ ዝርዝሮች",
+      "transferAmount": "የዝውውር መጠን",
+      "paymentPath": "የክፍያ መንገድ"
+    },
+    "cta": {
+      "confirmTransfer": "አረጋግጥ እና አሁን ላክ"
+    },
+    "security": {
+      "aes256": "AES-256 የተመሰጠረ ክፍያ"
+    },
+    "preview": {
+      "empty": "የቀጥታ የምንዛሬ ተመኖችን ለማየት\nመጠን ያስገቡ"
+    },
+    "errors": {
+      "blockedTitle": "ግብይት ታግዷል",
+      "paymentFailedTitle": "ክፍያውን መላክ አልተቻለም",
+      "untrustedDevice": "አዲስ መሣሪያ ተገኝቷል። ለደህንነት ሲባል፣ እባክዎ ይውጡ እና ይህን መሣሪያ ለማረጋገጥ ተመልሰው ይግቡ።",
+      "duplicateRequest": "የተባዛ ጥያቄ ተገኝቷል። እባክዎ ይጠብቁ ወይም የግብይት ታሪክዎን ያረጋግጡ።",
+      "insufficientBalance": "በቂ ቀሪ ሂሳብ የለም።",
+      "generic": "ችግር ተፈጥሯል። እባክዎ እንደገና ይሞክሩ።"
+    },
+    "feeNote": "ክፍያዎች በዝውውር ወቅት በፈሳሽነት እና በኔትወርክ መጠን ላይ በመመስረት በተለዋዋጭነት ይሰላሉ።",
+    "paymentDetails": "የክፍያ ዝርዝሮች",
+    "international": "ዓለም አቀፍ",
+    "sameCurrency": "ተመሳሳይ ምንዛሬ",
+    "amount": "መጠን",
+    "currency": "ምንዛሬ",
+    "fundingSource": "የገንዘብ ምንጭ",
+    "payoutMethod": "የክፍያ ዘዴ",
+    "recipientWalletNumber": "የተቀባይ የኪስ ገንዘብ ቁጥር",
+    "walletNumberPlaceholder": "የ 16 አሃዝ የኪስ ገንዘብ ቁጥር ያስገቡ",
+    "suggestedReceivers": "የተጠቆሙ ተቀባዮች",
+    "refineSearchHint": "ለማጣራት አሃዞችን ይቀጥሉ",
+    "verifiedReceiver": "የተረጋገጠ ተቀባይ",
+    "recipientWalletHint": "የኪስ ገንዘብ ቁጥር ይተይቡ እና ለትክክለኛ ተጠቃሚ እንደሚልኩ ለማረጋገጥ የተጠቆመ ተቀባይ ይምረጡ።",
+    "targetReceivesLabel": "ተቀባይ በ",
+    "selectPlaceholder": "ይምረጡ",
+    "amountPlaceholder": "0.00",
+    "chinaLabel": "(ቻይና)",
+    "funding": {
+      "walletWithBalance": "VaultString የኪስ ገንዘብ ({balance} {currency})"
+    },
+    "payout": {
+      "walletTopUp": "የኪስ ገንዘብ መሙያ ({currency})"
+    },
+    "channels": {
+      "wallet": "የኪስ ገንዘብ",
+      "mobile_money": "ሞባይል ገንዘብ",
+      "bank": "ባንክ",
+      "card": "ካርድ",
+      "api": "የኤፒአይ መግቢያ",
+      "web": "ድር"
+    },
+    "previewCard": {
+      "title": "የሂሳብ ማጠቃለያ",
+      "subtitle": "በቀጥታ የምንዛሬ ተመን",
+      "exchangeRate": "የምንዛሬ ተመን",
+      "sendingAmount": "የሚላክ መጠን",
+      "serviceFee": "የአገልግሎት ክፍያ",
+      "totalToPay": "ጠቅላላ ክፍያ",
+      "recipientGets": "ተቀባይ ይቀበላል",
+      "secureRate": "የሚጠቆም ተመን እና ክፍያዎች — በመጨረሻ ላይ ድምር ሊለወጥ ይችላል።",
+      "ratePair": "1 {from} = {rate} {to}"
+    },
+    "validation": {
+      "walletIdLength": "የኪስ ገንዘብ መለያ በትክክል 16 አሃዞች መሆን አለበት",
+      "walletIdNumeric": "የኪስ ገንዘብ መለያ ቁጥራዊ መሆን አለበት",
+      "amountRequired": "መጠን ያስፈልጋል",
+      "amountPositive": "መጠን ከዜሮ በላይ መሆን አለበት",
+      "currencyRequired": "ምንዛሬ ያስፈልጋል"
+    },
+    "successCard": {
+      "title": "ክፍያ በተሳካ ሁኔታ ተጠናቋል",
+      "subtitle": "ግብይትዎ በደህንነት ተከናውኗል።",
+      "transactionId": "የግብይት መለያ",
+      "receiver": "ተቀባይ",
+      "amountSent": "የተላከ መጠን",
+      "sendAnother": "ሌላ ክፍያ ይላኩ"
+    }
+  },
+  "Common": {
+    "submit": "ላክ",
+    "cancel": "ሰርዝ",
+    "loading": "በማስኬድ ላይ...",
+    "save": "አስቀምጥ",
+    "error": "ስህተት",
+    "success": "ተሳክቷል"
+  },
+  "Layout": {
+    "emailVerificationRequired": {
+      "title": "የኢሜይል ማረጋገጫ ያስፈልጋል",
+      "subtitle": "ገንዘብ መላክን ጨምሮ ሁሉንም ባህሪያት ለመክፈት እባክዎ ኢሜይልዎን ያረጋግጡ።",
+      "cta": "አሁን አረጋግጥ"
+    }
+  },
+  "TopBar": {
+    "fallbackUser": "ተጠቃሚ",
+    "welcomeBack": "እንኳን ደህና መጡ፣ {name}",
+    "titles": {
+      "dashboard": "ዳሽቦርድ",
+      "wallet": "የእኔ የኪስ ቦርሳ",
+      "sendMoney": "ገንዘብ ላክ",
+      "transactions": "የግብይት ታሪክ",
+      "compliance": "ተገዢነት እና KYC",
+      "profile": "መገለጫ እና ደህንነት",
+      "translation": "የቋንቋ ቅንብሮች",
+      "onboarding": "የማንነት ማረጋገጫ"
+    },
+    "search": {
+      "placeholder": "ግብይቶችን ይፈልጉ..."
+    },
+    "notifications": {
+      "title": "ማሳወቂያዎች",
+      "newCount": "{count} አዲስ",
+      "empty": "ምንም አዲስ ማሳወቂያ የለም",
+      "viewAll": "ሁሉንም ማሳወቂያዎች ይመልከቱ"
+    },
+    "theme": {
+      "toggleAria": "ገጽታ ቀይር"
+    },
+    "account": {
+      "signedInAs": "በዚህ ገብተዋል",
+      "myProfile": "የእኔ መገለጫ",
+      "security": "ደህንነት",
+      "billing": "ክፍያ እና ካርዶች",
+      "settings": "ቅንብሮች",
+      "signOut": "ውጣ"
+    }
+  },
+  "Settings": {
+    "title": "ቅንብሮች",
+    "subtitle": "የመተግበሪያ ምርጫዎችዎን ያስተዳድሩ።",
+    "appearance": {
+      "title": "ገጽታ",
+      "subtitle": "VaultString በመሣሪያዎ ላይ እንዴት እንደሚታይ ያብጁ።",
+      "light": "ብርሃን",
+      "dark": "ጨለማ",
+      "system": "ሲስተም",
+      "lightMode": "የብርሃን ሁነታ",
+      "darkMode": "የጨለማ ሁነታ",
+      "followSystem": "ሲስተሙን ተከተል"
+    },
+    "notifications": {
+      "title": "ማሳወቂያዎች",
+      "subtitle": "እንዴት እንደምናገኝዎት ይምረጡ።",
+      "email": {
+        "title": "የኢሜይል ማሳወቂያዎች",
+        "subtitle": "ዝመናዎችን በኢሜይል ያግኙ"
+      },
+      "push": {
+        "title": "የፑሽ ማሳወቂያዎች",
+        "subtitle": "በመሣሪያዎ ላይ ዝመናዎችን ያግኙ"
+      },
+      "marketing": {
+        "title": "የግብይት ኢሜይሎች",
+        "subtitle": "ዜና እና ቅናሾችን ያግኙ"
+      }
+    },
+    "security": {
+      "title": "ደህንነት",
+      "subtitle": "መለያዎን ደህንነቱ የተጠበቀ ያድርጉት።",
+      "twoFactor": {
+        "title": "ባለ ሁለት ደረጃ ማረጋገጫ",
+        "subtitle": "በመለያዎ ላይ ተጨማሪ የደህንነት ሽፋን ይጨምሩ።",
+        "enable": "2FA ያብሩ",
+        "disable": "2FA ያጥፉ",
+        "setup": {
+          "title": "ባለ ሁለት ደረጃ ማረጋገጫ ያዋቅሩ",
+          "subtitle": "የQR ኮዱን በማረጋገጫ መተግበሪያዎ ይቃኙ።",
+          "step1": "1. የQR ኮዱን ይቃኙ",
+          "step2": "2. የማረጋገጫ ኮዱን ያስገቡ",
+          "verify": "አረጋግጥ እና አግብር",
+          "verifying": "በማረጋገጥ ላይ...",
+          "placeholder": "ባለ 6 አሃዝ ኮድ ያስገቡ"
+        }
+      }
+    },
+    "save": "ቅንብሮችን አስቀምጥ",
+    "saving": "በማስቀመጥ ላይ...",
+    "success": "ቅንብሮች በተሳካ ሁኔታ ተቀምጠዋል",
+    "error": "ቅንብሮችን ማስቀመጥ አልተሳካም",
+    "totp": {
+      "enabled": "ባለ ሁለት ደረጃ ማረጋገጫ በተሳካ ሁኔታ በርቷል",
+      "disabled": "ባለ ሁለት ደረጃ ማረጋገጫ ጠፍቷል",
+      "error": "የ2FA ቅንብሮችን ማዘመን አልተሳካም",
+      "invalidCode": "የማረጋገጫ ኮዱ ልክ አይደለም"
+    }
+  },
+  "Notifications": {
+    "title": "ማሳወቂያዎች",
+    "subtitle": "በመለያዎ እንቅስቃሴ እና የደህንነት ማንቂያዎች ወቅታዊ መረጃ ያግኙ።",
+    "filters": {
+      "all": "ሁሉም",
+      "unread": "ያልተነበበ",
+      "archive": "አርካይቭ"
+    },
+    "actions": {
+      "markAllRead": "ሁሉንም እንደተነበበ ምልክት አድርግ",
+      "deleteAll": "ሁሉንም ሰርዝ",
+      "delete": "ሰርዝ",
+      "markRead": "እንደተነበበ ምልክት አድርግ",
+      "markUnread": "እንዳልተነበበ ምልክት አድርግ",
+      "markAllReadSuccess": "ሁሉም ማሳወቂያዎች እንደተነበቡ ተምልክተዋል",
+      "deleteSuccess": "ማሳወቂያ ተወግዷል",
+      "archive": "በአርካይቭ ያስቀምጡ"
+    },
+    "badge": "ወቅታዊ ይሁኑ",
+    "backToDashboard": "ወደ ዳሽቦርድ ተመለስ",
+    "demo": {
+      "paymentSuccessTitle": "ክፍያ ተሳክቷል",
+      "paymentSuccessBody": "$240 በተሳካ ሁኔታ ላኩ።",
+      "newLoginTitle": "አዲስ መግቢያ",
+      "newLoginBody": "መለያዎ ከአዲስ መሳሪያ ተደረሰ።",
+      "walletReadyTitle": "የኪስ ገንዘብ ዝግጁ ነው",
+      "walletReadyBody": "የእርስዎ EUR የኪስ ገንዘብ ለመጠቀም ዝግጁ ነው።"
+    },
+    "empty": {
+      "title": "ለጊዜው ምንም ማሳወቂያ የለም",
+      "subtitle": "አስፈላጊ ነገር ሲከሰት እናሳውቅዎታለን።"
+    },
+    "types": {
+      "info": "መረጃ",
+      "success": "ተሳክቷል",
+      "warning": "ማስጠንቀቂያ",
+      "error": "የደህንነት ማንቂያ"
+    },
+    "loadMore": "ተጨማሪ ጫን",
+    "loading": "ማሳወቂያዎችን በመጫን ላይ...",
+    "deleteConfirm": "ይህን ማሳወቂያ በእርግጥ መሰረዝ ይፈልጋሉ?",
+    "deleteAllConfirm": "ሁሉንም ማሳወቂያዎች በእርግጥ መሰረዝ ይፈልጋሉ?"
+  },
+  "Transactions": {
+    "title": "የፋይናንስ አጠቃላይ እይታ",
+    "subtitle": "ካርዶችዎን ያስተዳድሩ እና እንቅስቃሴዎችን ይገምግሙ።",
+    "actions": {
+      "selectDates": "ቀኖችን ይምረጡ",
+      "export": "ላክ"
+    },
+    "stats": {
+      "inflow": "ገቢ",
+      "outflow": "ወጪ",
+      "pendingSettlement": "በመጠባበቅ ላይ ያለ ክፍያ"
+    },
+    "tabs": {
+      "all": "ሁሉም",
+      "sent": "የተላከ",
+      "received": "የደረሰ"
+    },
+    "search": {
+      "placeholder": "ግብይቶችን ይፈልጉ..."
+    },
+    "loading": "በመጫን ላይ...",
+    "pagination": {
+      "pageOf": "ገጽ {page} ከ {totalPages}",
+      "previous": "ቀዳሚ",
+      "next": "ቀጣይ"
+    },
+    "cards": {
+      "title": "የእኔ ካርዶች",
+      "manage": "አስተዳድር",
+      "totalBalance": "ጠቅላላ ቀሪ ሂሳብ",
+      "walletId": "የኪስ ቦርሳ መታወቂያ",
+      "addNewCard": "አዲስ ካርድ ጨምር"
+    },
+    "list": {
+      "title": "ግብይቶች",
+      "viewAll": "ሁሉንም ተመልከት",
+      "empty": "ለጊዜው ምንም ግብይት የለም",
+      "unknownSender": "ያልታወቀ ላኪ",
+      "unknownReceiver": "ያልታወቀ ተቀባይ",
+      "datePending": "ቀን በመጠባበቅ ላይ",
+      "invalidDate": "ልክ ያልሆነ ቀን"
+    }
+  },
+  "Receipt": {
+    "titleSuccess": "ማስተላለፍ ተሳክቷል",
+    "titlePending": "ማስተላለፍ ቀርቧል",
+    "titleFailed": "ማስተላለፍ አልተሳካም",
+    "subtitleDefault": "ማስተላለፍዎ በደህንነት ተመዝግቧል። ማረጋገጫ ማውረድ ይችላሉ።",
+    "subtitleLoading": "ደረሰኝ በመጫን ላይ…",
+    "subtitleNoId": "ማስተላለፍ ቀርቧል፣ ነገር ግን ደረሰኙን በራስ-ሰር መጫን አልተቻለም።",
+    "backToTransactions": "ግብይቶች",
+    "downloadPdf": "ማረጋገጫ አውርድ (PDF)",
+    "proofHeading": "የግብይት ማረጋገጫ",
+    "referencePending": "ከመጫን በኋላ ማጣቀሻ ይታያል",
+    "referenceLabel": "ማጣቀሻ: {ref}",
+    "loading": "ደረሰኝ በመጫን ላይ…",
+    "errorTitle": "ደረሰኝ መጫን አልተቻለም",
+    "backToTransactionsError": "ወደ ግብይቶች ተመለስ",
+    "labelDate": "ቀን",
+    "labelTxnId": "የግብይት መለያ",
+    "labelSender": "ላኪ",
+    "labelReceiver": "ተቀባይ",
+    "labelAmount": "መጠን",
+    "labelFee": "የሂደት ክፍያ",
+    "labelTotalDebited": "ጠቅላላ የተቀነሰ",
+    "labelRecipientReceives": "ተቀባይ ይቀበላል",
+    "labelDescription": "መግለጫ",
+    "sendAgain": "ሌላ ማስተላለፍ ይላኩ",
+    "viewHistory": "የግብይት ታሪክ ይመልከቱ",
+    "receiptUnavailableTitle": "ደረሰኝ አይገኝም",
+    "receiptUnavailableBody": "ትክክለኛ የግብይት መለያ አልተቀበልንም። የቅርብ ማስተላለፍ ለማየት የግብይት ዝርዝር ይክፈቱ።",
+    "goToTransactions": "ወደ ግብይቶች ይሂዱ",
+    "errorResolveId": "ለዚህ ደረሰኝ ትክክለኛ የግብይት መለያ ማግኘት አልተቻለም።",
+    "loadFailed": "ደረሰኝ መጫን አልተሳካም"
+  },
+  "Auth": {
+    "login": {
+      "title": "ግባ",
+      "subtitle": "ወደ VaultString እንኳን ደህና መጡ",
+      "alertMfaTitle": "MFA ያስፈልጋል",
+      "alertComingSoonTitle": "በቅርቡ",
+      "alertLoginFailedTitle": "መግቢያ አልተሳካም",
+      "errorInvalidCredentials": "ትክክል ያልሆኑ ምስክርነቶች። እባክዎ እንደገና ይሞክሩ።",
+      "errorMfaRequired": "ለዚህ መለያ ሁለት-ደረጃ ማረጋገጫ ያስፈልጋል።",
+      "errorUnexpected": "ያልተጠበቀ ስህተት ተከስቷል። እባክዎ እንደገና ይሞክሩ።",
+      "errorGoogleInit": "የGoogle ማረጋገጫ ማስጀመር አልተሳካም። እባክዎ እንደገና ይሞክሩ።",
+      "errorAppleComingSoon": "የApple መግቢያ ገና አይገኝም። ኢሜይል እና የይለፍ ቃል ይጠቀሙ።",
+      "emailLabel": "የኢሜይል አድራሻ",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "የይለፍ ቃል",
+      "forgotPassword": "ረሱ?",
+      "authenticatorCodeLabel": "የማረጋገጫ ኮድ",
+      "mfaHint": "ለመግባት ለማጠናቀቅ ከማረጋገጫ መተግበሪያዎ 6-አሃዝ ኮድ ያስገቡ።",
+      "backToPassword": "ወደ የይለፍ ቃል ተመለስ",
+      "submitSigningIn": "በመግባት ላይ…",
+      "submitVerifying": "በማረጋገጥ ላይ…",
+      "submitSignIn": "ወደ VaultString ግባ",
+      "submitVerifySignIn": "አረጋግጥ እና ግባ",
+      "noAccount": "መለያ የለዎትም?",
+      "createAccount": "አንድ ይፍጠሩ",
+      "validation": {
+        "emailInvalid": "እባክዎ ትክክለኛ የኢሜይል አድራሻ ያስገቡ",
+        "passwordRequired": "የይለፍ ቃል ያስፈልጋል"
+      }
+    },
+    "signup": {
+      "alertFailedTitle": "ምዝገባ አልተሳካም",
+      "alertSuccessTitle": "ተሳክቷል",
+      "alertSuccessBody": "መለያ ተፈጥሯል። በማስተላለፍ ላይ…",
+      "errorSignupFailed": "ምዝገባ አልተሳካም። እባክዎ እንደገና ይሞክሩ።",
+      "errorUnexpected": "ያልተጠበቀ ስህተት ተከስቷል።",
+      "errorGoogleInit": "የGoogle ማረጋገጫ ማስጀመር አልተሳካም።",
+      "accountTypeIndividual": "ግለሰብ",
+      "accountTypeBusiness": "ንግድ",
+      "businessNameLabel": "የንግድ ስም",
+      "businessNamePlaceholder": "የንግድዎ ስም",
+      "firstNameLabel": "የመጀመሪያ ስም",
+      "firstNamePlaceholder": "ሄለን",
+      "lastNameLabel": "የአባት ስም",
+      "lastNamePlaceholder": "በከሉ",
+      "countryLabel": "አገር",
+      "countryPlaceholder": "ET",
+      "phoneLabel": "ስልክ (E.164)",
+      "phonePlaceholder": "+251…",
+      "emailLabel": "የኢሜይል አድራሻ",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "የይለፍ ቃል",
+      "confirmPasswordLabel": "የይለፍ ቃል አረጋግጥ",
+      "termsLabel": "<terms>የአገልግሎት ውሎች</terms> እና <privacy>የግላዊነት ፖሊሲ</privacy> እቀበላለሁ",
+      "termsLink": "የአገልግሎት ውሎች",
+      "privacyLink": "የግላዊነት ፖሊሲ",
+      "submitCreating": "መለያ በመፍጠር ላይ…",
+      "submitCreate": "መለያ ፍጠር",
+      "validation": {
+        "emailInvalid": "እባክዎ ትክክለኛ የኢሜይል አድራሻ ያስገቡ",
+        "firstNameRequired": "የመጀመሪያ ስም ያስፈልጋል",
+        "lastNameRequired": "የአባት ስም ያስፈልጋል",
+        "phoneInvalid": "ልክ ያልሆነ ስልክ ቁጥር",
+        "countryCode": "2-ቁምፊ የአገር ኮድ ይጠቀሙ (ለምሳሌ MW)",
+        "passwordMin": "የይለፍ ቃል ቢያንስ 8 ቁምፊዎች መሆን አለበት",
+        "termsRequired": "ውሎችን እና ሁኔታዎችን መቀበል አለብዎት",
+        "passwordMismatch": "የይለፍ ቃሎች አይዛመዱም",
+        "businessNameRequired": "ለንግድ መለያዎች የንግድ ስም ያስፈልጋል"
+      }
+    }
+  },
+  "Translation": {
+    "subtitle": "የተመረጠውን ቋንቋ እና ክልል ይምረጡ።",
+    "appLanguage": "የመተግበሪያ ቋንቋ",
+    "appLanguageHint": "ለመገናኛው ቋንቋ ይምረጡ።",
+    "searchPlaceholder": "ቋንቋዎችን ይፈልጉ...",
+    "languageUpdated": "ቋንቋ በተሳካ ሁኔታ ተዘምኗል",
+    "translating": "በመተርጎም ላይ…"
+  },
+  "Verification": {
+    "verifyingTitle": "ኢሜይል በማረጋገጥ ላይ",
+    "verifyingSubtitle": "ማንነትዎን እስክንያረጋገጥ ድረስ እባክዎ ይጠብቁ...",
+    "connectingServers": "ከደህንነት አገልጋዮች ጋር በመገናኘት ላይ...",
+    "verifiedTitle": "ኢሜይል ተረጋግጧል!",
+    "verifiedSubtitle": "ማንነትዎ በተሳካ ሁኔታ ተረጋግጧል።",
+    "redirectingProfile": "የመገለጫ ማዋቀርዎን ለማጠናቀቅ በመሄድ ላይ...",
+    "failedTitle": "ማረጋገጥ አልተሳካም",
+    "failedSubtitle": "ኢሜይልዎን በማረጋገጥ ላይ ችግር ነበር።",
+    "backToLogin": "ወደ መግቢያ ተመለስ",
+    "resendCooldown": "ኮድ በ {seconds} ሰከንድ ውስጥ እንደገና ይላካል",
+    "resendEmail": "የማረጋገጥ ኢሜይል እንደገና ላክ",
+    "magicLinkTitle": "ኢሜይልዎን ይመልከቱ",
+    "magicLinkSubtitle": "ወደ {email} አስማት አገናኝ ልከናል",
+    "magicLinkBody": "ማረጋገጡን ለማጠናቀቅ በኢሜይልዎ ያለውን አገናኝ ይጫኑ።",
+    "useCodeInstead": "በምትኩ ኮድ ይጠቀሙ",
+    "verifyTitle": "ኢሜይል አረጋግጥ",
+    "verifySubtitle": "ወደ {email} የተላከውን ኮድ ያስገቡ",
+    "codeLabel": "የማረጋገጥ ኮድ",
+    "codePlaceholder": "000000",
+    "verifyButton": "ኢሜይል አረጋግጥ",
+    "resendCode": "ኮድ እንደገና ላክ",
+    "useMagicLink": "በምትኩ አስማት አገናኝ ይጠቀሙ",
+    "invalidCode": "የማረጋገጥ ኮድ ተቀባይነት የለውም",
+    "invalidLink": "የማረጋገጥ አገናኝ ተቀባይነት የለውም ወይም ጊዜው አልፏል",
+    "resendFailed": "ኮድ እንደገና መላክ አልተሳካም"
+  },
+  "ResetPassword": {
+    "emailTitle": "የይለፍ ቃል ዳግም አስጀምር",
+    "emailSubtitle": "መመሪያዎችን ለመቀበል ኢሜይልዎን ያስገቡ",
+    "emailLabel": "የኢሜይል አድራሻ",
+    "emailPlaceholder": "you@example.com",
+    "sendLink": "የዳግም አስጀማሪ አገናኝ ላክ",
+    "rememberPassword": "የይለፍ ቃልዎን ይዘክራሉ?",
+    "signIn": "ግባ",
+    "resetTitle": "አዲስ የይለፍ ቃል ፍጠር",
+    "resetSubtitle": "አዲሱን የይለፍ ቃል ከታች ያስገቡ",
+    "newPasswordLabel": "አዲስ የይለፍ ቃል",
+    "confirmPasswordLabel": "የይለፍ ቃል አረጋግጥ",
+    "passwordPlaceholder": "••••••••",
+    "expiryNote": "ይህ አገናኝ በ1 ሰዓት ውስጥ ያበቃል",
+    "resetButton": "የይለፍ ቃል ዳግም አስጀምር",
+    "successTitle": "የይለፍ ቃል በተሳካ ሁኔታ ተዳግመ",
+    "successSubtitle": "የይለፍ ቃልዎ ተዘምኗል",
+    "successBody": "የይለፍ ቃልዎ ተዳግሟል። አሁን በአዲሱ የይለፍ ቃል መግባት ይችላሉ።",
+    "returnSignIn": "ወደ መግቢያ ተመለስ",
+    "fallbackTitle": "የይለፍ ቃል ዳግም አስጀምር",
+    "fallbackSubtitle": "አዲስ የይለፍ ቃል ፍጠር",
+    "toastSuccess": "ተሳክቷል",
+    "toastError": "ስህተት",
+    "emailSent": "ኢሜይሉ ካለ፣ የዳግም አስጀማሪ አገናኝ ተልኳል።",
+    "passwordMismatch": "የይለፍ ቃሎች አይዛመዱም",
+    "invalidLink": "የዳግም አስጀማሪ አገናኝ ተቀባይነት የለውም ወይም ጊዜው አልፏል",
+    "resetSuccess": "የይለፍ ቃል በተሳካ ሁኔታ ተዳግመ!",
+    "sendFailed": "የዳግም አስጀማሪ ኢሜይል መላክ አልተሳካም",
+    "resetFailed": "የይለፍ ቃል ዳግም ማስጀመር አልተሳካም"
+  },
+  "Compliance": {
+    "title": "የማንነት ማረጋገጥ",
+    "subtitle": "ከፍተኛ ገደቦችን እና ሙሉ የመለያ ባህሪያትን ለመክፈት የKYC ሂደቱን ያጠናቅቁ።",
+    "currentStatus": "የአሁኑ ሁኔታ",
+    "statusVerified": "ተረጋግጧል",
+    "statusReview": "በግምገማ ላይ",
+    "statusUnverified": "አልተረጋገጠም",
+    "verifiedBody": "ማንነትዎ ተረጋግጧል። ሙሉ መዳረሻ አለዎት።",
+    "reviewBody": "ሰነዶችዎን እያገናኘን ነው። ብዙውን ጊዜ 24-48 ሰዓት ይወስዳል።",
+    "unverifiedBody": "ማንነትዎን ለማረጋገጥ ሰነዶችዎን ያስረክቡ።",
+    "history": "ታሪክ",
+    "rejectionReason": "ምክንያት፡ {reason}",
+    "submitTitle": "ሰነዶች አስረክብ",
+    "submitSubtitle": "ማንነትዎን ለማረጋገጥ ትክክለኛ የመንግስት መታወቂያ ይስቀሉ።",
+    "docType": "የሰነድ አይነት",
+    "selectType": "አይነት ይምረጡ",
+    "passport": "ፓስፖርት",
+    "nationalId": "ብሔራዊ መታወቂያ",
+    "driversLicense": "የመንጃ ፈቃድ",
+    "issuingCountry": "የሚሰጥበት ሀገር",
+    "selectCountry": "ሀገር ይምረጡ",
+    "china": "ቻይና",
+    "docNumber": "የሰነድ ቁጥር",
+    "docNumberPlaceholder": "የሰነድ መለያ ቁጥር ያስገቡ",
+    "docImage": "የሰነድ ምስል (ፊት)",
+    "clickToChange": "ለመቀየር ጠቅ ያድርጉ",
+    "uploadHint": "ለመስቀል ጠቅ ያድርጉ",
+    "uploadOrDrop": "ወይም ይጎትቱ እና ይጣሉ",
+    "uploadFormats": "SVG፣ PNG፣ JPG ወይም GIF (ከፍተኛ 10MB)",
+    "submitting": "በማስረከብ ላይ...",
+    "submitButton": "ማረጋገጥ አስረክብ",
+    "fullyVerifiedTitle": "ሙሉ በሙሉ ተረጋግጠዋል!",
+    "fullyVerifiedBody": "ማንነትዎን ስላረጋገጡ እናመሰግናለን። አሁን ለሁሉም ባህሪያት፣ ከፍተኛ የግብይት ገደቦች እና ፈጣን ሂደት መዳረሻ አለዎት።",
+    "returnDashboard": "ወደ ዳሽቦርድ ተመለስ",
+    "inProgressTitle": "ማረጋገጥ በሂደት ላይ",
+    "inProgressBody": "ሰነዶችዎ ተቀብለናል እና በመገጣጠም ቡድናችን እያገናኘ ነው። ግምገማው ሲጠናቀቅ ማሳወቂያ ይደርስዎታል።",
+    "loadFailed": "የመገጣጠም ሁኔታ መጫን አልተሳካም",
+    "fillAllFields": "እባክዎ ሁሉንም መስኮች ይሙሉ እና ሰነድ ይስቀሉ",
+    "submitSuccess": "የKYC ሰነዶች በተሳካ ሁኔታ ቀርበዋል",
+    "submitFailed": "ሰነዶችን ማስረከብ አልተሳካም"
+  },
+  "Onboarding": {
+    "userType": {
+      "title": "ደንበኛዎን ይወቁ",
+      "subtitle": "ማረጋገጫ ሂደቱን ለመጀመር የመለያ አይነት ይምረጡ",
+      "individualTitle": "Individual",
+      "individualDescription": "Verify as a private person. Takes about 10 minutes.",
+      "individualFeaturePersonal": "Personal information",
+      "individualFeatureId": "ID verification",
+      "individualFeatureAddress": "Address proof",
+      "individualCta": "እንደ ግለሰብ ይቀጥሉ",
+      "businessTitle": "Business",
+      "businessDescription": "Verify your company. Takes about 15 minutes.",
+      "businessFeatureCompany": "Company details",
+      "businessFeatureUbo": "UBO disclosure",
+      "businessFeatureDocs": "Documentation",
+      "businessCta": "እንደ ንግድ ይቀጥሉ",
+      "privacyNote": "We take your privacy seriously. Your information is encrypted and secure.",
+      "complianceNote": "Compliant with Malawi RBM and China PBOC regulations"
+    },
+    "flow": {
+      "changeType": "አይነት ቀይር",
+      "saveDraft": "ረቂቅ አስቀምጥ",
+      "draftSaved": "ሂደቱ ተቀምጧል። በኋላ መቀጠል ይችላሉ።",
+      "back": "ወደ ቀዳሚው ደረጃ ተመለስ",
+      "stepSubtitle": "Step {current} of {total}",
+      "continue": "ወደ ቀጣይ ደረጃ ቀጥል"
+    },
+    "individualSteps": {
+      "personal": "Personal Details",
+      "contact": "Contact Information",
+      "id": "ID Verification",
+      "funds": "Source of Funds",
+      "security": "Security Setup",
+      "terms": "Terms & Agreements"
+    },
+    "businessSteps": {
+      "company": "Company Details",
+      "business": "Business Information",
+      "reps": "Authorized Representatives",
+      "ubo": "UBO Disclosure",
+      "banking": "Banking Details",
+      "docs": "Documentation",
+      "compliance": "Compliance"
+    },
+    "personalDetails": {
+      "firstNameLabel": "First Name *",
+      "firstNamePlaceholder": "John",
+      "lastNameLabel": "Last Name *",
+      "lastNamePlaceholder": "Doe",
+      "dateOfBirthLabel": "Date of Birth *",
+      "nationalityLabel": "Nationality *",
+      "nationalityPlaceholder": "United States",
+      "idTypeLabel": "ID Type",
+      "idTypePassport": "Passport",
+      "idTypeDriverLicense": "Driver's License",
+      "idTypeNationalId": "National ID",
+      "encryptionNote": "Your personal information is encrypted and will only be used for verification purposes.",
+      "validation": {
+        "firstNameRequired": "First name is required",
+        "lastNameRequired": "Last name is required",
+        "dateOfBirthRequired": "Date of birth is required",
+        "nationalityRequired": "Nationality is required"
+      }
+    },
+    "contactInfo": {
+      "phoneLabel": "Phone Number *",
+      "phonePlaceholder": "+1 (555) 123-4567",
+      "emailLabel": "Email Address *",
+      "emailPlaceholder": "kelvin@example.com",
+      "addressLabel": "Address *",
+      "addressPlaceholder": "123 Main Street",
+      "cityLabel": "City *",
+      "cityPlaceholder": "Lilongwe",
+      "countryLabel": "Country *",
+      "countryPlaceholder": "Malawi",
+      "postalCodeLabel": "Postal Code *",
+      "postalCodePlaceholder": "10001",
+      "validation": {
+        "phoneRequired": "Phone number is required",
+        "emailRequired": "Email is required",
+        "addressRequired": "Address is required",
+        "cityRequired": "City is required",
+        "countryRequired": "Country is required",
+        "postalCodeRequired": "Postal code is required"
+      }
+    },
+    "idVerification": {
+      "documentNumberLabel": "Document Number *",
+      "documentNumberPlaceholder": "ABC123456789",
+      "expiryDateLabel": "Expiry Date *",
+      "uploadLabel": "Upload Document *",
+      "previewAlt": "Preview",
+      "uploadCta": "Click to upload or drag and drop",
+      "uploadFormats": "PNG, JPG, or PDF (max 10MB)",
+      "secureNote": "Your document is verified securely. We only use it to confirm your identity.",
+      "validation": {
+        "documentNumberRequired": "Document number is required",
+        "expiryDateRequired": "Expiry date is required",
+        "fileRequired": "Document file is required"
+      }
+    },
+    "sourceOfFunds": {
+      "employmentStatusLabel": "Employment Status *",
+      "employmentEmployed": "employed",
+      "employmentSelfEmployed": "self employed",
+      "employmentRetired": "retired",
+      "employmentStudent": "student",
+      "employmentOther": "other",
+      "currencyLabel": "Currency *",
+      "currencyMwk": "Malawian Kwacha (MWK)",
+      "currencyCny": "Chinese Yuan (CNY)",
+      "incomeRangeLabel": "Annual Income Range *",
+      "incomeMwk0": "0 - 100,000 MWK",
+      "incomeMwk1": "100,000 - 500,000 MWK",
+      "incomeMwk2": "500,000 - 1,000,000 MWK",
+      "incomeMwk3": "1,000,000 - 5,000,000 MWK",
+      "incomeMwk4": "5,000,000+ MWK",
+      "incomeCny0": "0 - 50,000 CNY",
+      "incomeCny1": "50,000 - 200,000 CNY",
+      "incomeCny2": "200,000 - 500,000 CNY",
+      "incomeCny3": "500,000 - 2,000,000 CNY",
+      "incomeCny4": "2,000,000+ CNY",
+      "amlNote": "This information helps us comply with anti-money laundering regulations."
+    },
+    "securitySetup": {
+      "twoFaLabel": "Enable two-factor authentication (2FA) for enhanced security",
+      "question1Label": "Security Question 1 *",
+      "selectQuestion": "Select a question",
+      "answerLabel": "Your Answer *",
+      "answerPlaceholder": "Your answer",
+      "recoveryNote": "These security questions help us verify your identity if you need to recover your account.",
+      "questions": {
+        "maidenName": "What is your mother's maiden name?",
+        "firstPet": "What was the name of your first pet?",
+        "birthCity": "In what city were you born?",
+        "favoriteTeacher": "What is the name of your favorite teacher?",
+        "firstCar": "What was the make of your first car?"
+      },
+      "validation": {
+        "questionRequired": "Please select a security question",
+        "answerRequired": "Please answer the security question"
+      }
+    },
+    "terms": {
+      "heading": "Terms and Conditions",
+      "body1": "By using our KYC verification service, you agree to comply with all applicable laws and regulations. You represent that all information provided is accurate and complete. We reserve the right to deny access or cancel accounts if we detect fraudulent activity or violation of our terms.",
+      "body2": "Your data will be processed securely and in compliance with international data protection regulations including GDPR and local standards.",
+      "privacyLabel": "I have read and agree to the <privacy>Privacy Policy</privacy> *",
+      "privacyLink": "Privacy Policy",
+      "termsLabel": "I have read and agree to the <terms>Terms of Service</terms> *",
+      "termsLink": "Terms of Service",
+      "dataLabel": "I consent to the secure storage of my personal data *",
+      "submit": "ማረጋገጫ አጠናቅቅ",
+      "submitting": "በመላክ ላይ…",
+      "validation": {
+        "privacyRequired": "You must accept the privacy policy",
+        "termsRequired": "You must accept the terms of service",
+        "dataRequired": "You must consent to data processing"
+      },
+      "errorSubmit": "Failed to submit KYC. Please try again."
+    },
+    "completion": {
+      "individualTitle": "KYC Submitted",
+      "businessTitle": "Business KYC Submitted",
+      "subtitle": "Your verification is being processed",
+      "thankYou": "Thank you for completing your verification. Our compliance team is now reviewing your application.",
+      "reviewTimeLabel": "Review Time",
+      "reviewTimeValue": "24 - 48 Hours",
+      "confirmationLabel": "Confirmation",
+      "confirmationValue": "Email will be sent",
+      "securityLabel": "Security",
+      "securityValue": "Full access on approval",
+      "goDashboard": "ወደ ዳሽቦርድ ሂድ",
+      "startAnother": "ሌላ ማረጋገጫ ጀምር",
+      "referenceId": "Reference ID: KYC-{id}"
+    },
+    "companyDetails": {
+      "legalNameLabel": "Legal Company Name *",
+      "legalNamePlaceholder": "ABC Corporation Ltd.",
+      "registrationLabel": "Registration Number *",
+      "registrationPlaceholder": "REG123456",
+      "taxIdLabel": "Tax ID *",
+      "taxIdPlaceholder": "TAX123456789",
+      "validation": {
+        "legalNameRequired": "Legal name is required",
+        "registrationRequired": "Registration number is required",
+        "taxIdRequired": "Tax ID is required"
+      }
+    },
+    "businessInfo": {
+      "industryLabel": "Industry *",
+      "selectIndustry": "Select an industry",
+      "industries": {
+        "technology": "Technology",
+        "finance": "Finance",
+        "healthcare": "Healthcare",
+        "retail": "Retail",
+        "manufacturing": "Manufacturing",
+        "education": "Education",
+        "other": "Other"
+      },
+      "companySizeLabel": "Company Size *",
+      "selectCompanySize": "Select company size",
+      "size1": "1-10 employees",
+      "size2": "11-50 employees",
+      "size3": "51-200 employees",
+      "size4": "201-500 employees",
+      "size5": "500+ employees",
+      "websiteLabel": "Website (Optional)",
+      "websitePlaceholder": "https://example.com",
+      "incorporationDateLabel": "Incorporation Date *",
+      "validation": {
+        "industryRequired": "Industry is required",
+        "companySizeRequired": "Company size is required",
+        "incorporationDateRequired": "Incorporation date is required"
+      }
+    },
+    "authorizedReps": {
+      "representativeTitle": "Representative {n}",
+      "remove": "Remove",
+      "fullNameLabel": "Full Name *",
+      "fullNamePlaceholder": "John Smith",
+      "emailLabel": "Email *",
+      "emailPlaceholder": "john@example.com",
+      "jobTitleLabel": "Job Title *",
+      "jobTitlePlaceholder": "CEO",
+      "addAnother": "Add Another Representative",
+      "validation": {
+        "nameRequired": "Name is required",
+        "emailRequired": "Email is required",
+        "titleRequired": "Title is required"
+      }
+    },
+    "uboDisclosure": {
+      "intro": "UBO (Ultimate Beneficial Owner) disclosure is required for compliance. Please provide information about the individuals who ultimately own or control the company.",
+      "ownershipStructureLabel": "Ownership Structure",
+      "directOwnership": "Direct ownership",
+      "indirectOwnership": "Indirect ownership (through another entity)",
+      "uboNameLabel": "UBO Full Name *",
+      "uboNamePlaceholder": "Ida Mateyu",
+      "ownershipPercentLabel": "Ownership Percentage *",
+      "ownershipPercentPlaceholder": "25",
+      "nationalityLabel": "Nationality *",
+      "nationalityPlaceholder": "Malawian",
+      "validation": {
+        "uboNameRequired": "UBO name is required",
+        "ownershipRequired": "Ownership percentage is required",
+        "nationalityRequired": "Nationality is required"
+      }
+    },
+    "bankingDetails": {
+      "bankNameLabel": "Bank Name *",
+      "bankNamePlaceholder": "Example Bank",
+      "accountNumberLabel": "Account Number *",
+      "accountNumberPlaceholder": "123456789",
+      "bankCodeLabel": "Bank Code / SWIFT Code *",
+      "bankCodePlaceholder": "SWIFTCODE",
+      "accountHolderLabel": "Account Holder Name *",
+      "accountHolderPlaceholder": "Company Name",
+      "encryptedNote": "Your banking details are encrypted and used only for payouts.",
+      "validation": {
+        "bankNameRequired": "Bank name is required",
+        "accountNumberRequired": "Account number is required",
+        "bankCodeRequired": "Bank code is required",
+        "accountHolderRequired": "Account holder name is required"
+      }
+    },
+    "documentation": {
+      "incorporationLabel": "Certificate of Incorporation",
+      "articlesLabel": "Articles of Association",
+      "shareholdersLabel": "Shareholder Register",
+      "uploadSuccess": "File uploaded successfully",
+      "uploadCta": "Click to upload",
+      "uploadFormats": "PDF or DOC (max 20MB)",
+      "uploading": "Uploading...",
+      "validation": {
+        "incorporationRequired": "Certificate of incorporation is required",
+        "articlesRequired": "Articles of association are required"
+      },
+      "errorUpload": "Failed to upload documents. Please try again."
+    },
+    "compliance": {
+      "businessPurposeLabel": "Business Purpose *",
+      "selectPurpose": "Select business purpose",
+      "purposes": {
+        "trading": "Trading",
+        "consulting": "Consulting",
+        "manufacturing": "Manufacturing",
+        "services": "Services",
+        "other": "Other"
+      },
+      "expectedVolumeLabel": "Expected Monthly Transaction Volume *",
+      "selectRange": "Select range",
+      "volume0": "$0 - $10,000",
+      "volume1": "$10,000 - $50,000",
+      "volume2": "$50,000 - $100,000",
+      "volume3": "$100,000+",
+      "confirmationHeading": "Compliance Confirmation",
+      "confirmationBody": "I confirm that my company complies with all applicable regulations in the jurisdictions where it operates, including Malawi RBM requirements and China PBOC merchant requirements.",
+      "checkboxLabel": "I confirm compliance with all applicable regulations *",
+      "submit": "Complete Business Verification",
+      "validation": {
+        "purposeRequired": "Business purpose is required",
+        "volumeRequired": "Expected transaction volume is required",
+        "complianceRequired": "You must accept the compliance confirmation"
+      }
+    }
+  }
+}

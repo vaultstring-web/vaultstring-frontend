@@ -1,0 +1,1011 @@
+{
+  "Dashboard": {
+    "title": "Tableau de bord",
+    "subtitle": "Votre aperçu financier",
+    "totalAvailableBalance": "Solde total disponible",
+    "totalBalance": "Solde total",
+    "sendMoney": "Envoyer de l'argent",
+    "addFunds": "Ajouter des fonds",
+    "wallet": "Portefeuille",
+    "transactions": "Opérations",
+    "recentActivity": "Activité récente",
+    "viewAll": "Voir tout",
+    "noRecentActivity": "Pas d'activité récente",
+    "currentRate": "Taux actuel",
+    "lastUpdatedJustNow": "Mis à jour: maintenant",
+    "verificationRequired": "Vérification d'identité requise",
+    "verificationSubtitle": "Débloquez les portefeuilles multi-devises et des limites plus élevées en complétant votre KYC.",
+    "verifyNow": "Vérifier maintenant",
+    "forexAnalytics": "Analyses Forex",
+    "currencyConverter": "Convertisseur de devises",
+    "converter": {
+      "setAlert": "Définir une alerte",
+      "viewHistory": "Voir l'historique",
+      "from": "De",
+      "to": "À"
+    },
+    "market": {
+      "overviewTitle": "Aperçu du marché",
+      "overviewSubtitle": "Taux de change et analyses en temps réel",
+      "open": "Marché ouvert",
+      "high24h": "Plus haut 24h",
+      "low24h": "Plus bas 24h",
+      "timing": {
+        "title": "Aperçu du moment",
+        "buyBadge": "Excellent moment pour acheter",
+        "buyText": "Les taux sont nettement inférieurs (-{percent}%) à la moyenne quotidienne.",
+        "waitBadge": "Envisager d'attendre",
+        "waitText": "Les taux sont actuellement élevés (+{percent}%). Envisagez d'attendre une baisse.",
+        "stableBadge": "Marché stable",
+        "stableText": "Les taux sont stables avec une volatilité minimale ({percent}%)."
+      },
+      "source": {
+        "title": "Source du marché",
+        "body": "Données en temps réel fournies par Google Finance. Les taux sont indicatifs et peuvent varier selon le fournisseur."
+      }
+    }
+  },
+  "Wallet": {
+    "title": "Mes portefeuilles",
+    "subtitle": "Gérez vos cartes, vos actifs numériques et vos niveaux de liquidité.",
+    "accountBalances": "Soldes des comptes",
+    "addNewCard": "Ajouter une nouvelle carte",
+    "addMultiCurrencyCard": "Ajouter une carte multi-devises",
+    "unlockGlobalSpending": "Débloquez les dépenses mondiales",
+    "verificationRequiredTitle": "Vérification requise",
+    "verificationNotice": "Vérifiez votre identité pour augmenter vos limites et ajouter d'autres cartes de devises.",
+    "verifyNow": "Vérifier maintenant",
+    "availableBalance": "Solde disponible",
+    "deposit": "Dépôt",
+    "withdraw": "Retrait",
+    "loading": "Chargement...",
+    "errors": {
+      "identityRequiredTitle": "Vérification d'identité requise",
+      "identityRequiredSubtitle": "Veuillez compléter votre KYC pour débloquer les portefeuilles multi-devises."
+    },
+    "createModal": {
+      "badge": "Nouvel actif",
+      "title": "Ajouter un portefeuille multi-devises",
+      "subtitle": "Créez une nouvelle carte de liquidité pour commencer à effectuer des transactions à l'échelle mondiale.",
+      "baseCurrency": "Devise de base",
+      "selectCurrency": "Sélectionner la devise",
+      "accountCategory": "Catégorie de compte",
+      "selectType": "Sélectionner le type",
+      "types": {
+        "personal": "Utilisation personnelle",
+        "business": "Entreprise / Marchand"
+      },
+      "currencies": {
+        "mwk": "Kwacha malawien (MWK)",
+        "cny": "Yuan chinois (CNY)",
+        "zmw": "Kwacha zambien (ZMW)"
+      },
+      "cta": "Créer mon portefeuille",
+      "discard": "Abandonner les modifications",
+      "success": "Portefeuille créé avec succès",
+      "error": "Échec de la création du portefeuille"
+    }
+  },
+  "Profile": {
+    "title": "Profil du compte",
+    "myProfile": "Mon profil",
+    "security": "Sécurité",
+    "translation": "Traduction",
+    "notifications": "Alertes",
+    "settings": "Paramètres",
+    "deleteAccount": "Supprimer le compte",
+    "personalInfo": "Informations personnelles",
+    "fullName": "Nom complet",
+    "email": "Adresse e-mail",
+    "phone": "Téléphone",
+    "address": "Adresse",
+    "saveChanges": "Enregistrer les modifications",
+    "updatePassword": "Mettre à jour le mot de passe",
+    "updating": "Mise à jour...",
+    "mfa": "Authentification à deux facteurs",
+    "mfaSubtitle": "Ajoutez une couche de sécurité supplémentaire à votre compte.",
+    "bio": "Biographie",
+    "country": "Pays",
+    "city": "Ville/État",
+    "taxId": "ID fiscal",
+    "postalCode": "Code postal",
+    "memberSince": "Membre depuis",
+    "accountStatus": "Statut du compte",
+    "verified": "Vérifié",
+    "unverified": "Non vérifié",
+    "editProfile": "Modifier le profil",
+    "changePassword": "Changer le mot de passe",
+    "currentPassword": "Mot de passe actuel",
+    "newPassword": "Nouveau mot de passe",
+    "confirmPassword": "Confirmer le nouveau mot de passe",
+    "notificationPreferences": {
+      "title": "Préférences de notification",
+      "subtitle": "Choisissez comment vous souhaitez être averti.",
+      "email": {
+        "title": "Notifications par e-mail",
+        "subtitle": "Recevoir les mises à jour par e-mail"
+      },
+      "push": {
+        "title": "Notifications push",
+        "subtitle": "Recevoir les mises à jour sur votre appareil"
+      },
+      "sms": {
+        "title": "Notifications SMS",
+        "subtitle": "Recevoir les mises à jour par SMS"
+      }
+    },
+    "uploadAvatar": "Télécharger l'avatar",
+    "removeAvatar": "Supprimer l'avatar",
+    "tabs": {
+      "activity": "Activité",
+      "wallets": "Portefeuilles",
+      "security": "Sécurité",
+      "language": "Langue"
+    },
+    "viewArchive": "Voir l'archive",
+    "headerUsernameFallback": "compte",
+    "stats": {
+      "transactions": "opérations",
+      "wallets": "portefeuilles",
+      "recipients": "destinataires"
+    },
+    "activityDevices": "Activité et appareils",
+    "activitySubtitle": "Examinez les connexions et les appareils pour repérer les accès suspects.",
+    "refresh": "Actualiser",
+    "knownDevices": "Appareils connus",
+    "recentEvents": "Événements récents",
+    "lastLogin": "Dernière connexion",
+    "cancel": "Annuler",
+    "devicesHeading": "Appareils",
+    "recentActivityHeading": "Activité récente",
+    "badgeLive": "En direct",
+    "badgeLoading": "Chargement",
+    "noDevicesYet": "Aucun appareil enregistré pour le moment.",
+    "noActivityYet": "Aucune activité pour le moment.",
+    "unknownDevice": "Appareil inconnu",
+    "ipUnavailable": "IP : indisponible",
+    "lastSeen": "Vu pour la dernière fois",
+    "trustedBadge": "Fiable",
+    "untrustedBadge": "Non fiable",
+    "dash": "—",
+    "walletCardTitle": "Portefeuille {currency}",
+    "noWalletsMessage": "Aucun portefeuille n'est encore associé à ce compte.",
+    "twoFactorShortTitle": "Authentification à deux facteurs",
+    "twoFactorStatus": "Statut",
+    "enabled": "Activé",
+    "disabled": "Désactivé",
+    "twoFactorBlurb": "Protégez votre compte avec une couche supplémentaire. Nous demanderons un code lors de chaque connexion depuis un nouvel appareil.",
+    "activeProtection": "Protection active",
+    "secureAccountTitle": "Sécuriser le compte",
+    "scanQrSubtitle": "Scannez ce code QR avec Google Authenticator, Authy ou une autre application compatible.",
+    "enterSixDigitCode": "Saisir le code à 6 chiffres",
+    "verifyAndEnable": "Vérifier et activer",
+    "dialogIdentitySubtitle": "Gardez vos informations d'identité à jour sur VaultString.",
+    "bioPlaceholder": "Parlez de vous (facultatif)",
+    "defaultBioTagline": "Client VaultString",
+    "toasts": {
+      "profileUpdated": "Profil mis à jour avec succès",
+      "profileFailed": "Échec de la mise à jour du profil",
+      "passwordFieldsRequired": "Veuillez remplir tous les champs du mot de passe",
+      "passwordMismatch": "Les mots de passe ne correspondent pas",
+      "passwordUpdated": "Mot de passe mis à jour avec succès",
+      "passwordFailed": "Échec de la mise à jour du mot de passe",
+      "totpSetupFailed": "Échec de la configuration de l'authentification à deux facteurs",
+      "twoFactorDisabled": "Authentification à deux facteurs désactivée",
+      "twoFactorDisableFailed": "Échec de la désactivation de l'authentification à deux facteurs",
+      "twoFactorEnabled": "Authentification à deux facteurs activée",
+      "invalidTotpCode": "Code de vérification invalide",
+      "avatarUploading": "Téléversement de l'avatar…",
+      "avatarUpdated": "Avatar mis à jour"
+    }
+  },
+  "Sidebar": {
+    "dashboard": "Tableau de bord",
+    "wallet": "Mon portefeuille",
+    "sendMoney": "Envoyer de l'argent",
+    "transactions": "Opérations",
+    "profile": "Profil",
+    "verifyIdentity": "Vérifier l'identité",
+    "signOut": "Déconnexion"
+  },
+  "SendMoney": {
+    "title": "Envoyer de l'argent",
+    "subtitle": "Initiez des transferts et des paiements transfrontaliers en toute sécurité.",
+    "instantSettlement": "Règlement instantané",
+    "kycRequired": {
+      "title": "Vérification d'identité requise",
+      "subtitle": "Veuillez compléter votre KYC pour débloquer les transferts internationaux et des limites plus élevées."
+    },
+    "sections": {
+      "recipientDetails": "Détails du destinataire",
+      "transferAmount": "Montant du transfert",
+      "paymentPath": "Chemin de paiement"
+    },
+    "cta": {
+      "confirmTransfer": "Confirmer et transférer maintenant"
+    },
+    "security": {
+      "aes256": "Paiement crypté AES-256"
+    },
+    "preview": {
+      "empty": "Entrez un montant pour voir\nles taux de change en direct"
+    },
+    "errors": {
+      "blockedTitle": "Transaction bloquée",
+      "paymentFailedTitle": "Le paiement n’a pas pu être envoyé",
+      "untrustedDevice": "Nouvel appareil détecté. Pour plus de sécurité, veuillez vous déconnecter et vous reconnecter pour vérifier cet appareil.",
+      "duplicateRequest": "Demande en double détectée. Veuillez patienter ou vérifier votre historique de transactions.",
+      "insufficientBalance": "Solde insuffisant.",
+      "generic": "Une erreur s'est produite. Veuillez réessayer."
+    },
+    "feeNote": "Les frais sont calculés dynamiquement en fonction de la liquidité et du volume du réseau au moment du transfert.",
+    "paymentDetails": "Détails du paiement",
+    "international": "Transfrontalier",
+    "sameCurrency": "Même devise",
+    "amount": "Montant",
+    "currency": "Devise",
+    "fundingSource": "Source des fonds",
+    "payoutMethod": "Mode de versement",
+    "recipientWalletNumber": "Numéro de portefeuille du destinataire",
+    "walletNumberPlaceholder": "Saisir le numéro de portefeuille à 16 chiffres",
+    "suggestedReceivers": "Destinataires suggérés",
+    "refineSearchHint": "Continuez à saisir des chiffres pour affiner",
+    "verifiedReceiver": "Destinataire vérifié",
+    "recipientWalletHint": "Saisissez un numéro de portefeuille et sélectionnez un destinataire suggéré pour confirmer l'envoi au bon utilisateur.",
+    "targetReceivesLabel": "Le destinataire reçoit en",
+    "selectPlaceholder": "Sélectionner",
+    "amountPlaceholder": "0,00",
+    "chinaLabel": "(Chine)",
+    "funding": {
+      "walletWithBalance": "Portefeuille VaultString ({balance} {currency})"
+    },
+    "payout": {
+      "walletTopUp": "Recharge du portefeuille ({currency})"
+    },
+    "channels": {
+      "wallet": "Portefeuille",
+      "mobile_money": "Paiement mobile",
+      "bank": "Banque",
+      "card": "Carte",
+      "api": "Point d'accès API",
+      "web": "Sur le web"
+    },
+    "previewCard": {
+      "title": "Récapitulatif du calcul",
+      "subtitle": "Taux de change en temps réel",
+      "exchangeRate": "Taux de change",
+      "sendingAmount": "Montant envoyé",
+      "serviceFee": "Frais de service",
+      "totalToPay": "Total à payer",
+      "recipientGets": "Le destinataire reçoit",
+      "secureRate": "Taux et frais indicatifs — les totaux finaux peuvent varier au règlement.",
+      "ratePair": "1 {from} = {rate} {to}"
+    },
+    "validation": {
+      "walletIdLength": "L'ID portefeuille doit comporter exactement 16 chiffres",
+      "walletIdNumeric": "L'ID portefeuille doit être numérique",
+      "amountRequired": "Le montant est obligatoire",
+      "amountPositive": "Le montant doit être supérieur à zéro",
+      "currencyRequired": "La devise est obligatoire"
+    },
+    "successCard": {
+      "title": "Paiement réussi",
+      "subtitle": "Votre transaction a été traitée en toute sécurité.",
+      "transactionId": "ID de transaction",
+      "receiver": "Destinataire",
+      "amountSent": "Montant envoyé",
+      "sendAnother": "Envoyer un autre paiement"
+    }
+  },
+  "Common": {
+    "submit": "Soumettre",
+    "cancel": "Annuler",
+    "loading": "Traitement...",
+    "save": "Enregistrer",
+    "error": "Erreur",
+    "success": "Succès"
+  },
+  "Layout": {
+    "emailVerificationRequired": {
+      "title": "Vérification de l'e-mail requise",
+      "subtitle": "Veuillez vérifier votre e-mail pour débloquer toutes les fonctionnalités, y compris l'envoi d'argent.",
+      "cta": "Vérifier maintenant"
+    }
+  },
+  "TopBar": {
+    "fallbackUser": "Utilisateur",
+    "welcomeBack": "Bon retour, {name}",
+    "titles": {
+      "dashboard": "Tableau de bord",
+      "wallet": "Mon portefeuille",
+      "sendMoney": "Envoyer de l'argent",
+      "transactions": "Historique des transactions",
+      "compliance": "Conformité et KYC",
+      "profile": "Profil et sécurité",
+      "translation": "Paramètres de langue",
+      "onboarding": "Vérification d'identité"
+    },
+    "search": {
+      "placeholder": "Rechercher des transactions..."
+    },
+    "notifications": {
+      "title": "Alertes",
+      "newCount": "{count} Nouvelles",
+      "empty": "Aucune nouvelle notification",
+      "viewAll": "Voir toutes les notifications"
+    },
+    "theme": {
+      "toggleAria": "Changer de thème"
+    },
+    "account": {
+      "signedInAs": "Connecté en tant que",
+      "myProfile": "Mon profil",
+      "security": "Sécurité",
+      "billing": "Facturation et cartes",
+      "settings": "Paramètres",
+      "signOut": "Déconnexion"
+    }
+  },
+  "Settings": {
+    "title": "Paramètres",
+    "subtitle": "Gérez vos préférences d'application.",
+    "appearance": {
+      "title": "Apparence",
+      "subtitle": "Personnalisez l'apparence de VaultString sur votre appareil.",
+      "light": "Clair",
+      "dark": "Sombre",
+      "system": "Système",
+      "lightMode": "Mode clair",
+      "darkMode": "Mode sombre",
+      "followSystem": "Suivre le système"
+    },
+    "notifications": {
+      "title": "Alertes",
+      "subtitle": "Choisissez comment nous communiquons avec vous.",
+      "email": {
+        "title": "Notifications par e-mail",
+        "subtitle": "Recevoir les mises à jour par e-mail"
+      },
+      "push": {
+        "title": "Notifications push",
+        "subtitle": "Recevoir les mises à jour sur votre appareil"
+      },
+      "marketing": {
+        "title": "E-mails marketing",
+        "subtitle": "Recevoir des nouvelles et des offres"
+      }
+    },
+    "security": {
+      "title": "Sécurité",
+      "subtitle": "Gardez votre compte sûr et sécurisé.",
+      "twoFactor": {
+        "title": "Authentification à deux facteurs",
+        "subtitle": "Ajoutez une couche de sécurité supplémentaire à votre compte.",
+        "enable": "Activer la 2FA",
+        "disable": "Désactiver la 2FA",
+        "setup": {
+          "title": "Configurer l'authentification à deux facteurs",
+          "subtitle": "Scannez le code QR avec votre application d'authentification.",
+          "step1": "1. Scannez le code QR",
+          "step2": "2. Entrez le code de vérification",
+          "verify": "Vérifier et activer",
+          "verifying": "Vérification...",
+          "placeholder": "Entrez le code à 6 chiffres"
+        }
+      }
+    },
+    "save": "Enregistrer les paramètres",
+    "saving": "Enregistrement...",
+    "success": "Paramètres enregistrés avec succès",
+    "error": "Échec de l'enregistrement des paramètres",
+    "totp": {
+      "enabled": "Authentification à deux facteurs activée avec succès",
+      "disabled": "Authentification à deux facteurs désactivée",
+      "error": "Échec de la mise à jour des paramètres 2FA",
+      "invalidCode": "Code de vérification invalide"
+    }
+  },
+  "Notifications": {
+    "title": "Alertes",
+    "subtitle": "Restez à jour avec l'activité de votre compte et les alertes de sécurité.",
+    "filters": {
+      "all": "Tout",
+      "unread": "Non lu",
+      "archive": "Archives"
+    },
+    "actions": {
+      "markAllRead": "Tout marquer comme lu",
+      "deleteAll": "Tout supprimer",
+      "delete": "Supprimer",
+      "markRead": "Marquer comme lu",
+      "markUnread": "Marquer comme non lu",
+      "markAllReadSuccess": "Toutes les notifications sont marquées comme lues",
+      "deleteSuccess": "Notification supprimée",
+      "archive": "Archiver"
+    },
+    "badge": "Restez informé",
+    "backToDashboard": "Retour au tableau de bord",
+    "demo": {
+      "paymentSuccessTitle": "Paiement réussi",
+      "paymentSuccessBody": "Vous avez envoyé 240 $ avec succès.",
+      "newLoginTitle": "Nouvelle connexion",
+      "newLoginBody": "Votre compte a été consulté depuis un nouvel appareil.",
+      "walletReadyTitle": "Portefeuille prêt",
+      "walletReadyBody": "Votre portefeuille EUR est prêt à être utilisé."
+    },
+    "empty": {
+      "title": "Aucune notification pour le moment",
+      "subtitle": "Nous vous informerons quand quelque chose d'important se produira."
+    },
+    "types": {
+      "info": "Information",
+      "success": "Succès",
+      "warning": "Avertissement",
+      "error": "Alerte de sécurité"
+    },
+    "loadMore": "Charger plus",
+    "loading": "Chargement des notifications...",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette notification ?",
+    "deleteAllConfirm": "Êtes-vous sûr de vouloir supprimer toutes les notifications ?"
+  },
+  "Transactions": {
+    "title": "Aperçu financier",
+    "subtitle": "Gérez vos cartes et examinez l'activité.",
+    "actions": {
+      "selectDates": "Sélectionner des dates",
+      "export": "Exporter"
+    },
+    "stats": {
+      "inflow": "Entrée",
+      "outflow": "Sortie",
+      "pendingSettlement": "Règlement en attente"
+    },
+    "tabs": {
+      "all": "Tout",
+      "sent": "Envoyé",
+      "received": "Reçu"
+    },
+    "search": {
+      "placeholder": "Rechercher des transactions..."
+    },
+    "loading": "Chargement...",
+    "pagination": {
+      "pageOf": "Page {page} sur {totalPages}",
+      "previous": "Précédent",
+      "next": "Suivant"
+    },
+    "cards": {
+      "title": "Mes cartes",
+      "manage": "Gérer",
+      "totalBalance": "Solde total",
+      "walletId": "ID du portefeuille",
+      "addNewCard": "Ajouter une nouvelle carte"
+    },
+    "list": {
+      "title": "Opérations",
+      "viewAll": "Voir tout",
+      "empty": "Aucune transaction pour le moment",
+      "unknownSender": "Expéditeur inconnu",
+      "unknownReceiver": "Destinataire inconnu",
+      "datePending": "Date en attente",
+      "invalidDate": "Date invalide"
+    }
+  },
+  "Receipt": {
+    "titleSuccess": "Transfert réussi",
+    "titlePending": "Transfert soumis",
+    "titleFailed": "Échec du transfert",
+    "subtitleDefault": "Votre transfert a été enregistré en toute sécurité. Vous pouvez télécharger une preuve pour vos dossiers.",
+    "subtitleLoading": "Récupération du reçu…",
+    "subtitleNoId": "Votre transfert a été soumis, mais nous n'avons pas pu charger le reçu automatiquement.",
+    "backToTransactions": "Opérations",
+    "downloadPdf": "Télécharger la preuve (PDF)",
+    "proofHeading": "Preuve de transaction",
+    "referencePending": "La référence apparaîtra une fois chargée",
+    "referenceLabel": "Référence : {ref}",
+    "loading": "Chargement du reçu…",
+    "errorTitle": "Impossible de charger le reçu",
+    "backToTransactionsError": "Retour aux transactions",
+    "labelDate": "Date d'opération",
+    "labelTxnId": "ID de transaction",
+    "labelSender": "Expéditeur",
+    "labelReceiver": "Destinataire",
+    "labelAmount": "Montant",
+    "labelFee": "Frais de traitement",
+    "labelTotalDebited": "Total débité",
+    "labelRecipientReceives": "Le destinataire reçoit",
+    "labelDescription": "Détails",
+    "sendAgain": "Envoyer un autre transfert",
+    "viewHistory": "Voir l'historique des transactions",
+    "receiptUnavailableTitle": "Reçu indisponible",
+    "receiptUnavailableBody": "Nous n'avons pas reçu d'ID de transaction valide. Ouvrez la liste des transactions pour voir le dernier transfert.",
+    "goToTransactions": "Aller aux transactions",
+    "errorResolveId": "Nous n'avons pas pu résoudre un ID de transaction valide pour ce reçu.",
+    "loadFailed": "Échec du chargement du reçu"
+  },
+  "Auth": {
+    "login": {
+      "title": "Connexion",
+      "subtitle": "Bon retour sur VaultString",
+      "alertMfaTitle": "MFA requis",
+      "alertComingSoonTitle": "Bientôt disponible",
+      "alertLoginFailedTitle": "Échec de la connexion",
+      "errorInvalidCredentials": "Identifiants invalides. Veuillez réessayer.",
+      "errorMfaRequired": "L'authentification à deux facteurs est requise pour ce compte.",
+      "errorUnexpected": "Une erreur inattendue s'est produite. Veuillez réessayer.",
+      "errorGoogleInit": "Échec de l'initialisation de l'authentification Google. Veuillez réessayer.",
+      "errorAppleComingSoon": "La connexion Apple n'est pas encore disponible. Utilisez l'e-mail et le mot de passe.",
+      "emailLabel": "Adresse e-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "passwordLabel": "Mot de passe",
+      "forgotPassword": "Oublié ?",
+      "authenticatorCodeLabel": "Code d'authentification",
+      "mfaHint": "Entrez le code à 6 chiffres de votre application d'authentification pour terminer la connexion.",
+      "backToPassword": "Retour au mot de passe",
+      "submitSigningIn": "Connexion en cours…",
+      "submitVerifying": "Vérification en cours…",
+      "submitSignIn": "Se connecter à VaultString",
+      "submitVerifySignIn": "Vérifier et se connecter",
+      "noAccount": "Vous n'avez pas de compte ?",
+      "createAccount": "Créer un compte",
+      "validation": {
+        "emailInvalid": "Veuillez entrer une adresse e-mail valide",
+        "passwordRequired": "Le mot de passe est requis"
+      }
+    },
+    "signup": {
+      "alertFailedTitle": "Échec de l'inscription",
+      "alertSuccessTitle": "Succès",
+      "alertSuccessBody": "Compte créé. Redirection…",
+      "errorSignupFailed": "Échec de l'inscription. Veuillez réessayer.",
+      "errorUnexpected": "Une erreur inattendue s'est produite.",
+      "errorGoogleInit": "Échec de l'initialisation de l'authentification Google. Veuillez réessayer.",
+      "accountTypeIndividual": "Particulier",
+      "accountTypeBusiness": "Entreprise",
+      "businessNameLabel": "Nom de l'entreprise",
+      "businessNamePlaceholder": "Nom de votre entreprise",
+      "firstNameLabel": "Prénom",
+      "firstNamePlaceholder": "Jean",
+      "lastNameLabel": "Nom",
+      "lastNamePlaceholder": "Dupont",
+      "countryLabel": "Pays",
+      "countryPlaceholder": "FR",
+      "phoneLabel": "Téléphone (E.164)",
+      "phonePlaceholder": "+33…",
+      "emailLabel": "Adresse e-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "passwordLabel": "Mot de passe",
+      "confirmPasswordLabel": "Confirmer le mot de passe",
+      "termsLabel": "J'accepte les <terms>Conditions d'utilisation</terms> et la <privacy>Politique de confidentialité</privacy>",
+      "termsLink": "Conditions d'utilisation",
+      "privacyLink": "Politique de confidentialité",
+      "submitCreating": "Création du compte…",
+      "submitCreate": "Créer un compte",
+      "validation": {
+        "emailInvalid": "Veuillez entrer une adresse e-mail valide",
+        "firstNameRequired": "Le prénom est requis",
+        "lastNameRequired": "Le nom est requis",
+        "phoneInvalid": "Numéro de téléphone invalide",
+        "countryCode": "Utilisez un code pays à 2 lettres (ex. MW)",
+        "passwordMin": "Le mot de passe doit contenir au moins 8 caractères",
+        "termsRequired": "Vous devez accepter les conditions générales",
+        "passwordMismatch": "Les mots de passe ne correspondent pas",
+        "businessNameRequired": "Le nom de l'entreprise est requis pour les comptes professionnels"
+      }
+    }
+  },
+  "Translation": {
+    "subtitle": "Sélectionnez votre langue et région préférées.",
+    "appLanguage": "Langue de l'application",
+    "appLanguageHint": "Choisissez la langue de l'interface.",
+    "searchPlaceholder": "Rechercher des langues...",
+    "languageUpdated": "Langue mise à jour avec succès",
+    "translating": "Traduction en cours…"
+  },
+  "Verification": {
+    "verifyingTitle": "Vérification de l'e-mail",
+    "verifyingSubtitle": "Veuillez patienter pendant que nous confirmons votre identité...",
+    "connectingServers": "Connexion aux serveurs de sécurité...",
+    "verifiedTitle": "E-mail vérifié !",
+    "verifiedSubtitle": "Votre identité a été confirmée avec succès.",
+    "redirectingProfile": "Redirection pour finaliser la configuration de votre profil...",
+    "failedTitle": "Échec de la vérification",
+    "failedSubtitle": "Un problème est survenu lors de la confirmation de votre e-mail.",
+    "backToLogin": "Retour à la connexion",
+    "resendCooldown": "Renvoyer le code dans {seconds}s",
+    "resendEmail": "Renvoyer l'e-mail de vérification",
+    "magicLinkTitle": "Consultez votre e-mail",
+    "magicLinkSubtitle": "Nous avons envoyé un lien magique à {email}",
+    "magicLinkBody": "Cliquez sur le lien dans votre e-mail pour terminer la vérification.",
+    "useCodeInstead": "Utiliser un code à la place",
+    "verifyTitle": "Vérifier l'e-mail",
+    "verifySubtitle": "Entrez le code envoyé à {email}",
+    "codeLabel": "Code de vérification",
+    "codePlaceholder": "000000",
+    "verifyButton": "Vérifier l'e-mail",
+    "resendCode": "Renvoyer le code",
+    "useMagicLink": "Utiliser le lien magique à la place",
+    "invalidCode": "Code de vérification invalide",
+    "invalidLink": "Lien de vérification invalide ou expiré",
+    "resendFailed": "Échec du renvoi du code"
+  },
+  "ResetPassword": {
+    "emailTitle": "Réinitialiser le mot de passe",
+    "emailSubtitle": "Entrez votre e-mail pour recevoir les instructions",
+    "emailLabel": "Adresse e-mail",
+    "emailPlaceholder": "vous@exemple.com",
+    "sendLink": "Envoyer le lien de réinitialisation",
+    "rememberPassword": "Vous vous souvenez de votre mot de passe ?",
+    "signIn": "Se connecter",
+    "resetTitle": "Créer un nouveau mot de passe",
+    "resetSubtitle": "Entrez votre nouveau mot de passe ci-dessous",
+    "newPasswordLabel": "Nouveau mot de passe",
+    "confirmPasswordLabel": "Confirmer le mot de passe",
+    "passwordPlaceholder": "••••••••",
+    "expiryNote": "Ce lien expirera dans 1 heure",
+    "resetButton": "Réinitialiser le mot de passe",
+    "successTitle": "Mot de passe réinitialisé",
+    "successSubtitle": "Votre mot de passe a été mis à jour",
+    "successBody": "Votre mot de passe a été réinitialisé. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.",
+    "returnSignIn": "Retour à la connexion",
+    "fallbackTitle": "Réinitialiser le mot de passe",
+    "fallbackSubtitle": "Créer un nouveau mot de passe",
+    "toastSuccess": "Succès",
+    "toastError": "Erreur",
+    "emailSent": "Si l'e-mail existe, un lien de réinitialisation a été envoyé.",
+    "passwordMismatch": "Les mots de passe ne correspondent pas",
+    "invalidLink": "Lien de réinitialisation invalide ou expiré",
+    "resetSuccess": "Mot de passe réinitialisé avec succès !",
+    "sendFailed": "Échec de l'envoi de l'e-mail de réinitialisation",
+    "resetFailed": "Échec de la réinitialisation du mot de passe"
+  },
+  "Compliance": {
+    "title": "Vérification d'identité",
+    "subtitle": "Complétez le processus KYC pour débloquer des limites plus élevées et toutes les fonctionnalités.",
+    "currentStatus": "Statut actuel",
+    "statusVerified": "Vérifié",
+    "statusReview": "En cours d'examen",
+    "statusUnverified": "Non vérifié",
+    "verifiedBody": "Votre identité a été confirmée. Vous avez un accès complet.",
+    "reviewBody": "Nous examinons vos documents. Cela prend généralement 24 à 48 heures.",
+    "unverifiedBody": "Veuillez soumettre vos documents pour vérifier votre identité.",
+    "history": "Historique",
+    "rejectionReason": "Motif : {reason}",
+    "submitTitle": "Soumettre des documents",
+    "submitSubtitle": "Téléversez une pièce d'identité officielle valide pour vérifier votre identité.",
+    "docType": "Type de document",
+    "selectType": "Sélectionner le type",
+    "passport": "Passeport",
+    "nationalId": "Carte d'identité nationale",
+    "driversLicense": "Permis de conduire",
+    "issuingCountry": "Pays d'émission",
+    "selectCountry": "Sélectionner le pays",
+    "china": "Chine",
+    "docNumber": "Numéro du document",
+    "docNumberPlaceholder": "Entrez le numéro du document",
+    "docImage": "Image du document (recto)",
+    "clickToChange": "Cliquer pour modifier",
+    "uploadHint": "Cliquer pour téléverser",
+    "uploadOrDrop": "ou glisser-déposer",
+    "uploadFormats": "SVG, PNG, JPG ou GIF (MAX. 10 Mo)",
+    "submitting": "Envoi en cours...",
+    "submitButton": "Soumettre la vérification",
+    "fullyVerifiedTitle": "Vous êtes entièrement vérifié !",
+    "fullyVerifiedBody": "Merci d'avoir vérifié votre identité. Vous avez désormais accès à toutes les fonctionnalités, des limites de transaction plus élevées et des délais de traitement plus rapides.",
+    "returnDashboard": "Retour au tableau de bord",
+    "inProgressTitle": "Vérification en cours",
+    "inProgressBody": "Vos documents ont été reçus et sont en cours d'examen par notre équipe conformité. Vous recevrez une notification une fois l'examen terminé.",
+    "loadFailed": "Échec du chargement du statut de conformité",
+    "fillAllFields": "Veuillez remplir tous les champs et téléverser un document",
+    "submitSuccess": "Documents KYC soumis avec succès",
+    "submitFailed": "Échec de la soumission des documents"
+  },
+  "Onboarding": {
+    "userType": {
+      "title": "Connaître votre client",
+      "subtitle": "Sélectionnez votre type de compte pour commencer la vérification",
+      "individualTitle": "Particulier",
+      "individualDescription": "Vérification en tant que personne physique. Environ 10 minutes.",
+      "individualFeaturePersonal": "Informations personnelles",
+      "individualFeatureId": "Vérification d'identité",
+      "individualFeatureAddress": "Justificatif de domicile",
+      "individualCta": "Continuer en tant que particulier",
+      "businessTitle": "Entreprise",
+      "businessDescription": "Vérifiez votre société. Environ 15 minutes.",
+      "businessFeatureCompany": "Détails de l'entreprise",
+      "businessFeatureUbo": "Déclaration UBO",
+      "businessFeatureDocs": "Documentation",
+      "businessCta": "Continuer en tant qu’entreprise",
+      "privacyNote": "Nous protégeons votre vie privée. Vos informations sont chiffrées et sécurisées.",
+      "complianceNote": "Conforme aux réglementations RBM du Malawi et PBOC de Chine"
+    },
+    "flow": {
+      "changeType": "Changer le type",
+      "saveDraft": "Enregistrer le brouillon",
+      "draftSaved": "Progression enregistrée. Vous pourrez reprendre plus tard.",
+      "back": "Retour à l'étape précédente",
+      "stepSubtitle": "Étape {current} sur {total}",
+      "continue": "Continuer vers l'étape suivante"
+    },
+    "individualSteps": {
+      "personal": "Informations personnelles",
+      "contact": "Coordonnées",
+      "id": "Vérification d'identité",
+      "funds": "Source des fonds",
+      "security": "Sécurité",
+      "terms": "Conditions générales"
+    },
+    "businessSteps": {
+      "company": "Détails de l'entreprise",
+      "business": "Informations commerciales",
+      "reps": "Représentants autorisés",
+      "ubo": "Déclaration UBO",
+      "banking": "Coordonnées bancaires",
+      "docs": "Documentation",
+      "compliance": "Conformité"
+    },
+    "personalDetails": {
+      "firstNameLabel": "Prénom *",
+      "firstNamePlaceholder": "John",
+      "lastNameLabel": "Nom *",
+      "lastNamePlaceholder": "Doe",
+      "dateOfBirthLabel": "Date de naissance *",
+      "nationalityLabel": "Nationalité *",
+      "nationalityPlaceholder": "United States",
+      "idTypeLabel": "Type de pièce d'identité",
+      "idTypePassport": "Passeport",
+      "idTypeDriverLicense": "Permis de conduire",
+      "idTypeNationalId": "Carte d'identité nationale",
+      "encryptionNote": "Vos informations personnelles sont chiffrées et utilisées uniquement pour la vérification.",
+      "validation": {
+        "firstNameRequired": "Le prénom est requis",
+        "lastNameRequired": "Le nom est requis",
+        "dateOfBirthRequired": "La date de naissance est requise",
+        "nationalityRequired": "La nationalité est requise"
+      }
+    },
+    "contactInfo": {
+      "phoneLabel": "Numéro de téléphone *",
+      "phonePlaceholder": "+1 (555) 123-4567",
+      "emailLabel": "Adresse e-mail *",
+      "emailPlaceholder": "kelvin@example.com",
+      "addressLabel": "Adresse *",
+      "addressPlaceholder": "123 Main Street",
+      "cityLabel": "Ville *",
+      "cityPlaceholder": "Lilongwe",
+      "countryLabel": "Pays *",
+      "countryPlaceholder": "Malawi",
+      "postalCodeLabel": "Code postal *",
+      "postalCodePlaceholder": "10001",
+      "validation": {
+        "phoneRequired": "Le numéro de téléphone est requis",
+        "emailRequired": "L'e-mail est requis",
+        "addressRequired": "L'adresse est requise",
+        "cityRequired": "La ville est requise",
+        "countryRequired": "Le pays est requis",
+        "postalCodeRequired": "Le code postal est requis"
+      }
+    },
+    "idVerification": {
+      "documentNumberLabel": "Numéro du document *",
+      "documentNumberPlaceholder": "ABC123456789",
+      "expiryDateLabel": "Date d'expiration *",
+      "uploadLabel": "Téléverser le document *",
+      "previewAlt": "Preview",
+      "uploadCta": "Cliquez pour téléverser ou glissez-déposez",
+      "uploadFormats": "PNG, JPG ou PDF (max. 10 Mo)",
+      "secureNote": "Votre document est vérifié en toute sécurité pour confirmer votre identité.",
+      "validation": {
+        "documentNumberRequired": "Le numéro du document est requis",
+        "expiryDateRequired": "La date d'expiration est requise",
+        "fileRequired": "Le fichier du document est requis"
+      }
+    },
+    "sourceOfFunds": {
+      "employmentStatusLabel": "Statut professionnel *",
+      "employmentEmployed": "employed",
+      "employmentSelfEmployed": "self employed",
+      "employmentRetired": "retired",
+      "employmentStudent": "student",
+      "employmentOther": "other",
+      "currencyLabel": "Devise *",
+      "currencyMwk": "Kwacha malawite (MWK)",
+      "currencyCny": "Yuan chinois (CNY)",
+      "incomeRangeLabel": "Tranche de revenu annuel *",
+      "incomeMwk0": "0 - 100,000 MWK",
+      "incomeMwk1": "100,000 - 500,000 MWK",
+      "incomeMwk2": "500,000 - 1,000,000 MWK",
+      "incomeMwk3": "1,000,000 - 5,000,000 MWK",
+      "incomeMwk4": "5,000,000+ MWK",
+      "incomeCny0": "0 - 50,000 CNY",
+      "incomeCny1": "50,000 - 200,000 CNY",
+      "incomeCny2": "200,000 - 500,000 CNY",
+      "incomeCny3": "500,000 - 2,000,000 CNY",
+      "incomeCny4": "2,000,000+ CNY",
+      "amlNote": "Ces informations nous aident à respecter la réglementation anti-blanchiment."
+    },
+    "securitySetup": {
+      "twoFaLabel": "Activer l'authentification à deux facteurs (2FA)",
+      "question1Label": "Question de sécurité 1 *",
+      "selectQuestion": "Sélectionnez une question",
+      "answerLabel": "Votre réponse *",
+      "answerPlaceholder": "Your answer",
+      "recoveryNote": "Ces questions nous aident à vérifier votre identité en cas de récupération de compte.",
+      "questions": {
+        "maidenName": "What is your mother's maiden name?",
+        "firstPet": "What was the name of your first pet?",
+        "birthCity": "In what city were you born?",
+        "favoriteTeacher": "What is the name of your favorite teacher?",
+        "firstCar": "What was the make of your first car?"
+      },
+      "validation": {
+        "questionRequired": "Veuillez sélectionner une question de sécurité",
+        "answerRequired": "Veuillez répondre à la question de sécurité"
+      }
+    },
+    "terms": {
+      "heading": "Conditions générales",
+      "body1": "By using our KYC verification service, you agree to comply with all applicable laws and regulations. You represent that all information provided is accurate and complete. We reserve the right to deny access or cancel accounts if we detect fraudulent activity or violation of our terms.",
+      "body2": "Your data will be processed securely and in compliance with international data protection regulations including GDPR and local standards.",
+      "privacyLabel": "I have read and agree to the <privacy>Privacy Policy</privacy> *",
+      "privacyLink": "Privacy Policy",
+      "termsLabel": "I have read and agree to the <terms>Terms of Service</terms> *",
+      "termsLink": "Terms of Service",
+      "dataLabel": "I consent to the secure storage of my personal data *",
+      "submit": "Terminer la vérification",
+      "submitting": "Envoi en cours…",
+      "validation": {
+        "privacyRequired": "Vous devez accepter la politique de confidentialité",
+        "termsRequired": "Vous devez accepter les conditions d'utilisation",
+        "dataRequired": "Vous devez consentir au traitement des données"
+      },
+      "errorSubmit": "Échec de la soumission KYC. Veuillez réessayer."
+    },
+    "completion": {
+      "individualTitle": "KYC soumis",
+      "businessTitle": "KYC entreprise soumis",
+      "subtitle": "Votre vérification est en cours de traitement",
+      "thankYou": "Merci d’avoir terminé votre vérification. Notre équipe conformité examine votre dossier.",
+      "reviewTimeLabel": "Délai de revue",
+      "reviewTimeValue": "24 - 48 Hours",
+      "confirmationLabel": "Confirmation",
+      "confirmationValue": "Un e-mail sera envoyé",
+      "securityLabel": "Sécurité",
+      "securityValue": "Accès complet après approbation",
+      "goDashboard": "Aller au tableau de bord",
+      "startAnother": "Démarrer une autre vérification",
+      "referenceId": "Reference ID: KYC-{id}"
+    },
+    "companyDetails": {
+      "legalNameLabel": "Raison sociale *",
+      "legalNamePlaceholder": "ABC Corporation Ltd.",
+      "registrationLabel": "Numéro d'immatriculation *",
+      "registrationPlaceholder": "REG123456",
+      "taxIdLabel": "Identifiant fiscal *",
+      "taxIdPlaceholder": "TAX123456789",
+      "validation": {
+        "legalNameRequired": "La raison sociale est requise",
+        "registrationRequired": "Le numéro d'immatriculation est requis",
+        "taxIdRequired": "L'identifiant fiscal est requis"
+      }
+    },
+    "businessInfo": {
+      "industryLabel": "Secteur *",
+      "selectIndustry": "Sélectionnez un secteur",
+      "industries": {
+        "technology": "Technology",
+        "finance": "Finance",
+        "healthcare": "Healthcare",
+        "retail": "Retail",
+        "manufacturing": "Manufacturing",
+        "education": "Education",
+        "other": "Other"
+      },
+      "companySizeLabel": "Taille de l'entreprise *",
+      "selectCompanySize": "Sélectionnez la taille de l'entreprise",
+      "size1": "1-10 employees",
+      "size2": "11-50 employees",
+      "size3": "51-200 employees",
+      "size4": "201-500 employees",
+      "size5": "500+ employees",
+      "websiteLabel": "Site web (facultatif)",
+      "websitePlaceholder": "https://example.com",
+      "incorporationDateLabel": "Date de constitution *",
+      "validation": {
+        "industryRequired": "Le secteur est requis",
+        "companySizeRequired": "La taille de l'entreprise est requise",
+        "incorporationDateRequired": "La date de constitution est requise"
+      }
+    },
+    "authorizedReps": {
+      "representativeTitle": "Représentant {n}",
+      "remove": "Supprimer",
+      "fullNameLabel": "Nom complet *",
+      "fullNamePlaceholder": "John Smith",
+      "emailLabel": "Email *",
+      "emailPlaceholder": "john@example.com",
+      "jobTitleLabel": "Intitulé du poste *",
+      "jobTitlePlaceholder": "CEO",
+      "addAnother": "Ajouter un autre représentant",
+      "validation": {
+        "nameRequired": "Le nom est requis",
+        "emailRequired": "L'e-mail est requis",
+        "titleRequired": "L'intitulé du poste est requis"
+      }
+    },
+    "uboDisclosure": {
+      "intro": "UBO (Ultimate Beneficial Owner) disclosure is required for compliance. Please provide information about the individuals who ultimately own or control the company.",
+      "ownershipStructureLabel": "Structure de propriété",
+      "directOwnership": "Propriété directe",
+      "indirectOwnership": "Propriété indirecte (via une autre entité)",
+      "uboNameLabel": "Nom complet de l’UBO *",
+      "uboNamePlaceholder": "Ida Mateyu",
+      "ownershipPercentLabel": "Pourcentage de détention *",
+      "ownershipPercentPlaceholder": "25",
+      "nationalityLabel": "Nationalité *",
+      "nationalityPlaceholder": "Malawian",
+      "validation": {
+        "uboNameRequired": "Le nom de l’UBO est requis",
+        "ownershipRequired": "Le pourcentage de détention est requis",
+        "nationalityRequired": "La nationalité est requise"
+      }
+    },
+    "bankingDetails": {
+      "bankNameLabel": "Nom de la banque *",
+      "bankNamePlaceholder": "Example Bank",
+      "accountNumberLabel": "Numéro de compte *",
+      "accountNumberPlaceholder": "123456789",
+      "bankCodeLabel": "Code banque / SWIFT *",
+      "bankCodePlaceholder": "SWIFTCODE",
+      "accountHolderLabel": "Titulaire du compte *",
+      "accountHolderPlaceholder": "Company Name",
+      "encryptedNote": "Vos coordonnées bancaires sont chiffrées et utilisées uniquement pour les paiements.",
+      "validation": {
+        "bankNameRequired": "Le nom de la banque est requis",
+        "accountNumberRequired": "Le numéro de compte est requis",
+        "bankCodeRequired": "Le code banque est requis",
+        "accountHolderRequired": "Le titulaire du compte est requis"
+      }
+    },
+    "documentation": {
+      "incorporationLabel": "Certificat de constitution",
+      "articlesLabel": "Statuts",
+      "shareholdersLabel": "Registre des actionnaires",
+      "uploadSuccess": "Fichier téléversé avec succès",
+      "uploadCta": "Cliquez pour téléverser",
+      "uploadFormats": "PDF ou DOC (max. 20 Mo)",
+      "uploading": "Téléversement…",
+      "validation": {
+        "incorporationRequired": "Le certificat de constitution est requis",
+        "articlesRequired": "Les statuts sont requis"
+      },
+      "errorUpload": "Échec du téléversement. Veuillez réessayer."
+    },
+    "compliance": {
+      "businessPurposeLabel": "Objet commercial *",
+      "selectPurpose": "Sélectionnez l'objet commercial",
+      "purposes": {
+        "trading": "Trading",
+        "consulting": "Consulting",
+        "manufacturing": "Manufacturing",
+        "services": "Services",
+        "other": "Other"
+      },
+      "expectedVolumeLabel": "Volume mensuel de transactions prévu *",
+      "selectRange": "Sélectionnez une fourchette",
+      "volume0": "$0 - $10,000",
+      "volume1": "$10,000 - $50,000",
+      "volume2": "$50,000 - $100,000",
+      "volume3": "$100,000+",
+      "confirmationHeading": "Confirmation de conformité",
+      "confirmationBody": "I confirm that my company complies with all applicable regulations in the jurisdictions where it operates, including Malawi RBM requirements and China PBOC merchant requirements.",
+      "checkboxLabel": "Je confirme la conformité à toutes les réglementations applicables *",
+      "submit": "Terminer la vérification d'entreprise",
+      "validation": {
+        "purposeRequired": "L'objet commercial est requis",
+        "volumeRequired": "Le volume prévu est requis",
+        "complianceRequired": "Vous devez accepter la confirmation de conformité"
+      }
+    }
+  }
+}

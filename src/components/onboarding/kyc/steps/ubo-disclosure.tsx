@@ -3,6 +3,7 @@
 import type React from "react";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 
@@ -11,6 +12,10 @@ interface UBODisclosureStepProps {
 }
 
 export function UBODisclosureStep({ onNext }: UBODisclosureStepProps) {
+  const t = useTranslations("Onboarding.uboDisclosure");
+  const tFlow = useTranslations("Onboarding.flow");
+  const tv = useTranslations("Onboarding.uboDisclosure.validation");
+
   const [formData, setFormData] = useState({
     uboName: "",
     uboOwnershipPercentage: "",
@@ -23,11 +28,11 @@ export function UBODisclosureStep({ onNext }: UBODisclosureStepProps) {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!formData.uboName.trim()) newErrors.uboName = "UBO name is required";
+    if (!formData.uboName.trim()) newErrors.uboName = tv("uboNameRequired");
     if (!formData.uboOwnershipPercentage)
-      newErrors.uboOwnershipPercentage = "Ownership percentage is required";
+      newErrors.uboOwnershipPercentage = tv("ownershipRequired");
     if (!formData.uboNationality.trim())
-      newErrors.uboNationality = "Nationality is required";
+      newErrors.uboNationality = tv("nationalityRequired");
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -44,15 +49,13 @@ export function UBODisclosureStep({ onNext }: UBODisclosureStepProps) {
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
         <p className="text-sm text-blue-900">
-          UBO (Ultimate Beneficial Owner) disclosure is required for compliance.
-          Please provide information about the individuals who ultimately own or
-          control the company.
+          {t("intro")}
         </p>
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
-          Ownership Structure
+          {t("ownershipStructureLabel")}
         </label>
         <div className="space-y-3">
           <div className="flex items-center">
@@ -71,7 +74,7 @@ export function UBODisclosureStep({ onNext }: UBODisclosureStepProps) {
               htmlFor="direct"
               className="ml-3 text-sm text-gray-900 cursor-pointer"
             >
-              Direct ownership
+              {t("directOwnership")}
             </label>
           </div>
           <div className="flex items-center">
@@ -90,7 +93,7 @@ export function UBODisclosureStep({ onNext }: UBODisclosureStepProps) {
               htmlFor="indirect"
               className="ml-3 text-sm text-gray-900 cursor-pointer"
             >
-              Indirect ownership (through another entity)
+              {t("indirectOwnership")}
             </label>
           </div>
         </div>
@@ -98,11 +101,11 @@ export function UBODisclosureStep({ onNext }: UBODisclosureStepProps) {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
-          UBO Full Name *
+          {t("uboNameLabel")}
         </label>
         <Input
           type="text"
-          placeholder="Ida Mateyu"
+          placeholder={t("uboNamePlaceholder")}
           value={formData.uboName}
           onChange={(e) =>
             setFormData({ ...formData, uboName: e.target.value })
@@ -117,13 +120,13 @@ export function UBODisclosureStep({ onNext }: UBODisclosureStepProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Ownership Percentage *
+            {t("ownershipPercentLabel")}
           </label>
           <Input
             type="number"
             min="0"
             max="100"
-            placeholder="25"
+            placeholder={t("ownershipPercentPlaceholder")}
             value={formData.uboOwnershipPercentage}
             onChange={(e) =>
               setFormData({
@@ -141,11 +144,11 @@ export function UBODisclosureStep({ onNext }: UBODisclosureStepProps) {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Nationality *
+            {t("nationalityLabel")}
           </label>
           <Input
             type="text"
-            placeholder="Malawian"
+            placeholder={t("nationalityPlaceholder")}
             value={formData.uboNationality}
             onChange={(e) =>
               setFormData({ ...formData, uboNationality: e.target.value })
@@ -165,7 +168,7 @@ export function UBODisclosureStep({ onNext }: UBODisclosureStepProps) {
           type="submit"
           className="bg-secondary hover:bg-secondary/90 text-white"
         >
-          Continue to Next Step
+          {tFlow("continue")}
         </Button>
       </div>
     </form>

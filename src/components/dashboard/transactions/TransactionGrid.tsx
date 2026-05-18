@@ -39,6 +39,17 @@ export default function TransactionGrid({ transactions, userId }: TransactionGri
   const [receipt, setReceipt] = useState<any | null>(null);
   const [loadingId, setLoadingId] = useState<string | null>(null);
 
+  const parseNum = (v: unknown) => {
+    if (typeof v === 'number') return v;
+    if (typeof v === 'string') {
+      const n = Number(v);
+      return Number.isFinite(n) ? n : 0;
+    }
+    return 0;
+  };
+
+  const upper = (v: unknown) => String(v || '').toUpperCase();
+
   const handleViewReceipt = async (txId: string) => {
     setLoadingId(txId);
     try {
@@ -138,8 +149,16 @@ export default function TransactionGrid({ transactions, userId }: TransactionGri
                   </div>
                   <div className="flex justify-between text-xs">
                     <span className="font-bold text-slate-500 dark:text-slate-400">Processing Fee</span>
-                    <span className="font-bold text-slate-900 dark:text-white">{formatCurrency(receipt.fee, receipt.currency)}</span>
+                    <span className="font-bold text-slate-900 dark:text-white">{formatCurrency(receipt.fee, receipt.fee_currency || receipt.currency)}</span>
                   </div>
+                  {(receipt.received_amount || receipt.received_currency) && (
+                    <div className="flex justify-between text-xs pt-2 border-t border-dashed border-slate-200 dark:border-slate-800">
+                      <span className="font-bold text-slate-500 dark:text-slate-400">Recipient Receives</span>
+                      <span className="font-black text-emerald-700 dark:text-emerald-400">
+                        {formatCurrency(parseNum(receipt.received_amount), receipt.received_currency || receipt.currency)}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -160,8 +179,11 @@ export default function TransactionGrid({ transactions, userId }: TransactionGri
            const sid = String(t.sender_id || t.senderId || '');
            const direction = t.direction || (sid === userId ? 'sent' : 'received');
            
-           const amount = parseFloat(String(t.net_amount ?? t.amount ?? 0));
-           const currency = String(t.currency).toUpperCase();
+           const fee = parseNum((t as any).fee_amount ?? 0);
+           const totalDebited = parseNum((t as any).total_debited ?? 0) || (parseNum(t.amount) + fee);
+           const isReceived = direction !== 'sent';
+           const amount = isReceived ? parseNum((t as any).converted_amount ?? t.net_amount ?? t.amount) : (totalDebited > 0 ? totalDebited : parseNum(t.amount));
+           const currency = isReceived ? upper((t as any).converted_currency || t.currency) : upper(t.currency);
            const date = new Date(t.created_at || t.initiated_at || Date.now());
            
            // Robust name resolution

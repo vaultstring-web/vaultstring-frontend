@@ -16,6 +16,44 @@ interface TransactionListProps {
 
 export default function TransactionList({ transactions, userId, onViewReceipt, onViewAll, showViewAll = true }: TransactionListProps) {
   const t = useTranslations('Transactions');
+
+  const parseNum = (v: unknown) => {
+    if (typeof v === 'number') return v;
+    if (typeof v === 'string') {
+      const n = Number(v);
+      return Number.isFinite(n) ? n : 0;
+    }
+    return 0;
+  };
+
+  const deriveDisplay = (tx: ApiTransaction) => {
+    const isReceived = tx.receiver_id === userId;
+    const fee = parseNum((tx as any).fee_amount ?? 0);
+    const totalDebited = parseNum((tx as any).total_debited ?? 0) || (parseNum(tx.amount) + fee);
+
+    if (isReceived) {
+      const receivedAmount =
+        (tx as any).converted_amount ??
+        tx.net_amount ??
+        tx.amount;
+      const receivedCurrency =
+        String((tx as any).converted_currency || tx.currency || '').toUpperCase();
+      return {
+        amount: parseNum(receivedAmount),
+        currency: receivedCurrency,
+        sign: '+',
+        isReceived: true,
+      };
+    }
+
+    // Sent
+    return {
+      amount: totalDebited > 0 ? totalDebited : parseNum(tx.amount),
+      currency: String(tx.currency || '').toUpperCase(),
+      sign: '-',
+      isReceived: false,
+    };
+  };
   
   // Helper to guess icon based on description/category
   const getIcon = (tx: ApiTransaction) => {
@@ -56,14 +94,10 @@ export default function TransactionList({ transactions, userId, onViewReceipt, o
         ) : (
             transactions.map((tx) => {
                 if (!tx) return null;
-                const isReceived = tx.receiver_id === userId;
-                const isSent = tx.sender_id === userId;
-                // Use formatCurrency for proper currency display
-                const formattedAmount = formatCurrency(isReceived ? tx.amount : (tx.total_debited || tx.amount), tx.currency);
-                const amountSign = isReceived ? '+' : '-';
-                const amountDisplay = `${amountSign}${formattedAmount}`;
+                const d = deriveDisplay(tx);
+                const amountDisplay = `${d.sign}${formatCurrency(d.amount, d.currency)}`;
                 
-                const colorClass = isReceived ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-900 dark:text-white';
+                const colorClass = d.isReceived ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-900 dark:text-white';
 
                 return (
                     <div key={tx.id} className="flex items-center justify-between group cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 -mx-4 p-4 rounded-2xl transition-colors" onClick={() => onViewReceipt?.(tx.id)}>
@@ -73,7 +107,7 @@ export default function TransactionList({ transactions, userId, onViewReceipt, o
                             </div>
                             <div className="flex-1 min-w-0">
                                 <div className="font-bold text-slate-900 dark:text-white mb-0.5">
-                                    {isReceived
+                                    {d.isReceived
                                       ? (tx.sender_name || tx.SenderName || tx.sender?.name || t('list.unknownSender'))
                                       : (tx.receiver_name || tx.ReceiverName || tx.receiver?.name || tx.description || t('list.unknownReceiver'))}
                                 </div>

@@ -69,7 +69,7 @@ export default function DashboardPage() {
       )}
 
       <Dashboard 
-        user={user ?? { name: 'User', email: '', phone: '', kycStatus: 'verified', avatarUrl: '/icons/avatar-default.png' }} 
+        user={user ?? { name: 'User', email: '', phone: '', kycStatus: 'verified', avatarUrl: '' }} 
         wallet={walletStats} 
         recentTransactions={recentTransactions} 
         rates={rates}

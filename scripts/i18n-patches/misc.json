@@ -1,0 +1,81 @@
+{
+  "fr": {
+    "Dashboard.transactions": "Opérations",
+    "Profile.notifications": "Alertes",
+    "Profile.bio": "Biographie",
+    "SendMoney.amountPlaceholder": "0,00",
+    "TopBar.notifications.title": "Alertes",
+    "Settings.notifications.title": "Alertes",
+    "Notifications.title": "Alertes",
+    "Notifications.filters.archive": "Archives",
+    "Notifications.types.info": "Information",
+    "Transactions.list.title": "Opérations",
+    "Auth.signup.emailPlaceholder": "vous@exemple.com",
+    "Auth.signup.phonePlaceholder": "+33…",
+    "Auth.signup.countryPlaceholder": "FR"
+  },
+  "zu": {
+    "Auth.login.emailPlaceholder": "wena@isibonelo.com",
+    "Auth.signup.emailPlaceholder": "wena@isibonelo.com",
+    "Auth.signup.phonePlaceholder": "+27…",
+    "Auth.signup.countryPlaceholder": "ZA"
+  },
+  "ha": {
+    "Dashboard.wallet": "Jakar kuɗi",
+    "SendMoney.amountPlaceholder": "0,00",
+    "Auth.login.emailPlaceholder": "ku@misali.com",
+    "Auth.signup.emailPlaceholder": "ku@misali.com",
+    "Auth.signup.phonePlaceholder": "+234…",
+    "Auth.signup.countryPlaceholder": "NG"
+  },
+  "pt": {
+    "SendMoney.amountPlaceholder": "0,00",
+    "Auth.signup.emailPlaceholder": "voce@exemplo.com",
+    "Auth.signup.phonePlaceholder": "+351…",
+    "Auth.signup.countryPlaceholder": "PT"
+  },
+  "ja": {
+    "SendMoney.amountPlaceholder": "0.00",
+    "Auth.signup.emailPlaceholder": "you@example.co.jp",
+    "Auth.signup.phonePlaceholder": "+81…",
+    "Auth.signup.countryPlaceholder": "JP"
+  },
+  "zh": {
+    "SendMoney.amountPlaceholder": "0.00",
+    "Auth.signup.emailPlaceholder": "you@example.cn",
+    "Auth.signup.phonePlaceholder": "+86…",
+    "Auth.signup.countryPlaceholder": "CN"
+  },
+  "am": {
+    "Wallet.createModal.currencies.cny": "የቻይና ዩዋን (CNY)",
+    "Wallet.createModal.currencies.zmw": "የዛምቢያ ኩዋቻ (ZMW)",
+    "SendMoney.amountPlaceholder": "0.00",
+    "Auth.signup.emailPlaceholder": "you@example.com",
+    "Auth.signup.phonePlaceholder": "+251…",
+    "Auth.signup.countryPlaceholder": "ET"
+  },
+  "yo": {
+    "SendMoney.amountPlaceholder": "0.00",
+    "Auth.signup.emailPlaceholder": "you@example.ng",
+    "Auth.signup.phonePlaceholder": "+234…",
+    "Auth.signup.countryPlaceholder": "NG"
+  },
+  "ny": {
+    "SendMoney.amountPlaceholder": "0.00",
+    "Auth.signup.emailPlaceholder": "you@example.mw",
+    "Auth.signup.phonePlaceholder": "+265…",
+    "Auth.signup.countryPlaceholder": "MW"
+  },
+  "ar": {
+    "SendMoney.amountPlaceholder": "0.00",
+    "Auth.signup.emailPlaceholder": "you@example.com",
+    "Auth.signup.phonePlaceholder": "+966…",
+    "Auth.signup.countryPlaceholder": "SA"
+  },
+  "sw": {
+    "SendMoney.amountPlaceholder": "0.00",
+    "Auth.signup.emailPlaceholder": "wewe@mfano.com",
+    "Auth.signup.phonePlaceholder": "+255…",
+    "Auth.signup.countryPlaceholder": "TZ"
+  }
+}

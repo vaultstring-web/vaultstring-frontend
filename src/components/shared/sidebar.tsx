@@ -14,6 +14,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/src/context/AuthContext';
 import { setToken, setUser } from '@/src/lib/api/api-client';
+import Image from 'next/image';
 
 import { useTranslations } from 'next-intl';
 
@@ -79,11 +80,24 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
             className="flex items-center justify-center w-full"
             onClick={() => setIsOpen(false)}
           >
-            <img 
-              src="/icons/vs1.svg" 
-              alt="VaultString Logo" 
-              className="h-20 w-auto md:h-25 lg:h-25"
-            />
+            <div className="relative h-16 w-48">
+              <Image
+                src="/images/vs2.png"
+                alt="VaultString Logo"
+                width={100}
+                height={80}
+                priority
+                className="h-20 w-auto md:h-25 lg:h-25 pb-4 object-contain dark:hidden"
+              />
+              <Image
+                src="/icons/vs1.svg"
+                alt="VaultString Logo"
+                width={100}
+                height={80}
+                priority
+                className="h-20 w-auto md:h-25 lg:h-25 pb-4 object-contain hidden dark:block"
+              />
+            </div>
           </Link>
           <button 
             onClick={() => setIsOpen(false)}

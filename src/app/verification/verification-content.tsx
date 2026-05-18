@@ -8,9 +8,14 @@ import { useFormValidation } from '@/src/hooks/useFormValidation';
 import { verifyEmail, resendVerificationCode, sendMagicLink, verifyEmailToken } from '@/src/lib/auth/auth';
 import { colors, spacing } from '@/src/styles/tokens';
 import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { useAuth } from '@/src/context/AuthContext';
+import { useRef } from 'react';
+import { useTranslations } from 'next-intl';
 
 export default function VerificationContent() {
+  const t = useTranslations('Verification');
   const router = useRouter();
+  const { refreshUser } = useAuth();
   const params = useSearchParams();
   const initialEmail = params?.get('email') || '';
   const token = params?.get('token');
@@ -20,33 +25,37 @@ export default function VerificationContent() {
   const [useMagicLink, setUseMagicLink] = useState(false);
   const [verifyingToken, setVerifyingToken] = useState(!!token);
   const [tokenError, setTokenError] = useState<string | null>(null);
+  const verificationStarted = useRef(false);
 
   // Handle direct token verification from email link
   useEffect(() => {
-    if (token) {
+    if (token && !verificationStarted.current) {
+      verificationStarted.current = true;
       const handleTokenVerify = async () => {
         try {
           await verifyEmailToken(token);
+          await refreshUser();
           setVerifyingToken(false);
           // Redirect to onboarding after short delay to show success
           setTimeout(() => router.push('/onboarding'), 2000);
         } catch (err: any) {
           setVerifyingToken(false);
-          setTokenError(err?.message || 'Invalid or expired verification link');
+          setTokenError(err?.message || t('invalidLink'));
         }
       };
       handleTokenVerify();
     }
-  }, [token, router]);
+  }, [token, router, refreshUser]);
 
   const form = useFormValidation(
     { code: '' },
     async (values) => {
       try {
         await verifyEmail(email, String(values.code || ''));
+        await refreshUser();
         router.push('/onboarding');
       } catch (err: any) {
-        form.setFieldError('code', err?.message || 'Invalid verification code');
+        form.setFieldError('code', err?.message || t('invalidCode'));
       }
     }
   );
@@ -57,7 +66,7 @@ export default function VerificationContent() {
       setCooldown(60);
       setTokenError(null);
     } catch (err: any) {
-      setTokenError(err?.message || 'Failed to resend code');
+      setTokenError(err?.message || t('resendFailed'));
     }
   };
 
@@ -70,10 +79,10 @@ export default function VerificationContent() {
   // UI for direct link verification
   if (verifyingToken) {
     return (
-      <AuthLayout title="Verifying Email" subtitle="Please wait while we confirm your identity...">
+      <AuthLayout title={t('verifyingTitle')} subtitle={t('verifyingSubtitle')}>
         <div className="flex flex-col items-center justify-center py-12 space-y-4">
           <Loader2 className="h-12 w-12 text-primary animate-spin" />
-          <p className="text-slate-500 font-medium">Connecting to security servers...</p>
+          <p className="text-slate-500 font-medium">{t('connectingServers')}</p>
         </div>
       </AuthLayout>
     );
@@ -81,12 +90,12 @@ export default function VerificationContent() {
 
   if (token && !verifyingToken && !tokenError) {
     return (
-      <AuthLayout title="Email Verified!" subtitle="Your identity has been successfully confirmed.">
+      <AuthLayout title={t('verifiedTitle')} subtitle={t('verifiedSubtitle')}>
         <div className="flex flex-col items-center justify-center py-12 space-y-6">
           <div className="h-20 w-20 bg-green-100 dark:bg-green-500/20 rounded-full flex items-center justify-center">
             <CheckCircle2 className="h-12 w-12 text-green-600 dark:text-green-400" />
           </div>
-          <p className="text-slate-500 text-center font-medium">Redirecting you to complete your profile setup...</p>
+          <p className="text-slate-500 text-center font-medium">{t('redirectingProfile')}</p>
           <Loader2 className="h-6 w-6 text-slate-300 animate-spin" />
         </div>
       </AuthLayout>
@@ -95,7 +104,7 @@ export default function VerificationContent() {
 
   if (tokenError) {
     return (
-      <AuthLayout title="Verification Failed" subtitle="There was a problem confirming your email.">
+      <AuthLayout title={t('failedTitle')} subtitle={t('failedSubtitle')}>
         <div className="flex flex-col items-center justify-center py-12 space-y-6">
           <div className="h-20 w-20 bg-red-100 dark:bg-red-500/20 rounded-full flex items-center justify-center">
             <AlertCircle className="h-12 w-12 text-red-600 dark:text-red-400" />
@@ -106,11 +115,11 @@ export default function VerificationContent() {
               setTokenError(null);
               router.push('/login');
             }}>
-              Back to Login
+              {t('backToLogin')}
             </Button>
             {email && (
               <Button variant="outline" onClick={handleResend} disabled={cooldown > 0}>
-                {cooldown > 0 ? `Resend code in ${cooldown}s` : 'Try resending verification email'}
+                {cooldown > 0 ? t('resendCooldown', { seconds: cooldown }) : t('resendEmail')}
               </Button>
             )}
           </div>
@@ -121,13 +130,13 @@ export default function VerificationContent() {
 
   if (useMagicLink) {
     return (
-      <AuthLayout title="Check Your Email" subtitle={`We've sent a magic link to ${email}`}>
+      <AuthLayout title={t('magicLinkTitle')} subtitle={t('magicLinkSubtitle', { email })}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: spacing.lg, textAlign: 'center' }}>
           <p style={{ color: colors.neutral[600], fontSize: '0.9375rem' }}>
-            Click the link in your email to complete verification.
+            {t('magicLinkBody')}
           </p>
           <Button variant="outline" onClick={() => setUseMagicLink(false)}>
-            Use code instead
+            {t('useCodeInstead')}
           </Button>
         </div>
       </AuthLayout>
@@ -135,7 +144,7 @@ export default function VerificationContent() {
   }
 
   return (
-    <AuthLayout title="Verify Email" subtitle={`Enter the code sent to ${email}`}>
+    <AuthLayout title={t('verifyTitle')} subtitle={t('verifySubtitle', { email })}>
       <form onSubmit={form.handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: spacing.lg }}>
         <div>
           <label
@@ -147,13 +156,13 @@ export default function VerificationContent() {
               marginBottom: spacing.sm,
             }}
           >
-            Verification Code
+            {t('codeLabel')}
           </label>
           <input
             name="code"
             type="text"
             maxLength={6}
-            placeholder="000000"
+            placeholder={t('codePlaceholder')}
             value={String(form.values.code || '')}
             onChange={form.handleChange}
             style={{
@@ -177,7 +186,7 @@ export default function VerificationContent() {
         </div>
 
         <Button type="submit" loading={form.isSubmitting}>
-          Verify Email
+          {t('verifyButton')}
         </Button>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: spacing.md }}>
@@ -197,7 +206,7 @@ export default function VerificationContent() {
               fontWeight: '600',
             }}
           >
-            {cooldown > 0 ? `Resend code in ${cooldown}s` : 'Resend code'}
+            {cooldown > 0 ? t('resendCooldown', { seconds: cooldown }) : t('resendCode')}
           </button>
           <button
             type="button"
@@ -222,7 +231,7 @@ export default function VerificationContent() {
               e.currentTarget.style.color = colors.neutral[600];
             }}
           >
-            Use magic link instead
+            {t('useMagicLink')}
           </button>
         </div>
       </form>

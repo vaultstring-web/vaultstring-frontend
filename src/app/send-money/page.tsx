@@ -2,15 +2,11 @@
 
 import { useTranslations } from 'next-intl';
 import RatePreviewCard from '@/src/components/dashboard/send-money/RatePreviewCard';
-import { Input } from '@/src/components/ui/input';
-import { Label } from '@/src/components/ui/label';
 import { Button } from '@/src/components/ui/button';
 import { Card, CardContent } from '@/src/components/ui/card';
 import { 
-  Send, 
   Loader2,
   Globe,
-  CheckCircle2,
   AlertCircle,
   ArrowRight,
   ShieldCheck,
@@ -45,18 +41,17 @@ export default function SendMoneyPage() {
     receiverName, setReceiverName, receiverLoading, suggestions, showSuggestions, setSuggestions, setShowSuggestions,
     previewRate, previewConverted, previewLoading, previewError, previewFee,
     amountNumber,
+    hasTouchedAmount,
     onChange,
     onSubmit,
     formErrors
-  } = useSendMoneyForm(t);
+  } = useSendMoneyForm();
 
-  const showPreview = form.currency && targetCurrency && amountNumber > 0;
+  const showPreview = hasTouchedAmount && form.currency && targetCurrency && amountNumber > 0;
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto px-4 py-8">
-      {/* Premium Dark Header */}
-      <div className="relative overflow-hidden bg-slate-900 dark:bg-slate-950 rounded-[40px] p-8 md:p-12 text-white shadow-2xl">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-green-500/10 blur-[120px] rounded-full" />
+    <div className="space-y-6 max-w-7xl mx-auto px-4 py-6">
+      <div className="relative overflow-hidden bg-slate-900 dark:bg-slate-950 rounded-2xl p-6 md:p-8 text-white shadow-sm">
         <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-green-400 font-bold text-[10px] uppercase tracking-[0.3em] mb-2">
@@ -69,13 +64,13 @@ export default function SendMoneyPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left Column: Interactive Form */}
         <div className="lg:col-span-8 space-y-6">
           {!isVerified && (
             <div 
               onClick={() => router.push('/onboarding')}
-              className="bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 p-6 rounded-[32px] flex items-center justify-between cursor-pointer hover:bg-amber-100 dark:hover:bg-amber-500/20 transition-all group shadow-sm"
+              className="bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 p-4 rounded-xl flex items-center justify-between cursor-pointer hover:bg-amber-100 dark:hover:bg-amber-500/20 transition-all group"
             >
               <div className="flex items-center gap-4">
                 <div className="h-12 w-12 rounded-2xl bg-amber-100 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center">
@@ -90,9 +85,9 @@ export default function SendMoneyPage() {
             </div>
           )}
 
-          <Card className={`border-none shadow-[0_30px_60px_rgba(0,0,0,0.04)] rounded-[40px] bg-white dark:bg-slate-900 ${!isVerified ? 'opacity-50 pointer-events-none grayscale' : ''}`}>
-            <CardContent className="p-8 md:p-12">
-              <form id="payment-form" onSubmit={onSubmit} className="space-y-12">
+          <Card className={`border border-slate-200/60 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 ${!isVerified ? 'opacity-60 grayscale' : ''}`}>
+            <CardContent className="p-6 md:p-8">
+              <form id="payment-form" onSubmit={onSubmit} className="space-y-8">
                 
                 {/* Section 1: Receiver */}
                 <div className="space-y-6 relative z-30">
@@ -100,7 +95,7 @@ export default function SendMoneyPage() {
                     <div className="w-8 h-8 rounded-xl bg-slate-900 dark:bg-slate-800 text-white flex items-center justify-center text-xs font-black">1</div>
                     <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-widest">{t('sections.recipientDetails')}</h3>
                   </div>
-                  <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-[32px] border border-slate-100 dark:border-slate-800 relative">
+                  <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-800 relative">
                     <ReceiverLookup
                       value={form.receiver_id}
                       onChange={onChange}
@@ -109,7 +104,7 @@ export default function SendMoneyPage() {
                       showSuggestions={showSuggestions}
                       setShowSuggestions={setShowSuggestions}
                       onSelectSuggestion={(address) => {
-                        setForm(f => ({ ...f, receiver_id: address }));
+                        setForm('receiver_id', address);
                         setSuggestions([]);
                         setShowSuggestions(false);
                       }}
@@ -156,7 +151,7 @@ export default function SendMoneyPage() {
                     <div className="w-8 h-8 rounded-xl bg-slate-900 dark:bg-slate-800 text-white flex items-center justify-center text-xs font-black">3</div>
                     <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-widest">{t('sections.paymentPath')}</h3>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FundingSourceSelector currency={form.currency} walletBalance={walletBalance} value={fundingSource} onChange={setFundingSource} />
                     <PayoutMethodSelector targetCurrency={targetCurrency} value={payoutMethod} onChange={setPayoutMethod} />
                   </div>
@@ -164,10 +159,10 @@ export default function SendMoneyPage() {
 
                 {/* Final Button */}
                 <div className="pt-6 space-y-4">
-                  <Button 
+                  <Button
                     type="submit" 
-                    disabled={loading} 
-                    className="w-full h-18 py-8 bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-white font-black text-xl rounded-[28px] shadow-xl shadow-emerald-500/40 dark:shadow-black/50 transition-all hover:scale-[1.01] active:scale-95"
+                    disabled={loading || !isVerified} 
+                    className="w-full h-14 bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white font-bold text-base rounded-xl"
                   >
                     {loading ? <Loader2 className="animate-spin" /> : t('cta.confirmTransfer')}
                   </Button>
@@ -197,7 +192,7 @@ export default function SendMoneyPage() {
                 />
              </div>
           ) : (
-            <div className="p-8 bg-white dark:bg-slate-900 rounded-[32px] border border-dashed border-slate-200 dark:border-slate-800 text-center space-y-4 shadow-sm">
+            <div className="p-6 bg-white dark:bg-slate-900 rounded-xl border border-dashed border-slate-200 dark:border-slate-800 text-center space-y-4">
                 <div className="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center mx-auto text-slate-300 dark:text-slate-600">
                     <Globe size={32} />
                 </div>
@@ -208,12 +203,22 @@ export default function SendMoneyPage() {
           )}
 
           {error && (
-            <div className="bg-red-500 text-white p-6 rounded-[32px] flex items-start gap-4 shadow-lg shadow-red-500/20 animate-in fade-in slide-in-from-bottom-2">
+            <div className="bg-red-600 text-white p-4 rounded-xl flex items-start gap-3 animate-in fade-in slide-in-from-bottom-2">
                <div className="bg-white/20 p-2 rounded-full shrink-0 backdrop-blur-sm">
                   <AlertCircle className="text-white" size={24} />
                </div>
                <div>
-                 <p className="font-black text-white text-sm uppercase tracking-wide">{t('errors.blockedTitle')}</p>
+                 <p className="font-black text-white text-sm uppercase tracking-wide">
+                    {(() => {
+                      const e = error.toLowerCase();
+                      const security =
+                        e.includes('security alert') ||
+                        e.includes('restricted') ||
+                        e.includes('untrusted device') ||
+                        e.includes('blacklist');
+                      return security ? t('errors.blockedTitle') : t('errors.paymentFailedTitle');
+                    })()}
+                 </p>
                  <p className="text-sm text-white/90 font-medium mt-1 leading-relaxed">
                     {error.includes('untrusted device') 
                         ? t('errors.untrustedDevice')
@@ -230,14 +235,16 @@ export default function SendMoneyPage() {
               currency={form.currency}
               receiverName={receiverName}
               onReset={() => {
-                setForm(f => ({ ...f, amount: '', description: '', receiver_id: '' }));
+                setForm('amount', '');
+                setForm('description', '');
+                setForm('receiver_id', '');
                 setResult(null);
                 setReceiverName(null);
               }}
             />
           )}
 
-          <div className="p-6 bg-slate-100/50 dark:bg-slate-800/50 rounded-[32px] border border-slate-100 dark:border-slate-800 flex items-start gap-3">
+          <div className="p-4 bg-slate-100/50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-800 flex items-start gap-3">
               <Info size={18} className="text-slate-400 dark:text-slate-500 shrink-0 mt-0.5" />
               <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 leading-relaxed">
                 {t('feeNote')}

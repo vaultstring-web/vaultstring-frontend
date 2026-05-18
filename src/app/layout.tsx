@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import { AuthProvider } from "@/src/context/AuthContext";
 import { ThemeProvider } from "next-themes";
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, getLocale } from 'next-intl/server';
 
 import { Toaster } from "@/src/components/ui/toaster";
 import { Toaster as Sonner } from "sonner";
@@ -27,11 +27,13 @@ export const metadata = {
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const messages = await getMessages();
+  const locale = await getLocale();
+  const isRTL = locale === 'ar';
   
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} dir={isRTL ? 'rtl' : 'ltr'} suppressHydrationWarning>
       <body className="font-sans antialiased">
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider messages={messages} locale={locale}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <AppProviders>
               <DashboardLayoutWrapper>

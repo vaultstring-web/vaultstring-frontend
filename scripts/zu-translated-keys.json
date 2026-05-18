@@ -1,0 +1,767 @@
+{
+  "count": 152,
+  "keys": [
+    "Profile.activeProtection",
+    "Profile.activityDevices",
+    "Profile.activitySubtitle",
+    "Profile.badgeLive",
+    "Profile.badgeLoading",
+    "Profile.bioPlaceholder",
+    "Profile.cancel",
+    "Profile.defaultBioTagline",
+    "Profile.devicesHeading",
+    "Profile.dialogIdentitySubtitle",
+    "Profile.disabled",
+    "Profile.enabled",
+    "Profile.enterSixDigitCode",
+    "Profile.headerUsernameFallback",
+    "Profile.ipUnavailable",
+    "Profile.knownDevices",
+    "Profile.lastLogin",
+    "Profile.lastSeen",
+    "Profile.noActivityYet",
+    "Profile.noDevicesYet",
+    "Profile.noWalletsMessage",
+    "Profile.recentActivityHeading",
+    "Profile.recentEvents",
+    "Profile.refresh",
+    "Profile.scanQrSubtitle",
+    "Profile.secureAccountTitle",
+    "Profile.stats.recipients",
+    "Profile.stats.transactions",
+    "Profile.stats.wallets",
+    "Profile.tabs.activity",
+    "Profile.tabs.language",
+    "Profile.tabs.security",
+    "Profile.tabs.wallets",
+    "Profile.toasts.avatarUpdated",
+    "Profile.toasts.avatarUploading",
+    "Profile.toasts.invalidTotpCode",
+    "Profile.toasts.passwordFailed",
+    "Profile.toasts.passwordFieldsRequired",
+    "Profile.toasts.passwordMismatch",
+    "Profile.toasts.passwordUpdated",
+    "Profile.toasts.profileFailed",
+    "Profile.toasts.profileUpdated",
+    "Profile.toasts.totpSetupFailed",
+    "Profile.toasts.twoFactorDisableFailed",
+    "Profile.toasts.twoFactorDisabled",
+    "Profile.toasts.twoFactorEnabled",
+    "Profile.trustedBadge",
+    "Profile.twoFactorBlurb",
+    "Profile.twoFactorShortTitle",
+    "Profile.twoFactorStatus",
+    "Profile.unknownDevice",
+    "Profile.untrustedBadge",
+    "Profile.verifyAndEnable",
+    "Profile.viewArchive",
+    "Profile.walletCardTitle",
+    "Receipt.backToTransactions",
+    "Receipt.backToTransactionsError",
+    "Receipt.downloadPdf",
+    "Receipt.errorResolveId",
+    "Receipt.errorTitle",
+    "Receipt.goToTransactions",
+    "Receipt.labelAmount",
+    "Receipt.labelDate",
+    "Receipt.labelDescription",
+    "Receipt.labelFee",
+    "Receipt.labelReceiver",
+    "Receipt.labelRecipientReceives",
+    "Receipt.labelSender",
+    "Receipt.labelTotalDebited",
+    "Receipt.labelTxnId",
+    "Receipt.loadFailed",
+    "Receipt.loading",
+    "Receipt.proofHeading",
+    "Receipt.receiptUnavailableBody",
+    "Receipt.receiptUnavailableTitle",
+    "Receipt.referenceLabel",
+    "Receipt.referencePending",
+    "Receipt.sendAgain",
+    "Receipt.subtitleDefault",
+    "Receipt.subtitleLoading",
+    "Receipt.subtitleNoId",
+    "Receipt.titleFailed",
+    "Receipt.titlePending",
+    "Receipt.titleSuccess",
+    "Receipt.viewHistory",
+    "SendMoney.amount",
+    "SendMoney.channels.api",
+    "SendMoney.channels.bank",
+    "SendMoney.channels.card",
+    "SendMoney.channels.mobile_money",
+    "SendMoney.channels.wallet",
+    "SendMoney.channels.web",
+    "SendMoney.chinaLabel",
+    "SendMoney.cta.confirmTransfer",
+    "SendMoney.currency",
+    "SendMoney.feeNote",
+    "SendMoney.funding.walletWithBalance",
+    "SendMoney.fundingSource",
+    "SendMoney.instantSettlement",
+    "SendMoney.international",
+    "SendMoney.paymentDetails",
+    "SendMoney.payout.walletTopUp",
+    "SendMoney.payoutMethod",
+    "SendMoney.preview.empty",
+    "SendMoney.previewCard.exchangeRate",
+    "SendMoney.previewCard.recipientGets",
+    "SendMoney.previewCard.secureRate",
+    "SendMoney.previewCard.sendingAmount",
+    "SendMoney.previewCard.serviceFee",
+    "SendMoney.previewCard.subtitle",
+    "SendMoney.previewCard.title",
+    "SendMoney.previewCard.totalToPay",
+    "SendMoney.recipientWalletHint",
+    "SendMoney.recipientWalletNumber",
+    "SendMoney.refineSearchHint",
+    "SendMoney.sameCurrency",
+    "SendMoney.sections.paymentPath",
+    "SendMoney.sections.recipientDetails",
+    "SendMoney.sections.transferAmount",
+    "SendMoney.security.aes256",
+    "SendMoney.selectPlaceholder",
+    "SendMoney.subtitle",
+    "SendMoney.successCard.amountSent",
+    "SendMoney.successCard.receiver",
+    "SendMoney.successCard.sendAnother",
+    "SendMoney.successCard.subtitle",
+    "SendMoney.successCard.title",
+    "SendMoney.successCard.transactionId",
+    "SendMoney.suggestedReceivers",
+    "SendMoney.targetReceivesLabel",
+    "SendMoney.title",
+    "SendMoney.validation.amountPositive",
+    "SendMoney.validation.amountRequired",
+    "SendMoney.validation.currencyRequired",
+    "SendMoney.validation.walletIdLength",
+    "SendMoney.validation.walletIdNumeric",
+    "SendMoney.verifiedReceiver",
+    "SendMoney.walletNumberPlaceholder",
+    "Sidebar.dashboard",
+    "Sidebar.profile",
+    "Sidebar.sendMoney",
+    "Sidebar.signOut",
+    "Sidebar.transactions",
+    "Sidebar.verifyIdentity",
+    "Sidebar.wallet",
+    "TopBar.titles.dashboard",
+    "TopBar.titles.onboarding",
+    "TopBar.titles.profile",
+    "TopBar.titles.sendMoney",
+    "TopBar.titles.transactions",
+    "TopBar.titles.translation",
+    "TopBar.titles.wallet"
+  ],
+  "entries": {
+    "Profile.activeProtection": {
+      "en": "Active protection",
+      "zu": "Ivikelwe"
+    },
+    "Profile.activityDevices": {
+      "en": "Activity & devices",
+      "zu": "Imisebenzi kanye namadivayisi"
+    },
+    "Profile.activitySubtitle": {
+      "en": "Review sign-in activity and devices to detect suspicious access.",
+      "zu": "Buyekeza ukungena nekusebenza kwamadivayisi ukuze uthole ukungena okungahleki."
+    },
+    "Profile.badgeLive": {
+      "en": "Live",
+      "zu": "Ngokuqhubekayo"
+    },
+    "Profile.badgeLoading": {
+      "en": "Loading",
+      "zu": "Iyalayisha"
+    },
+    "Profile.bioPlaceholder": {
+      "en": "Tell others about yourself (optional)",
+      "zu": "Tshela ngawe (onkhethekile)"
+    },
+    "Profile.cancel": {
+      "en": "Cancel",
+      "zu": "Khansela"
+    },
+    "Profile.defaultBioTagline": {
+      "en": "VaultString customer",
+      "zu": "Ikhasimende le-VaultString"
+    },
+    "Profile.devicesHeading": {
+      "en": "Devices",
+      "zu": "Amadivayisi"
+    },
+    "Profile.dialogIdentitySubtitle": {
+      "en": "Keep your identity up to date on VaultString.",
+      "zu": "Gcina ubunikazi bakho kusasa ku-VaultString."
+    },
+    "Profile.disabled": {
+      "en": "Disabled",
+      "zu": "Kucishiwe"
+    },
+    "Profile.enabled": {
+      "en": "Enabled",
+      "zu": "Kwenziwe kube yise"
+    },
+    "Profile.enterSixDigitCode": {
+      "en": "Enter 6-digit code",
+      "zu": "Faka ikhodi onamadijithi ayi-6"
+    },
+    "Profile.headerUsernameFallback": {
+      "en": "account",
+      "zu": "akhawunti"
+    },
+    "Profile.ipUnavailable": {
+      "en": "IP: N/A",
+      "zu": "I-IP: ayitholakali"
+    },
+    "Profile.knownDevices": {
+      "en": "Known devices",
+      "zu": "Amadivayisi aziwayo"
+    },
+    "Profile.lastLogin": {
+      "en": "Last login",
+      "zu": "Ukungena kokugcinona"
+    },
+    "Profile.lastSeen": {
+      "en": "Last seen",
+      "zu": "Kugcinwe ukubonwa"
+    },
+    "Profile.noActivityYet": {
+      "en": "No activity yet.",
+      "zu": "Ayikho imisebenzi okwamanje."
+    },
+    "Profile.noDevicesYet": {
+      "en": "No device records yet.",
+      "zu": "Awukho amarekhodi amadivayisi okwamanje."
+    },
+    "Profile.noWalletsMessage": {
+      "en": "No wallets found for this account yet.",
+      "zu": "Azikho amawalethi kulolu akhawunti okwamanje."
+    },
+    "Profile.recentActivityHeading": {
+      "en": "Recent activity",
+      "zu": "Imisebenzi yakamuva"
+    },
+    "Profile.recentEvents": {
+      "en": "Recent events",
+      "zu": "Izenzakalo zamanje"
+    },
+    "Profile.refresh": {
+      "en": "Refresh",
+      "zu": "Vuselela"
+    },
+    "Profile.scanQrSubtitle": {
+      "en": "Scan this QR code with Google Authenticator, Authy, or another compatible app.",
+      "zu": "Skena le QR ngeGoogle Authenticator, i-Authy, noma olunye uhlelo olusebenzayo."
+    },
+    "Profile.secureAccountTitle": {
+      "en": "Secure account",
+      "zu": "Vikelwa i-akhawunti"
+    },
+    "Profile.stats.recipients": {
+      "en": "recipients",
+      "zu": "abathumeli"
+    },
+    "Profile.stats.transactions": {
+      "en": "transactions",
+      "zu": "okuthengiselana"
+    },
+    "Profile.stats.wallets": {
+      "en": "wallets",
+      "zu": "amawalethi"
+    },
+    "Profile.tabs.activity": {
+      "en": "Activity",
+      "zu": "Ukusebenza"
+    },
+    "Profile.tabs.language": {
+      "en": "Language",
+      "zu": "Ulimi"
+    },
+    "Profile.tabs.security": {
+      "en": "Security",
+      "zu": "Ukuvikela"
+    },
+    "Profile.tabs.wallets": {
+      "en": "Wallets",
+      "zu": "Izikhwama"
+    },
+    "Profile.toasts.avatarUpdated": {
+      "en": "Avatar updated",
+      "zu": "Isithombe sesihloko sisavuseleliwe"
+    },
+    "Profile.toasts.avatarUploading": {
+      "en": "Uploading avatar…",
+      "zu": "Kulayisha isithombe sesihloko…"
+    },
+    "Profile.toasts.invalidTotpCode": {
+      "en": "Invalid verification code",
+      "zu": "Ikhodi yokuqinisekisa ayilungile"
+    },
+    "Profile.toasts.passwordFailed": {
+      "en": "Failed to update password",
+      "zu": "Ukubuyekeza iphasiwedi kusilele"
+    },
+    "Profile.toasts.passwordFieldsRequired": {
+      "en": "Please fill in all password fields",
+      "zu": "Sicela ugcwalise zonke izinkambu zepasiwedi"
+    },
+    "Profile.toasts.passwordMismatch": {
+      "en": "Passwords do not match",
+      "zu": "Amaphasiwedi awahambelani"
+    },
+    "Profile.toasts.passwordUpdated": {
+      "en": "Password updated successfully",
+      "zu": "Iphasiwedi ibuyekeziwe ngempumelelo"
+    },
+    "Profile.toasts.profileFailed": {
+      "en": "Failed to update profile",
+      "zu": "Ukubuyekeza iphrofayeli kusilele"
+    },
+    "Profile.toasts.profileUpdated": {
+      "en": "Profile updated successfully",
+      "zu": "Iphrofayeli ibuyekeziwe ngempumelelo"
+    },
+    "Profile.toasts.totpSetupFailed": {
+      "en": "Failed to set up two-factor authentication",
+      "zu": "Yehluleka ukusetha i-2FA"
+    },
+    "Profile.toasts.twoFactorDisableFailed": {
+      "en": "Failed to disable two-factor authentication",
+      "zu": "Yehluleka ukukhweza i-2FA"
+    },
+    "Profile.toasts.twoFactorDisabled": {
+      "en": "Two-factor authentication disabled",
+      "zu": "I-2FA icishiwe"
+    },
+    "Profile.toasts.twoFactorEnabled": {
+      "en": "Two-factor authentication enabled",
+      "zu": "I-2FA yakhethiwe kwenziwa kube iqediwe"
+    },
+    "Profile.trustedBadge": {
+      "en": "Trusted",
+      "zu": "Yethembekile"
+    },
+    "Profile.twoFactorBlurb": {
+      "en": "Protect your account with an extra layer of security. We will ask for a code whenever you sign in from a new device.",
+      "zu": "Vikela i-akhawunti yakho ngesivikelwa esengezi. Sizocele ikhodi noma ukungena kwedivayisi entsha."
+    },
+    "Profile.twoFactorShortTitle": {
+      "en": "Two-factor authentication",
+      "zu": "Ukuvikelwa kokucashunwa kokubili (2FA)"
+    },
+    "Profile.twoFactorStatus": {
+      "en": "Status",
+      "zu": "Isimo"
+    },
+    "Profile.unknownDevice": {
+      "en": "Unknown device",
+      "zu": "Idivayisi engaziwa"
+    },
+    "Profile.untrustedBadge": {
+      "en": "Untrusted",
+      "zu": "Ayithembekile"
+    },
+    "Profile.verifyAndEnable": {
+      "en": "Verify & enable",
+      "zu": "Qinisekisa & yenza kube yise"
+    },
+    "Profile.viewArchive": {
+      "en": "View archive",
+      "zu": "Buka ingosi yomlando"
+    },
+    "Profile.walletCardTitle": {
+      "en": "{currency} wallet",
+      "zu": "Iwalethi ye-{currency}"
+    },
+    "Receipt.backToTransactions": {
+      "en": "Transactions",
+      "zu": "Ukuthengiselana"
+    },
+    "Receipt.backToTransactionsError": {
+      "en": "Back to transactions",
+      "zu": "Buyela ekuthengiselaneni"
+    },
+    "Receipt.downloadPdf": {
+      "en": "Download proof (PDF)",
+      "zu": "Landa iziqondiso (PDF)"
+    },
+    "Receipt.errorResolveId": {
+      "en": "We could not resolve a valid transaction id for this receipt.",
+      "zu": "Asikwazanga ukuthola i-ID yakho echaza le irisidi."
+    },
+    "Receipt.errorTitle": {
+      "en": "Could not load receipt",
+      "zu": "Ayikwazi ukulanda irisidi"
+    },
+    "Receipt.goToTransactions": {
+      "en": "Go to transactions",
+      "zu": "Iya kokuthengiselana"
+    },
+    "Receipt.labelAmount": {
+      "en": "Amount",
+      "zu": "Inani"
+    },
+    "Receipt.labelDate": {
+      "en": "Date",
+      "zu": "Usuku"
+    },
+    "Receipt.labelDescription": {
+      "en": "Description",
+      "zu": "Incazo"
+    },
+    "Receipt.labelFee": {
+      "en": "Processing fee",
+      "zu": "Imali yokucubungula"
+    },
+    "Receipt.labelReceiver": {
+      "en": "Receiver",
+      "zu": "Ummukeli"
+    },
+    "Receipt.labelRecipientReceives": {
+      "en": "Recipient receives",
+      "zu": "Ummukeli uyathola"
+    },
+    "Receipt.labelSender": {
+      "en": "Sender",
+      "zu": "Uthumeli"
+    },
+    "Receipt.labelTotalDebited": {
+      "en": "Total debited",
+      "zu": "Isamba esikhishiwe"
+    },
+    "Receipt.labelTxnId": {
+      "en": "Transaction ID",
+      "zu": "I-ID yokuthengiselana"
+    },
+    "Receipt.loadFailed": {
+      "en": "Failed to load receipt",
+      "zu": "Yehluleka ukuloda irisidi"
+    },
+    "Receipt.loading": {
+      "en": "Loading receipt…",
+      "zu": "Iyalayisha irisidi…"
+    },
+    "Receipt.proofHeading": {
+      "en": "Transaction proof",
+      "zu": "Ubufakazi bokuthengiselana"
+    },
+    "Receipt.receiptUnavailableBody": {
+      "en": "We did not receive a valid transaction ID. Open your transactions list to view the latest transfer.",
+      "zu": "Asiyitholanga i-ID yakho yokuthengiselana. Vula Uhlu lokuthengiselana ukuze ubone ukuthumela kwakamuva."
+    },
+    "Receipt.receiptUnavailableTitle": {
+      "en": "Receipt unavailable",
+      "zu": "Ayikho irisidi"
+    },
+    "Receipt.referenceLabel": {
+      "en": "Reference: {ref}",
+      "zu": "Isikhombisi: {ref}"
+    },
+    "Receipt.referencePending": {
+      "en": "Reference will appear once loaded",
+      "zu": "Isibuyekezo size sivele uma selilandiwe"
+    },
+    "Receipt.sendAgain": {
+      "en": "Send another transfer",
+      "zu": "Thumela futhi"
+    },
+    "Receipt.subtitleDefault": {
+      "en": "Your transfer has been recorded securely. You can download a proof for your records.",
+      "zu": "Ukuthumela kwabiwe kabusha ngokuphepha. Ungalanda isiqu esibonayo."
+    },
+    "Receipt.subtitleLoading": {
+      "en": "Fetching your receipt…",
+      "zu": "Kulanda irisidi…"
+    },
+    "Receipt.subtitleNoId": {
+      "en": "Your transfer was submitted, but we could not load the receipt automatically.",
+      "zu": "Ukuthumela kwathunyelwa, kodwa asikwazanga ukulanda irisidi ngokuzenzakalelayo."
+    },
+    "Receipt.titleFailed": {
+      "en": "Transfer failed",
+      "zu": "Ukuthumela kuhlulekile"
+    },
+    "Receipt.titlePending": {
+      "en": "Transfer submitted",
+      "zu": "Ukuthumela kuthunyelwe"
+    },
+    "Receipt.titleSuccess": {
+      "en": "Transfer successful",
+      "zu": "Ukuthumela kuphumelele"
+    },
+    "Receipt.viewHistory": {
+      "en": "View transaction history",
+      "zu": "Buka umlando wokuthengiselana"
+    },
+    "SendMoney.amount": {
+      "en": "Amount",
+      "zu": "Inani"
+    },
+    "SendMoney.channels.api": {
+      "en": "API",
+      "zu": "I-API"
+    },
+    "SendMoney.channels.bank": {
+      "en": "Bank",
+      "zu": "Ibhange"
+    },
+    "SendMoney.channels.card": {
+      "en": "Card",
+      "zu": "Ikhadi"
+    },
+    "SendMoney.channels.mobile_money": {
+      "en": "Mobile money",
+      "zu": "Imali yeselula"
+    },
+    "SendMoney.channels.wallet": {
+      "en": "Wallet",
+      "zu": "Ikhaweji"
+    },
+    "SendMoney.channels.web": {
+      "en": "Web",
+      "zu": "I-webhu"
+    },
+    "SendMoney.chinaLabel": {
+      "en": "(China)",
+      "zu": "(iChina)"
+    },
+    "SendMoney.cta.confirmTransfer": {
+      "en": "Confirm & Transfer Now",
+      "zu": "Qinisekisa Bese Uthumela Manje"
+    },
+    "SendMoney.currency": {
+      "en": "Currency",
+      "zu": "Imali"
+    },
+    "SendMoney.feeNote": {
+      "en": "Fees are calculated dynamically based on liquidity and network volume at the time of transfer.",
+      "zu": "Izimali zenkokhelo zibalwa ngokuzenzakalela ngokwesimo semakethe ngesikhathi sokudlulisa."
+    },
+    "SendMoney.funding.walletWithBalance": {
+      "en": "VaultString wallet ({balance} {currency})",
+      "zu": "Ikhaweji ye-VaultString ({balance} {currency})"
+    },
+    "SendMoney.fundingSource": {
+      "en": "Funding source",
+      "zu": "Umthombo wezindleko"
+    },
+    "SendMoney.instantSettlement": {
+      "en": "Instant Settlement",
+      "zu": "Ukukhokha Ngokushesha"
+    },
+    "SendMoney.international": {
+      "en": "International",
+      "zu": "Kwamanye Amazwe"
+    },
+    "SendMoney.paymentDetails": {
+      "en": "Payment Details",
+      "zu": "Imininingwane Yokukhokha"
+    },
+    "SendMoney.payout.walletTopUp": {
+      "en": "Wallet top-up ({currency})",
+      "zu": "Ukugcwalisa ikhwela ({currency})"
+    },
+    "SendMoney.payoutMethod": {
+      "en": "Payout method",
+      "zu": "Indlela yokukhokha"
+    },
+    "SendMoney.preview.empty": {
+      "en": "Enter an amount to see\nlive exchange rates",
+      "zu": "Faka inani ukuze ubone\nizinga lokushintsha bukhoma"
+    },
+    "SendMoney.previewCard.exchangeRate": {
+      "en": "Exchange rate",
+      "zu": "Isilinganiso sokushintshanisa"
+    },
+    "SendMoney.previewCard.recipientGets": {
+      "en": "Recipient gets",
+      "zu": "Ummukeli uyathola"
+    },
+    "SendMoney.previewCard.secureRate": {
+      "en": "Indicative rate & fees — final totals may vary at settlement.",
+      "zu": "Izindleko nezindleko ezibonakala — impumelo yokugcina ingashintsha ngesikhathi sokukhokha."
+    },
+    "SendMoney.previewCard.sendingAmount": {
+      "en": "Sending amount",
+      "zu": "Imali ebiyiselwayo"
+    },
+    "SendMoney.previewCard.serviceFee": {
+      "en": "Service fee",
+      "zu": "Imali yesevisi"
+    },
+    "SendMoney.previewCard.subtitle": {
+      "en": "Real-time exchange rates",
+      "zu": "Amanani okushintshanisa asesikhathi sangempela"
+    },
+    "SendMoney.previewCard.title": {
+      "en": "Calculation summary",
+      "zu": "Isifinyezo sobala"
+    },
+    "SendMoney.previewCard.totalToPay": {
+      "en": "Total to pay",
+      "zu": "Konke okufanele kubhatalwe"
+    },
+    "SendMoney.recipientWalletHint": {
+      "en": "Type a wallet number and select a suggested recipient to confirm you are sending to the correct user.",
+      "zu": "Thayipha inamba yekhawundi bese ukhetha ummukeli ezokusiza uqiniseke ukuthi uyathumela kumsebenzisi olungile."
+    },
+    "SendMoney.recipientWalletNumber": {
+      "en": "Recipient wallet number",
+      "zu": "Inamba yekhwama lomamukeli"
+    },
+    "SendMoney.refineSearchHint": {
+      "en": "Keep typing digits to refine",
+      "zu": "Qhubeka uthi amadijithi ukuhlola"
+    },
+    "SendMoney.sameCurrency": {
+      "en": "Same currency",
+      "zu": "Imali Efana Nayo"
+    },
+    "SendMoney.sections.paymentPath": {
+      "en": "Payment Path",
+      "zu": "Indlela Yokukhokha"
+    },
+    "SendMoney.sections.recipientDetails": {
+      "en": "Recipient Details",
+      "zu": "Imininingwane Yomamukeli"
+    },
+    "SendMoney.sections.transferAmount": {
+      "en": "Transfer Amount",
+      "zu": "Inani Lokudlulisa"
+    },
+    "SendMoney.security.aes256": {
+      "en": "AES-256 Encrypted Payment",
+      "zu": "Inkokhelo Evikelwe nge-AES-256"
+    },
+    "SendMoney.selectPlaceholder": {
+      "en": "Select",
+      "zu": "Khetha"
+    },
+    "SendMoney.subtitle": {
+      "en": "Initiate cross-border transfers and payouts securely.",
+      "zu": "Qalisa ukudlulisa imali ngokuphepha phakathi kwamazwe."
+    },
+    "SendMoney.successCard.amountSent": {
+      "en": "Amount sent",
+      "zu": "Inani olithunyelwe"
+    },
+    "SendMoney.successCard.receiver": {
+      "en": "Receiver",
+      "zu": "Umamukeli"
+    },
+    "SendMoney.successCard.sendAnother": {
+      "en": "Send another payment",
+      "zu": "Thumela enye inkokhelo"
+    },
+    "SendMoney.successCard.subtitle": {
+      "en": "Your transaction has been processed securely.",
+      "zu": "Ukuthengiselana kwakho kucutshungiwe ngokuphepha."
+    },
+    "SendMoney.successCard.title": {
+      "en": "Payment successful",
+      "zu": "Inkokhelo iqediwe ngempumelelo"
+    },
+    "SendMoney.successCard.transactionId": {
+      "en": "Transaction ID",
+      "zu": "I-ID yokuthengiselana"
+    },
+    "SendMoney.suggestedReceivers": {
+      "en": "Suggested receivers",
+      "zu": "Omamukeli abelwe isabelo"
+    },
+    "SendMoney.targetReceivesLabel": {
+      "en": "Recipient receives in",
+      "zu": "Ummukeli uyathola nge"
+    },
+    "SendMoney.title": {
+      "en": "Send Money",
+      "zu": "Thumela Imali"
+    },
+    "SendMoney.validation.amountPositive": {
+      "en": "Amount must be greater than zero",
+      "zu": "Inani lifanele lingaphezu kuka-0"
+    },
+    "SendMoney.validation.amountRequired": {
+      "en": "Amount is required",
+      "zu": "Inani libe kudingekayo"
+    },
+    "SendMoney.validation.currencyRequired": {
+      "en": "Currency is required",
+      "zu": "Imali ilidingekayo"
+    },
+    "SendMoney.validation.walletIdLength": {
+      "en": "Wallet ID must be exactly 16 digits",
+      "zu": "I-ID yekhawundi kufanele ibe izinombolo eziyi-16"
+    },
+    "SendMoney.validation.walletIdNumeric": {
+      "en": "Wallet ID must be numeric",
+      "zu": "I-ID kufanele ibe iyinombolo kuphela"
+    },
+    "SendMoney.verifiedReceiver": {
+      "en": "Verified receiver",
+      "zu": "Umamukeli oqinisekisiwe"
+    },
+    "SendMoney.walletNumberPlaceholder": {
+      "en": "Enter 16-digit wallet number",
+      "zu": "Faka inamba yenamadijithi eziyi-16 yekhwama"
+    },
+    "Sidebar.dashboard": {
+      "en": "Dashboard",
+      "zu": "Ideshibhodi"
+    },
+    "Sidebar.profile": {
+      "en": "Profile",
+      "zu": "Iphrofayela"
+    },
+    "Sidebar.sendMoney": {
+      "en": "Send Money",
+      "zu": "Thumela Imali"
+    },
+    "Sidebar.signOut": {
+      "en": "Sign Out",
+      "zu": "Phuma"
+    },
+    "Sidebar.transactions": {
+      "en": "Transactions",
+      "zu": "Ukuthengiselana"
+    },
+    "Sidebar.verifyIdentity": {
+      "en": "Verify Identity",
+      "zu": "Qinisekisa Ubuwena"
+    },
+    "Sidebar.wallet": {
+      "en": "My Wallet",
+      "zu": "Isikhwama Sami"
+    },
+    "TopBar.titles.dashboard": {
+      "en": "Dashboard",
+      "zu": "Ideshibhodi"
+    },
+    "TopBar.titles.onboarding": {
+      "en": "Identity Verification",
+      "zu": "Ukuqinisekiswa Kobuwena"
+    },
+    "TopBar.titles.profile": {
+      "en": "Profile & Security",
+      "zu": "Iphrofayela Nokuphepha"
+    },
+    "TopBar.titles.sendMoney": {
+      "en": "Send Money",
+      "zu": "Thumela Imali"
+    },
+    "TopBar.titles.transactions": {
+      "en": "Transaction History",
+      "zu": "Umlando Wokuthengiselana"
+    },
+    "TopBar.titles.translation": {
+      "en": "Language Settings",
+      "zu": "Izilungiselelo Zolimi"
+    },
+    "TopBar.titles.wallet": {
+      "en": "My Wallet",
+      "zu": "Isikhwama Sami"
+    }
+  }
+}

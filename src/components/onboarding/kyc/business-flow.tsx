@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useTranslations } from "next-intl"
 import { Button } from "@/src/components/ui/button"
 import { ProgressBar } from "./progress-bar"
 import { CompanyDetailsStep } from "./steps/company-details"
@@ -14,30 +15,33 @@ import { CompletionStep } from "./steps/completion"
 
 import { AuthLayout } from "@/src/components/shared/AuthLayout"
 
-const BUSINESS_STEPS = [
-  { id: "company", title: "Company Details" },
-  { id: "business", title: "Business Information" },
-  { id: "reps", title: "Authorized Representatives" },
-  { id: "ubo", title: "UBO Disclosure" },
-  { id: "banking", title: "Banking Details" },
-  { id: "docs", title: "Documentation" },
-  { id: "compliance", title: "Compliance" },
-]
+const BUSINESS_STEP_IDS = [
+  "company",
+  "business",
+  "reps",
+  "ubo",
+  "banking",
+  "docs",
+  "compliance",
+] as const
 
 interface BusinessFlowProps {
   onChangeUserType: () => void
 }
 
 export function BusinessFlow({ onChangeUserType }: BusinessFlowProps) {
+  const tFlow = useTranslations("Onboarding.flow")
+  const tSteps = useTranslations("Onboarding.businessSteps")
+
   const [currentStep, setCurrentStep] = useState(0)
   const [formData, setFormData] = useState({})
   const [completed, setCompleted] = useState(false)
 
-  const handleNext = (stepData: any) => {
+  const handleNext = (stepData: Record<string, unknown>) => {
     const newData = { ...formData, ...stepData }
     setFormData(newData)
 
-    if (currentStep < BUSINESS_STEPS.length - 1) {
+    if (currentStep < BUSINESS_STEP_IDS.length - 1) {
       setCurrentStep(currentStep + 1)
     } else {
       setCompleted(true)
@@ -59,34 +63,41 @@ export function BusinessFlow({ onChangeUserType }: BusinessFlowProps) {
         timestamp: new Date().toISOString(),
       }),
     )
-    alert("Progress saved. You can resume later.")
+    alert(tFlow("draftSaved"))
   }
 
   if (completed) {
     return <CompletionStep type="business" onChangeUserType={onChangeUserType} />
   }
 
-  const step = BUSINESS_STEPS[currentStep]
+  const stepId = BUSINESS_STEP_IDS[currentStep]
+  const stepTitle = tSteps(stepId)
 
   return (
-    <AuthLayout title={step.title} subtitle={`Step ${currentStep + 1} of ${BUSINESS_STEPS.length}`}>
+    <AuthLayout
+      title={stepTitle}
+      subtitle={tFlow("stepSubtitle", {
+        current: currentStep + 1,
+        total: BUSINESS_STEP_IDS.length,
+      })}
+    >
       <div className="space-y-6">
         <div className="flex justify-between items-center px-1">
-          <button 
-            onClick={onChangeUserType} 
+          <button
+            onClick={onChangeUserType}
             className="text-[11px] font-bold text-slate-400 hover:text-green-600 uppercase tracking-widest transition-colors"
           >
-            Change Type
+            {tFlow("changeType")}
           </button>
-          <button 
-            onClick={handleSaveAndExit} 
+          <button
+            onClick={handleSaveAndExit}
             className="text-[11px] font-bold text-slate-400 hover:text-green-600 uppercase tracking-widest transition-colors"
           >
-            Save Draft
+            {tFlow("saveDraft")}
           </button>
         </div>
 
-        <ProgressBar progress={((currentStep + 1) / BUSINESS_STEPS.length) * 100} />
+        <ProgressBar progress={((currentStep + 1) / BUSINESS_STEP_IDS.length) * 100} />
 
         <div className="pt-2">
           {currentStep === 0 && <CompanyDetailsStep onNext={handleNext} />}
@@ -104,7 +115,7 @@ export function BusinessFlow({ onChangeUserType }: BusinessFlowProps) {
             onClick={handlePrevious}
             className="w-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 font-medium"
           >
-            Back to previous step
+            {tFlow("back")}
           </Button>
         )}
       </div>

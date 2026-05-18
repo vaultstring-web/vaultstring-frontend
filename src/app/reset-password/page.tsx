@@ -10,8 +10,10 @@ import { useFormValidation } from '@/src/hooks/useFormValidation';
 import { useToast } from '@/src/hooks/use-toast';
 import { validators } from '@/src/lib/utils/validation';
 import { requestPasswordReset, resetPassword } from '@/src/lib/auth/auth';
+import { useTranslations } from 'next-intl';
 
 function ResetPasswordContent() {
+  const t = useTranslations('ResetPassword');
   const router = useRouter();
   const params = useSearchParams();
   const token = params?.get('token') || '';
@@ -24,17 +26,18 @@ function ResetPasswordContent() {
       try {
         await requestPasswordReset(String(values.email || ''));
         toast({
-          title: "Success",
-          description: "If the email exists, a reset link has been sent.",
-          variant: "default"
+          title: t('toastSuccess'),
+          description: t('emailSent'),
+          variant: 'default',
         });
         setStage('email');
-      } catch (err: any) {
-        helpers?.setFieldError('email', err?.message || 'Failed to send reset email');
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : t('sendFailed');
+        helpers?.setFieldError('email', message);
         toast({
-          variant: "destructive",
-          title: "Error",
-          description: err?.message || 'Failed to send reset email'
+          variant: 'destructive',
+          title: t('toastError'),
+          description: message,
         });
       }
     },
@@ -46,38 +49,39 @@ function ResetPasswordContent() {
     async (values, helpers) => {
       try {
         if (values.password !== values.confirmPassword) {
-          helpers?.setFieldError('confirmPassword', 'Passwords do not match');
+          helpers?.setFieldError('confirmPassword', t('passwordMismatch'));
           toast({
-            variant: "destructive",
-            title: "Error",
-            description: "Passwords do not match"
+            variant: 'destructive',
+            title: t('toastError'),
+            description: t('passwordMismatch'),
           });
           return;
         }
 
         if (!token) {
-          helpers?.setFieldError('password', 'Invalid or expired reset link');
+          helpers?.setFieldError('password', t('invalidLink'));
           toast({
-            variant: "destructive",
-            title: "Error",
-            description: "Invalid or expired reset link"
+            variant: 'destructive',
+            title: t('toastError'),
+            description: t('invalidLink'),
           });
           return;
         }
 
         await resetPassword(token, String(values.password || ''));
         toast({
-          title: "Success",
-          description: "Password reset successfully!",
-          variant: "default"
+          title: t('toastSuccess'),
+          description: t('resetSuccess'),
+          variant: 'default',
         });
         setStage('success');
-      } catch (err: any) {
-        helpers?.setFieldError('password', err?.message || 'Password reset failed');
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : t('resetFailed');
+        helpers?.setFieldError('password', message);
         toast({
-          variant: "destructive",
-          title: "Error",
-          description: err?.message || 'Password reset failed'
+          variant: 'destructive',
+          title: t('toastError'),
+          description: message,
         });
       }
     }
@@ -85,90 +89,96 @@ function ResetPasswordContent() {
 
   if (stage === 'email') {
     return (
-      <>
-        <AuthLayout title="Reset Password" subtitle="Enter your email to receive reset instructions">
-          <form onSubmit={emailForm.handleSubmit} className="space-y-6">
-            <InputField
-              label="Email Address"
-              name="email"
-              type="email"
-              value={emailForm.values.email}
-              onChange={emailForm.handleChange}
-              error={emailForm.errors.email}
-              placeholder="you@example.com"
-              required
-              autoComplete="email"
-            />
+      <AuthLayout title={t('emailTitle')} subtitle={t('emailSubtitle')}>
+        <form onSubmit={emailForm.handleSubmit} className="space-y-6">
+          <InputField
+            label={t('emailLabel')}
+            name="email"
+            type="email"
+            value={emailForm.values.email}
+            onChange={emailForm.handleChange}
+            error={emailForm.errors.email}
+            placeholder={t('emailPlaceholder')}
+            required
+            autoComplete="email"
+          />
 
-            <Button type="submit" loading={emailForm.isSubmitting}>
-              Send Reset Link
-            </Button>
+          <Button type="submit" loading={emailForm.isSubmitting}>
+            {t('sendLink')}
+          </Button>
 
-            <p className="text-center text-sm text-gray-600">
-              Remember your password? <Link href="/login" className="text-blue-600 hover:text-blue-700">Sign in</Link>
-            </p>
-          </form>
-        </AuthLayout>
-      </>
+          <p className="text-center text-sm text-gray-600">
+            {t('rememberPassword')}{' '}
+            <Link href="/login" className="text-blue-600 hover:text-blue-700">
+              {t('signIn')}
+            </Link>
+          </p>
+        </form>
+      </AuthLayout>
     );
   }
 
   if (stage === 'reset') {
     return (
-      <>
-        <AuthLayout title="Create New Password" subtitle="Enter your new password below">
-          <form onSubmit={resetForm.handleSubmit} className="space-y-6">
-            <InputField
-              label="New Password"
-              name="password"
-              type="password"
-              value={resetForm.values.password}
-              onChange={resetForm.handleChange}
-              error={resetForm.errors.password}
-              placeholder="••••••••"
-              required
-              autoComplete="new-password"
-            />
+      <AuthLayout title={t('resetTitle')} subtitle={t('resetSubtitle')}>
+        <form onSubmit={resetForm.handleSubmit} className="space-y-6">
+          <InputField
+            label={t('newPasswordLabel')}
+            name="password"
+            type="password"
+            value={resetForm.values.password}
+            onChange={resetForm.handleChange}
+            error={resetForm.errors.password}
+            placeholder={t('passwordPlaceholder')}
+            required
+            autoComplete="new-password"
+          />
 
-            <InputField
-              label="Confirm Password"
-              name="confirmPassword"
-              type="password"
-              value={resetForm.values.confirmPassword}
-              onChange={resetForm.handleChange}
-              error={resetForm.errors.confirmPassword}
-              placeholder="••••••••"
-              required
-              autoComplete="new-password"
-            />
+          <InputField
+            label={t('confirmPasswordLabel')}
+            name="confirmPassword"
+            type="password"
+            value={resetForm.values.confirmPassword}
+            onChange={resetForm.handleChange}
+            error={resetForm.errors.confirmPassword}
+            placeholder={t('passwordPlaceholder')}
+            required
+            autoComplete="new-password"
+          />
 
-            <p className="text-xs text-gray-500 bg-blue-50 p-3 rounded">⏱ This reset link will expire in 1 hour</p>
+          <p className="text-xs text-gray-500 bg-blue-50 p-3 rounded">⏱ {t('expiryNote')}</p>
 
-            <Button type="submit" loading={resetForm.isSubmitting}>
-              Reset Password
-            </Button>
-          </form>
-        </AuthLayout>
-      </>
+          <Button type="submit" loading={resetForm.isSubmitting}>
+            {t('resetButton')}
+          </Button>
+        </form>
+      </AuthLayout>
     );
   }
 
   return (
-    <>
-      <AuthLayout title="Password Reset Successful" subtitle="Your password has been updated">
-        <div className="space-y-6 text-center">
-          <div className="text-5xl">✓</div>
-          <p className="text-gray-600">Your password has been reset. You can now sign in with your new password.</p>
-          <Button onClick={() => router.push('/login')}>Return to Sign In</Button>
-        </div>
-      </AuthLayout>
-    </>
+    <AuthLayout title={t('successTitle')} subtitle={t('successSubtitle')}>
+      <div className="space-y-6 text-center">
+        <div className="text-5xl">✓</div>
+        <p className="text-gray-600">{t('successBody')}</p>
+        <Button onClick={() => router.push('/login')}>{t('returnSignIn')}</Button>
+      </div>
+    </AuthLayout>
+  );
+}
+
+function ResetPasswordFallback() {
+  const t = useTranslations('ResetPassword');
+  return (
+    <AuthLayout title={t('fallbackTitle')} subtitle={t('fallbackSubtitle')}>
+      <div />
+    </AuthLayout>
   );
 }
 
 export default function ResetPasswordPage() {
   return (
-    <Suspense fallback={<AuthLayout title="Reset Password" subtitle="Create a new password"><div /></AuthLayout>}>
+    <Suspense fallback={<ResetPasswordFallback />}>
       <ResetPasswordContent />
     </Suspense>
   );

@@ -25,26 +25,29 @@ export default function DashboardLayoutWrapper({
     process.env.NEXT_PUBLIC_DISABLE_EMAIL_VERIFICATION === 'true' ||
     process.env.NEXT_PUBLIC_BYPASS_EMAIL_VERIFICATION === 'true';
 
-  // Define routes that should NOT have the sidebar/topbar (auth pages)
-  const isAuthPage = pathname === '/login' || 
-                     pathname === '/signup' || 
-                     pathname === '/reset-password' || 
-                     pathname === '/verification' ||
-                     pathname === '/verify-email' ||
-                     pathname === '/onboarding' ||
-                     pathname === '/kyc';
+  // Public routes should NOT require a token and should NOT show the app shell.
+  // Keeping `/account-blocked` public prevents blocked users from being bounced back to `/login`.
+  const isPublicPage =
+    pathname === '/login' ||
+    pathname === '/signup' ||
+    pathname === '/reset-password' ||
+    pathname === '/verification' ||
+    pathname === '/verify-email' ||
+    pathname === '/onboarding' ||
+    pathname === '/kyc' ||
+    pathname === '/account-blocked';
 
   useEffect(() => {
-    // Only redirect if not on an auth page
-    if (!isAuthPage) {
+    // Only enforce auth on non-public routes
+    if (!isPublicPage) {
       const token = getToken();
       if (!token) {
         router.replace('/login');
       }
     }
-  }, [router, isAuthPage]);
+  }, [router, isPublicPage]);
 
-  if (isAuthPage) {
+  if (isPublicPage) {
     return <>{children}</>;
   }
 

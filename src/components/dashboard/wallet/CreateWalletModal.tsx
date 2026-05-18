@@ -9,6 +9,7 @@ import { createWallet } from '@/src/lib/api/wallet';
 import { Loader2, Plus, Wallet, Sparkles, ShieldCheck } from 'lucide-react';
 import { toast } from 'sonner';
 import { useTranslations } from 'next-intl';
+import { AFRICAN_COUNTRIES } from '@/src/lib/constants/africa';
 
 interface CreateWalletModalProps {
   open: boolean;
@@ -19,7 +20,7 @@ interface CreateWalletModalProps {
 export function CreateWalletModal({ open, onOpenChange, onSuccess }: CreateWalletModalProps) {
   const t = useTranslations('Wallet');
   const [loading, setLoading] = useState(false);
-  const [currency, setCurrency] = useState('MWK');
+  const [currency, setCurrency] = useState('NGN');
   const [type, setType] = useState('personal');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -64,10 +65,18 @@ export function CreateWalletModal({ open, onOpenChange, onSuccess }: CreateWalle
                 <SelectTrigger className="h-14 rounded-2xl bg-slate-50 dark:bg-slate-800 border-none font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-green-500/20">
                   <SelectValue placeholder={t('createModal.selectCurrency')} />
                 </SelectTrigger>
-                <SelectContent className="rounded-2xl border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-800 shadow-xl">
-                  <SelectItem value="MWK" className="font-bold py-3 dark:text-white focus:bg-slate-100 dark:focus:bg-slate-700">{t('createModal.currencies.mwk')}</SelectItem>
-                  <SelectItem value="CNY" className="font-bold py-3 dark:text-white focus:bg-slate-100 dark:focus:bg-slate-700">{t('createModal.currencies.cny')}</SelectItem>
-                  <SelectItem value="ZMW" className="font-bold py-3 dark:text-white focus:bg-slate-100 dark:focus:bg-slate-700">{t('createModal.currencies.zmw')}</SelectItem>
+                <SelectContent className="rounded-2xl border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-800 shadow-xl max-h-[300px]">
+                  {AFRICAN_COUNTRIES.map((country) => (
+                    <SelectItem 
+                      key={`${country.code}-${country.currency}`} 
+                      value={country.currency} 
+                      className="font-bold py-3 dark:text-white focus:bg-slate-100 dark:focus:bg-slate-700"
+                    >
+                      {country.name} ({country.currency})
+                    </SelectItem>
+                  ))}
+                  {/* Backward compatibility for CNY */}
+                  <SelectItem value="CNY" className="font-bold py-3 dark:text-white focus:bg-slate-100 dark:focus:bg-slate-700">China (CNY)</SelectItem>
                 </SelectContent>
               </Select>
             </div>

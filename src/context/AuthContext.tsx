@@ -35,7 +35,7 @@ const mapToProfile = (raw: any): UserProfile => {
     email: String(raw?.email || ''),
     phone: String(raw?.phone || ''),
     kycStatus: raw?.kyc_status || 'unverified',
-    avatarUrl: '/icons/avatar-default.png',
+    avatarUrl: String(raw?.profile_picture_url || raw?.profilePictureURL || raw?.avatarUrl || ''),
     accountLabel,
     countryCode: country,
     userType: type,
