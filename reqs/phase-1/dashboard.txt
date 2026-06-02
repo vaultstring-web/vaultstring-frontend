@@ -1,0 +1,45 @@
+DASHBOARD STRUCTURE REQUIREMENTS
+Dashboard Layout Components
+Navigation:
+
+Sidebar (collapsible on mobile)
+
+Top bar with user menu, notifications, quick actions
+
+Responsive breakpoints for mobile drawer
+
+Main Content Areas:
+
+Overview/Summary: Balance, recent transactions, quick stats
+
+Transaction History: Filterable table with pagination
+
+Wallet Management: Multi-currency wallet views
+
+Transfer Interface: Send/receive money forms
+
+Compliance Status: KYC/AML status indicator
+
+Settings/Profile: User account management
+
+User Role Considerations:
+Customer Dashboard: Personal transfers, transaction history, personal settings
+
+Business Dashboard: Bulk payments, team management, business analytics
+
+Agent Dashboard: Cash-in/cash-out operations, commission tracking
+
+Admin Dashboard: User management, compliance review, system monitoring
+
+Key Dashboard Pages to Plan:
+Dashboard Home: Main overview with widgets/cards
+
+Wallet: Currency-specific views with conversion tools
+
+Send Money: Multi-step send form with recipient management
+
+Transaction History: Advanced filtering and export options
+
+Profile & Settings: Personal/Business information management
+
+Security: 2FA, devices, login history

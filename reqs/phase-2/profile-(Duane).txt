@@ -1,0 +1,255 @@
+Duane
+1. Profile Management
+A. Personal Information
+Editable Fields:
+
+Full name (first, middle, last)
+
+Email address (with verification status)
+
+Phone number (with verification status)
+
+Date of birth
+
+Nationality
+
+Occupation
+
+Display-Only Fields:
+
+Account creation date
+
+User ID
+
+Member tier/level
+
+Last profile update
+
+B. Contact Preferences
+Notification settings (email, SMS, push)
+
+Marketing preferences opt-in/out
+
+Statement frequency (weekly, monthly)
+
+Language preference
+
+C. Avatar/Profile Photo
+Upload/change profile picture
+
+Crop tool integration
+
+Size/format validation
+
+Remove/restore default
+
+2. Password Management
+A. Change Password Flow:
+Current password verification
+
+New password entry:
+
+Strength meter (visual indicator)
+
+Requirements checklist:
+
+Minimum 8 characters
+
+Upper & lowercase letters
+
+At least one number
+
+At least one special character
+
+Confirm new password
+
+Success confirmation with logout option
+
+B. Password Strength Meter:
+Weak: Red (under 8 chars)
+
+Fair: Orange (meets minimum)
+
+Good: Yellow (strong)
+
+Excellent: Green (very strong)
+
+C. Security Recommendations:
+Last changed date display
+
+"Change every 90 days" reminder
+
+Unique password warning
+
+Browser password manager compatibility
+
+3. Two-Factor Authentication (2FA)
+A. 2FA Setup Flow:
+Enable 2FA option toggle
+
+Method selection:
+
+Authenticator app (TOTP) - Recommended
+
+SMS verification
+
+Backup codes generation
+
+QR code display for authenticator apps
+
+Verification code entry (6 digits)
+
+Backup codes display & download
+
+Confirmation and recovery options
+
+B. 2FA Management:
+Status indicator: Enabled/Disabled
+
+Last used: Timestamp
+
+Trusted devices list (mock)
+
+Recovery options:
+
+View backup codes
+
+Regenerate backup codes
+
+Change 2FA method
+
+Disable 2FA
+
+C. Recovery Flow (mock):
+Email verification step
+
+Backup code entry
+
+Security questions (if set)
+
+Account recovery request
+
+4. Security Dashboard
+A. Security Score:
+Visual score (0-100) with color coding
+
+Breakdown of factors:
+
+Password strength
+
+2FA enabled
+
+Account recovery setup
+
+Recent security activity
+
+B. Active Sessions:
+List of logged-in devices/locations
+
+Device type icons (desktop, mobile, tablet)
+
+Last activity timestamps
+
+Action: "Log out from this device"
+
+C. Login History:
+Last 10 login attempts
+
+Success/failure status
+
+IP address (masked)
+
+Location (city/country - mock)
+
+Suspicious activity alerts
+
+5. Connected Accounts & Permissions
+A. Third-party Integrations:
+Bank account connections (mock)
+
+Payment method integrations
+
+External wallet connections
+
+API key management (for developers)
+
+B. App Permissions:
+Browser notification settings
+
+Location access
+
+Camera/microphone permissions
+
+Data sharing preferences
+
+6. Account Actions
+A. Data Management:
+Download account data (mock export)
+
+Request data deletion (initiation only)
+
+Clear search history
+
+Reset preferences
+
+B. Account Status:
+Upgrade/downgrade tier (CTA)
+
+Account freeze request
+
+Permanent deletion request
+
+Multiple confirmation steps
+
+Warning of irreversible actions
+
+Final password verification
+
+7. Responsive Design
+Mobile: Vertical tabs or accordion
+
+Tablet: Split panel layout
+
+Desktop: Three-column dashboard
+
+Print-friendly security reports
+
+8. Security Notifications
+Visual alerts for:
+
+Password change required
+
+2FA not enabled
+
+Unrecognized login
+
+Profile changes
+
+Dismissable alerts
+
+Notification history log
+
+11. Deliverables Checklist
+Profile edit form with validation
+
+Password change flow with strength meter
+
+2FA setup & management components
+
+Security dashboard with score
+
+Active sessions list
+
+Login history table
+
+Account actions panel
+
+Responsive tab navigation
+
+Security notification system
+
+Empty/state components
+
+Confirmation modals for destructive actions
+
+Mock data service layer

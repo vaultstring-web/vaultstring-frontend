@@ -1,0 +1,52 @@
+AUTHENTICATION PAGES REQUIREMENTS
+/login
+Layout: Centered card on full-viewport background
+
+Fields: Email, Password, "Remember me" checkbox
+
+Actions: Submit, "Forgot password?" link
+
+# Social Auth: Optional divider with "Continue with Google/Apple" (OPTIONAL)
+
+Redirect: Successful login → dashboard or onboarding if incomplete
+
+Validation: Real-time validation with clear error states
+
+Security: Rate limiting indicators, CAPTCHA if needed
+
+/signup
+
+Fields: Email, Password, Confirm Password, Terms acceptance
+
+Business vs. Individual: Early toggle or detection for routing
+
+Verification: Email verification required before proceeding
+
+Password Strength: Real-time indicator with requirements
+
+/reset-password
+Flow:
+
+Email input → Send reset link
+
+Token validation → New password form
+
+Success confirmation → Redirect to login
+
+Security: Token expiry (1 hour), single-use tokens
+
+UX: Clear success/error states, loading indicators
+
+/verification
+Post-signup verification:
+
+Email verification code input (6-digit)
+
+Option to resend code (with cooldown timer)
+
+Fallback to magic link option
+
+Business verification: Different requirements if business account
+
+Completion: Auto-redirect to onboarding upon success
+

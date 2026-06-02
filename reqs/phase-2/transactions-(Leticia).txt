@@ -1,0 +1,102 @@
+Leticia
+1. Transaction List View
+Main Table/List Display:
+Each row shows: Name, Time, Amount, Description
+
+Visual status indicator (color-coded dots/icons)
+
+Transaction type icon (send, receive, deposit, withdrawal)
+
+Expandable row for more details
+
+Columns:
+Date/Time: MM/DD/YYYY HH:MM AM/PM (sortable)
+
+Recipient/Sender: Name or masked account
+
+Amount: Formatted with currency symbol (color-coded: green for credit, red for debit)
+
+Description: First 40 chars with "..." truncation
+
+Status: Badges (Completed, Pending, Failed)
+
+2. Advanced Filtering
+Quick Filters:
+Transaction type: All, Sent, Received, Deposits, Withdrawals
+
+Status: All, Completed, Pending, Failed
+
+Date range: Today, Last 7 days, This month, Custom range
+
+Advanced Filter Panel:
+Amount range (min/max)
+
+Currency filter (ZMW, CNY, USD)
+
+Search by name/description
+
+Hide/show columns toggle
+
+3. Transaction Details Modal
+When clicking a transaction:
+Full transaction metadata
+
+Sender details: Name, account, contact info
+
+Recipient details: Name, account, contact info
+
+Transaction ID: Copyable reference number
+
+Fees breakdown: Separate from amount
+
+Exchange rate used (if applicable)
+
+Payment method: Bank transfer, mobile, etc.
+
+Timeline: Initiated → Processing → Completed
+
+4. Bulk Actions & Export
+Select multiple transactions
+
+Export selected to CSV/PDF (UI only)
+
+Batch status update (placeholder)
+
+Print receipts option
+
+5. Empty & Loading States
+Empty: "No transactions yet" with CTA
+
+Loading: Skeleton rows (5-10)
+
+Error: "Unable to load" with retry button
+
+Search empty: "No results found" with filter clear
+
+6. Responsive Design
+Mobile: Card view instead of table
+
+Tablet: Compact table with horizontal scroll
+
+Desktop: Full table with all columns
+
+Print-friendly receipt view
+
+7 Deliverables Checklist
+Transaction table component
+
+Transaction card component (mobile)
+
+Filter panel with search
+
+Details modal with full metadata
+
+Export functionality (UI)
+
+Empty/loading/error states
+
+Date range picker integration
+
+Responsive breakpoints
+
+Status badge components

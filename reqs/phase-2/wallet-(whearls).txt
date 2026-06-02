@@ -1,0 +1,277 @@
+Whearls
+1. Wallet Overview Page
+Primary Components:
+Multi-currency wallet card/grid display
+
+Balance visibility toggle (show/hide)
+
+Total balance aggregation (convertible to base currency)
+
+Quick action buttons (Deposit, Withdraw, Send, Convert)
+
+Currency conversion calculator widget
+
+Design Requirements:
+Modern card-based interface
+
+Balance visibility toggle (eye icon with secure masking)
+
+Color-coded currency indicators
+
+Progress indicators for limits/usage
+
+Responsive grid layout (2-4 columns based on screen size)
+
+2. Currency-Specific Wallet Views
+Supported Currencies (Initial):
+Kwacha (ZMW) - Primary currency
+
+Yuan (CNY) - Secondary currency
+
+USD - Reserve currency (optional)
+
+Crypto placeholder - For future expansion
+
+Per-Currency Display:
+Current balance (formatted with currency symbol)
+
+Available balance vs Held balance (if applicable)
+
+Recent transactions (last 3-5)
+
+Conversion rate to primary currency
+
+Action buttons specific to currency
+
+3. Balance Visibility Toggle
+Functionality:
+Global toggle affecting all currency displays
+
+Individual currency toggle option
+
+Secure masking format: ••••••• or *******
+
+Animation on toggle (fade in/out)
+
+State persistence per session (localStorage)
+
+Visual Design:
+Eye icon with open/closed states
+
+Tooltip on hover: "Show/Hide balances"
+
+Accessible labels for screen readers
+
+Color states (gray when hidden, accent when visible)
+
+4. Deposit Interface
+A. Deposit Flow Steps:
+Currency Selection
+
+Dropdown with currency flags/icons
+
+Available deposit methods per currency
+
+Estimated processing times
+
+Method Selection
+
+Bank transfer (for Kwacha/Yuan)
+
+Mobile money
+
+Card deposit
+
+Other payment providers
+
+Amount Entry
+
+Numeric input with currency formatting
+
+Min/max deposit limits display
+
+Fee calculator (real-time calculation)
+
+"You will receive:" display
+
+Confirmation Screen
+
+Summary of deposit details
+
+Reference number generation
+
+QR code option for mobile deposits
+
+Estimated completion time
+
+"Make another deposit" option
+
+B. Deposit Status Tracking:
+Pending deposits list
+
+Processing timeline visualization
+
+Status badges: Processing, Completed, Failed
+
+Transaction history integration
+
+5. Withdrawal Interface
+A. Withdrawal Flow Steps:
+Withdrawal Method Selection
+
+Bank account withdrawal
+
+Mobile money payout
+
+Card withdrawal
+
+To another VaultString user
+
+Recipient Details
+
+Saved beneficiaries management
+
+New recipient form
+
+Bank details validation UI
+
+Mobile number validation
+
+Amount & Review
+
+Available balance display
+
+Withdrawal limits indicator
+
+Fee breakdown
+
+Exchange rate (if cross-currency)
+
+Delivery time estimate
+
+Security Verification
+
+2FA prompt placeholder
+
+PIN entry modal
+
+Email/SMS verification step
+
+Confirmation & Receipt
+
+Transaction summary
+
+Receipt generation
+
+Reference number
+
+Status tracking link
+
+B. Withdrawal Limits:
+Daily/weekly/monthly limit display
+
+Progress bars for limit usage
+
+Tier-based limit indicators
+
+"Request limit increase" option
+
+6. Wallet Management Features
+A. Currency Exchange/Conversion:
+Quick convert widget
+
+Real-time rate display
+
+Bid/ask spread indicator
+
+Conversion calculator
+
+Historical rate chart (placeholder)
+
+B. Wallet Settings:
+Default currency preference
+
+Auto-conversion rules (placeholder)
+
+Notification preferences
+
+Statement generation UI
+
+Export transaction history
+
+C. Security Features:
+Wallet lock/unlock toggle
+
+Withdrawal whitelist management
+
+Session timeout settings
+
+Device management integration point
+
+7. Transaction History & Statements
+A. Wallet-Specific Transactions:
+Filter by: All, Deposits, Withdrawals, Conversions
+
+Sort by: Date, Amount, Status
+
+Search within transactions
+
+Export to CSV/PDF (UI only)
+
+B. Transaction Details Modal:
+Full transaction metadata
+
+Status timeline
+
+Reference numbers
+
+Contact support option
+
+"Report issue" button
+
+8. Empty & Error States
+A. Empty States:
+No transactions yet
+
+Zero balance encouragement
+
+No saved beneficiaries
+
+No withdrawal methods added
+
+B. Error States:
+Insufficient balance
+
+Withdrawal limit exceeded
+
+Service unavailable
+
+Network errors
+
+Validation errors
+
+9. Responsive Design Requirements
+Mobile:
+Single-column wallet cards
+
+Collapsible currency sections
+
+Bottom navigation for actions
+
+Simplified deposit/withdrawal flows
+
+Tablet:
+2-column wallet grid
+
+Split-screen flows where appropriate
+
+Optimized form layouts
+
+Desktop:
+Full dashboard integration
+
+Multi-column layouts
+
+Advanced features exposed
+
+Comparison views

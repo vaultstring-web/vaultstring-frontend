@@ -1,0 +1,30 @@
+IMPLEMENTATION GUIDELINES FOR TEAM
+Component Development Principles:
+Atomic Design: Build from atoms → molecules → organisms → templates
+
+Composition: Prefer compound components over monolithic ones
+
+Accessibility First: ARIA labels, keyboard navigation, screen reader support
+
+Mobile-First: Design for mobile, enhance for desktop
+
+Performance: Lazy load non-critical components, optimize images
+
+State Management Strategy:
+Server State: TanStack Query for API data
+
+Client State: Zustand for UI state (or Redux Toolkit if preferred)
+
+Form State: React Hook Form with Zod validation
+
+Auth State: Context/provider pattern with persistent sessions
+
+
+Testing Strategy:
+Unit tests for components and utilities
+
+Integration tests for critical user flows (auth, onboarding, transfer)
+
+E2E tests for happy paths with Cypress or Playwright
+
+
