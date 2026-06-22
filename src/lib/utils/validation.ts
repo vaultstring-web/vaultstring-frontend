@@ -52,6 +52,41 @@ export const validators = {
   }
 };
 
+const COUNTRY_DIAL_CODES: Record<string, string> = {
+  MW: '265',
+  CN: '86',
+  US: '1',
+  GB: '44',
+  ZA: '27',
+  NG: '234',
+  KE: '254',
+  TZ: '255',
+  UG: '256',
+  RW: '250',
+  GH: '233',
+};
+
+/** Normalize local phone input to E.164 using a 2-letter country code. */
+export function normalizePhoneE164(phone: string, countryCode: string): string {
+  let normalized = phone.trim().replace(/[\s\-().]/g, '');
+  if (normalized.startsWith('+')) {
+    return normalized;
+  }
+
+  const cc = countryCode.trim().toUpperCase();
+  normalized = normalized.replace(/^0+/, '');
+
+  const dial = COUNTRY_DIAL_CODES[cc];
+  if (dial) {
+    if (normalized.startsWith(dial)) {
+      return `+${normalized}`;
+    }
+    return `+${dial}${normalized}`;
+  }
+
+  return normalized.startsWith('+') ? normalized : `+${normalized}`;
+}
+
 export const getPasswordStrength = (password: string): {
   strength: 'weak' | 'fair' | 'good' | 'strong';
   score: number;

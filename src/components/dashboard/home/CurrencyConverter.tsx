@@ -11,6 +11,7 @@ import {
 interface CurrencyConverterProps {
   rates?: Record<string, number>;
   primaryCurrency?: string;
+  compact?: boolean;
 }
 
 import {
@@ -22,7 +23,7 @@ import {
 } from "@/src/components/ui/select";
 import { useTranslations } from 'next-intl';
 
-export default function CurrencyConverter({ rates, primaryCurrency = 'MWK' }: CurrencyConverterProps) {
+export default function CurrencyConverter({ rates, primaryCurrency = 'MWK', compact = false }: CurrencyConverterProps) {
   const t = useTranslations('Dashboard');
   const [convertAmount, setConvertAmount] = useState<number | ''>(1000);
   const [sourceCurrency, setSourceCurrency] = useState<string>(primaryCurrency);
@@ -94,35 +95,49 @@ export default function CurrencyConverter({ rates, primaryCurrency = 'MWK' }: Cu
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800">
-      <div className="flex items-center justify-between mb-6">
+    <div
+      className={
+        compact
+          ? 'vs-card-shell flex flex-col gap-4 p-4'
+          : 'bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800'
+      }
+    >
+      <div className={`flex items-center justify-between ${compact ? 'mb-0' : 'mb-6'}`}>
         <h3 className="font-semibold text-slate-800 dark:text-white flex items-center gap-2">
           <RefreshCw size={20} className="text-slate-400 dark:text-slate-500" />
           {t('currencyConverter')}
         </h3>
-        <div className="flex gap-2">
-          <button className="text-sm text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-500/10 px-3 py-1 rounded-md transition-colors font-medium">
-            {t('converter.setAlert')}
-          </button>
-          <Link
-            href="/transactions"
-            className="text-sm text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 px-3 py-1 rounded-md transition-colors font-medium"
-          >
-            {t('converter.viewHistory')}
-          </Link>
-        </div>
+        {!compact ? (
+          <div className="flex gap-2">
+            <button className="text-sm text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-500/10 px-3 py-1 rounded-md transition-colors font-medium">
+              {t('converter.setAlert')}
+            </button>
+            <Link
+              href="/transactions"
+              className="text-sm text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 px-3 py-1 rounded-md transition-colors font-medium"
+            >
+              {t('converter.viewHistory')}
+            </Link>
+          </div>
+        ) : null}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-7 gap-4 items-center bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl border border-slate-100 dark:border-slate-800">
+      <div
+        className={
+          compact
+            ? 'grid grid-cols-1 gap-3'
+            : 'grid grid-cols-1 md:grid-cols-7 gap-4 items-center bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl border border-slate-100 dark:border-slate-800'
+        }
+      >
         
         {/* FROM Section */}
         <div className="md:col-span-3 space-y-2">
-          <label className="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t('converter.from')}</label>
+          <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t('converter.from')}</label>
           <div className="flex bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-green-500 shadow-sm">
             <div className="border-r border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800">
                 <Select value={sourceCurrency} onValueChange={(v: any) => setSourceCurrency(v)}>
                     <SelectTrigger className="w-[100px] h-full border-none bg-transparent focus:ring-0 font-bold text-slate-700 dark:text-white rounded-none">
-                        <SelectValue placeholder="Cur" />
+                        <SelectValue placeholder={t('converter.currencyPlaceholder')} />
                     </SelectTrigger>
                     <SelectContent className="dark:bg-slate-800 dark:border-slate-700">
                         <SelectItem value="MWK" className="dark:text-white dark:focus:bg-slate-700">MWK</SelectItem>
@@ -136,7 +151,7 @@ export default function CurrencyConverter({ rates, primaryCurrency = 'MWK' }: Cu
               value={convertAmount}
               onChange={(e) => setConvertAmount(e.target.value ? parseFloat(e.target.value) : '')}
               className="w-full px-4 py-3 outline-none text-slate-900 dark:text-white font-bold bg-white dark:bg-slate-900"
-              placeholder="0.00"
+              placeholder={t('converter.amountPlaceholder')}
             />
           </div>
         </div>
@@ -145,7 +160,7 @@ export default function CurrencyConverter({ rates, primaryCurrency = 'MWK' }: Cu
         <div className="md:col-span-1 flex justify-center py-2 md:py-0">
           <button 
             onClick={toggleDirection}
-            className="p-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full hover:bg-green-50 dark:hover:bg-green-500/10 hover:text-green-600 dark:hover:text-green-400 hover:border-green-200 dark:hover:border-green-500/50 transition-all shadow-sm group hover:scale-110 active:scale-95"
+            className="p-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full hover:bg-green-50 dark:hover:bg-green-500/10 hover:text-green-600 dark:hover:text-green-400 hover:border-green-200 dark:hover:border-green-500/50 transition-all shadow-sm group hover:scale-110"
           >
             <ArrowRightLeft size={20} className="text-slate-600 dark:text-slate-400 group-hover:rotate-180 transition-transform duration-300" />
           </button>
@@ -153,12 +168,12 @@ export default function CurrencyConverter({ rates, primaryCurrency = 'MWK' }: Cu
 
         {/* TO Section */}
         <div className="md:col-span-3 space-y-2">
-          <label className="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t('converter.to')}</label>
+          <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t('converter.to')}</label>
             <div className="flex bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl overflow-hidden shadow-inner opacity-90">
             <div className="border-r border-slate-300 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-800/50">
                 <Select value={targetCurrency} onValueChange={(v: any) => setTargetCurrency(v)}>
                     <SelectTrigger className="w-[100px] h-full border-none bg-transparent focus:ring-0 font-bold text-slate-700 dark:text-white rounded-none">
-                        <SelectValue placeholder="Cur" />
+                        <SelectValue placeholder={t('converter.currencyPlaceholder')} />
                     </SelectTrigger>
                     <SelectContent className="dark:bg-slate-800 dark:border-slate-700">
                         <SelectItem value="MWK" className="dark:text-white dark:focus:bg-slate-700">MWK</SelectItem>
@@ -167,7 +182,7 @@ export default function CurrencyConverter({ rates, primaryCurrency = 'MWK' }: Cu
                     </SelectContent>
                 </Select>
             </div>
-            <div className="w-full px-4 py-3 text-slate-900 dark:text-white font-black bg-slate-100/50 dark:bg-slate-800/50 flex items-center">
+            <div className="w-full px-4 py-3 text-slate-900 dark:text-white font-semibold bg-slate-100/50 dark:bg-slate-800/50 flex items-center">
                 {getConversionResult()}
             </div>
           </div>

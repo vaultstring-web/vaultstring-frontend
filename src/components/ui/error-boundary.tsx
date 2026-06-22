@@ -7,6 +7,9 @@ import { AlertTriangle } from 'lucide-react';
 interface ErrorBoundaryProps {
   children: React.ReactNode;
   fallback?: React.ReactNode;
+  title?: string;
+  message?: string;
+  retryLabel?: string;
 }
 
 interface ErrorBoundaryState {
@@ -38,16 +41,18 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
           <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-full mb-4">
             <AlertTriangle className="text-red-600 dark:text-red-400" size={24} />
           </div>
-          <h3 className="text-lg font-bold text-red-900 dark:text-red-200 mb-2">Something went wrong</h3>
+          <h3 className="text-lg font-bold text-red-900 dark:text-red-200 mb-2">
+            {this.props.title ?? 'Something went wrong'}
+          </h3>
           <p className="text-sm text-red-600 dark:text-red-300 mb-4 max-w-md">
-            {this.state.error?.message || 'An unexpected error occurred while loading this component.'}
+            {this.state.error?.message || this.props.message || 'An unexpected error occurred while loading this component.'}
           </p>
           <Button 
             variant="outline" 
             onClick={() => this.setState({ hasError: false })}
             className="border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 hover:bg-red-100 dark:hover:bg-red-900/30"
           >
-            Try Again
+            {this.props.retryLabel ?? 'Try Again'}
           </Button>
         </div>
       );

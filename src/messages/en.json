@@ -11,6 +11,33 @@
     "recentActivity": "Recent Activity",
     "viewAll": "View All",
     "noRecentActivity": "No recent activity",
+    "quickActions": {
+      "title": "Quick actions",
+      "send": "Send money",
+      "deposit": "Add funds",
+      "history": "Transactions",
+      "wallets": "Wallets"
+    },
+    "metrics": {
+      "activeWallets": "Active wallets",
+      "pendingTransfers": "Pending transfers",
+      "primaryBalance": "Primary balance",
+      "monthlyUsage": "Monthly limit used"
+    },
+    "moneySources": {
+      "title": "Linked payment methods",
+      "subtitle": "Same providers as deposit — manage in Wallet or Settings.",
+      "viewWallet": "Open wallet"
+    },
+    "pendingActions": {
+      "title": "Needs your attention",
+      "verifyIdentityTitle": "Complete identity verification",
+      "verifyIdentitySubtitle": "Unlock wallets, higher limits, and international transfers.",
+      "verifyEmailTitle": "Verify your email",
+      "verifyEmailSubtitle": "Confirm your email to secure account recovery and alerts.",
+      "pendingTransfersTitle": "{count, plural, one {# pending transfer} other {# pending transfers}}",
+      "pendingTransfersSubtitle": "Review status in your transaction history."
+    },
     "currentRate": "Current Rate",
     "lastUpdatedJustNow": "Last updated: just now",
     "verificationRequired": "Identity Verification Required",
@@ -22,14 +49,37 @@
       "setAlert": "Set Alert",
       "viewHistory": "View History",
       "from": "From",
-      "to": "To"
+      "to": "To",
+      "currencyPlaceholder": "Cur",
+      "amountPlaceholder": "0.00"
+    },
+    "walletData": {
+      "title": "No wallet data",
+      "seedHint": "No wallets returned from the API. Run the database seed, then log in with the test customer account.",
+      "errorHint": "Wallet API request failed. Confirm the gateway is running on port 9000 and you are logged in.",
+      "loginHint": "Test login:",
+      "docsPath": "Seed steps: kyd-payment-system → docker compose --profile tools run --rm seed-runner (see docs/LOCAL_TESTING.md)"
+    },
+    "balanceHistory": {
+      "title": "Balance History",
+      "selectPeriod": "Select period",
+      "period7": "Last 7 Days",
+      "period30": "Last 30 Days",
+      "period90": "Last 3 Months",
+      "balanceLabel": "Balance",
+      "loading": "Loading balance history…",
+      "emptyTitle": "No balance history yet",
+      "emptyHint": "Your balance trend will appear here once you have transaction activity."
     },
     "market": {
       "overviewTitle": "Market Overview",
       "overviewSubtitle": "Real-time exchange rates and analytics",
       "open": "Market Open",
+      "badgeLive": "Live",
+      "badgeSeed": "Seed",
       "high24h": "24h High",
       "low24h": "24h Low",
+      "rateLabel": "Rate",
       "timing": {
         "title": "Timing Insights",
         "buyBadge": "Great Time to Buy",
@@ -41,13 +91,28 @@
       },
       "source": {
         "title": "Market Source",
-        "body": "Real-time data provided by Google Finance. Rates are indicative and may vary by provider."
+        "body": "Real-time data provided by Google Finance. Rates are indicative and may vary by provider.",
+        "bodyLive": "Rates from public FX APIs (Frankfurter, exchangerate.host). Cached in the database and refreshed every few minutes.",
+        "bodySeed": "Rates from seed data for offline testing. Set FOREX_LIVE_ENABLED=true on the backend for live rates."
       }
+    }
+  },
+  "MoneySources": {
+    "fundingTitle": "Money sources",
+    "payoutTitle": "Payout providers",
+    "moreInDeposit": "More providers available when you deposit or send money.",
+    "processing": {
+      "instant": "Instant",
+      "minutes": "5–15 min",
+      "days": "1–2 business days",
+      "card": "10–30 min",
+      "api": "API settlement"
     }
   },
   "Wallet": {
     "title": "My Wallets",
     "subtitle": "Manage your cards, digital assets, and liquidity tiers.",
+    "subtitleCompact": "Balances, funding sources, and recent activity.",
     "accountBalances": "Account Balances",
     "addNewCard": "Add New Card",
     "addMultiCurrencyCard": "Add Multi-Currency Card",
@@ -84,6 +149,73 @@
       "discard": "Discard Changes",
       "success": "Wallet created successfully",
       "error": "Failed to create wallet"
+    },
+    "overview": {
+      "title": "Portfolio summary",
+      "empty": "No balances yet",
+      "walletCount": "{count, plural, one {# wallet} other {# wallets}}",
+      "send": "Send money",
+      "deposit": "Add funds",
+      "withdraw": "Withdraw",
+      "addWallet": "Add wallet"
+    },
+    "card": {
+      "balance": "Balance",
+      "status": "Status",
+      "active": "Active",
+      "addMoney": "Add funds"
+    },
+    "recentActivityTitle": "Recent wallet activity",
+    "recentActivityViewAll": "View all transactions",
+    "balanceToggle": {
+      "show": "Show balances",
+      "hide": "Hide balances",
+      "visible": "Visible",
+      "hidden": "Hidden"
+    },
+    "balanceHeader": {
+      "totalBalance": "Total balance",
+      "currencies": "Currencies",
+      "status": "Status",
+      "active": "Active"
+    },
+    "moneySources": {
+      "title": "Deposit from",
+      "subtitle": "Choose a bank, mobile money, or card provider — tap to add funds."
+    },
+    "depositModal": {
+      "secureBadge": "Secure Funding",
+      "title": "Deposit {currency}",
+      "subtitle": "Instantly fund your wallet from your linked bank or card.",
+      "fundingSource": "Funding Source",
+      "selectSource": "Select source",
+      "linkedBank": "Linked Bank (**** 1234)",
+      "visaCard": "Visa Card (**** 5678)",
+      "depositAmount": "Deposit Amount",
+      "amountPlaceholder": "0.00",
+      "serviceFee": "Service Fee",
+      "totalSettlement": "Total Settlement",
+      "confirmDeposit": "Confirm Deposit",
+      "success": "Successfully deposited {currency} {amount}",
+      "successWithRef": "Deposited {currency} {amount}. Reference: {ref}",
+      "error": "Failed to deposit funds"
+    },
+    "withdrawModal": {
+      "secureBadge": "Secure transfer",
+      "title": "Withdraw {currency}",
+      "subtitle": "Move funds to another wallet or linked bank account via Send Money.",
+      "available": "Available balance",
+      "destination": "Destination",
+      "toWallet": "VaultString wallet",
+      "toBank": "Linked bank",
+      "payoutAccount": "Payout account",
+      "selectAccount": "Select account",
+      "linkedBank": "Linked Bank (**** 1234)",
+      "visaCard": "Visa Card (**** 5678)",
+      "bankNote": "Bank payouts complete through Send Money with your selected payout method.",
+      "amount": "Amount",
+      "amountPlaceholder": "0.00",
+      "continueToSend": "Continue to Send Money"
     }
   },
   "Profile": {
@@ -183,35 +315,85 @@
     "dialogIdentitySubtitle": "Keep your identity up to date on VaultString.",
     "bioPlaceholder": "Tell others about yourself (optional)",
     "defaultBioTagline": "VaultString customer",
+    "securitySettingsTitle": "Security Settings",
+    "passwordLastChanged": "Last changed 3 months ago",
+    "recoveryEmail": "Recovery Email",
+    "recoveryEmailSet": "Recovery email is set",
+    "recoveryEmailHint": "Add a recovery email for account access",
+    "addEmail": "Add Email",
+    "connected": "Connected",
+    "recoveryModalTitle": "Add Recovery Email",
+    "recoveryModalBody": "We'll send a verification link to this email address. It will be used to recover your account if you lose access.",
+    "recoveryEmailLabel": "Recovery Email Address",
+    "recoveryPlaceholder": "e.g. your.backup@email.com",
+    "recoveryComingSoon": "Recovery email is not available yet. Please contact support.",
+    "recoveryFailed": "Failed to add recovery email",
+    "recoverySuccess": "Recovery email added successfully",
+    "edit": "Edit",
+    "notSet": "Not set",
+    "emailChangeHint": "(Contact support to change)",
+    "phoneNumber": "Phone Number",
+    "kycStatusLabel": "KYC Status",
+    "loginHistory": {
+      "title": "Login History",
+      "device": "Device",
+      "location": "Location",
+      "dateTime": "Date & Time"
+    },
     "toasts": {
       "profileUpdated": "Profile updated successfully",
-      "profileFailed": "Failed to update profile",
+      "profileFailed": "Failed to update profile. Please try again.",
       "passwordFieldsRequired": "Please fill in all password fields",
       "passwordMismatch": "Passwords do not match",
       "passwordUpdated": "Password updated successfully",
-      "passwordFailed": "Failed to update password",
+      "passwordFailed": "Failed to update password. Please check your current password.",
       "totpSetupFailed": "Failed to set up two-factor authentication",
       "twoFactorDisabled": "Two-factor authentication disabled",
       "twoFactorDisableFailed": "Failed to disable two-factor authentication",
       "twoFactorEnabled": "Two-factor authentication enabled",
       "invalidTotpCode": "Invalid verification code",
       "avatarUploading": "Uploading avatar…",
-      "avatarUpdated": "Avatar updated"
+      "avatarUpdated": "Avatar updated",
+      "avatarFailed": "Failed to upload avatar",
+      "avatarInvalidType": "Please choose a JPEG, PNG, WEBP, or GIF image",
+      "avatarTooLarge": "Image must be 1.5MB or smaller"
     }
   },
   "Sidebar": {
     "dashboard": "Dashboard",
-    "wallet": "My Wallet",
-    "sendMoney": "Send Money",
+    "wallet": "Wallet",
+    "sendMoney": "Send money",
     "transactions": "Transactions",
     "profile": "Profile",
-    "verifyIdentity": "Verify Identity",
-    "signOut": "Sign Out"
+    "settings": "Settings",
+    "compliance": "Compliance",
+    "notifications": "Notifications",
+    "verifyIdentity": "Verify identity",
+    "signOut": "Sign out",
+    "sectionMoney": "Money",
+    "sectionAccount": "Account",
+    "closeMenu": "Close menu"
+  },
+  "Language": {
+    "label": "Display language",
+    "hint": "Applies across the app after you save your choice.",
+    "searchPlaceholder": "Search languages…",
+    "manageAll": "Browse all languages"
   },
   "SendMoney": {
     "title": "Send Money",
     "subtitle": "Initiate cross-border transfers and payouts securely.",
+    "subtitleCompact": "Recipient, amount, then funding and payout providers.",
     "instantSettlement": "Instant Settlement",
+    "stepper": {
+      "details": "Details",
+      "review": "Review",
+      "success": "Done",
+      "detailsHeading": "Transfer details",
+      "reviewHeading": "Review & confirm",
+      "continue": "Continue",
+      "backToEdit": "Back to edit"
+    },
     "kycRequired": {
       "title": "Identity Verification Required",
       "subtitle": "Please complete your KYC to unlock international transfers and higher limits."
@@ -239,6 +421,8 @@
       "generic": "An error occurred. Please try again."
     },
     "feeNote": "Fees are calculated dynamically based on liquidity and network volume at the time of transfer.",
+    "reviewConfirm": "I have reviewed recipient, currency, fees, and payout details before submitting this transfer.",
+    "reviewHint": "Confirm the transfer review checklist to continue.",
     "paymentDetails": "Payment Details",
     "international": "International",
     "sameCurrency": "Same currency",
@@ -303,9 +487,22 @@
     "loading": "Processing...",
     "save": "Save",
     "error": "Error",
-    "success": "Success"
+    "success": "Success",
+    "passwordMask": "••••••••",
+    "loadingAria": "Loading",
+    "errorBoundaryTitle": "Something went wrong",
+    "errorBoundaryMessage": "An unexpected error occurred while loading this component.",
+    "errorBoundaryRetry": "Try Again"
   },
   "Auth": {
+    "language": {
+      "label": "Language"
+    },
+    "social": {
+      "orContinueWith": "Or continue with",
+      "google": "Google",
+      "apple": "Apple"
+    },
     "login": {
       "title": "Sign in",
       "subtitle": "Welcome back to VaultString",
@@ -316,6 +513,7 @@
       "errorMfaRequired": "Two-factor authentication is required for this account.",
       "errorUnexpected": "An unexpected error occurred. Please try again.",
       "errorGoogleInit": "Failed to initiate Google authentication. Please try again.",
+      "errorGoogleNotConfigured": "Google sign-in is not configured on the server. Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in the backend .env, then restart the auth service.",
       "errorAppleComingSoon": "Apple sign-in is not available yet. Please use email and password.",
       "emailLabel": "Email address",
       "emailPlaceholder": "you@example.com",
@@ -336,12 +534,17 @@
       }
     },
     "signup": {
+      "pageTitle": "Create Account",
+      "pageSubtitle": "Join VaultString today",
       "alertFailedTitle": "Signup failed",
+      "alertComingSoonTitle": "Coming soon",
       "alertSuccessTitle": "Success",
       "alertSuccessBody": "Account created. Redirecting…",
       "errorSignupFailed": "Signup failed. Please try again.",
       "errorUnexpected": "An unexpected error occurred.",
       "errorGoogleInit": "Failed to initiate Google authentication. Please try again.",
+      "errorGoogleNotConfigured": "Google sign-in is not configured on the server. Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in the backend .env, then restart the auth service.",
+      "errorAppleComingSoon": "Apple sign-in is not available yet. Please use email and password.",
       "accountTypeIndividual": "Individual",
       "accountTypeBusiness": "Business",
       "businessNameLabel": "Business name",
@@ -370,6 +573,7 @@
         "phoneInvalid": "Invalid phone number",
         "countryCode": "Use a 2-letter country code (e.g. MW)",
         "passwordMin": "Password must be at least 8 characters",
+        "passwordStrength": "Use 8+ characters with uppercase, lowercase, a number, and a special character (@$!%*?&)",
         "termsRequired": "You must accept the terms and conditions",
         "passwordMismatch": "Passwords do not match",
         "businessNameRequired": "Business name is required for business accounts"
@@ -393,17 +597,40 @@
       "transactions": "Transaction History",
       "compliance": "Compliance & KYC",
       "profile": "Profile & Security",
-      "translation": "Language Settings",
-      "onboarding": "Identity Verification"
+      "translation": "Language",
+      "settings": "Settings",
+      "onboarding": "Identity verification"
+    },
+    "a11y": {
+      "openMenu": "Open menu"
     },
     "search": {
-      "placeholder": "Search transactions..."
+      "placeholder": "Search transactions...",
+      "noResults": "No matching results",
+      "aiSuggestions": "AI Suggestions",
+      "recentSearches": "Recent searches",
+      "clear": "Clear",
+      "paymentTo": "Payment to {name}",
+      "transaction": "Transaction",
+      "wallet": "Wallet",
+      "recipient": "Recipient",
+      "mock": {
+        "paymentTo": "Payment to {name}",
+        "paymentSuccess": "{amount} • Success",
+        "withdrawalToBank": "Withdrawal to Bank",
+        "withdrawalPending": "{amount} • Pending",
+        "usdSavings": "USD Savings",
+        "walletPrimary": "Primary • {balance}",
+        "sampleRecipient": "Suggested recipient",
+        "sampleRecipientEmail": "Recipient email"
+      }
     },
     "notifications": {
       "title": "Notifications",
       "newCount": "{count} New",
       "empty": "No new notifications",
-      "viewAll": "View All Notifications"
+      "viewAll": "View All Notifications",
+      "justNow": "Just now"
     },
     "theme": {
       "toggleAria": "Toggle theme"
@@ -411,6 +638,12 @@
     "account": {
       "signedInAs": "Signed in as",
       "myProfile": "My Profile",
+      "member": "Account",
+      "personal": "Personal account",
+      "business": "Business account",
+      "agent": "Agent account",
+      "senderMalawi": "Sender (Malawi)",
+      "receiverChina": "Receiver (China)",
       "security": "Security",
       "billing": "Billing & Cards",
       "settings": "Settings",
@@ -474,6 +707,88 @@
       "disabled": "Two-factor authentication disabled",
       "error": "Failed to update 2FA settings",
       "invalidCode": "Invalid verification code"
+    },
+    "language": {
+      "title": "Language & region",
+      "subtitle": "Choose how VaultString is displayed. All 12 supported locales remain available."
+    },
+    "nav": {
+      "ariaLabel": "Settings sections",
+      "profile": "Profile",
+      "account": "Account",
+      "security": "Security",
+      "notifications": "Notifications",
+      "language": "Language & region",
+      "appearance": "Appearance",
+      "privacy": "Privacy",
+      "limits": "Limits",
+      "connectedAccounts": "Connected accounts",
+      "documents": "Documents & KYC",
+      "helpSupport": "Help & support"
+    },
+    "documents": {
+      "title": "Documents & KYC",
+      "subtitle": "View verification status and manage identity documents.",
+      "statusLabel": "Verification status",
+      "statusHint": "Upload or update your KYC documents from the compliance center.",
+      "manageCta": "Manage documents",
+      "startKycCta": "Start verification"
+    },
+    "account": {
+      "title": "Account",
+      "subtitle": "Your VaultString identity and verification status.",
+      "signedInAs": "Signed in as",
+      "verificationStatus": "Verification status",
+      "memberSince": "Member since",
+      "manageProfile": "Manage profile",
+      "verified": "Verified",
+      "pending": "Pending review",
+      "unverified": "Not verified"
+    },
+    "privacy": {
+      "title": "Privacy",
+      "subtitle": "Control how your data is used and shared.",
+      "analytics": {
+        "title": "Usage analytics",
+        "subtitle": "Help improve VaultString with anonymized usage data"
+      },
+      "marketing": {
+        "title": "Personalized offers",
+        "subtitle": "Allow tailored product recommendations based on activity"
+      },
+      "profileVisibility": {
+        "title": "Public profile",
+        "subtitle": "Show your profile link on shared payment receipts"
+      }
+    },
+    "limits": {
+      "title": "Limits",
+      "subtitle": "Transaction and account limits for your verification tier.",
+      "monthlyLimit": "Monthly transfer limit",
+      "usedThisMonth": "Used this month",
+      "remaining": "Remaining",
+      "readOnlyNote": "Limits are set by your verification tier and cannot be changed here.",
+      "upgradeCta": "Complete verification to increase limits"
+    },
+    "connectedAccounts": {
+      "title": "Connected accounts",
+      "subtitle": "Link external wallets and payment providers.",
+      "comingSoon": "Preview",
+      "comingSoonDetail": "Bank and mobile-money linking will be available in a future release.",
+      "providersHint": "Supported money sources and API providers for your region (read-only preview).",
+      "apiKeysPlaceholder": "API key management: POST /api/v1/providers/keys (placeholder — wire in admin when backend is ready)."
+    },
+    "helpSupport": {
+      "title": "Help & support",
+      "subtitle": "Get assistance and learn more about VaultString.",
+      "helpCenter": "Help center",
+      "helpCenterDesc": "Browse guides and FAQs",
+      "contactSupport": "Contact support",
+      "contactSupportDesc": "Email our support team",
+      "compliance": "Identity verification",
+      "complianceDesc": "Manage KYC documents and status",
+      "securityGuide": "Security best practices",
+      "securityGuideDesc": "Keep your account safe"
     }
   },
   "Notifications": {
@@ -514,14 +829,18 @@
       "warning": "Warning",
       "error": "Security Alert"
     },
+    "activity": {
+      "paymentTitle": "Recent payment update",
+      "paymentBody": "{amount} {currency} transfer is now {status}."
+    },
     "loadMore": "Load More",
     "loading": "Loading notifications...",
     "deleteConfirm": "Are you sure you want to delete this notification?",
     "deleteAllConfirm": "Are you sure you want to delete all notifications?"
   },
   "Transactions": {
-    "title": "Financial Overview",
-    "subtitle": "Manage your cards and review activity.",
+    "title": "Transactions",
+    "subtitle": "Search, filter, and export your payment history.",
     "actions": {
       "selectDates": "Select Dates",
       "export": "Export"
@@ -555,11 +874,43 @@
     "list": {
       "title": "Transactions",
       "viewAll": "View all",
+      "columns": {
+        "description": "Description",
+        "amount": "Amount",
+        "status": "Status"
+      },
       "empty": "No transactions yet",
       "unknownSender": "Unknown Sender",
       "unknownReceiver": "Unknown Receiver",
       "datePending": "Date Pending",
       "invalidDate": "Invalid Date"
+    },
+    "table": {
+      "actions": "Actions",
+      "viewReceipt": "View Receipt",
+      "archive": "Archive",
+      "unread": "Unread",
+      "sentSummary": "Sent <amount></amount> to <name></name>",
+      "receivedSummary": "Received <amount></amount> from <name></name>",
+      "dateAt": "{date} at {time}"
+    },
+    "grid": {
+      "to": "To",
+      "from": "From",
+      "amount": "Amount",
+      "date": "Date",
+      "time": "Time"
+    },
+    "receiptModal": {
+      "title": "Receipt",
+      "totalAmount": "Total Amount",
+      "referenceId": "Reference ID",
+      "sender": "Sender",
+      "receiver": "Receiver",
+      "subtotal": "Subtotal",
+      "serviceFee": "Service Fee",
+      "recipientReceives": "Recipient Receives",
+      "verifiedFooter": "Verified by VaultString Security"
     }
   },
   "Receipt": {
@@ -581,6 +932,7 @@
     "labelTxnId": "Transaction ID",
     "labelSender": "Sender",
     "labelReceiver": "Receiver",
+    "labelStatus": "Status",
     "labelAmount": "Amount",
     "labelFee": "Processing fee",
     "labelTotalDebited": "Total debited",
@@ -595,7 +947,8 @@
     "loadFailed": "Failed to load receipt"
   },
   "Translation": {
-    "subtitle": "Select your preferred language and region.",
+    "subtitle": "Browse all supported interface languages. Your primary preference is saved in Settings.",
+    "backToSettings": "Back to Settings",
     "appLanguage": "App Language",
     "appLanguageHint": "Choose the language for the interface.",
     "searchPlaceholder": "Search languages...",
@@ -611,6 +964,9 @@
     "redirectingProfile": "Redirecting you to complete your profile setup...",
     "failedTitle": "Verification Failed",
     "failedSubtitle": "There was a problem confirming your email.",
+    "continueWithCode": "Continue with verification code",
+    "emailPlaceholder": "Enter your email address",
+    "emailRequired": "Email is required before resending a code.",
     "backToLogin": "Back to Login",
     "resendCooldown": "Resend code in {seconds}s",
     "resendEmail": "Try resending verification email",
@@ -627,7 +983,14 @@
     "useMagicLink": "Use magic link instead",
     "invalidCode": "Invalid verification code",
     "invalidLink": "Invalid or expired verification link",
-    "resendFailed": "Failed to resend code"
+    "resendFailed": "Failed to resend code",
+    "emailPageTitle": "Email Verification",
+    "emailPageSubtitle": "Confirming your identity",
+    "verifyingEmailMessage": "Verifying your email...",
+    "invalidLinkMissingToken": "Invalid verification link. Missing token.",
+    "emailVerifiedMessage": "Your email has been successfully verified.",
+    "continueToLogin": "Continue to Login",
+    "resendHint": "If you continue to have issues, please request a new verification link."
   },
   "ResetPassword": {
     "emailTitle": "Reset Password",
@@ -698,7 +1061,40 @@
     "loadFailed": "Failed to load compliance status",
     "fillAllFields": "Please fill in all fields and upload a document",
     "submitSuccess": "KYC documents submitted successfully",
-    "submitFailed": "Failed to submit documents"
+    "submitFailed": "Failed to submit documents",
+    "widgetTitle": "Compliance & KYC",
+    "widgetSubtitle": "Manage your identity verification documents to unlock higher limits.",
+    "accountStatus": "{status} Account",
+    "uploadingDocument": "Uploading document...",
+    "uploadSuccess": "Document uploaded successfully. Our team will review it shortly.",
+    "uploadFailed": "Failed to upload document. Please try again.",
+    "documentOnFile": "Document on file:",
+    "uploadedOn": "Uploaded on {date}",
+    "uploadCta": "Click to upload or drag and drop",
+    "uploadFormatsSmall": "PDF, JPG, or PNG (Max 5MB)",
+    "approved": "APPROVED",
+    "idDocTitle": "National ID / Passport",
+    "addressDocTitle": "Proof of Address",
+    "verificationCard": {
+      "verifiedTitle": "Identity Verified",
+      "requiredTitle": "Verification Required",
+      "verifiedBody": "Your account is fully verified. You can now transact with higher limits and access all features.",
+      "unverifiedBody": "Please submit a valid government-issued ID and proof of address to lift transaction limits.",
+      "dailyLimit": "Daily Limit",
+      "monthlyLimit": "Monthly Limit",
+      "intlTransfers": "Int'l Transfers",
+      "enabled": "Enabled"
+    }
+  },
+  "AccountBlocked": {
+    "title": "Account Blocked",
+    "body": "Your account has been restricted by an administrator. Access to customer features is disabled.",
+    "hint": "If you believe this is a mistake, contact support and include your registered email address.",
+    "supportContact": "Support contact",
+    "copied": "Copied",
+    "copy": "Copy",
+    "signOutClear": "Sign out / Clear session",
+    "backToSignIn": "Back to Sign In"
   },
   "Onboarding": {
     "userType": {
@@ -794,20 +1190,24 @@
       "previewAlt": "Preview",
       "uploadCta": "Click to upload or drag and drop",
       "uploadFormats": "PNG, JPG, or PDF (max 10MB)",
+      "uploading": "Uploading…",
+      "uploadError": "Failed to upload document. Please try again.",
       "secureNote": "Your document is verified securely. We only use it to confirm your identity.",
       "validation": {
         "documentNumberRequired": "Document number is required",
         "expiryDateRequired": "Expiry date is required",
-        "fileRequired": "Document file is required"
+        "fileRequired": "Document file is required",
+        "fileTooLarge": "File must be 10MB or smaller"
       }
     },
     "sourceOfFunds": {
       "employmentStatusLabel": "Employment Status *",
-      "employmentEmployed": "employed",
-      "employmentSelfEmployed": "self employed",
-      "employmentRetired": "retired",
-      "employmentStudent": "student",
-      "employmentOther": "other",
+      "employmentEmployed": "Employed",
+      "employmentSelfEmployed": "Self-employed",
+      "employmentUnemployed": "Unemployed",
+      "employmentRetired": "Retired",
+      "employmentStudent": "Student",
+      "employmentOther": "Other",
       "currencyLabel": "Currency *",
       "currencyMwk": "Malawian Kwacha (MWK)",
       "currencyCny": "Chinese Yuan (CNY)",
@@ -822,6 +1222,17 @@
       "incomeCny2": "200,000 - 500,000 CNY",
       "incomeCny3": "500,000 - 2,000,000 CNY",
       "incomeCny4": "2,000,000+ CNY",
+      "employmentOtherDescriptionLabel": "Describe your employment *",
+      "employmentOtherDescriptionPlaceholder": "e.g. Freelance consultant, seasonal farmer",
+      "employmentSupplementaryLabel": "Additional employment details (optional)",
+      "employmentSupplementaryPlaceholder": "Tell us more about how you earn income",
+      "incomeOther": "Other / specify",
+      "incomeOtherDescriptionLabel": "Describe your annual income *",
+      "incomeOtherDescriptionPlaceholder": "e.g. Variable income, approximately 200,000–400,000 MWK per year",
+      "validation": {
+        "employmentOtherRequired": "Please describe your employment",
+        "incomeOtherRequired": "Please describe your income range"
+      },
       "amlNote": "This information helps us comply with anti-money laundering regulations."
     },
     "securitySetup": {
@@ -975,6 +1386,7 @@
       "uploadCta": "Click to upload",
       "uploadFormats": "PDF or DOC (max 20MB)",
       "uploading": "Uploading...",
+      "fileTooLarge": "File must be 20MB or smaller",
       "validation": {
         "incorporationRequired": "Certificate of incorporation is required",
         "articlesRequired": "Articles of association are required"

@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { apiFetch } from '@/src/lib/api/api-client';
+import { unwrapForexHistory } from '@/src/lib/api/response';
 import { 
   AreaChart, 
   Area, 
@@ -23,19 +24,26 @@ import { Button } from '@/src/components/ui/button';
 import { Badge } from '@/src/components/ui/badge';
 import { ExchangeRateDetail } from '@/src/types/types';
 import { useTranslations } from 'next-intl';
+import { cn } from '@/lib/utils';
 
 interface ForexAnalyticsProps {
   rates: Record<string, number>;
   rateDetails?: Record<string, ExchangeRateDetail>;
   primaryCurrency?: string;
+  dataMode?: 'live' | 'seed';
   onRefresh?: () => void;
+  className?: string;
+  compact?: boolean;
 }
 
 export default function ForexAnalytics({ 
   rates, 
   rateDetails = {}, 
   primaryCurrency = 'MWK',
-  onRefresh 
+  dataMode = 'seed',
+  onRefresh,
+  className,
+  compact = false,
 }: ForexAnalyticsProps) {
   const t = useTranslations('Dashboard');
   const [selectedPair, setSelectedPair] = useState<string>('');
@@ -63,30 +71,42 @@ export default function ForexAnalytics({
     return pairs;
   }, [rates, primaryCurrency]);
 
-  // Set default selection if none
-  if (!selectedPair && availablePairs.length > 0) {
-    setSelectedPair(availablePairs[0]);
-  }
+  useEffect(() => {
+    if (!selectedPair && availablePairs.length > 0) {
+      setSelectedPair(availablePairs[0]);
+    }
+  }, [availablePairs, selectedPair]);
 
   // Fetch history when pair changes
   useEffect(() => {
     if (selectedPair && primaryCurrency) {
       setLoadingHistory(true);
       apiFetch(`/forex/history?from=${primaryCurrency}&to=${selectedPair}&limit=48`)
-        .then(data => {
-          if (Array.isArray(data) && data.length > 0) {
-            const formatted = data.map((d: any) => ({
-              time: new Date(d.valid_from).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-              value: parseFloat(d.rate),
-              fullDate: new Date(d.valid_from),
-              timestamp: new Date(d.valid_from).getTime()
-            })).sort((a: any, b: any) => a.timestamp - b.timestamp);
+        .then((data) => {
+          const rows = unwrapForexHistory(data);
+          if (rows.length > 0) {
+            const formatted = rows
+              .map((d: any) => {
+                const validFrom = d.valid_from ?? d.validFrom ?? d.created_at;
+                const rate = parseFloat(String(d.rate ?? 0));
+                if (!validFrom || !rate) return null;
+                return {
+                  time: new Date(validFrom).toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  }),
+                  value: rate,
+                  timestamp: new Date(validFrom).getTime(),
+                };
+              })
+              .filter(Boolean)
+              .sort((a: any, b: any) => a.timestamp - b.timestamp);
             setHistory(formatted);
           } else {
             setHistory([]);
           }
         })
-        .catch(err => {
+        .catch(() => {
           setHistory([]);
         })
         .finally(() => setLoadingHistory(false));
@@ -105,6 +125,7 @@ export default function ForexAnalytics({
   };
 
   const isPositive = details.changePercent >= 0;
+  const isLive = dataMode === 'live';
 
   // Use real history if available, else synthetic
   const chartData = useMemo(() => {
@@ -142,30 +163,44 @@ export default function ForexAnalytics({
   }, [history, details]);
 
   return (
-    <Card className="w-full bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-sm">
-      <CardHeader className="pb-4 border-b border-slate-100 dark:border-slate-800">
-        <div className="flex items-center justify-between">
-            <div>
-                <CardTitle className="flex items-center gap-2 text-lg">
-                    <TrendingUp className="w-5 h-5 text-blue-600" />
-                    {t('market.overviewTitle')}
+    <Card className={cn('vs-card-shell w-full border-border bg-card shadow-sm', className)}>
+      <CardHeader className={cn('pb-4 border-b border-slate-100 dark:border-slate-800', compact && 'pb-3')}>
+        <div className="flex items-center justify-between gap-2">
+            <div className="min-w-0">
+                <CardTitle className={cn('flex items-center gap-2', compact ? 'text-base' : 'text-lg')}>
+                    <TrendingUp className="w-5 h-5 text-blue-600 shrink-0" />
+                    <span className="truncate">{t('market.overviewTitle')}</span>
                 </CardTitle>
-                <CardDescription>{t('market.overviewSubtitle')}</CardDescription>
+                {!compact ? (
+                  <CardDescription>{t('market.overviewSubtitle')}</CardDescription>
+                ) : null}
             </div>
-            <div className="flex items-center gap-2">
-                <Badge variant="outline" className="flex items-center gap-1 bg-green-50 text-green-700 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800">
-                    <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                    {t('market.open')}
+            <div className="flex items-center gap-2 shrink-0">
+                <Badge
+                  variant="outline"
+                  className={cn(
+                    'flex items-center gap-1',
+                    isLive
+                      ? 'bg-green-50 text-green-700 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800'
+                      : 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-900/20 dark:text-amber-300 dark:border-amber-800'
+                  )}
+                >
+                    {isLive ? (
+                      <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                    ) : null}
+                    {isLive ? t('market.badgeLive') : t('market.badgeSeed')}
                 </Badge>
-                <Button variant="ghost" size="icon" onClick={onRefresh} className="h-8 w-8">
-                    <RefreshCw className="w-4 h-4" />
-                </Button>
+                {onRefresh ? (
+                  <Button variant="ghost" size="icon" onClick={onRefresh} className="h-8 w-8">
+                      <RefreshCw className="w-4 h-4" />
+                  </Button>
+                ) : null}
             </div>
         </div>
         
-        <Tabs value={selectedPair} onValueChange={setSelectedPair} className="mt-4">
-            <TabsList className="grid w-full max-w-md grid-cols-4 h-9">
-                {availablePairs.map(p => (
+        <Tabs value={selectedPair} onValueChange={setSelectedPair} className={cn('mt-4', compact && 'mt-3')}>
+            <TabsList className={cn('grid w-full h-9', compact ? 'grid-cols-3' : 'max-w-md grid-cols-4')}>
+                {availablePairs.slice(0, compact ? 3 : 4).map(p => (
                     <TabsTrigger key={p} value={p} className="text-xs">
                         {primaryCurrency}/{p}
                     </TabsTrigger>
@@ -174,10 +209,10 @@ export default function ForexAnalytics({
         </Tabs>
       </CardHeader>
       
-      <CardContent className="pt-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left: Main Stats */}
-            <div className="lg:col-span-2 space-y-6">
+      <CardContent className={cn('pt-6', compact && 'pt-4')}>
+        <div className={cn('grid gap-8', compact ? 'grid-cols-1 gap-4' : 'grid-cols-1 lg:grid-cols-3')}>
+            {/* Left: Main Stats + chart */}
+            <div className={cn('space-y-6', compact ? '' : 'lg:col-span-2')}>
                 <div className="flex items-baseline gap-4">
                     <h2 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
                         {details.rate.toFixed(4)}
@@ -189,7 +224,7 @@ export default function ForexAnalytics({
                     </div>
                 </div>
                 
-                <div className="h-[250px] w-full">
+                <div className={cn('w-full', compact ? 'h-[180px]' : 'h-[250px]')}>
                     <ResponsiveContainer width="100%" height="100%">
                         <AreaChart data={chartData}>
                             <defs>
@@ -218,7 +253,7 @@ export default function ForexAnalytics({
                                     boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' 
                                 }}
                                 labelStyle={{ color: '#64748b', marginBottom: '4px' }}
-                                formatter={(value: any) => [value.toFixed(4), 'Rate']}
+                                formatter={(value: number) => [value.toFixed(4), t('market.rateLabel')]}
                             />
                             <Area 
                                 type="monotone" 
@@ -234,6 +269,7 @@ export default function ForexAnalytics({
             </div>
 
             {/* Right: Stats & Insights */}
+            {!compact ? (
             <div className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
                     <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50">
@@ -286,10 +322,11 @@ export default function ForexAnalytics({
                         <h3 className="font-medium text-blue-900 dark:text-blue-100">{t('market.source.title')}</h3>
                     </div>
                     <p className="text-xs text-blue-700 dark:text-blue-300">
-                        {t('market.source.body')}
+                        {isLive ? t('market.source.bodyLive') : t('market.source.bodySeed')}
                     </p>
                 </div>
             </div>
+            ) : null}
         </div>
       </CardContent>
     </Card>

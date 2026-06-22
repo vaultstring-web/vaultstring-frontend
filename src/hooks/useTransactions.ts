@@ -1,7 +1,8 @@
 import { useState, useEffect, useMemo } from 'react';
 import { apiFetch } from '@/src/lib/api/api-client';
+import { unwrapPaginatedTransactions } from '@/src/lib/api/response';
 import { useAuth } from '@/src/context/AuthContext';
-import { ApiTransaction, PaginatedResponse } from '@/src/types/api';
+import { ApiTransaction } from '@/src/types/api';
 
 export interface TransactionFilters {
   query: string;
@@ -47,11 +48,11 @@ export function useTransactions(initialLimit = 10) {
         url += `&query=${encodeURIComponent(filters.query)}`;
       }
       
-      const res = await apiFetch<PaginatedResponse<ApiTransaction>>(url);
-      // Ensure transactions is an array and filter out any null/undefined items immediately
-      const safeTransactions = (Array.isArray(res?.transactions) ? res.transactions : []).filter(Boolean);
+      const res = await apiFetch(url);
+      const { transactions: safeTransactions, total: apiTotal } =
+        unwrapPaginatedTransactions<ApiTransaction>(res);
       setTransactions(safeTransactions);
-      setTotal(res?.total || 0);
+      setTotal(apiTotal);
       setError(null);
     } catch (e: any) {
       setError(e?.message || 'Failed to load transactions');

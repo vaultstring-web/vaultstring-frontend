@@ -1,4 +1,5 @@
 import { apiFetch } from './api-client';
+import { normalizeWallets } from './response';
 
 export interface CreateWalletRequest {
   currency: string;
@@ -35,13 +36,41 @@ export async function createWallet(data: CreateWalletRequest): Promise<Wallet> {
 
 export async function getWallets(): Promise<{ wallets: Wallet[] }> {
   const data = await apiFetch('/wallets');
-  return data as { wallets: Wallet[] };
+  const normalized = normalizeWallets(data);
+  return {
+    wallets: normalized.map((w) => ({
+      id: w.id,
+      user_id: '',
+      currency: w.currency,
+      available_balance: w.available_balance,
+      ledger_balance: w.balance,
+      type: w.type,
+      status: w.status ?? 'active',
+      wallet_address: w.wallet_address,
+      created_at: '',
+    })),
+  };
 }
 
-export async function depositToWallet(walletId: string, amount: number, sourceId: string, currency: string): Promise<any> {
-  const wallet = await apiFetch(`/wallets/${walletId}/deposit`, {
+export interface DepositResponse {
+  wallet: Wallet;
+  money_api?: {
+    provider: string;
+    provider_ref: string;
+    status: string;
+    failure_reason?: string;
+  };
+}
+
+export async function depositToWallet(
+  walletId: string,
+  amount: number,
+  sourceId: string,
+  currency: string
+): Promise<DepositResponse> {
+  const data = await apiFetch(`/wallets/${walletId}/deposit`, {
     method: 'POST',
     body: JSON.stringify({ amount, source_id: sourceId, currency }),
   });
-  return wallet;
+  return data as DepositResponse;
 }

@@ -9,31 +9,49 @@ interface BalanceCardProps {
 
 export default function BalanceCard({ wallet }: BalanceCardProps) {
   const t = useTranslations('Dashboard');
+  const amount =
+    wallet.primaryCurrency === 'CNY'
+      ? (wallet.balanceCNY ?? 0)
+      : (wallet.balanceMWK ?? 0);
+  const code = wallet.primaryCurrency === 'CNY' ? 'CNY' : 'MWK';
+
   return (
-    <div className="lg:col-span-2 bg-linear-to-r from-slate-900 to-slate-800 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden flex flex-col justify-between">
-      <div className="absolute top-0 right-0 p-8 opacity-10">
-        <div className="text-9xl font-bold">¥</div>
-      </div>
-      <div className="relative z-10">
-        <h2 className="text-slate-300 text-sm font-medium mb-1">{t('totalAvailableBalance')}</h2>
-        <div className="flex items-baseline gap-2 mb-6">
-          <span className="text-4xl font-bold">
-            {wallet.primaryCurrency === 'CNY' ? 'CNY' : 'MWK'}{' '}
-            {(wallet.primaryCurrency === 'CNY' ? (wallet.balanceCNY ?? 0) : (wallet.balanceMWK ?? 0)).toLocaleString()}
-          </span>
+    <div className="vs-hero-card relative overflow-hidden p-6 text-primary-foreground lg:col-span-2">
+      <div
+        className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-white/10"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute -right-12 -top-12 h-48 w-48 rounded-full bg-white/5 blur-2xl"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute bottom-0 left-0 h-20 w-full bg-gradient-to-t from-black/15 to-transparent"
+        aria-hidden
+      />
+      <div className="relative z-10 flex flex-col justify-between gap-6">
+        <div>
+          <p className="text-xs font-medium uppercase tracking-wide text-primary-foreground/70">
+            {t('totalAvailableBalance')}
+          </p>
+          <p className="mt-1 text-3xl font-semibold tabular-nums tracking-tight sm:text-4xl">
+            {code} {amount.toLocaleString()}
+          </p>
         </div>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-2">
           <Link
             href="/send-money"
-            className="bg-green-500 hover:bg-green-600 text-slate-900 px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2 shadow-sm"
+            className="inline-flex items-center gap-2 rounded-lg bg-primary-foreground px-4 py-2.5 text-sm font-semibold text-primary shadow-sm transition-opacity hover:opacity-90"
           >
-            <ArrowUpRight size={18} /> {t('sendMoney')}
+            <ArrowUpRight size={16} />
+            {t('sendMoney')}
           </Link>
           <Link
-            href="/wallet"
-            className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2 backdrop-blur-sm"
+            href="/wallet?deposit=1"
+            className="inline-flex items-center gap-2 rounded-lg border border-primary-foreground/25 bg-primary-foreground/10 px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-foreground/20"
           >
-            <ArrowDownLeft size={18} /> {t('addFunds')}
+            <ArrowDownLeft size={16} />
+            {t('addFunds')}
           </Link>
         </div>
       </div>

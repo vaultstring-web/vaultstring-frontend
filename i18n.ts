@@ -3,7 +3,10 @@ import {cookies} from 'next/headers';
  
 export default getRequestConfig(async () => {
   const cookieStore = await cookies();
-  const requestedLocale = cookieStore.get('vs_locale')?.value || 'en';
+  const requestedLocale =
+    cookieStore.get('vs_locale')?.value ||
+    cookieStore.get('NEXT_LOCALE')?.value ||
+    'en';
   const supportedLocales = ['en', 'fr', 'pt', 'sw', 'ja', 'zh', 'am', 'yo', 'ny', 'ar', 'zu', 'ha'] as const;
   const locale = supportedLocales.includes(requestedLocale as (typeof supportedLocales)[number]) ? requestedLocale : 'en';
   const deepMerge = (base: unknown, overlay: unknown): unknown => {

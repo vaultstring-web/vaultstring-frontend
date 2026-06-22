@@ -14,10 +14,34 @@ import { useTranslations } from 'next-intl';
 
 export default function DashboardPage() {
   const t = useTranslations('Dashboard');
+  const tTopBar = useTranslations('TopBar');
   const { user } = useAuth();
   const router = useRouter();
-  const { stats: walletStats, rates, rateDetails, refetch } = useWalletStats();
+  const {
+    stats: walletStats,
+    wallets,
+    rates,
+    rateDetails,
+    forexMeta,
+    loading: walletsLoading,
+    fetchError: walletFetchError,
+    refetch,
+  } = useWalletStats();
+  const forexDataMode =
+    forexMeta.data_mode === 'live' || forexMeta.data_mode === 'seed' ? forexMeta.data_mode : 'seed';
   const { transactions: payments } = useTransactions(20);
+  const emailVerificationDisabled =
+    process.env.NEXT_PUBLIC_DISABLE_EMAIL_VERIFICATION === 'true' ||
+    process.env.NEXT_PUBLIC_BYPASS_EMAIL_VERIFICATION === 'true';
+
+  const pendingTransactionCount = useMemo(
+    () =>
+      payments.filter((tx) => {
+        const s = String(tx.status || '').toLowerCase();
+        return s === 'pending' || s === 'processing';
+      }).length,
+    [payments]
+  );
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -68,13 +92,20 @@ export default function DashboardPage() {
         </div>
       )}
 
-      <Dashboard 
-        user={user ?? { name: 'User', email: '', phone: '', kycStatus: 'verified', avatarUrl: '' }} 
-        wallet={walletStats} 
-        recentTransactions={recentTransactions} 
+      <Dashboard
+        user={user ?? { name: tTopBar('fallbackUser'), email: '', phone: '', kycStatus: 'verified', avatarUrl: '' }}
+        wallet={walletStats}
+        recentTransactions={recentTransactions}
         rates={rates}
         rateDetails={rateDetails}
+        forexDataMode={forexDataMode}
         onRefresh={refetch}
+        pendingTransactionCount={pendingTransactionCount}
+        emailVerificationDisabled={emailVerificationDisabled}
+        walletCount={wallets.length}
+        primaryWalletId={wallets[0]?.id}
+        walletsLoading={walletsLoading}
+        walletFetchError={walletFetchError}
       />
     </div>
   );

@@ -1,0 +1,288 @@
+{
+  "version": 3,
+  "pages404": true,
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "priority": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://picsum.photos https://images.unsplash.com https://ui-avatars.com https://grainy-gradients.vercel.app; connect-src 'self' http://127.0.0.1:9000 http://localhost:9000 http://localhost:8080 http://kyd-gateway:8080 https://*; font-src 'self' data:; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
+        },
+        {
+          "key": "X-DNS-Prefetch-Control",
+          "value": "on"
+        }
+      ],
+      "regex": "^(?:/(.*))(?:/)?$"
+    }
+  ],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [
+      {
+        "source": "/api/v1/:path*",
+        "destination": "http://localhost:9000/api/v1/:path*",
+        "regex": "^/api/v1(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))?(?:/)?$"
+      },
+      {
+        "source": "/api/:path*",
+        "destination": "http://localhost:9000/api/:path*",
+        "regex": "^/api(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))?(?:/)?$"
+      }
+    ],
+    "fallback": []
+  },
+  "dynamicRoutes": [],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_global-error",
+      "regex": "^/_global\\-error(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_global\\-error(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/account-blocked",
+      "regex": "^/account\\-blocked(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/account\\-blocked(?:/)?$"
+    },
+    {
+      "page": "/compliance",
+      "regex": "^/compliance(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/compliance(?:/)?$"
+    },
+    {
+      "page": "/favicon.ico",
+      "regex": "^/favicon\\.ico(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/favicon\\.ico(?:/)?$"
+    },
+    {
+      "page": "/google-callback",
+      "regex": "^/google\\-callback(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/google\\-callback(?:/)?$"
+    },
+    {
+      "page": "/kyc",
+      "regex": "^/kyc(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/kyc(?:/)?$"
+    },
+    {
+      "page": "/login",
+      "regex": "^/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/login(?:/)?$"
+    },
+    {
+      "page": "/notifications",
+      "regex": "^/notifications(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/notifications(?:/)?$"
+    },
+    {
+      "page": "/onboarding",
+      "regex": "^/onboarding(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/onboarding(?:/)?$"
+    },
+    {
+      "page": "/profile",
+      "regex": "^/profile(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/profile(?:/)?$"
+    },
+    {
+      "page": "/reset-password",
+      "regex": "^/reset\\-password(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/reset\\-password(?:/)?$"
+    },
+    {
+      "page": "/security",
+      "regex": "^/security(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/security(?:/)?$"
+    },
+    {
+      "page": "/send-money",
+      "regex": "^/send\\-money(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/send\\-money(?:/)?$"
+    },
+    {
+      "page": "/settings",
+      "regex": "^/settings(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/settings(?:/)?$"
+    },
+    {
+      "page": "/settings/appearance",
+      "regex": "^/settings/appearance(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/settings/appearance(?:/)?$"
+    },
+    {
+      "page": "/settings/connected-accounts",
+      "regex": "^/settings/connected\\-accounts(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/settings/connected\\-accounts(?:/)?$"
+    },
+    {
+      "page": "/settings/documents",
+      "regex": "^/settings/documents(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/settings/documents(?:/)?$"
+    },
+    {
+      "page": "/settings/help",
+      "regex": "^/settings/help(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/settings/help(?:/)?$"
+    },
+    {
+      "page": "/settings/language",
+      "regex": "^/settings/language(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/settings/language(?:/)?$"
+    },
+    {
+      "page": "/settings/limits",
+      "regex": "^/settings/limits(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/settings/limits(?:/)?$"
+    },
+    {
+      "page": "/settings/notifications",
+      "regex": "^/settings/notifications(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/settings/notifications(?:/)?$"
+    },
+    {
+      "page": "/settings/privacy",
+      "regex": "^/settings/privacy(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/settings/privacy(?:/)?$"
+    },
+    {
+      "page": "/settings/profile",
+      "regex": "^/settings/profile(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/settings/profile(?:/)?$"
+    },
+    {
+      "page": "/settings/security",
+      "regex": "^/settings/security(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/settings/security(?:/)?$"
+    },
+    {
+      "page": "/signup",
+      "regex": "^/signup(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/signup(?:/)?$"
+    },
+    {
+      "page": "/transactions",
+      "regex": "^/transactions(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/transactions(?:/)?$"
+    },
+    {
+      "page": "/transactions/success",
+      "regex": "^/transactions/success(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/transactions/success(?:/)?$"
+    },
+    {
+      "page": "/translation",
+      "regex": "^/translation(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/translation(?:/)?$"
+    },
+    {
+      "page": "/verification",
+      "regex": "^/verification(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/verification(?:/)?$"
+    },
+    {
+      "page": "/verify-email",
+      "regex": "^/verify\\-email(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/verify\\-email(?:/)?$"
+    },
+    {
+      "page": "/wallet",
+      "regex": "^/wallet(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/wallet(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSuffix": ".prefetch.rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

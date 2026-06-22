@@ -1,176 +1,131 @@
-"use client";
+"use client"
 
-import type React from "react";
+import type React from "react"
 
-import { useState } from "react";
-import { useTranslations } from "next-intl";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
+import { useState } from "react"
+import { useTranslations } from "next-intl"
+import { Label } from "@/src/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/src/components/ui/radio-group"
+import { Input } from "@/src/components/ui/input"
+import {
+  OnboardingContinueButton,
+  OnboardingError,
+  OnboardingInfoBox,
+  OnboardingLabel,
+  onboardingInputClass,
+  onboardingRadioRow,
+} from "../onboarding-ui"
 
 interface UBODisclosureStepProps {
-  onNext: (data: any) => void;
+  onNext: (data: Record<string, unknown>) => void
+  initialData?: Record<string, unknown>
 }
 
-export function UBODisclosureStep({ onNext }: UBODisclosureStepProps) {
-  const t = useTranslations("Onboarding.uboDisclosure");
-  const tFlow = useTranslations("Onboarding.flow");
-  const tv = useTranslations("Onboarding.uboDisclosure.validation");
+export function UBODisclosureStep({ onNext, initialData }: UBODisclosureStepProps) {
+  const t = useTranslations("Onboarding.uboDisclosure")
+  const tFlow = useTranslations("Onboarding.flow")
+  const tv = useTranslations("Onboarding.uboDisclosure.validation")
 
   const [formData, setFormData] = useState({
-    uboName: "",
-    uboOwnershipPercentage: "",
-    uboNationality: "",
-    ownershipStructure: "direct",
-  });
+    uboName: String(initialData?.uboName ?? ""),
+    uboOwnershipPercentage: String(initialData?.uboOwnershipPercentage ?? ""),
+    uboNationality: String(initialData?.uboNationality ?? ""),
+    ownershipStructure: String(initialData?.ownershipStructure ?? "direct"),
+  })
 
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Record<string, string>>({})
 
   const validateForm = () => {
-    const newErrors: Record<string, string> = {};
+    const newErrors: Record<string, string> = {}
 
-    if (!formData.uboName.trim()) newErrors.uboName = tv("uboNameRequired");
-    if (!formData.uboOwnershipPercentage)
-      newErrors.uboOwnershipPercentage = tv("ownershipRequired");
-    if (!formData.uboNationality.trim())
-      newErrors.uboNationality = tv("nationalityRequired");
+    if (!formData.uboName.trim()) newErrors.uboName = tv("uboNameRequired")
+    if (!formData.uboOwnershipPercentage) newErrors.uboOwnershipPercentage = tv("ownershipRequired")
+    if (!formData.uboNationality.trim()) newErrors.uboNationality = tv("nationalityRequired")
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     if (validateForm()) {
-      onNext(formData);
+      onNext(formData)
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <p className="text-sm text-blue-900">
-          {t("intro")}
-        </p>
-      </div>
+      <OnboardingInfoBox>{t("intro")}</OnboardingInfoBox>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          {t("ownershipStructureLabel")}
-        </label>
-        <div className="space-y-3">
-          <div className="flex items-center">
-            <input
-              type="radio"
-              id="direct"
-              name="ownership"
-              value="direct"
-              checked={formData.ownershipStructure === "direct"}
-              onChange={(e) =>
-                setFormData({ ...formData, ownershipStructure: e.target.value })
-              }
-              className="w-4 h-4 text-secondary border-gray-300 focus:ring-secondary"
-            />
-            <label
-              htmlFor="direct"
-              className="ml-3 text-sm text-gray-900 cursor-pointer"
-            >
+        <OnboardingLabel className="mb-4">{t("ownershipStructureLabel")}</OnboardingLabel>
+        <RadioGroup
+          value={formData.ownershipStructure}
+          onValueChange={(value) => setFormData({ ...formData, ownershipStructure: value })}
+          className="space-y-2"
+        >
+          <div className={onboardingRadioRow}>
+            <RadioGroupItem value="direct" id="ownership-direct" />
+            <Label htmlFor="ownership-direct" className="flex-1 cursor-pointer text-sm text-foreground">
               {t("directOwnership")}
-            </label>
+            </Label>
           </div>
-          <div className="flex items-center">
-            <input
-              type="radio"
-              id="indirect"
-              name="ownership"
-              value="indirect"
-              checked={formData.ownershipStructure === "indirect"}
-              onChange={(e) =>
-                setFormData({ ...formData, ownershipStructure: e.target.value })
-              }
-              className="w-4 h-4 text-secondary border-gray-300 focus:ring-secondary"
-            />
-            <label
-              htmlFor="indirect"
-              className="ml-3 text-sm text-gray-900 cursor-pointer"
-            >
+          <div className={onboardingRadioRow}>
+            <RadioGroupItem value="indirect" id="ownership-indirect" />
+            <Label htmlFor="ownership-indirect" className="flex-1 cursor-pointer text-sm text-foreground">
               {t("indirectOwnership")}
-            </label>
+            </Label>
           </div>
-        </div>
+        </RadioGroup>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          {t("uboNameLabel")}
-        </label>
+        <OnboardingLabel htmlFor="uboName">{t("uboNameLabel")}</OnboardingLabel>
         <Input
+          id="uboName"
           type="text"
           placeholder={t("uboNamePlaceholder")}
           value={formData.uboName}
-          onChange={(e) =>
-            setFormData({ ...formData, uboName: e.target.value })
-          }
-          className="w-full"
+          onChange={(e) => setFormData({ ...formData, uboName: e.target.value })}
+          className={onboardingInputClass}
         />
-        {errors.uboName && (
-          <p className="text-red-600 text-sm mt-1">{errors.uboName}</p>
-        )}
+        {errors.uboName ? <OnboardingError>{errors.uboName}</OnboardingError> : null}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t("ownershipPercentLabel")}
-          </label>
+          <OnboardingLabel htmlFor="uboOwnershipPercentage">{t("ownershipPercentLabel")}</OnboardingLabel>
           <Input
+            id="uboOwnershipPercentage"
             type="number"
             min="0"
             max="100"
             placeholder={t("ownershipPercentPlaceholder")}
             value={formData.uboOwnershipPercentage}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                uboOwnershipPercentage: e.target.value,
-              })
-            }
-            className="w-full"
+            onChange={(e) => setFormData({ ...formData, uboOwnershipPercentage: e.target.value })}
+            className={onboardingInputClass}
           />
-          {errors.uboOwnershipPercentage && (
-            <p className="text-red-600 text-sm mt-1">
-              {errors.uboOwnershipPercentage}
-            </p>
-          )}
+          {errors.uboOwnershipPercentage ? (
+            <OnboardingError>{errors.uboOwnershipPercentage}</OnboardingError>
+          ) : null}
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t("nationalityLabel")}
-          </label>
+          <OnboardingLabel htmlFor="uboNationality">{t("nationalityLabel")}</OnboardingLabel>
           <Input
+            id="uboNationality"
             type="text"
             placeholder={t("nationalityPlaceholder")}
             value={formData.uboNationality}
-            onChange={(e) =>
-              setFormData({ ...formData, uboNationality: e.target.value })
-            }
-            className="w-full"
+            onChange={(e) => setFormData({ ...formData, uboNationality: e.target.value })}
+            className={onboardingInputClass}
           />
-          {errors.uboNationality && (
-            <p className="text-red-600 text-sm mt-1">
-              {errors.uboNationality}
-            </p>
-          )}
+          {errors.uboNationality ? <OnboardingError>{errors.uboNationality}</OnboardingError> : null}
         </div>
       </div>
 
       <div className="flex justify-end gap-2 pt-4">
-        <Button
-          type="submit"
-          className="bg-secondary hover:bg-secondary/90 text-white"
-        >
-          {tFlow("continue")}
-        </Button>
+        <OnboardingContinueButton fullWidth={false}>{tFlow("continue")}</OnboardingContinueButton>
       </div>
     </form>
-  );
+  )
 }

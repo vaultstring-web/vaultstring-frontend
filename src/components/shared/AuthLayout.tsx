@@ -1,6 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
-import { colors, spacing } from '@/src/styles/tokens';
+import { Logo } from '@/src/components/shared/Logo';
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -10,48 +9,22 @@ interface AuthLayoutProps {
 
 export function AuthLayout({ children, title, subtitle }: AuthLayoutProps) {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 p-6">
+    <div className="flex min-h-screen items-center justify-center bg-muted/30 p-6">
       <div className="w-full max-w-md">
-        {/* Card container */}
-        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm dark:shadow-none border border-slate-200 dark:border-slate-800 p-8">
-          {/* Logo */}
-          <div className="text-center mb-8 relative h-20 w-20 mx-auto">
-            <Image
-              src="/images/vs2.png"
-              alt="VaultString Logo"
-              fill
-              className="object-contain dark:hidden"
-              priority
-            />
-            <Image
-              src="/images/vs2.png"
-              alt="VaultString Logo"
-              fill
-              className="object-contain hidden dark:block"
-              priority
-            />
+        <div className="rounded-xl border border-border bg-card p-8 shadow-sm">
+          <div className="mb-8 flex justify-center">
+            <Logo size="auth" priority />
           </div>
 
-          {/* Header section */}
-          {title && (
-            <div className="text-center mb-8">
-              <h1 className="font-bold text-slate-900 dark:text-white text-2xl mb-2 tracking-tight">
-                {title}
-              </h1>
-              {subtitle && (
-                <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">
-                  {subtitle}
-                </p>
-              )}
+          {title ? (
+            <div className="mb-8 text-center">
+              <h1 className="mb-2 text-2xl font-semibold tracking-tight text-foreground">{title}</h1>
+              {subtitle ? <p className="text-sm text-muted-foreground">{subtitle}</p> : null}
             </div>
-          )}
+          ) : null}
 
-          {/* Divider */}
-          {title && (
-            <div className="h-px bg-slate-200 dark:bg-slate-800 mb-8" />
-          )}
+          {title ? <div className="mb-8 h-px bg-border" /> : null}
 
-          {/* Content */}
           {children}
         </div>
       </div>

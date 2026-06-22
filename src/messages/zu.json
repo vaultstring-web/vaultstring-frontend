@@ -11,6 +11,28 @@
     "recentActivity": "Umsebenzi wakamuva",
     "viewAll": "Buka konke",
     "noRecentActivity": "Awukho umsebenzi wakamuva",
+    "quickActions": {
+      "title": "Izenzo ezisheshayo",
+      "send": "Thumela Imali",
+      "deposit": "Engeza Imali",
+      "history": "Umlando",
+      "wallets": "Ama-Wallet"
+    },
+    "metrics": {
+      "activeWallets": "Ama-wallet asebenzayo",
+      "pendingTransfers": "Ukudluliswa okulindile",
+      "primaryBalance": "Ibhalansi eyinhloko",
+      "monthlyUsage": "Umkhawulo wanyanga zonke usetshenzisiwe"
+    },
+    "pendingActions": {
+      "title": "Kudinga ukunakwa kwakho",
+      "verifyIdentityTitle": "Qedela ukuqinisekiswa kobunikazi",
+      "verifyIdentitySubtitle": "Vula ama-wallet, imikhawulo ephakeme nokudluliswa kwamazwe ngamazwe.",
+      "verifyEmailTitle": "Qinisekisa i-imeyili yakho",
+      "verifyEmailSubtitle": "Qinisekisa i-imeyili ukuze uvikele ukubuyiselwa kwe-akhawunti nezaziso.",
+      "pendingTransfersTitle": "{count, plural, one {ukudlulisa okungu-# okusalindile} other {ukudlulisa okungu-# okusalindile}}",
+      "pendingTransfersSubtitle": "Buyekeza isimo emlandweni wakho wokuthengiselana."
+    },
     "currentRate": "Izinga lamanje",
     "lastUpdatedJustNow": "Kubuyekezwe: manje",
     "verificationRequired": "Kudingeka Ukuqinisekiswa Kobunikazi",
@@ -22,7 +44,17 @@
       "setAlert": "Setha isixwayiso",
       "viewHistory": "Buka umlando",
       "from": "Kusuka",
-      "to": "Kuya"
+      "to": "Kuya",
+      "currencyPlaceholder": "Imali",
+      "amountPlaceholder": "0,00"
+    },
+    "balanceHistory": {
+      "title": "Umlando webhalansi",
+      "selectPeriod": "Khetha isikhathi",
+      "period7": "Izinsuku ezi-7",
+      "period30": "Izinsuku ezingama-30",
+      "period90": "Izinsuku ezingama-90",
+      "balanceLabel": "Ibhalansi"
     },
     "market": {
       "overviewTitle": "Ukubuka kwemakethe",
@@ -41,8 +73,25 @@
       },
       "source": {
         "title": "Umthombo wemakethe",
-        "body": "Idatha yesikhathi sangempela ivela ku-Google Finance. Amanani ayisibonelo futhi angahluka ngomhlinzeki."
-      }
+        "body": "Idatha yesikhathi sangempela ivela ku-Google Finance. Amanani ayisibonelo futhi angahluka ngomhlinzeki.",
+        "bodyLive": "Amanani avela ku-FX API zomphakathi (Frankfurter, exchangerate.host). Agcinwe futhi avuselelwa njalo ngemizuzu embalwa.",
+        "bodySeed": "Amanani avela kudatha yokuhlola engaxhunyiwe ku-intanethi. Setha FOREX_LIVE_ENABLED=true ku-backend ukuze uthole amanani abukhoma."
+      },
+      "rateLabel": "Izinga",
+      "badgeLive": "Bukhoma",
+      "badgeSeed": "Idatha yokuhlola"
+    },
+    "moneySources": {
+      "title": "Izindlela zokukhokha ezixhunyiwe",
+      "subtitle": "Abahlinzeki abafana nokufaka imali — phatha ku-Wallet noma Kuzilungiselelo.",
+      "viewWallet": "Vula i-wallet"
+    },
+    "walletData": {
+      "title": "Ayikho idatha yewallet",
+      "seedHint": "Ayikho i-wallet ebuyisiwe yi-API. Gijima i-database seed, bese ungena nge-akhawunti yokuhlola yekhasimende.",
+      "errorHint": "Isicelo se-API yewallet asiphumelelanga. Qinisekisa ukuthi i-gateway isebenza ku-port 9000 futhi ungene ngemvume.",
+      "loginHint": "Ukungena kokuhlola:",
+      "docsPath": "Izinyathelo ze-seed: kyd-payment-system → docker compose --profile tools run --rm seed-runner (buka docs/LOCAL_TESTING.md)"
     }
   },
   "Wallet": {
@@ -84,6 +133,74 @@
       "discard": "Lahla izinguquko",
       "success": "I-wallet idaliwe ngempumelelo",
       "error": "Yehlulekile ukudala i-wallet"
+    },
+    "overview": {
+      "title": "Isifinyezo sephothifoliyo",
+      "empty": "Awekho amabhalansi okwamanje",
+      "walletCount": "{count, plural, one {isikhwama esingu-#} other {izikhwama ezingu-#}}",
+      "send": "Thumela imali",
+      "deposit": "Engeza imali",
+      "addWallet": "Engeza i-wallet",
+      "withdraw": "Khipha"
+    },
+    "card": {
+      "balance": "Ibhalansi",
+      "status": "Isimo",
+      "active": "Iyasebenza",
+      "addMoney": "Engeza imali"
+    },
+    "recentActivityTitle": "Umsebenzi wakamuva we-wallet",
+    "recentActivityViewAll": "Konke ukuthengiselana",
+    "depositModal": {
+      "secureBadge": "Ukufakazi okuphephile",
+      "title": "Faka {currency}",
+      "subtitle": "Faka imali esikhwameni sakho ngokushesha kusuka kwebhange noma ikhadi elixhumanisiwe.",
+      "fundingSource": "Umthombo wemali",
+      "selectSource": "Khetha umthombo",
+      "linkedBank": "Ibhange elixhumanisiwe (**** 1234)",
+      "visaCard": "Ikhadi le-Visa (**** 5678)",
+      "depositAmount": "Inani lediphozithi",
+      "amountPlaceholder": "0.00",
+      "serviceFee": "Imali yesevisi",
+      "totalSettlement": "Isamba sokukhokha",
+      "confirmDeposit": "Qinisekisa idiphozithi",
+      "success": "Idiphozithi ye-{currency} {amount} iphumelele",
+      "error": "Ukufaka imali akuphumelelanga",
+      "successWithRef": "Kufakwe {currency} {amount}. Isibonelo: {ref}"
+    },
+    "subtitleCompact": "Amabhalansi, imithombo yemali, nomsebenzi wakamuva.",
+    "balanceToggle": {
+      "show": "Bonisa amabhalansi",
+      "hide": "Fihla amabhalansi",
+      "visible": "Iyabonakala",
+      "hidden": "Ifihliwe"
+    },
+    "balanceHeader": {
+      "totalBalance": "Isamba sebhalansi",
+      "currencies": "Izimali",
+      "status": "Isimo",
+      "active": "Iyasebenza"
+    },
+    "moneySources": {
+      "title": "Faka imali kusuka",
+      "subtitle": "Khetha ibhange, imali yeselula, noma ikhadi — thepha ukuze wengeze imali."
+    },
+    "withdrawModal": {
+      "secureBadge": "Ukudluliswa okuphephile",
+      "title": "Khipha {currency}",
+      "subtitle": "Hambisa imali kwenye i-wallet noma i-akhawunti yebhange nge-Thumela Imali.",
+      "available": "Ibhalansi etholakalayo",
+      "destination": "Indawo oya kuyo",
+      "toWallet": "I-wallet ye-VaultString",
+      "toBank": "Ibhange elixhunyiwe",
+      "payoutAccount": "I-akhawunti yokukhokha",
+      "selectAccount": "Khetha i-akhawunti",
+      "linkedBank": "Ibhange elixhunyiwe (**** 1234)",
+      "visaCard": "Ikhadi le-Visa (**** 5678)",
+      "bankNote": "Izinkokhelo zebhange ziqedwa nge-Thumela Imali ngendlela oyikhethile.",
+      "amount": "Inani",
+      "amountPlaceholder": "0.00",
+      "continueToSend": "Qhubeka uye ku-Thumela Imali"
     }
   },
   "Profile": {
@@ -183,6 +300,25 @@
     "dialogIdentitySubtitle": "Gcina ubunikazi bakho kusasa ku-VaultString.",
     "bioPlaceholder": "Tshela ngawe (onkhethekile)",
     "defaultBioTagline": "Ikhasimende le-VaultString",
+    "securitySettingsTitle": "Izilungiselelo zokuphepha",
+    "passwordLastChanged": "Kushintshwe ezinyangeni ezi-3 ezedlule",
+    "recoveryEmail": "I-imeyili yokubuyisela",
+    "recoveryEmailSet": "I-imeyili yokubuyisela imisiwe",
+    "recoveryEmailHint": "Engeza i-imeyili yokubuyisela ukuze uvikele i-akhawunti yakho",
+    "addEmail": "Engeza i-imeyili",
+    "connected": "Ixhunyiwe",
+    "recoveryModalTitle": "Engeza i-imeyili yokubuyisela",
+    "recoveryModalBody": "Sizothumela isixhumanisi sokuqinisekisa kule imeyili. Izosetshenziselwa ukubuyisela i-akhawunti yakho uma ulahlekelwa ukufinyelela.",
+    "recoveryEmailLabel": "Ikheli le-imeyili yokubuyisela",
+    "recoveryPlaceholder": "isb. isipele@imeyili.com",
+    "recoveryComingSoon": "I-imeyili yokubuyisela ayikatholakali. Sicela uxhumane nosekelo.",
+    "recoveryFailed": "Yehlulekile ukwengeza i-imeyili yokubuyisela",
+    "recoverySuccess": "I-imeyili yokubuyisela ingezwe ngempumelelo",
+    "edit": "Hlela",
+    "notSet": "Akusethiwe",
+    "emailChangeHint": "(Xhumana nosizo ukushintsha)",
+    "phoneNumber": "Inombolo yocingo",
+    "kycStatusLabel": "Isimo se-KYC",
     "toasts": {
       "profileUpdated": "Iphrofayeli ibuyekeziwe ngempumelelo",
       "profileFailed": "Ukubuyekeza iphrofayeli kusilele",
@@ -197,6 +333,12 @@
       "invalidTotpCode": "Ikhodi yokuqinisekisa ayilungile",
       "avatarUploading": "Kulayisha isithombe sesihloko…",
       "avatarUpdated": "Isithombe sesihloko sisavuseleliwe"
+    },
+    "loginHistory": {
+      "title": "Umlando wokungena",
+      "device": "Idivayisi",
+      "location": "Indawo",
+      "dateTime": "Usuku nesikhathi"
     }
   },
   "Sidebar": {
@@ -205,8 +347,14 @@
     "sendMoney": "Thumela Imali",
     "transactions": "Ukuthengiselana",
     "profile": "Iphrofayela",
+    "settings": "Izilungiselelo",
+    "compliance": "Ukuhambisana",
+    "notifications": "Izaziso",
     "verifyIdentity": "Qinisekisa Ubuwena",
-    "signOut": "Phuma"
+    "signOut": "Phuma",
+    "sectionMoney": "Imali",
+    "sectionAccount": "I-akhawunti",
+    "closeMenu": "Vala imenyu"
   },
   "SendMoney": {
     "title": "Thumela Imali",
@@ -239,6 +387,8 @@
       "generic": "Kube nephutha. Sicela uzame futhi."
     },
     "feeNote": "Izimali zenkokhelo zibalwa ngokuzenzakalela ngokwesimo semakethe ngesikhathi sokudlulisa.",
+    "reviewConfirm": "Ngihlole umamukeli, imali, izindleko, nezincazelo zokukhokha ngaphambi kokuthumela.",
+    "reviewHint": "Qinisekisa uhlu lokuhlola ukudlulisa ukuze uqhubeke.",
     "paymentDetails": "Imininingwane Yokukhokha",
     "international": "Kwamanye Amazwe",
     "sameCurrency": "Imali Efana Nayo",
@@ -295,6 +445,16 @@
       "receiver": "Umamukeli",
       "amountSent": "Inani olithunyelwe",
       "sendAnother": "Thumela enye inkokhelo"
+    },
+    "subtitleCompact": "Umamukeli, inani, bese abahlinzeki bemali nokukhokha.",
+    "stepper": {
+      "details": "Imininingwane",
+      "review": "Buyekeza",
+      "success": "Kwenziwe",
+      "detailsHeading": "Imininingwane yokudluliswa",
+      "reviewHeading": "Buyekeza futhi uqinisekise",
+      "continue": "Qhubeka",
+      "backToEdit": "Buyela ekuhleleni"
     }
   },
   "Common": {
@@ -303,7 +463,12 @@
     "loading": "Iyacubungula…",
     "save": "Londoloza",
     "error": "Iphutha",
-    "success": "Impumelelo"
+    "success": "Impumelelo",
+    "passwordMask": "••••••••",
+    "loadingAria": "Iyalayisha",
+    "errorBoundaryTitle": "Kukhona okungahambanga kahle",
+    "errorBoundaryMessage": "Kube nephutha elingalindelekile ngenkathi kulayishwa le ngxenye.",
+    "errorBoundaryRetry": "Zama futhi"
   },
   "Layout": {
     "emailVerificationRequired": {
@@ -323,16 +488,35 @@
       "compliance": "Ukuhambisana ne-KYC",
       "profile": "Iphrofayela Nokuphepha",
       "translation": "Izilungiselelo Zolimi",
-      "onboarding": "Ukuqinisekiswa Kobuwena"
+      "onboarding": "Ukuqinisekiswa Kobuwena",
+      "settings": "Izilungiselelo"
+    },
+    "a11y": {
+      "openMenu": "Vula imenyu"
     },
     "search": {
-      "placeholder": "Sesha ukuthengiselana…"
+      "placeholder": "Sesha ukuthengiselana…",
+      "noResults": "Ayikho imiphumela",
+      "aiSuggestions": "Iziphakamiso ze-AI",
+      "recentSearches": "Ukusesha kwakamuva",
+      "clear": "Sula",
+      "mock": {
+        "paymentTo": "Inkokhelo ku-{name}",
+        "paymentSuccess": "{amount} • Impumelelo",
+        "withdrawalToBank": "Ukukhipha ebhange",
+        "withdrawalPending": "{amount} • Kusalindile",
+        "usdSavings": "Ukonga USD",
+        "walletPrimary": "Eyisisekelo • {balance}",
+        "sampleRecipient": "Umamukeli ophakanyisiwe",
+        "sampleRecipientEmail": "I-imeyili yomamukeli"
+      }
     },
     "notifications": {
       "title": "Izaziso",
       "newCount": "{count} ezintsha",
       "empty": "Azikho izaziso ezintsha",
-      "viewAll": "Buka zonke izaziso"
+      "viewAll": "Buka zonke izaziso",
+      "justNow": "Khona manje"
     },
     "theme": {
       "toggleAria": "Shintsha itimu"
@@ -343,7 +527,13 @@
       "security": "Ezokuphepha",
       "billing": "Ukukhokha namakhadi",
       "settings": "Izilungiselelo",
-      "signOut": "Phuma"
+      "signOut": "Phuma",
+      "member": "I-akhawunti",
+      "personal": "I-akhawunti yomuntu siqu",
+      "business": "I-akhawunti yebhizinisi",
+      "agent": "I-akhawunti ye-ejenti",
+      "senderMalawi": "Umthumeli (eMalawi)",
+      "receiverChina": "Umamukeli (eChina)"
     }
   },
   "Settings": {
@@ -403,6 +593,88 @@
       "disabled": "I-2FA ikhutshaziwe",
       "error": "Yehlulekile ukubuyekeza izilungiselelo ze-2FA",
       "invalidCode": "Ikhodi yokuqinisekisa ayilungile"
+    },
+    "language": {
+      "title": "Ulimi nesifunda",
+      "subtitle": "Khetha indlela i-VaultString eboniswa ngayo. Zonke izilimi ezi-12 ziyatholakala."
+    },
+    "nav": {
+      "ariaLabel": "Izingxenye zezilungiselelo",
+      "account": "I-akhawunti",
+      "security": "Ezokuphepha",
+      "notifications": "Izaziso",
+      "language": "Ulimi nesifunda",
+      "appearance": "Ukubukeka",
+      "privacy": "Ubumfihlo",
+      "limits": "Imikhawulo",
+      "connectedAccounts": "Ama-akhawunti axhunyiwe",
+      "helpSupport": "Usizo nokusekela",
+      "profile": "Profile",
+      "documents": "Documents & KYC"
+    },
+    "account": {
+      "title": "I-akhawunti",
+      "subtitle": "Ubunikazi bakho be-VaultString nesimo sokuqinisekisa.",
+      "signedInAs": "Ungene njengo",
+      "verificationStatus": "Isimo sokuqinisekisa",
+      "memberSince": "Ilungu kusukela",
+      "manageProfile": "Phatha iphrofayili",
+      "verified": "Iqinisekisiwe",
+      "pending": "Kulindwe ukubuyekeza",
+      "unverified": "Ayiqinisekisiwe"
+    },
+    "privacy": {
+      "title": "Ubumfihlo",
+      "subtitle": "Lawula ukuthi idatha yakho isetshenziswa kanjani.",
+      "analytics": {
+        "title": "Ukuhlaziya kokusetshenziswa",
+        "subtitle": "Siza ukuthuthukisa i-VaultString ngemininingwane engaziwa"
+      },
+      "marketing": {
+        "title": "Iziphakamiso ezenzelwe wena",
+        "subtitle": "Vumela izincomo zemikhiqizo ngokusekelwe emisebenzini"
+      },
+      "profileVisibility": {
+        "title": "Iphrofayili yomphakathi",
+        "subtitle": "Bonisa isixhumanisi sephrofayela yakho kumarisidi okhokhelwayo abiwe"
+      }
+    },
+    "limits": {
+      "title": "Imikhawulo",
+      "subtitle": "Imikhawulo yokuthengiselana ne-akhawunti ye-tier yakho yokuqinisekisa.",
+      "monthlyLimit": "Umkhawulo wokudlulisa wenyanga",
+      "usedThisMonth": "Okusetshenziswe kule nyanga",
+      "remaining": "Okuselele",
+      "readOnlyNote": "Imikhawulo imiswe izinga lakho lokuqinisekisa futhi ayikwazi ukushintshwa lapha.",
+      "upgradeCta": "Qedela ukuqinisekisa ukuze wandise imikhawulo"
+    },
+    "connectedAccounts": {
+      "title": "Ama-akhawunti axhunyiwe",
+      "subtitle": "Xhumanisa izikhwama zangaphandle nabahlinzeki bezinkokhelo.",
+      "comingSoon": "Ukubuka kuqala",
+      "comingSoonDetail": "Ukuxhumanisa ibhange ne-mobile money kuzotholakala ekukhishweni okuzayo.",
+      "providersHint": "Imithombo yemali nabahlinzeki be-API abasekelwayo endaweni yakho (ukubuka kuphela).",
+      "apiKeysPlaceholder": "Ukuphathwa kwezikhiye ze-API: POST /api/v1/providers/keys (isibambiso — xhuma ku-admin uma i-backend isilungile)."
+    },
+    "helpSupport": {
+      "title": "Usizo nokwesekwa",
+      "subtitle": "Thola usizo futhi ufunde kabanzi nge-VaultString.",
+      "helpCenter": "Isikhungo sosizo",
+      "helpCenterDesc": "Phequlula izinkombandlela ne-FAQ",
+      "contactSupport": "Xhumana nosizo",
+      "contactSupportDesc": "Thumela i-imeyili eqenjini lethu losizo",
+      "compliance": "Ukuqinisekiswa kobunikazi",
+      "complianceDesc": "Phatha amadokhumenti e-KYC nesimo",
+      "securityGuide": "Amasu aphumelelayo okuphepha",
+      "securityGuideDesc": "Gcina i-akhawunti yakho iphephe"
+    },
+    "documents": {
+      "title": "Documents & KYC",
+      "subtitle": "View verification status and manage identity documents.",
+      "statusLabel": "Verification status",
+      "statusHint": "Upload or update your KYC documents from the compliance center.",
+      "manageCta": "Manage documents",
+      "startKycCta": "Start verification"
     }
   },
   "Notifications": {
@@ -442,6 +714,10 @@
       "success": "Impumelelo",
       "warning": "Isexwayiso",
       "error": "Isexwayiso sokuphepha"
+    },
+    "activity": {
+      "paymentTitle": "Isibuyekezo sesikhathi sangoku senkokhelo",
+      "paymentBody": "Ukudluliswa kwe-{amount} {currency} manje kungu-{status}."
     },
     "loadMore": "Layisha okuningi",
     "loading": "Ilayisha izaziso…",
@@ -488,7 +764,39 @@
       "unknownSender": "Umthumeli ongaziwa",
       "unknownReceiver": "Umamukeli ongaziwa",
       "datePending": "Usuku lusalindile",
-      "invalidDate": "Usuku aluvumelekile"
+      "invalidDate": "Usuku aluvumelekile",
+      "columns": {
+        "description": "Incazelo",
+        "amount": "Inani",
+        "status": "Isimo"
+      }
+    },
+    "table": {
+      "actions": "Izenzo",
+      "viewReceipt": "Buka irisidi",
+      "archive": "Faka kungobo yomlando",
+      "unread": "Okungakafundiwe",
+      "sentSummary": "Kuthunyelwe <amount></amount> ku-<name></name>",
+      "receivedSummary": "Kutholiwe <amount></amount> ku-<name></name>",
+      "dateAt": "{date} ngo-{time}"
+    },
+    "receiptModal": {
+      "title": "Irisidi",
+      "totalAmount": "Inani Eliphelele",
+      "referenceId": "I-ID Yokubhekisela",
+      "sender": "Umthumeli",
+      "receiver": "Umamukeli",
+      "subtotal": "Inani elingaphansi",
+      "serviceFee": "Imali Yesevisi",
+      "recipientReceives": "Umamukeli Uthola",
+      "verifiedFooter": "Kuqinisekiswe yi-VaultString Security"
+    },
+    "grid": {
+      "to": "Ku",
+      "from": "Kusuka",
+      "amount": "Inani",
+      "date": "Usuku",
+      "time": "Isikhathi"
     }
   },
   "Receipt": {
@@ -510,6 +818,7 @@
     "labelTxnId": "I-ID yokuthengiselana",
     "labelSender": "Uthumeli",
     "labelReceiver": "Ummukeli",
+    "labelStatus": "Isimo",
     "labelAmount": "Inani",
     "labelFee": "Imali yokucubungula",
     "labelTotalDebited": "Isamba esikhishiwe",
@@ -524,6 +833,14 @@
     "loadFailed": "Yehluleka ukuloda irisidi"
   },
   "Auth": {
+    "language": {
+      "label": "Ulimi"
+    },
+    "social": {
+      "orContinueWith": "Noma qhubeka nge",
+      "google": "Google",
+      "apple": "Apple"
+    },
     "login": {
       "title": "Ngena",
       "subtitle": "Siyakwamukela futhi ku-VaultString",
@@ -551,7 +868,8 @@
       "validation": {
         "emailInvalid": "Sicela ufake ikheli le-imeyili elivumelekile",
         "passwordRequired": "Iphasiwedi iyadingeka"
-      }
+      },
+      "errorGoogleNotConfigured": "Ukungena nge-Google akukho kumiselwe kuseva. Setha i-GOOGLE_CLIENT_ID ne-GOOGLE_CLIENT_SECRET ku-backend .env, bese uqala kabusha isevisi yokuqinisekisa."
     },
     "signup": {
       "alertFailedTitle": "Ukubhalisa kuhlulekile",
@@ -591,7 +909,12 @@
         "termsRequired": "Kufanele wamukele imigomo nemibandela",
         "passwordMismatch": "Amaphasiwedi awahambelani",
         "businessNameRequired": "Igama lebhizinisi liyadingeka kuma-akhawunti ebhizinisi"
-      }
+      },
+      "alertComingSoonTitle": "Kuyeza maduze",
+      "errorGoogleNotConfigured": "Ukungena nge-Google akukho kumiselwe kuseva. Setha i-GOOGLE_CLIENT_ID ne-GOOGLE_CLIENT_SECRET ku-backend .env, bese uqala kabusha isevisi yokuqinisekisa.",
+      "errorAppleComingSoon": "Ukungena nge-Apple akukatholakali. Sebenzisa i-imeyili nephasiwedi.",
+      "pageTitle": "Dala i-akhawunti",
+      "pageSubtitle": "Joyina i-VaultString namuhla"
     }
   },
   "Translation": {
@@ -600,7 +923,8 @@
     "appLanguageHint": "Khetha ulimi lwe-interface.",
     "searchPlaceholder": "Sesha izilimi...",
     "languageUpdated": "Ulimi lubuyekezwe ngempumelelo",
-    "translating": "Iyahumusha…"
+    "translating": "Iyahumusha…",
+    "backToSettings": "Buyela ezilungiselelweni"
   },
   "Verification": {
     "verifyingTitle": "Iyaqinisekisa i-imeyili",
@@ -627,7 +951,17 @@
     "useMagicLink": "Sebenzisa isixhumanisi somlingo esikhundleni",
     "invalidCode": "Ikhodi yokuqinisekisa ayivumelekile",
     "invalidLink": "Isixhumanisi sokuqinisekisa asivumelekile noma siphelelwe yisikhathi",
-    "resendFailed": "Ukuthumela kabusha ikhodi kwehlulekile"
+    "resendFailed": "Ukuthumela kabusha ikhodi kwehlulekile",
+    "continueWithCode": "Qhubeka ngekhodi yokuqinisekisa",
+    "emailPlaceholder": "Faka ikheli lakho le-imeyili",
+    "emailRequired": "I-imeyili iyadingeka ngaphambi kokuthumela ikhodi futhi.",
+    "emailPageTitle": "Ukuqinisekisa i-imeyili",
+    "emailPageSubtitle": "Ukuqinisekisa ubunikazi bakho",
+    "verifyingEmailMessage": "Iyaqinisekisa i-imeyili yakho…",
+    "invalidLinkMissingToken": "Isixhumanisi esingavumelekile. Ayikho i-token.",
+    "emailVerifiedMessage": "I-imeyili yakho iqinisekisiwe ngempumelelo.",
+    "continueToLogin": "Qhubeka ungene",
+    "resendHint": "Uma unenkinga, cela isixhumanisi esisha sokuqinisekisa."
   },
   "ResetPassword": {
     "emailTitle": "Setha Kabusha Iphasiwedi",
@@ -698,120 +1032,143 @@
     "loadFailed": "Ukulayisha isimo sokuthobela kwehlulekile",
     "fillAllFields": "Sicela ugcwalise zonke izinkambu bese ulayisha idokhumenti",
     "submitSuccess": "Amadokhumenti e-KYC athunyelwe ngempumelelo",
-    "submitFailed": "Ukuthumela amadokhumenti kwehlulekile"
+    "submitFailed": "Ukuthumela amadokhumenti kwehlulekile",
+    "widgetTitle": "Ukuhambisana ne-KYC",
+    "widgetSubtitle": "Phatha amadokhumenti akho okuqinisekisa ubuwena ukuze uvule imikhawulo ephakeme.",
+    "accountStatus": "I-akhawunti ye-{status}",
+    "uploadingDocument": "Ilayisha idokhumenti...",
+    "uploadSuccess": "Idokhumenti ilayishwe ngempumelelo. Ithimba lethu lizoyibuyekeza maduze.",
+    "uploadFailed": "Yehlulekile ukulayisha idokhumenti. Sicela uzame futhi.",
+    "documentOnFile": "Idokhumenti efayilini:",
+    "uploadedOn": "Ilayishwe ngo-{date}",
+    "uploadCta": "Chofoza ukuze ulayishe noma hudula ubeke",
+    "uploadFormatsSmall": "PDF, JPG, noma PNG (Ubukhulu obungu-5MB)",
+    "approved": "KUVUNYELWE",
+    "idDocTitle": "I-ID yezwe / Ipasipoti",
+    "addressDocTitle": "Ubufakazi bekheli",
+    "verificationCard": {
+      "verifiedTitle": "Ubunikazi buqinisekisiwe",
+      "requiredTitle": "Ukuqinisekisa kuyadingeka",
+      "verifiedBody": "I-akhawunti yakho iqinisekisiwe ngokuphelele. Ungenza ukuthengiselana ngemikhawulo ephezulu nazo zonke izici.",
+      "unverifiedBody": "Sicela uthumele isaziso esivela kuhulumeni esivumelekile nobufakazi bekheli ukuze wandise imikhawulo.",
+      "dailyLimit": "Umkhawulo wansuku zonke",
+      "monthlyLimit": "Umkhawulo wanyanga zonke",
+      "intlTransfers": "Ukudlulisa kwamanye amazwe",
+      "enabled": "Kuvuliwe"
+    }
   },
   "Onboarding": {
     "userType": {
       "title": "Yazi Ikhasimende Lakho",
       "subtitle": "Khetha uhlobo lwe-akhawunti ukuze uqale ukuqinisekisa",
-      "individualTitle": "Individual",
-      "individualDescription": "Verify as a private person. Takes about 10 minutes.",
-      "individualFeaturePersonal": "Personal information",
-      "individualFeatureId": "ID verification",
-      "individualFeatureAddress": "Address proof",
+      "individualTitle": "Umuntu",
+      "individualDescription": "Qinisekisa njengomuntu siqu. Kuthatha cishe imizuzu engu-10.",
+      "individualFeaturePersonal": "Ulwazi lomuntu siqu",
+      "individualFeatureId": "Ukuqinisekisa ubunikazi",
+      "individualFeatureAddress": "Ubufakazi bekheli",
       "individualCta": "Qhubeka Njengomuntu Siqu",
-      "businessTitle": "Business",
-      "businessDescription": "Verify your company. Takes about 15 minutes.",
-      "businessFeatureCompany": "Company details",
-      "businessFeatureUbo": "UBO disclosure",
-      "businessFeatureDocs": "Documentation",
+      "businessTitle": "Ibhizinisi",
+      "businessDescription": "Qinisekisa inkampani yakho. Kuthatha cishe imizuzu engu-15.",
+      "businessFeatureCompany": "Imininingwane yenkampani",
+      "businessFeatureUbo": "Ukudalulwa kwe-UBO",
+      "businessFeatureDocs": "Amadokhumenti",
       "businessCta": "Qhubeka Njengebhizinisi",
-      "privacyNote": "We take your privacy seriously. Your information is encrypted and secure.",
-      "complianceNote": "Compliant with Malawi RBM and China PBOC regulations"
+      "privacyNote": "Sithatha ubumfihlo bakho buqobo. Ulwazi lwakho luyabethelwa futhi luphephile.",
+      "complianceNote": "Luhambisana nemigomo ye-RBM yaseMalawi ne-PBOC yaseShayina"
     },
     "flow": {
       "changeType": "Shintsha Uhlobo",
       "saveDraft": "Londoloza Okusalungiswa",
       "draftSaved": "Inqubekelaphambili ilondoloziwe. Ungaqhubeka kamuva.",
       "back": "Buyela esinyathelweni sangaphambilini",
-      "stepSubtitle": "Step {current} of {total}",
+      "stepSubtitle": "Isinyathelo {current} kwangu-{total}",
       "continue": "Qhubeka esinyathelweni esilandelayo"
     },
     "individualSteps": {
-      "personal": "Personal Details",
-      "contact": "Contact Information",
-      "id": "ID Verification",
-      "funds": "Source of Funds",
-      "security": "Security Setup",
-      "terms": "Terms & Agreements"
+      "personal": "Imininingwane Yomuntu Siqu",
+      "contact": "Ulwazi Lokuxhumana",
+      "id": "Ukuqinisekisa Ubunikazi",
+      "funds": "Umthombo Wemali",
+      "security": "Ukusetha Ukuphepha",
+      "terms": "Imigomo Nezivumelwano"
     },
     "businessSteps": {
-      "company": "Company Details",
-      "business": "Business Information",
-      "reps": "Authorized Representatives",
-      "ubo": "UBO Disclosure",
-      "banking": "Banking Details",
-      "docs": "Documentation",
-      "compliance": "Compliance"
+      "company": "Imininingwane Yenkampani",
+      "business": "Ulwazi Lwebhizinisi",
+      "reps": "Abamele Abagunyaziwe",
+      "ubo": "Ukudalulwa kwe-UBO",
+      "banking": "Imininingwane Yebhange",
+      "docs": "Amadokhumenti",
+      "compliance": "Ukuhambisana"
     },
     "personalDetails": {
-      "firstNameLabel": "First Name *",
-      "firstNamePlaceholder": "John",
-      "lastNameLabel": "Last Name *",
+      "firstNameLabel": "Igama *",
+      "firstNamePlaceholder": "UJohn",
       "lastNamePlaceholder": "Doe",
-      "dateOfBirthLabel": "Date of Birth *",
-      "nationalityLabel": "Nationality *",
+      "dateOfBirthLabel": "Usuku Lokuzalwa *",
+      "nationalityLabel": "Ubuzwe *",
       "nationalityPlaceholder": "United States",
-      "idTypeLabel": "ID Type",
-      "idTypePassport": "Passport",
-      "idTypeDriverLicense": "Driver's License",
-      "idTypeNationalId": "National ID",
-      "encryptionNote": "Your personal information is encrypted and will only be used for verification purposes.",
+      "idTypeLabel": "Uhlobo Lobunikazi",
+      "idTypePassport": "Ipasipoti",
+      "idTypeDriverLicense": "Ilayisense Yokushayela",
+      "idTypeNationalId": "I-ID Yezwe",
+      "encryptionNote": "Ulwazi lwakho lomuntu siqu luyabethelwa futhi luzosetshenziswa kuphela ukuze uqinisekiswe.",
       "validation": {
-        "firstNameRequired": "First name is required",
-        "lastNameRequired": "Last name is required",
-        "dateOfBirthRequired": "Date of birth is required",
-        "nationalityRequired": "Nationality is required"
+        "firstNameRequired": "Igama liyadingeka",
+        "lastNameRequired": "Isibongo siyadingeka",
+        "dateOfBirthRequired": "Usuku lokuzalwa luyadingeka",
+        "nationalityRequired": "Ubuzwe buyadingeka"
       }
     },
     "contactInfo": {
-      "phoneLabel": "Phone Number *",
+      "phoneLabel": "Inombolo Yocingo *",
       "phonePlaceholder": "+1 (555) 123-4567",
-      "emailLabel": "Email Address *",
+      "emailLabel": "Ikheli Le-imeyili *",
       "emailPlaceholder": "kelvin@example.com",
-      "addressLabel": "Address *",
+      "addressLabel": "Ikheli *",
       "addressPlaceholder": "123 Main Street",
-      "cityLabel": "City *",
+      "cityLabel": "Idolobha *",
       "cityPlaceholder": "Lilongwe",
-      "countryLabel": "Country *",
+      "countryLabel": "Izwe *",
       "countryPlaceholder": "Malawi",
-      "postalCodeLabel": "Postal Code *",
+      "postalCodeLabel": "Ikhodi Yeposi *",
       "postalCodePlaceholder": "10001",
       "validation": {
-        "phoneRequired": "Phone number is required",
-        "emailRequired": "Email is required",
-        "addressRequired": "Address is required",
-        "cityRequired": "City is required",
-        "countryRequired": "Country is required",
-        "postalCodeRequired": "Postal code is required"
+        "phoneRequired": "Inombolo yocingo iyadingeka",
+        "emailRequired": "I-imeyili iyadingeka",
+        "addressRequired": "Ikheli liyadingeka",
+        "cityRequired": "Idolobha liyadingeka",
+        "countryRequired": "Izwe liyadingeka",
+        "postalCodeRequired": "Ikhodi yeposi iyadingeka"
       }
     },
     "idVerification": {
-      "documentNumberLabel": "Document Number *",
+      "documentNumberLabel": "Inombolo Yedokhumenti *",
       "documentNumberPlaceholder": "ABC123456789",
-      "expiryDateLabel": "Expiry Date *",
-      "uploadLabel": "Upload Document *",
+      "expiryDateLabel": "Usuku Lokuphelelwa *",
+      "uploadLabel": "Layisha Idokhumenti *",
       "previewAlt": "Preview",
-      "uploadCta": "Click to upload or drag and drop",
-      "uploadFormats": "PNG, JPG, or PDF (max 10MB)",
-      "secureNote": "Your document is verified securely. We only use it to confirm your identity.",
+      "uploadCta": "Chofoza ukuze ulayishe noma hudula uphonsa",
+      "uploadFormats": "PNG, JPG noma PDF (ubuningi 10MB)",
+      "secureNote": "Idokhumenti yakho iqinisekiswa ngokuphepha. Siyisebenzisa kuphela ukuze siqinisekise ubunikazi bakho.",
       "validation": {
-        "documentNumberRequired": "Document number is required",
-        "expiryDateRequired": "Expiry date is required",
-        "fileRequired": "Document file is required"
+        "documentNumberRequired": "Inombolo yedokhumenti iyadingeka",
+        "expiryDateRequired": "Usuku lokuphelelwa luyadingeka",
+        "fileRequired": "Ifayela ledokhumenti liyadingeka"
       }
     },
     "sourceOfFunds": {
-      "employmentStatusLabel": "Employment Status *",
-      "employmentEmployed": "employed",
-      "employmentSelfEmployed": "self employed",
-      "employmentRetired": "retired",
-      "employmentStudent": "student",
-      "employmentOther": "other",
-      "currencyLabel": "Currency *",
-      "currencyMwk": "Malawian Kwacha (MWK)",
-      "currencyCny": "Chinese Yuan (CNY)",
-      "incomeRangeLabel": "Annual Income Range *",
+      "employmentStatusLabel": "Isimo Somsebenzi *",
+      "employmentEmployed": "umsebenzi",
+      "employmentSelfEmployed": "ozisebenzelayo",
+      "employmentUnemployed": "Unemployed",
+      "employmentRetired": "othathiwe umhlalaphansi",
+      "employmentStudent": "umfundi",
+      "employmentOther": "okunye",
+      "currencyLabel": "Imali *",
+      "currencyMwk": "Kwacha yaseMalawi (MWK)",
+      "currencyCny": "Yuan yaseShayina (CNY)",
+      "incomeRangeLabel": "Ibanga Lemiholo Yonyaka *",
       "incomeMwk0": "0 - 100,000 MWK",
       "incomeMwk1": "100,000 - 500,000 MWK",
       "incomeMwk2": "500,000 - 1,000,000 MWK",
@@ -822,190 +1179,229 @@
       "incomeCny2": "200,000 - 500,000 CNY",
       "incomeCny3": "500,000 - 2,000,000 CNY",
       "incomeCny4": "2,000,000+ CNY",
-      "amlNote": "This information helps us comply with anti-money laundering regulations."
+      "employmentOtherDescriptionLabel": "Chaza umsebenzi wakho *",
+      "employmentOtherDescriptionPlaceholder": "isib. Umeluleki ozimela, Ulimi wesikhathi",
+      "employmentSupplementaryLabel": "Imininingwane eyengeziwe yomsebenzi (uyazikhethela)",
+      "employmentSupplementaryPlaceholder": "Sitshele kabanzi ukuthi uwuthola kanjani umholo",
+      "incomeOther": "Okunye / chaza",
+      "incomeOtherDescriptionLabel": "Chaza imiholo yakho yonyaka *",
+      "incomeOtherDescriptionPlaceholder": "isib. Umholo oguquguqukayo, cishe u-200,000–400,000 MWK ngonyaka",
+      "validation": {
+        "employmentOtherRequired": "Sicela uchaze umsebenzi wakho",
+        "incomeOtherRequired": "Sicela uchaze ibanga lemiholo yakho"
+      },
+      "amlNote": "Lolu lwazi lusisiza ukuhambisana nemigomo yokulwa nokugebenga imali."
     },
     "securitySetup": {
-      "twoFaLabel": "Enable two-factor authentication (2FA) for enhanced security",
-      "question1Label": "Security Question 1 *",
-      "selectQuestion": "Select a question",
-      "answerLabel": "Your Answer *",
-      "answerPlaceholder": "Your answer",
-      "recoveryNote": "These security questions help us verify your identity if you need to recover your account.",
+      "twoFaLabel": "Nika amandla ukuqinisekisa okunezinyathelo ezimbili (2FA) ukuze uvikeleke kangcono",
+      "question1Label": "Umbuzo Wokuphepha 1 *",
+      "selectQuestion": "Khetha umbuzo",
+      "answerLabel": "Impendulo Yakho *",
+      "answerPlaceholder": "Impendulo yakho",
+      "recoveryNote": "Le mibuzo yokuphepha isisiza ukuqinisekisa ubunikazi bakho uma udinga ukubuyisela i-akhawunti yakho.",
       "questions": {
-        "maidenName": "What is your mother's maiden name?",
-        "firstPet": "What was the name of your first pet?",
-        "birthCity": "In what city were you born?",
-        "favoriteTeacher": "What is the name of your favorite teacher?",
-        "firstCar": "What was the make of your first car?"
+        "maidenName": "Yini igama lomdeni kamama wakho?",
+        "firstPet": "Yayiyini igama lesilwane sakho sokuqala?",
+        "birthCity": "Wazalelwa emaphini?",
+        "favoriteTeacher": "Yini igama lothisha oyithandayo?",
+        "firstCar": "Yayiyini uhlobo lwemoto yakho yokuqala?"
       },
       "validation": {
-        "questionRequired": "Please select a security question",
-        "answerRequired": "Please answer the security question"
+        "questionRequired": "Sicela ukhethe umbuzo wokuphepha",
+        "answerRequired": "Sicela uphendule umbuzo wokuphepha"
       }
     },
     "terms": {
-      "heading": "Terms and Conditions",
-      "body1": "By using our KYC verification service, you agree to comply with all applicable laws and regulations. You represent that all information provided is accurate and complete. We reserve the right to deny access or cancel accounts if we detect fraudulent activity or violation of our terms.",
-      "body2": "Your data will be processed securely and in compliance with international data protection regulations including GDPR and local standards.",
-      "privacyLabel": "I have read and agree to the <privacy>Privacy Policy</privacy> *",
-      "privacyLink": "Privacy Policy",
-      "termsLabel": "I have read and agree to the <terms>Terms of Service</terms> *",
-      "termsLink": "Terms of Service",
-      "dataLabel": "I consent to the secure storage of my personal data *",
+      "heading": "Imigomo Nemibandela",
+      "body1": "Ngokusebenzisa insizakalo yethu yokuqinisekisa i-KYC, uyavuma ukuhlonipha zonke izimiso ezisebenzayo.",
+      "body2": "Idatha yakho izocutshungulwa ngokuphepha futhi ngokuhambisana nezimiso zokuvikela idatha.",
+      "privacyLabel": "Ngifunde futhi ngiyavuma <privacy>Inqubomgomo Yobumfihlo</privacy> *",
+      "privacyLink": "Inqubomgomo Yobumfihlo",
+      "termsLabel": "Ngifunde futhi ngiyavuma <terms>Imigomo Yesevisi</terms> *",
+      "termsLink": "Imigomo Yesevisi",
+      "dataLabel": "Ngiyavuma ukugcinwa okuphephile kwedatha yami *",
       "submit": "Qedela Ukuqinisekisa",
       "submitting": "Iyathumela...",
       "validation": {
-        "privacyRequired": "You must accept the privacy policy",
-        "termsRequired": "You must accept the terms of service",
-        "dataRequired": "You must consent to data processing"
+        "privacyRequired": "Kufanele wamukele inqubomgomo yobumfihlo",
+        "termsRequired": "Kufanele wamukele imigomo yesevisi",
+        "dataRequired": "Kufanele uvume ukucutshungulwa kwedatha"
       },
-      "errorSubmit": "Failed to submit KYC. Please try again."
+      "errorSubmit": "Kwehlulekile ukuthumela i-KYC. Sicela uzame futhi."
     },
     "completion": {
-      "individualTitle": "KYC Submitted",
-      "businessTitle": "Business KYC Submitted",
-      "subtitle": "Your verification is being processed",
-      "thankYou": "Thank you for completing your verification. Our compliance team is now reviewing your application.",
-      "reviewTimeLabel": "Review Time",
-      "reviewTimeValue": "24 - 48 Hours",
-      "confirmationLabel": "Confirmation",
-      "confirmationValue": "Email will be sent",
-      "securityLabel": "Security",
-      "securityValue": "Full access on approval",
+      "individualTitle": "I-KYC Ithunyelwe",
+      "businessTitle": "I-KYC Yebhizinisi Ithunyelwe",
+      "subtitle": "Ukuqinisekisa kwakho kuyacutshungulwa",
+      "thankYou": "Siyabonga ngokuqedela ukuqinisekisa kwakho. Ithimba lethu lokuhambisana selibuyekeza isicelo sakho.",
+      "reviewTimeLabel": "Isikhathi Sokubuyekeza",
+      "reviewTimeValue": "Amahora 24 - 48",
+      "confirmationLabel": "Isiqinisekiso",
+      "confirmationValue": "I-imeyili izothunyelwa",
+      "securityLabel": "Ukuphepha",
+      "securityValue": "Ukufinyelela okugcwele ngemva kwemvume",
       "goDashboard": "Iya ku-Dashboard",
       "startAnother": "Qala Okunye Ukuqinisekisa",
       "referenceId": "Reference ID: KYC-{id}"
     },
     "companyDetails": {
-      "legalNameLabel": "Legal Company Name *",
+      "legalNameLabel": "Igama Lenkampani Esemthethweni *",
       "legalNamePlaceholder": "ABC Corporation Ltd.",
-      "registrationLabel": "Registration Number *",
+      "registrationLabel": "Inombolo Yokubhalisa *",
       "registrationPlaceholder": "REG123456",
-      "taxIdLabel": "Tax ID *",
+      "taxIdLabel": "I-ID Yentela *",
       "taxIdPlaceholder": "TAX123456789",
       "validation": {
-        "legalNameRequired": "Legal name is required",
-        "registrationRequired": "Registration number is required",
-        "taxIdRequired": "Tax ID is required"
+        "legalNameRequired": "Igama elisemthethweni liyadingeka",
+        "registrationRequired": "Inombolo yokubhalisa iyadingeka",
+        "taxIdRequired": "I-ID yentela iyadingeka"
       }
     },
     "businessInfo": {
-      "industryLabel": "Industry *",
-      "selectIndustry": "Select an industry",
+      "industryLabel": "Imboni *",
+      "selectIndustry": "Khetha imboni",
       "industries": {
-        "technology": "Technology",
-        "finance": "Finance",
-        "healthcare": "Healthcare",
-        "retail": "Retail",
-        "manufacturing": "Manufacturing",
-        "education": "Education",
-        "other": "Other"
+        "technology": "Ubuchwepheshe",
+        "finance": "Ezezimali",
+        "healthcare": "Ezokwelapha",
+        "retail": "Ukuthengisa",
+        "manufacturing": "Umkhiwo",
+        "education": "Imfundo",
+        "other": "Okunye"
       },
-      "companySizeLabel": "Company Size *",
-      "selectCompanySize": "Select company size",
+      "companySizeLabel": "Usayizi Wenkampani *",
+      "selectCompanySize": "Khetha usayizi wenkampani",
       "size1": "1-10 employees",
       "size2": "11-50 employees",
       "size3": "51-200 employees",
       "size4": "201-500 employees",
       "size5": "500+ employees",
-      "websiteLabel": "Website (Optional)",
+      "websiteLabel": "Iwebhusayithi (Ongakukhetha)",
       "websitePlaceholder": "https://example.com",
-      "incorporationDateLabel": "Incorporation Date *",
+      "incorporationDateLabel": "Usuku Lokusungulwa *",
       "validation": {
-        "industryRequired": "Industry is required",
-        "companySizeRequired": "Company size is required",
-        "incorporationDateRequired": "Incorporation date is required"
+        "industryRequired": "Imboni iyadingeka",
+        "companySizeRequired": "Usayizi wenkampani uyadingeka",
+        "incorporationDateRequired": "Usuku lokusungulwa luyadingeka"
       }
     },
     "authorizedReps": {
-      "representativeTitle": "Representative {n}",
-      "remove": "Remove",
-      "fullNameLabel": "Full Name *",
-      "fullNamePlaceholder": "John Smith",
-      "emailLabel": "Email *",
+      "representativeTitle": "Ummeli {n}",
+      "remove": "Susa",
+      "fullNameLabel": "Igama Eliphelele *",
+      "fullNamePlaceholder": "UJohn Smith",
+      "emailLabel": "I-imeyili *",
       "emailPlaceholder": "john@example.com",
-      "jobTitleLabel": "Job Title *",
+      "jobTitleLabel": "Isihloko Somsebenzi *",
       "jobTitlePlaceholder": "CEO",
-      "addAnother": "Add Another Representative",
+      "addAnother": "Engeza Omunye Ummeli",
       "validation": {
-        "nameRequired": "Name is required",
-        "emailRequired": "Email is required",
-        "titleRequired": "Title is required"
+        "nameRequired": "Igama liyadingeka",
+        "emailRequired": "I-imeyili iyadingeka",
+        "titleRequired": "Isihloko somsebenzi siyadingeka"
       }
     },
     "uboDisclosure": {
-      "intro": "UBO (Ultimate Beneficial Owner) disclosure is required for compliance. Please provide information about the individuals who ultimately own or control the company.",
-      "ownershipStructureLabel": "Ownership Structure",
-      "directOwnership": "Direct ownership",
-      "indirectOwnership": "Indirect ownership (through another entity)",
-      "uboNameLabel": "UBO Full Name *",
+      "intro": "Ukudalulwa kwe-UBO kuyadingeka ukuze kuhambisane nezimiso. Sicela unikeze ulwazi ngabantu abaphethe noma abalawula inkampani.",
+      "ownershipStructureLabel": "Isakhiwo Sobunikazi",
+      "directOwnership": "Ubunikazi obuqondile",
+      "indirectOwnership": "Ubunikazi obungabuqondile (nge-entity enye)",
+      "uboNameLabel": "Igama Eliphelele le-UBO *",
       "uboNamePlaceholder": "Ida Mateyu",
-      "ownershipPercentLabel": "Ownership Percentage *",
+      "ownershipPercentLabel": "Iphesenti Lobunikazi *",
       "ownershipPercentPlaceholder": "25",
-      "nationalityLabel": "Nationality *",
+      "nationalityLabel": "Ubuzwe *",
       "nationalityPlaceholder": "Malawian",
       "validation": {
-        "uboNameRequired": "UBO name is required",
-        "ownershipRequired": "Ownership percentage is required",
-        "nationalityRequired": "Nationality is required"
+        "uboNameRequired": "Igama le-UBO liyadingeka",
+        "ownershipRequired": "Iphesenti lobunikazi liyadingeka",
+        "nationalityRequired": "Ubuzwe buyadingeka"
       }
     },
     "bankingDetails": {
-      "bankNameLabel": "Bank Name *",
+      "bankNameLabel": "Igama Lebhange *",
       "bankNamePlaceholder": "Example Bank",
-      "accountNumberLabel": "Account Number *",
+      "accountNumberLabel": "Inombolo Ye-akhawunti *",
       "accountNumberPlaceholder": "123456789",
-      "bankCodeLabel": "Bank Code / SWIFT Code *",
+      "bankCodeLabel": "Ikhodi Yebhange / SWIFT *",
       "bankCodePlaceholder": "SWIFTCODE",
-      "accountHolderLabel": "Account Holder Name *",
+      "accountHolderLabel": "Igama Lomnikazi We-akhawunti *",
       "accountHolderPlaceholder": "Company Name",
-      "encryptedNote": "Your banking details are encrypted and used only for payouts.",
+      "encryptedNote": "Imininingwane yakho yebhange iyabethelwa futhi isetshenziswa kuphela ukuze ukhokhe.",
       "validation": {
-        "bankNameRequired": "Bank name is required",
-        "accountNumberRequired": "Account number is required",
-        "bankCodeRequired": "Bank code is required",
-        "accountHolderRequired": "Account holder name is required"
+        "bankNameRequired": "Igama lebhange liyadingeka",
+        "accountNumberRequired": "Inombolo ye-akhawunti iyadingeka",
+        "bankCodeRequired": "Ikhodi yebhange iyadingeka",
+        "accountHolderRequired": "Igama lomnikazi we-akhawunti liyadingeka"
       }
     },
     "documentation": {
-      "incorporationLabel": "Certificate of Incorporation",
-      "articlesLabel": "Articles of Association",
-      "shareholdersLabel": "Shareholder Register",
-      "uploadSuccess": "File uploaded successfully",
-      "uploadCta": "Click to upload",
-      "uploadFormats": "PDF or DOC (max 20MB)",
-      "uploading": "Uploading...",
+      "incorporationLabel": "Isitifiketi Sokusungulwa",
+      "articlesLabel": "Imigomo Yenhlangano",
+      "shareholdersLabel": "Irejesta Labanikazi",
+      "uploadSuccess": "Ifayela ilayishwe ngempumelelo",
+      "uploadCta": "Chofoza ukuze ulayishe",
+      "uploadFormats": "PDF noma DOC (ubuningi 20MB)",
+      "uploading": "Iyalayisha...",
       "validation": {
-        "incorporationRequired": "Certificate of incorporation is required",
-        "articlesRequired": "Articles of association are required"
+        "incorporationRequired": "Isitifiketi sokusungulwa siyadingeka",
+        "articlesRequired": "Imigomo yenhlangano iyadingeka"
       },
-      "errorUpload": "Failed to upload documents. Please try again."
+      "errorUpload": "Kwehlulekile ukulayisha amadokhumenti. Sicela uzame futhi."
     },
     "compliance": {
-      "businessPurposeLabel": "Business Purpose *",
-      "selectPurpose": "Select business purpose",
+      "businessPurposeLabel": "Inhloso Yebhizinisi *",
+      "selectPurpose": "Khetha inhloso yebhizinisi",
       "purposes": {
-        "trading": "Trading",
-        "consulting": "Consulting",
-        "manufacturing": "Manufacturing",
-        "services": "Services",
-        "other": "Other"
+        "trading": "Ukuhweba",
+        "consulting": "Ukubonisana",
+        "manufacturing": "Umkhiwo",
+        "services": "Izinsizakalo",
+        "other": "Okunye"
       },
-      "expectedVolumeLabel": "Expected Monthly Transaction Volume *",
-      "selectRange": "Select range",
+      "expectedVolumeLabel": "Ivolumu Yezinkokhelo Zanyanga Ezilindelekile *",
+      "selectRange": "Khetha ibanga",
       "volume0": "$0 - $10,000",
       "volume1": "$10,000 - $50,000",
       "volume2": "$50,000 - $100,000",
       "volume3": "$100,000+",
-      "confirmationHeading": "Compliance Confirmation",
-      "confirmationBody": "I confirm that my company complies with all applicable regulations in the jurisdictions where it operates, including Malawi RBM requirements and China PBOC merchant requirements.",
-      "checkboxLabel": "I confirm compliance with all applicable regulations *",
-      "submit": "Complete Business Verification",
+      "confirmationHeading": "Isiqinisekiso Sokuhamba Nemigomo",
+      "confirmationBody": "Ngiyaqinisekisa ukuthi inkampani yami ihlonipha zonke izimiso ezisebenzayo, kufaka phakathi izidingo ze-RBM yaseMalawi ne-PBOC yaseChina.",
+      "checkboxLabel": "Ngiyaqinisekisa ukuhambisana nemigomo yonke esebenzayo *",
+      "submit": "Qedela Ukuqinisekisa Kwebhizinisi",
       "validation": {
-        "purposeRequired": "Business purpose is required",
-        "volumeRequired": "Expected transaction volume is required",
-        "complianceRequired": "You must accept the compliance confirmation"
+        "purposeRequired": "Inhloso yebhizinisi iyadingeka",
+        "volumeRequired": "Ivolumu yezinkokhelo elindelekile iyadingeka",
+        "complianceRequired": "Kufanele wamukele isiqinisekiso sokuhamba nemigomo"
       }
+    }
+  },
+  "AccountBlocked": {
+    "title": "I-akhawunti ivinjiwe",
+    "body": "I-akhawunti yakho yenqatshelwe ngumphathi. Ukufinyelela ezicini zekhasimende kukhutshaziwe.",
+    "hint": "Uma ucabanga ukuthi leli iphutha, xhumana nosizo futhi ufake ikheli lakho le-imeyili elibhalisiwe.",
+    "supportContact": "Oxhumana nosizo",
+    "copied": "Kukopishiwe",
+    "copy": "Kopisha",
+    "signOutClear": "Phuma / Sula iseshini",
+    "backToSignIn": "Buyela Ekungeneni"
+  },
+  "Language": {
+    "label": "Ulimi lokubonisa",
+    "hint": "Kusebenza kuwo wonke uhlelo ngemva kokulondoloza.",
+    "searchPlaceholder": "Sesha izilimi…",
+    "manageAll": "Buka zonke izilimi"
+  },
+  "MoneySources": {
+    "fundingTitle": "Imithombo yemali",
+    "payoutTitle": "Abahlinzeki bokukhokha",
+    "moreInDeposit": "Abahlinzeki abengeziwe batholakala uma ufaka imali noma uthumela.",
+    "processing": {
+      "instant": "Ngokushesha",
+      "minutes": "Imizuzu 5–15",
+      "days": "Izinsuku zomsebenzi ezi-1–2",
+      "card": "Imizuzu 10–30",
+      "api": "Ukuhlukaniswa kwe-API"
     }
   }
 }

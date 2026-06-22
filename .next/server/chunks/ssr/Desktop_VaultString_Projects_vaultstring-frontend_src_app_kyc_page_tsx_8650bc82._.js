@@ -1,0 +1,3 @@
+module.exports=[61470,a=>{"use strict";var b=a.i(24675),c=a.i(12812);function d(){let a=(0,c.useTranslations)("Compliance");return(0,b.jsxs)("div",{className:"p-6",children:[(0,b.jsx)("h1",{className:"text-2xl font-bold text-slate-900 dark:text-white",children:a("title")}),(0,b.jsx)("p",{className:"text-slate-600 dark:text-slate-400 mt-2",children:a("subtitle")})]})}a.s(["default",()=>d])}];
+
+//# sourceMappingURL=Desktop_VaultString_Projects_vaultstring-frontend_src_app_kyc_page_tsx_8650bc82._.js.map

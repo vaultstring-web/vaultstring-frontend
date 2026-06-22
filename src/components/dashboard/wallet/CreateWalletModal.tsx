@@ -45,10 +45,10 @@ export function CreateWalletModal({ open, onOpenChange, onSuccess }: CreateWalle
         <div className="bg-slate-900 dark:bg-slate-950 p-10 text-white relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/20 blur-3xl rounded-full" />
           <DialogHeader className="relative z-10 space-y-3">
-            <div className="flex items-center gap-2 text-green-400 font-black text-[10px] uppercase tracking-[0.3em]">
+            <div className="flex items-center gap-2 text-green-400 font-semibold text-[10px] uppercase tracking-[0.3em]">
               <Sparkles size={14} /> {t('createModal.badge')}
             </div>
-            <DialogTitle className="text-3xl font-black tracking-tighter flex items-center gap-3 text-white">
+            <DialogTitle className="text-3xl font-semibold tracking-tighter flex items-center gap-3 text-white">
                {t('createModal.title')}
             </DialogTitle>
             <DialogDescription className="text-slate-400 font-medium">
@@ -60,7 +60,7 @@ export function CreateWalletModal({ open, onOpenChange, onSuccess }: CreateWalle
         <form onSubmit={handleSubmit} className="p-10 space-y-8 bg-white dark:bg-slate-900">
           <div className="space-y-6">
             <div className="space-y-3">
-              <Label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">{t('createModal.baseCurrency')}</Label>
+              <Label className="text-xs font-semibold text-slate-400 uppercase tracking-widest ml-1">{t('createModal.baseCurrency')}</Label>
               <Select value={currency} onValueChange={setCurrency} disabled={loading}>
                 <SelectTrigger className="h-14 rounded-2xl bg-slate-50 dark:bg-slate-800 border-none font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-green-500/20">
                   <SelectValue placeholder={t('createModal.selectCurrency')} />
@@ -76,13 +76,13 @@ export function CreateWalletModal({ open, onOpenChange, onSuccess }: CreateWalle
                     </SelectItem>
                   ))}
                   {/* Backward compatibility for CNY */}
-                  <SelectItem value="CNY" className="font-bold py-3 dark:text-white focus:bg-slate-100 dark:focus:bg-slate-700">China (CNY)</SelectItem>
+                  <SelectItem value="CNY" className="font-bold py-3 dark:text-white focus:bg-slate-100 dark:focus:bg-slate-700">{t('createModal.currencies.cny')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-3">
-              <Label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">{t('createModal.accountCategory')}</Label>
+              <Label className="text-xs font-semibold text-slate-400 uppercase tracking-widest ml-1">{t('createModal.accountCategory')}</Label>
               <Select value={type} onValueChange={setType} disabled={loading}>
                 <SelectTrigger className="h-14 rounded-2xl bg-slate-50 dark:bg-slate-800 border-none font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-green-500/20">
                   <SelectValue placeholder={t('createModal.selectType')} />
@@ -99,14 +99,14 @@ export function CreateWalletModal({ open, onOpenChange, onSuccess }: CreateWalle
             <Button 
               type="submit" 
               disabled={loading} 
-              className="h-16 w-full bg-green-600 hover:bg-green-700 text-white font-black text-lg rounded-[24px] shadow-xl shadow-green-100 dark:shadow-none transition-all hover:scale-[1.02]"
+              className="h-16 w-full bg-green-600 hover:bg-green-700 text-white font-semibold text-lg rounded-[24px] shadow-xl shadow-green-100 dark:shadow-none transition-all"
             >
               {loading ? <Loader2 className="animate-spin" /> : <><Plus size={20} className="mr-2" /> {t('createModal.cta')}</>}
             </Button>
             <button 
               type="button" 
               onClick={() => onOpenChange(false)} 
-              className="text-xs font-black text-slate-400 uppercase tracking-widest hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+              className="text-xs font-semibold text-slate-400 uppercase tracking-widest hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
             >
               {t('createModal.discard')}
             </button>

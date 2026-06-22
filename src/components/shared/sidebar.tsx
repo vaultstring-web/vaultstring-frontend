@@ -1,22 +1,25 @@
 'use client';
 
-import { 
-  LayoutDashboard, 
-  Wallet, 
-  Send, 
-  History, 
-  UserCircle, 
-  LogOut, 
+import {
+  LayoutDashboard,
+  Wallet,
+  Send,
+  History,
+  UserCircle,
+  LogOut,
   X,
-  ShieldCheck
+  ShieldCheck,
+  Bell,
+  Settings,
+  FileCheck,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/src/context/AuthContext';
 import { setToken, setUser } from '@/src/lib/api/api-client';
-import Image from 'next/image';
-
 import { useTranslations } from 'next-intl';
+import { Logo } from '@/src/components/shared/Logo';
+import { cn } from '@/lib/utils';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -29,19 +32,23 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
   const router = useRouter();
   const { user, setUser: setCtxUser } = useAuth();
   const isVerified = user?.kycStatus === 'verified';
-  
-  const navItems = [
+
+  const primaryNav = [
     { path: '/', label: t('dashboard'), icon: LayoutDashboard },
     { path: '/wallet', label: t('wallet'), icon: Wallet },
     { path: '/send-money', label: t('sendMoney'), icon: Send },
     { path: '/transactions', label: t('transactions'), icon: History },
-    { path: '/profile', label: t('profile'), icon: UserCircle },
   ];
 
-  // Only show Verify Identity if not verified
-  if (!isVerified) {
-    navItems.splice(4, 0, { path: '/onboarding', label: t('verifyIdentity'), icon: ShieldCheck });
-  }
+  const accountNav = [
+    ...(isVerified
+      ? []
+      : [{ path: '/onboarding', label: t('verifyIdentity'), icon: ShieldCheck }]),
+    { path: '/compliance', label: t('compliance'), icon: FileCheck },
+    { path: '/notifications', label: t('notifications'), icon: Bell },
+    { path: '/profile', label: t('profile'), icon: UserCircle },
+    { path: '/settings', label: t('settings'), icon: Settings },
+  ];
 
   const handleSignOut = () => {
     setToken(null);
@@ -51,95 +58,94 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
   };
 
   const isActive = (path: string) => {
-    if (path === '/') {
-      return pathname === path;
-    }
+    if (path === '/') return pathname === path;
     return pathname.startsWith(path);
+  };
+
+  const NavLink = ({
+    path,
+    label,
+    icon: Icon,
+  }: {
+    path: string;
+    label: string;
+    icon: React.ComponentType<{ size?: number; className?: string }>;
+  }) => {
+    const active = isActive(path);
+    return (
+      <Link
+        href={path}
+        onClick={() => setIsOpen(false)}
+        className={cn(
+          'flex items-center gap-2.5 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+          active
+            ? 'bg-primary/10 text-primary'
+            : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+        )}
+      >
+        <Icon size={18} className="shrink-0" />
+        <span>{label}</span>
+      </Link>
+    );
   };
 
   return (
     <>
-      {/* Mobile Overlay */}
-      {isOpen && (
-        <div 
-          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+      {isOpen ? (
+        <div
+          className="fixed inset-0 z-40 bg-black/40 lg:hidden"
           onClick={() => setIsOpen(false)}
+          aria-hidden
         />
-      )}
+      ) : null}
 
-      {/* Sidebar Container */}
-      <aside className={`
-        fixed top-0 left-0 z-50 h-full w-64 bg-white dark:bg-slate-900 text-slate-900 dark:text-white transition-transform duration-300 ease-in-out flex flex-col border-r border-slate-200 dark:border-slate-800
-        ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-        lg:translate-x-0 lg:static lg:h-screen
-      `}>
-        {/* Header */}
-        <div className="flex items-center justify-between h-16 px-6 border-b border-slate-100 dark:border-slate-800 shrink-0">
-          <Link 
-            href="/" 
-            className="flex items-center justify-center w-full"
-            onClick={() => setIsOpen(false)}
-          >
-            <div className="relative h-16 w-48">
-              <Image
-                src="/images/vs2.png"
-                alt="VaultString Logo"
-                width={100}
-                height={80}
-                priority
-                className="h-20 w-auto md:h-25 lg:h-25 pb-4 object-contain dark:hidden"
-              />
-              <Image
-                src="/icons/vs1.svg"
-                alt="VaultString Logo"
-                width={100}
-                height={80}
-                priority
-                className="h-20 w-auto md:h-25 lg:h-25 pb-4 object-contain hidden dark:block"
-              />
-            </div>
+      <aside
+        className={cn(
+          'fixed top-0 left-0 z-50 flex h-full w-60 flex-col border-r border-border bg-card transition-transform duration-200 lg:static lg:h-screen lg:translate-x-0',
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        )}
+      >
+        <div className="flex h-20 items-center justify-between border-b border-border px-4">
+          <Link href="/" onClick={() => setIsOpen(false)} className="inline-flex min-w-0 flex-1 items-center">
+            <Logo size="sidebar" priority />
           </Link>
-          <button 
+          <button
+            type="button"
             onClick={() => setIsOpen(false)}
-            className="lg:hidden text-slate-400 hover:text-slate-900 dark:hover:text-white"
+            className="rounded-md p-1 text-muted-foreground hover:bg-muted lg:hidden"
+            aria-label={t('closeMenu')}
           >
-            <X size={24} />
+            <X size={20} />
           </button>
         </div>
 
-        {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto p-4 space-y-1 mt-4">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const active = isActive(item.path);
-            
-            return (
-              <Link
-                key={item.path}
-                href={item.path}
-                onClick={() => setIsOpen(false)}
-                className={`
-                  w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 font-bold
-                  ${active 
-                    ? 'bg-slate-900 dark:bg-green-600 text-white shadow-lg shadow-slate-200 dark:shadow-none' 
-                    : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'}
-                `}
-              >
-                <Icon size={20} className={active ? 'animate-pulse' : ''} />
-                <span>{item.label}</span>
-              </Link>
-            );
-          })}
+        <nav className="flex-1 space-y-6 overflow-y-auto p-3">
+          <div className="space-y-0.5">
+            <p className="px-3 pb-1 text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+              {t('sectionMoney')}
+            </p>
+            {primaryNav.map((item) => (
+              <NavLink key={item.path} {...item} />
+            ))}
+          </div>
+          <div className="space-y-0.5">
+            <p className="px-3 pb-1 text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+              {t('sectionAccount')}
+            </p>
+            {accountNav.map((item) => (
+              <NavLink key={item.path} {...item} />
+            ))}
+          </div>
         </nav>
 
-        {/* Footer */}
-        <div className="p-4 border-t border-slate-100 dark:border-slate-800 shrink-0">
-          <button 
+        <div className="border-t border-border p-3">
+          <button
+            type="button"
             onClick={handleSignOut}
-            className="w-full flex items-center space-x-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-xl transition-colors font-bold"
+            className="flex w-full items-center gap-2.5 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
           >
-            <LogOut size={20} />
-            <span className="font-medium">{t('signOut')}</span>
+            <LogOut size={18} />
+            <span>{t('signOut')}</span>
           </button>
         </div>
       </aside>

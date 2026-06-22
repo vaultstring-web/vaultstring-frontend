@@ -1,0 +1,57 @@
+{
+  "ny": {
+    "Common.errorBoundaryTitle": "Panapangidwa vuto",
+    "Common.errorBoundaryMessage": "Panachitika vuto losayembekezeka pa kukweza gawo ili.",
+    "Common.errorBoundaryRetry": "Yesaninso"
+  },
+  "sw": {
+    "Common.errorBoundaryTitle": "Kuna tatizo limetokea",
+    "Common.errorBoundaryMessage": "Hitilafu isiyotarajiwa imetokea wakati wa kupakia sehemu hii.",
+    "Common.errorBoundaryRetry": "Jaribu tena"
+  },
+  "fr": {
+    "Common.errorBoundaryTitle": "Une erreur s'est produite",
+    "Common.errorBoundaryMessage": "Une erreur inattendue s'est produite lors du chargement de ce composant.",
+    "Common.errorBoundaryRetry": "Réessayer"
+  },
+  "pt": {
+    "Common.errorBoundaryTitle": "Algo correu mal",
+    "Common.errorBoundaryMessage": "Ocorreu um erro inesperado ao carregar este componente.",
+    "Common.errorBoundaryRetry": "Tentar novamente"
+  },
+  "ja": {
+    "Common.errorBoundaryTitle": "問題が発生しました",
+    "Common.errorBoundaryMessage": "このコンポーネントの読み込み中に予期しないエラーが発生しました。",
+    "Common.errorBoundaryRetry": "再試行"
+  },
+  "zh": {
+    "Common.errorBoundaryTitle": "出现问题",
+    "Common.errorBoundaryMessage": "加载此组件时发生意外错误。",
+    "Common.errorBoundaryRetry": "重试"
+  },
+  "am": {
+    "Common.errorBoundaryTitle": "የሆነ ስህተት ተከስቷል",
+    "Common.errorBoundaryMessage": "ይህን አካል በመጫን ላይ ያልተጠበቀ ስህተት ተከስቷል።",
+    "Common.errorBoundaryRetry": "እንደገና ይሞክሩ"
+  },
+  "yo": {
+    "Common.errorBoundaryTitle": "Aṣiṣe kan ṣẹlẹ",
+    "Common.errorBoundaryMessage": "Aṣiṣe aito ṣẹlẹ lakoko igbasilẹ apá yìí.",
+    "Common.errorBoundaryRetry": "Gbiyanju lẹkan si"
+  },
+  "ar": {
+    "Common.errorBoundaryTitle": "حدث خطأ ما",
+    "Common.errorBoundaryMessage": "حدث خطأ غير متوقع أثناء تحميل هذا المكوّن.",
+    "Common.errorBoundaryRetry": "حاول مرة أخرى"
+  },
+  "zu": {
+    "Common.errorBoundaryTitle": "Kukhona okungahambanga kahle",
+    "Common.errorBoundaryMessage": "Kube nephutha elingalindelekile ngenkathi kulayishwa le ngxenye.",
+    "Common.errorBoundaryRetry": "Zama futhi"
+  },
+  "ha": {
+    "Common.errorBoundaryTitle": "Wani abu ya faru ba daidai ba",
+    "Common.errorBoundaryMessage": "An sami kuskure wanda ba a zata ba yayin lodawa wannan sashi.",
+    "Common.errorBoundaryRetry": "Sake gwadawa"
+  }
+}

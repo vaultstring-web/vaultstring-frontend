@@ -11,6 +11,28 @@
     "recentActivity": "最近のアクティビティ",
     "viewAll": "すべて表示",
     "noRecentActivity": "最近のアクティビティはありません",
+    "quickActions": {
+      "title": "クイック操作",
+      "send": "送金",
+      "deposit": "資金を追加",
+      "history": "履歴",
+      "wallets": "ウォレット"
+    },
+    "metrics": {
+      "activeWallets": "アクティブなウォレット",
+      "pendingTransfers": "保留中の送金",
+      "primaryBalance": "主要残高",
+      "monthlyUsage": "月間上限の使用"
+    },
+    "pendingActions": {
+      "title": "要対応",
+      "verifyIdentityTitle": "本人確認を完了",
+      "verifyIdentitySubtitle": "ウォレット、上限、国際送金を有効にします。",
+      "verifyEmailTitle": "メールを確認",
+      "verifyEmailSubtitle": "アカウント復旧と通知のためメールを確認してください。",
+      "pendingTransfersTitle": "{count, plural, one {保留中の送金 # 件} other {保留中の送金 # 件}}",
+      "pendingTransfersSubtitle": "取引履歴で状況を確認してください。"
+    },
     "currentRate": "現在のレート",
     "lastUpdatedJustNow": "最終更新: たった今",
     "verificationRequired": "本人確認が必要です",
@@ -22,7 +44,17 @@
       "setAlert": "アラート設定",
       "viewHistory": "履歴を見る",
       "from": "送金元",
-      "to": "送金先"
+      "to": "送金先",
+      "currencyPlaceholder": "通貨",
+      "amountPlaceholder": "0,00"
+    },
+    "balanceHistory": {
+      "title": "残高履歴",
+      "selectPeriod": "期間を選択",
+      "period7": "過去7日間",
+      "period30": "過去30日間",
+      "period90": "過去3か月",
+      "balanceLabel": "残高"
     },
     "market": {
       "overviewTitle": "マーケット概要",
@@ -41,8 +73,25 @@
       },
       "source": {
         "title": "データソース",
-        "body": "Google Finance 提供の参考レートです。提供元により差異が生じる場合があります。"
-      }
+        "body": "Google Finance 提供の参考レートです。提供元により差異が生じる場合があります。",
+        "bodyLive": "公開FX API（Frankfurter、exchangerate.host）からのレート。数分ごとにキャッシュ更新されます。",
+        "bodySeed": "オフライン用シードデータのレート。ライブレートにはバックエンドでFOREX_LIVE_ENABLED=trueを設定してください。"
+      },
+      "rateLabel": "レート",
+      "badgeLive": "ライブ",
+      "badgeSeed": "シード"
+    },
+    "moneySources": {
+      "title": "連携済み支払い方法",
+      "subtitle": "入金と同じプロバイダー — ウォレットまたは設定で管理。",
+      "viewWallet": "ウォレットを開く"
+    },
+    "walletData": {
+      "title": "ウォレットデータなし",
+      "seedHint": "APIからウォレットが返されませんでした。DBシードを実行し、テスト顧客でログインしてください。",
+      "errorHint": "ウォレットAPIリクエストが失敗しました。ゲートウェイがポート9000で動作し、ログイン済みか確認してください。",
+      "loginHint": "テストログイン:",
+      "docsPath": "シード手順: kyd-payment-system → docker compose --profile tools run --rm seed-runner（docs/LOCAL_TESTING.md参照）"
     }
   },
   "Wallet": {
@@ -84,6 +133,74 @@
       "discard": "変更を破棄",
       "success": "ウォレットを作成しました",
       "error": "ウォレット作成に失敗しました"
+    },
+    "overview": {
+      "title": "ポートフォリオ概要",
+      "empty": "残高はまだありません",
+      "walletCount": "{count, plural, one {ウォレット # 件} other {ウォレット # 件}}",
+      "send": "送金",
+      "deposit": "資金を追加",
+      "addWallet": "ウォレットを追加",
+      "withdraw": "出金"
+    },
+    "card": {
+      "balance": "残高",
+      "status": "ステータス",
+      "active": "有効",
+      "addMoney": "資金を追加"
+    },
+    "recentActivityTitle": "最近のウォレット活動",
+    "recentActivityViewAll": "すべての取引",
+    "depositModal": {
+      "secureBadge": "安全な入金",
+      "title": "{currency} を入金",
+      "subtitle": "連携済みの銀行またはカードからウォレットに即時入金します。",
+      "fundingSource": "入金元",
+      "selectSource": "入金元を選択",
+      "linkedBank": "連携銀行 (**** 1234)",
+      "visaCard": "Visaカード (**** 5678)",
+      "depositAmount": "入金額",
+      "amountPlaceholder": "0.00",
+      "serviceFee": "手数料",
+      "totalSettlement": "決済合計",
+      "confirmDeposit": "入金を確認",
+      "success": "{currency} {amount} の入金が完了しました",
+      "error": "入金に失敗しました",
+      "successWithRef": "{currency} {amount} を入金しました。参照番号：{ref}"
+    },
+    "subtitleCompact": "残高、資金源、最近のアクティビティ。",
+    "balanceToggle": {
+      "show": "残高を表示",
+      "hide": "残高を非表示",
+      "visible": "表示中",
+      "hidden": "非表示"
+    },
+    "balanceHeader": {
+      "totalBalance": "合計残高",
+      "currencies": "通貨",
+      "status": "ステータス",
+      "active": "有効"
+    },
+    "moneySources": {
+      "title": "入金元",
+      "subtitle": "銀行、モバイルマネー、カードを選択 — タップして資金を追加。"
+    },
+    "withdrawModal": {
+      "secureBadge": "安全な送金",
+      "title": "{currency} を出金",
+      "subtitle": "送金機能で別のウォレットまたは連携銀行口座へ資金を移動します。",
+      "available": "利用可能残高",
+      "destination": "送金先",
+      "toWallet": "VaultString ウォレット",
+      "toBank": "連携銀行",
+      "payoutAccount": "支払い口座",
+      "selectAccount": "口座を選択",
+      "linkedBank": "連携銀行 (**** 1234)",
+      "visaCard": "Visa カード (**** 5678)",
+      "bankNote": "銀行への支払いは、選択した方法で送金機能を通じて完了します。",
+      "amount": "金額",
+      "amountPlaceholder": "0.00",
+      "continueToSend": "送金へ進む"
     }
   },
   "Profile": {
@@ -183,6 +300,25 @@
     "dialogIdentitySubtitle": "VaultString で本人情報を最新に保ちます。",
     "bioPlaceholder": "自己紹介（任意）",
     "defaultBioTagline": "VaultString ユーザー",
+    "securitySettingsTitle": "セキュリティ設定",
+    "passwordLastChanged": "3か月前に変更",
+    "recoveryEmail": "復旧用メール",
+    "recoveryEmailSet": "復旧用メールが設定されています",
+    "recoveryEmailHint": "アカウント保護のため復旧用メールを追加",
+    "addEmail": "メールを追加",
+    "connected": "接続済み",
+    "recoveryModalTitle": "復旧用メールを追加",
+    "recoveryModalBody": "このメールアドレスに確認リンクを送信します。アクセスを失った場合のアカウント復旧に使用されます。",
+    "recoveryEmailLabel": "復旧用メールアドレス",
+    "recoveryPlaceholder": "例: backup@example.com",
+    "recoveryComingSoon": "復旧用メールはまだ利用できません。サポートにお問い合わせください。",
+    "recoveryFailed": "復旧用メールの追加に失敗しました",
+    "recoverySuccess": "復旧用メールを追加しました",
+    "edit": "編集",
+    "notSet": "未設定",
+    "emailChangeHint": "（変更はサポートにお問い合わせください）",
+    "phoneNumber": "電話番号",
+    "kycStatusLabel": "KYCステータス",
     "toasts": {
       "profileUpdated": "プロフィールを更新しました",
       "profileFailed": "プロフィールの更新に失敗しました",
@@ -197,6 +333,12 @@
       "invalidTotpCode": "確認コードが無効です",
       "avatarUploading": "アバターをアップロード中…",
       "avatarUpdated": "アバターを更新しました"
+    },
+    "loginHistory": {
+      "title": "ログイン履歴",
+      "device": "デバイス",
+      "location": "場所",
+      "dateTime": "日時"
     }
   },
   "Sidebar": {
@@ -205,8 +347,14 @@
     "sendMoney": "送金",
     "transactions": "取引履歴",
     "profile": "プロフィール",
+    "settings": "設定",
+    "compliance": "コンプライアンス",
+    "notifications": "通知",
     "verifyIdentity": "本人確認",
-    "signOut": "ログアウト"
+    "signOut": "ログアウト",
+    "sectionMoney": "お金",
+    "sectionAccount": "アカウント",
+    "closeMenu": "メニューを閉じる"
   },
   "SendMoney": {
     "title": "送金",
@@ -239,6 +387,8 @@
       "generic": "エラーが発生しました。もう一度お試しください。"
     },
     "feeNote": "手数料は、送金時の流動性とネットワーク状況に基づき動的に計算されます。",
+    "reviewConfirm": "送金前に受取人、通貨、手数料、支払い詳細を確認しました。",
+    "reviewHint": "送金確認チェックリストに同意して続行してください。",
     "paymentDetails": "支払い詳細",
     "international": "海外送金",
     "sameCurrency": "同一通貨",
@@ -295,6 +445,16 @@
       "receiver": "受取人",
       "amountSent": "送金額",
       "sendAnother": "別の支払いを送る"
+    },
+    "subtitleCompact": "受取人、金額、資金源と支払いプロバイダー。",
+    "stepper": {
+      "details": "詳細",
+      "review": "確認",
+      "success": "完了",
+      "detailsHeading": "送金の詳細",
+      "reviewHeading": "確認して確定",
+      "continue": "続ける",
+      "backToEdit": "編集に戻る"
     }
   },
   "Common": {
@@ -303,7 +463,12 @@
     "loading": "処理中...",
     "save": "保存",
     "error": "エラー",
-    "success": "成功"
+    "success": "成功",
+    "passwordMask": "••••••••",
+    "loadingAria": "読み込み中",
+    "errorBoundaryTitle": "問題が発生しました",
+    "errorBoundaryMessage": "このコンポーネントの読み込み中に予期しないエラーが発生しました。",
+    "errorBoundaryRetry": "再試行"
   },
   "Layout": {
     "emailVerificationRequired": {
@@ -323,16 +488,35 @@
       "compliance": "コンプライアンス & KYC",
       "profile": "プロフィール & セキュリティ",
       "translation": "言語設定",
-      "onboarding": "本人確認"
+      "onboarding": "本人確認",
+      "settings": "設定"
+    },
+    "a11y": {
+      "openMenu": "メニューを開く"
     },
     "search": {
-      "placeholder": "取引を検索..."
+      "placeholder": "取引を検索...",
+      "noResults": "該当なし",
+      "aiSuggestions": "AI 提案",
+      "recentSearches": "最近の検索",
+      "clear": "クリア",
+      "mock": {
+        "paymentTo": "{name} への支払い",
+        "paymentSuccess": "{amount} • 成功",
+        "withdrawalToBank": "銀行への出金",
+        "withdrawalPending": "{amount} • 保留中",
+        "usdSavings": "USD貯蓄",
+        "walletPrimary": "メイン • {balance}",
+        "sampleRecipient": "候補の受取人",
+        "sampleRecipientEmail": "受取人のメール"
+      }
     },
     "notifications": {
       "title": "通知",
       "newCount": "新着 {count} 件",
       "empty": "新着通知はありません",
-      "viewAll": "すべての通知を見る"
+      "viewAll": "すべての通知を見る",
+      "justNow": "たった今"
     },
     "theme": {
       "toggleAria": "テーマ切り替え"
@@ -343,7 +527,13 @@
       "security": "セキュリティ",
       "billing": "請求 & カード",
       "settings": "設定",
-      "signOut": "ログアウト"
+      "signOut": "ログアウト",
+      "member": "アカウント",
+      "personal": "個人アカウント",
+      "business": "ビジネスアカウント",
+      "agent": "エージェントアカウント",
+      "senderMalawi": "送金者（マラウイ）",
+      "receiverChina": "受取人（中国）"
     }
   },
   "Settings": {
@@ -403,6 +593,88 @@
       "disabled": "二段階認証が無効になりました",
       "error": "2FA設定の更新に失敗しました",
       "invalidCode": "確認コードが正しくありません"
+    },
+    "language": {
+      "title": "言語と地域",
+      "subtitle": "VaultString の表示言語を選択。12言語すべて利用可能。"
+    },
+    "nav": {
+      "ariaLabel": "設定セクション",
+      "account": "アカウント",
+      "security": "セキュリティ",
+      "notifications": "通知",
+      "language": "言語と地域",
+      "appearance": "表示",
+      "privacy": "プライバシー",
+      "limits": "限度額",
+      "connectedAccounts": "連携アカウント",
+      "helpSupport": "ヘルプとサポート",
+      "profile": "Profile",
+      "documents": "Documents & KYC"
+    },
+    "account": {
+      "title": "アカウント",
+      "subtitle": "VaultString の本人確認とステータス。",
+      "signedInAs": "ログイン中",
+      "verificationStatus": "確認ステータス",
+      "memberSince": "登録日",
+      "manageProfile": "プロフィール管理",
+      "verified": "確認済み",
+      "pending": "審査中",
+      "unverified": "未確認"
+    },
+    "privacy": {
+      "title": "プライバシー",
+      "subtitle": "データの利用と共有を管理します。",
+      "analytics": {
+        "title": "利用分析",
+        "subtitle": "匿名データで VaultString の改善に協力"
+      },
+      "marketing": {
+        "title": "パーソナライズされたオファー",
+        "subtitle": "アクティビティに基づく推奨を許可"
+      },
+      "profileVisibility": {
+        "title": "公開プロフィール",
+        "subtitle": "共有された支払い領収書にプロフィールリンクを表示"
+      }
+    },
+    "limits": {
+      "title": "限度",
+      "subtitle": "本人確認レベルに応じた取引およびアカウント限度。",
+      "monthlyLimit": "月間送金限度",
+      "usedThisMonth": "今月の使用",
+      "remaining": "残り",
+      "readOnlyNote": "限度は本人確認レベルにより設定され、ここでは変更できません。",
+      "upgradeCta": "本人確認を完了して限度を引き上げる"
+    },
+    "connectedAccounts": {
+      "title": "連携アカウント",
+      "subtitle": "外部ウォレットと決済プロバイダーを連携。",
+      "comingSoon": "プレビュー",
+      "comingSoonDetail": "銀行およびモバイルマネー連携は今後提供予定です。",
+      "providersHint": "お住まいの地域でサポートされる資金源と API プロバイダー（読み取り専用プレビュー）。",
+      "apiKeysPlaceholder": "API キー管理: POST /api/v1/providers/keys（プレースホルダー — バックエンド準備後に管理画面で接続）。"
+    },
+    "helpSupport": {
+      "title": "ヘルプとサポート",
+      "subtitle": "VaultString についてのサポートと情報。",
+      "helpCenter": "ヘルプセンター",
+      "helpCenterDesc": "ガイドと FAQ を参照",
+      "contactSupport": "サポートに連絡",
+      "contactSupportDesc": "サポートチームにメール",
+      "compliance": "本人確認",
+      "complianceDesc": "KYC 書類とステータスを管理",
+      "securityGuide": "セキュリティのベストプラクティス",
+      "securityGuideDesc": "アカウントを安全に保つ"
+    },
+    "documents": {
+      "title": "Documents & KYC",
+      "subtitle": "View verification status and manage identity documents.",
+      "statusLabel": "Verification status",
+      "statusHint": "Upload or update your KYC documents from the compliance center.",
+      "manageCta": "Manage documents",
+      "startKycCta": "Start verification"
     }
   },
   "Notifications": {
@@ -442,6 +714,10 @@
       "success": "成功",
       "warning": "警告",
       "error": "セキュリティアラート"
+    },
+    "activity": {
+      "paymentTitle": "最近の支払い更新",
+      "paymentBody": "{amount} {currency} の送金は現在 {status} です。"
     },
     "loadMore": "さらに読み込む",
     "loading": "通知を読み込み中...",
@@ -488,7 +764,39 @@
       "unknownSender": "不明な送金元",
       "unknownReceiver": "不明な受取人",
       "datePending": "日付保留中",
-      "invalidDate": "無効な日付"
+      "invalidDate": "無効な日付",
+      "columns": {
+        "description": "説明",
+        "amount": "金額",
+        "status": "ステータス"
+      }
+    },
+    "table": {
+      "actions": "操作",
+      "viewReceipt": "領収書を表示",
+      "archive": "アーカイブ",
+      "unread": "未読",
+      "sentSummary": "<name></name> に <amount></amount> を送信",
+      "receivedSummary": "<name></name> から <amount></amount> を受取",
+      "dateAt": "{date} {time}"
+    },
+    "receiptModal": {
+      "title": "領収書",
+      "totalAmount": "合計金額",
+      "referenceId": "参照 ID",
+      "sender": "送信者",
+      "receiver": "受取人",
+      "subtotal": "小計",
+      "serviceFee": "サービス手数料",
+      "recipientReceives": "受取人が受け取る額",
+      "verifiedFooter": "VaultString Security により確認済み"
+    },
+    "grid": {
+      "to": "送金先",
+      "from": "送金元",
+      "amount": "金額",
+      "date": "日付",
+      "time": "時刻"
     }
   },
   "Receipt": {
@@ -510,6 +818,7 @@
     "labelTxnId": "取引 ID",
     "labelSender": "送金元",
     "labelReceiver": "受取人",
+    "labelStatus": "ステータス",
     "labelAmount": "金額",
     "labelFee": "処理手数料",
     "labelTotalDebited": "引き落とし合計",
@@ -524,6 +833,14 @@
     "loadFailed": "領収書の読み込みに失敗しました"
   },
   "Auth": {
+    "language": {
+      "label": "言語"
+    },
+    "social": {
+      "orContinueWith": "または次で続行",
+      "google": "Google",
+      "apple": "Apple"
+    },
     "login": {
       "title": "サインイン",
       "subtitle": "VaultString へようこそ",
@@ -551,7 +868,8 @@
       "validation": {
         "emailInvalid": "有効なメールアドレスを入力してください",
         "passwordRequired": "パスワードは必須です"
-      }
+      },
+      "errorGoogleNotConfigured": "サーバーでGoogleサインインが設定されていません。バックエンドの.envにGOOGLE_CLIENT_IDとGOOGLE_CLIENT_SECRETを設定し、認証サービスを再起動してください。"
     },
     "signup": {
       "alertFailedTitle": "登録に失敗しました",
@@ -591,7 +909,12 @@
         "termsRequired": "利用規約に同意する必要があります",
         "passwordMismatch": "パスワードが一致しません",
         "businessNameRequired": "法人アカウントには会社名が必要です"
-      }
+      },
+      "alertComingSoonTitle": "近日公開",
+      "errorGoogleNotConfigured": "サーバーでGoogleサインインが設定されていません。バックエンドの.envにGOOGLE_CLIENT_IDとGOOGLE_CLIENT_SECRETを設定し、認証サービスを再起動してください。",
+      "errorAppleComingSoon": "Appleサインインはまだ利用できません。メールとパスワードをご利用ください。",
+      "pageTitle": "アカウント作成",
+      "pageSubtitle": "今すぐ VaultString に参加"
     }
   },
   "Translation": {
@@ -600,7 +923,8 @@
     "appLanguageHint": "インターフェースの言語を選択します。",
     "searchPlaceholder": "言語を検索...",
     "languageUpdated": "言語を更新しました",
-    "translating": "翻訳中…"
+    "translating": "翻訳中…",
+    "backToSettings": "設定に戻る"
   },
   "Verification": {
     "verifyingTitle": "メールを確認中",
@@ -627,7 +951,17 @@
     "useMagicLink": "マジックリンクを使用する",
     "invalidCode": "確認コードが無効です",
     "invalidLink": "確認リンクが無効または期限切れです",
-    "resendFailed": "コードの再送信に失敗しました"
+    "resendFailed": "コードの再送信に失敗しました",
+    "continueWithCode": "確認コードで続行",
+    "emailPlaceholder": "メールアドレスを入力",
+    "emailRequired": "コードを再送する前にメールが必要です。",
+    "emailPageTitle": "メール確認",
+    "emailPageSubtitle": "本人確認中",
+    "verifyingEmailMessage": "メールを確認しています…",
+    "invalidLinkMissingToken": "無効な確認リンク。トークンがありません。",
+    "emailVerifiedMessage": "メールが正常に確認されました。",
+    "continueToLogin": "ログインに進む",
+    "resendHint": "問題が続く場合は、新しい確認リンクをリクエストしてください。"
   },
   "ResetPassword": {
     "emailTitle": "パスワードをリセット",
@@ -698,26 +1032,49 @@
     "loadFailed": "コンプライアンスステータスの読み込みに失敗しました",
     "fillAllFields": "すべての項目を入力し、書類をアップロードしてください",
     "submitSuccess": "KYC書類を正常に提出しました",
-    "submitFailed": "書類の提出に失敗しました"
+    "submitFailed": "書類の提出に失敗しました",
+    "widgetTitle": "コンプライアンスと KYC",
+    "widgetSubtitle": "本人確認書類を管理して上限を引き上げましょう。",
+    "accountStatus": "{status} アカウント",
+    "uploadingDocument": "書類をアップロード中…",
+    "uploadSuccess": "書類がアップロードされました。チームが間もなく確認します。",
+    "uploadFailed": "書類のアップロードに失敗しました。もう一度お試しください。",
+    "documentOnFile": "登録済み書類:",
+    "uploadedOn": "{date} にアップロード",
+    "uploadCta": "クリックしてアップロード、またはドラッグ＆ドロップ",
+    "uploadFormatsSmall": "PDF、JPG、PNG（最大 5MB）",
+    "approved": "承認済み",
+    "idDocTitle": "国民 ID / パスポート",
+    "addressDocTitle": "住所証明",
+    "verificationCard": {
+      "verifiedTitle": "本人確認済み",
+      "requiredTitle": "本人確認が必要です",
+      "verifiedBody": "アカウントは完全に確認済みです。上限が引き上げられ、すべての機能をご利用いただけます。",
+      "unverifiedBody": "取引上限を引き上げるには、有効な政府発行の身分証明書と住所証明を提出してください。",
+      "dailyLimit": "1日の上限",
+      "monthlyLimit": "月間上限",
+      "intlTransfers": "国際送金",
+      "enabled": "有効"
+    }
   },
   "Onboarding": {
     "userType": {
       "title": "本人確認（KYC）",
       "subtitle": "アカウント種別を選択して認証を開始してください",
       "individualTitle": "個人",
-      "individualDescription": "Verify as a private person. Takes about 10 minutes.",
-      "individualFeaturePersonal": "Personal information",
-      "individualFeatureId": "ID verification",
-      "individualFeatureAddress": "Address proof",
+      "individualDescription": "個人として認証します。約10分かかります。",
+      "individualFeaturePersonal": "個人情報",
+      "individualFeatureId": "本人確認",
+      "individualFeatureAddress": "住所証明",
       "individualCta": "個人として続行",
       "businessTitle": "法人",
-      "businessDescription": "Verify your company. Takes about 15 minutes.",
-      "businessFeatureCompany": "Company details",
-      "businessFeatureUbo": "UBO disclosure",
-      "businessFeatureDocs": "Documentation",
+      "businessDescription": "会社を認証します。約15分かかります。",
+      "businessFeatureCompany": "会社情報",
+      "businessFeatureUbo": "実質的支配者（UBO）の開示",
+      "businessFeatureDocs": "書類",
       "businessCta": "法人として続行",
-      "privacyNote": "We take your privacy seriously. Your information is encrypted and secure.",
-      "complianceNote": "Compliant with Malawi RBM and China PBOC regulations"
+      "privacyNote": "お客様のプライバシーを大切にしています。情報は暗号化され安全に保護されます。",
+      "complianceNote": "マラウイRBMおよび中国PBOCの規制に準拠"
     },
     "flow": {
       "changeType": "種別を変更",
@@ -728,90 +1085,91 @@
       "continue": "次のステップへ"
     },
     "individualSteps": {
-      "personal": "Personal Details",
-      "contact": "Contact Information",
-      "id": "ID Verification",
-      "funds": "Source of Funds",
-      "security": "Security Setup",
-      "terms": "Terms & Agreements"
+      "personal": "個人情報",
+      "contact": "連絡先",
+      "id": "本人確認",
+      "funds": "資金源",
+      "security": "セキュリティ設定",
+      "terms": "利用規約"
     },
     "businessSteps": {
-      "company": "Company Details",
-      "business": "Business Information",
-      "reps": "Authorized Representatives",
-      "ubo": "UBO Disclosure",
-      "banking": "Banking Details",
-      "docs": "Documentation",
-      "compliance": "Compliance"
+      "company": "会社情報",
+      "business": "事業情報",
+      "reps": "権限ある代表者",
+      "ubo": "UBO開示",
+      "banking": "銀行情報",
+      "docs": "書類",
+      "compliance": "コンプライアンス"
     },
     "personalDetails": {
-      "firstNameLabel": "First Name *",
+      "firstNameLabel": "名 *",
       "firstNamePlaceholder": "John",
-      "lastNameLabel": "Last Name *",
+      "lastNameLabel": "姓 *",
       "lastNamePlaceholder": "Doe",
-      "dateOfBirthLabel": "Date of Birth *",
-      "nationalityLabel": "Nationality *",
+      "dateOfBirthLabel": "生年月日 *",
+      "nationalityLabel": "国籍 *",
       "nationalityPlaceholder": "United States",
-      "idTypeLabel": "ID Type",
-      "idTypePassport": "Passport",
-      "idTypeDriverLicense": "Driver's License",
-      "idTypeNationalId": "National ID",
-      "encryptionNote": "Your personal information is encrypted and will only be used for verification purposes.",
+      "idTypeLabel": "身分証明書の種類",
+      "idTypePassport": "パスポート",
+      "idTypeDriverLicense": "運転免許証",
+      "idTypeNationalId": "国民ID",
+      "encryptionNote": "個人情報は暗号化され、認証目的のみに使用されます。",
       "validation": {
-        "firstNameRequired": "First name is required",
-        "lastNameRequired": "Last name is required",
-        "dateOfBirthRequired": "Date of birth is required",
-        "nationalityRequired": "Nationality is required"
+        "firstNameRequired": "名は必須です",
+        "lastNameRequired": "姓は必須です",
+        "dateOfBirthRequired": "生年月日は必須です",
+        "nationalityRequired": "国籍は必須です"
       }
     },
     "contactInfo": {
-      "phoneLabel": "Phone Number *",
+      "phoneLabel": "電話番号 *",
       "phonePlaceholder": "+1 (555) 123-4567",
-      "emailLabel": "Email Address *",
+      "emailLabel": "メールアドレス *",
       "emailPlaceholder": "kelvin@example.com",
-      "addressLabel": "Address *",
+      "addressLabel": "住所 *",
       "addressPlaceholder": "123 Main Street",
-      "cityLabel": "City *",
+      "cityLabel": "市区町村 *",
       "cityPlaceholder": "Lilongwe",
-      "countryLabel": "Country *",
+      "countryLabel": "国 *",
       "countryPlaceholder": "Malawi",
-      "postalCodeLabel": "Postal Code *",
+      "postalCodeLabel": "郵便番号 *",
       "postalCodePlaceholder": "10001",
       "validation": {
-        "phoneRequired": "Phone number is required",
-        "emailRequired": "Email is required",
-        "addressRequired": "Address is required",
-        "cityRequired": "City is required",
-        "countryRequired": "Country is required",
-        "postalCodeRequired": "Postal code is required"
+        "phoneRequired": "電話番号は必須です",
+        "emailRequired": "メールアドレスは必須です",
+        "addressRequired": "住所は必須です",
+        "cityRequired": "市区町村は必須です",
+        "countryRequired": "国は必須です",
+        "postalCodeRequired": "郵便番号は必須です"
       }
     },
     "idVerification": {
-      "documentNumberLabel": "Document Number *",
+      "documentNumberLabel": "書類番号 *",
       "documentNumberPlaceholder": "ABC123456789",
-      "expiryDateLabel": "Expiry Date *",
-      "uploadLabel": "Upload Document *",
+      "expiryDateLabel": "有効期限 *",
+      "uploadLabel": "書類をアップロード *",
       "previewAlt": "Preview",
-      "uploadCta": "Click to upload or drag and drop",
-      "uploadFormats": "PNG, JPG, or PDF (max 10MB)",
-      "secureNote": "Your document is verified securely. We only use it to confirm your identity.",
+      "uploadCta": "クリックしてアップロード、またはドラッグ＆ドロップ",
+      "uploadFormats": "PNG、JPG、またはPDF（最大10MB）",
+      "secureNote": "書類は安全に確認されます。本人確認のみに使用します。",
       "validation": {
-        "documentNumberRequired": "Document number is required",
-        "expiryDateRequired": "Expiry date is required",
-        "fileRequired": "Document file is required"
+        "documentNumberRequired": "書類番号は必須です",
+        "expiryDateRequired": "有効期限は必須です",
+        "fileRequired": "書類ファイルは必須です"
       }
     },
     "sourceOfFunds": {
-      "employmentStatusLabel": "Employment Status *",
-      "employmentEmployed": "employed",
-      "employmentSelfEmployed": "self employed",
-      "employmentRetired": "retired",
-      "employmentStudent": "student",
-      "employmentOther": "other",
-      "currencyLabel": "Currency *",
-      "currencyMwk": "Malawian Kwacha (MWK)",
-      "currencyCny": "Chinese Yuan (CNY)",
-      "incomeRangeLabel": "Annual Income Range *",
+      "employmentStatusLabel": "雇用状況 *",
+      "employmentEmployed": "雇用",
+      "employmentSelfEmployed": "自営業",
+      "employmentUnemployed": "Unemployed",
+      "employmentRetired": "退職",
+      "employmentStudent": "学生",
+      "employmentOther": "その他",
+      "currencyLabel": "通貨 *",
+      "currencyMwk": "マラウイ・クワチャ（MWK）",
+      "currencyCny": "中国元（CNY）",
+      "incomeRangeLabel": "年収範囲 *",
       "incomeMwk0": "0 - 100,000 MWK",
       "incomeMwk1": "100,000 - 500,000 MWK",
       "incomeMwk2": "500,000 - 1,000,000 MWK",
@@ -822,190 +1180,229 @@
       "incomeCny2": "200,000 - 500,000 CNY",
       "incomeCny3": "500,000 - 2,000,000 CNY",
       "incomeCny4": "2,000,000+ CNY",
-      "amlNote": "This information helps us comply with anti-money laundering regulations."
+      "employmentOtherDescriptionLabel": "雇用内容を記入 *",
+      "employmentOtherDescriptionPlaceholder": "例：フリーランスコンサルタント、季節農業",
+      "employmentSupplementaryLabel": "追加の雇用詳細（任意）",
+      "employmentSupplementaryPlaceholder": "収入の得方について詳しく教えてください",
+      "incomeOther": "その他 / 記入",
+      "incomeOtherDescriptionLabel": "年収を記入 *",
+      "incomeOtherDescriptionPlaceholder": "例：変動収入、年間約200,000–400,000 MWK",
+      "validation": {
+        "employmentOtherRequired": "雇用内容を記入してください",
+        "incomeOtherRequired": "収入範囲を記入してください"
+      },
+      "amlNote": "この情報はマネーロンダリング防止規制の遵守に役立ちます。"
     },
     "securitySetup": {
-      "twoFaLabel": "Enable two-factor authentication (2FA) for enhanced security",
-      "question1Label": "Security Question 1 *",
-      "selectQuestion": "Select a question",
-      "answerLabel": "Your Answer *",
+      "twoFaLabel": "セキュリティ強化のため二要素認証（2FA）を有効にする",
+      "question1Label": "セキュリティ質問 1 *",
+      "selectQuestion": "質問を選択",
+      "answerLabel": "回答 *",
       "answerPlaceholder": "Your answer",
-      "recoveryNote": "These security questions help us verify your identity if you need to recover your account.",
+      "recoveryNote": "アカウント復旧時に本人確認を行うためのセキュリティ質問です。",
       "questions": {
-        "maidenName": "What is your mother's maiden name?",
-        "firstPet": "What was the name of your first pet?",
-        "birthCity": "In what city were you born?",
-        "favoriteTeacher": "What is the name of your favorite teacher?",
-        "firstCar": "What was the make of your first car?"
+        "maidenName": "母親の旧姓は何ですか？",
+        "firstPet": "最初のペットの名前は何でしたか？",
+        "birthCity": "生まれた都市はどこですか？",
+        "favoriteTeacher": "お気に入りの先生の名前は何ですか？",
+        "firstCar": "最初の車のメーカーは何でしたか？"
       },
       "validation": {
-        "questionRequired": "Please select a security question",
-        "answerRequired": "Please answer the security question"
+        "questionRequired": "セキュリティ質問を選択してください",
+        "answerRequired": "セキュリティ質問に回答してください"
       }
     },
     "terms": {
-      "heading": "Terms and Conditions",
-      "body1": "By using our KYC verification service, you agree to comply with all applicable laws and regulations. You represent that all information provided is accurate and complete. We reserve the right to deny access or cancel accounts if we detect fraudulent activity or violation of our terms.",
-      "body2": "Your data will be processed securely and in compliance with international data protection regulations including GDPR and local standards.",
-      "privacyLabel": "I have read and agree to the <privacy>Privacy Policy</privacy> *",
-      "privacyLink": "Privacy Policy",
-      "termsLabel": "I have read and agree to the <terms>Terms of Service</terms> *",
-      "termsLink": "Terms of Service",
-      "dataLabel": "I consent to the secure storage of my personal data *",
+      "heading": "利用規約",
+      "body1": "KYC認証サービスを利用することにより、適用されるすべての法令を遵守することに同意します。提供する情報が正確かつ完全であることを表明します。不正行為や規約違反が判明した場合、アクセス拒否またはアカウント停止を行う権利を留保します。",
+      "body2": "お客様のデータは、GDPRおよび現地基準を含む国際的なデータ保護規制に準拠して安全に処理されます。",
+      "privacyLabel": "<privacy>プライバシーポリシー</privacy>を読み、同意します *",
+      "privacyLink": "プライバシーポリシー",
+      "termsLabel": "<terms>利用規約</terms>を読み、同意します *",
+      "termsLink": "利用規約",
+      "dataLabel": "個人データの安全な保存に同意します *",
       "submit": "認証を完了",
       "submitting": "送信中…",
       "validation": {
-        "privacyRequired": "You must accept the privacy policy",
-        "termsRequired": "You must accept the terms of service",
-        "dataRequired": "You must consent to data processing"
+        "privacyRequired": "プライバシーポリシーに同意する必要があります",
+        "termsRequired": "利用規約に同意する必要があります",
+        "dataRequired": "データ処理に同意する必要があります"
       },
-      "errorSubmit": "Failed to submit KYC. Please try again."
+      "errorSubmit": "KYCの送信に失敗しました。もう一度お試しください。"
     },
     "completion": {
-      "individualTitle": "KYC Submitted",
-      "businessTitle": "Business KYC Submitted",
-      "subtitle": "Your verification is being processed",
-      "thankYou": "Thank you for completing your verification. Our compliance team is now reviewing your application.",
-      "reviewTimeLabel": "Review Time",
-      "reviewTimeValue": "24 - 48 Hours",
-      "confirmationLabel": "Confirmation",
-      "confirmationValue": "Email will be sent",
-      "securityLabel": "Security",
-      "securityValue": "Full access on approval",
+      "individualTitle": "KYCを送信しました",
+      "businessTitle": "法人KYCを送信しました",
+      "subtitle": "認証を処理中です",
+      "thankYou": "認証の完了ありがとうございます。コンプライアンスチームが申請を審査しています。",
+      "reviewTimeLabel": "審査時間",
+      "reviewTimeValue": "24～48時間",
+      "confirmationLabel": "確認",
+      "confirmationValue": "メールが送信されます",
+      "securityLabel": "セキュリティ",
+      "securityValue": "承認後にフルアクセス",
       "goDashboard": "ダッシュボードへ",
       "startAnother": "別の認証を開始",
       "referenceId": "Reference ID: KYC-{id}"
     },
     "companyDetails": {
-      "legalNameLabel": "Legal Company Name *",
+      "legalNameLabel": "法人名 *",
       "legalNamePlaceholder": "ABC Corporation Ltd.",
-      "registrationLabel": "Registration Number *",
+      "registrationLabel": "登記番号 *",
       "registrationPlaceholder": "REG123456",
-      "taxIdLabel": "Tax ID *",
+      "taxIdLabel": "税務ID *",
       "taxIdPlaceholder": "TAX123456789",
       "validation": {
-        "legalNameRequired": "Legal name is required",
-        "registrationRequired": "Registration number is required",
-        "taxIdRequired": "Tax ID is required"
+        "legalNameRequired": "法人名は必須です",
+        "registrationRequired": "登記番号は必須です",
+        "taxIdRequired": "税務IDは必須です"
       }
     },
     "businessInfo": {
-      "industryLabel": "Industry *",
-      "selectIndustry": "Select an industry",
+      "industryLabel": "業種 *",
+      "selectIndustry": "業種を選択",
       "industries": {
-        "technology": "Technology",
-        "finance": "Finance",
-        "healthcare": "Healthcare",
-        "retail": "Retail",
-        "manufacturing": "Manufacturing",
-        "education": "Education",
-        "other": "Other"
+        "technology": "テクノロジー",
+        "finance": "金融",
+        "healthcare": "ヘルスケア",
+        "retail": "小売",
+        "manufacturing": "製造",
+        "education": "教育",
+        "other": "その他"
       },
-      "companySizeLabel": "Company Size *",
-      "selectCompanySize": "Select company size",
+      "companySizeLabel": "会社規模 *",
+      "selectCompanySize": "会社規模を選択",
       "size1": "1-10 employees",
       "size2": "11-50 employees",
       "size3": "51-200 employees",
       "size4": "201-500 employees",
       "size5": "500+ employees",
-      "websiteLabel": "Website (Optional)",
+      "websiteLabel": "ウェブサイト（任意）",
       "websitePlaceholder": "https://example.com",
-      "incorporationDateLabel": "Incorporation Date *",
+      "incorporationDateLabel": "設立日 *",
       "validation": {
-        "industryRequired": "Industry is required",
-        "companySizeRequired": "Company size is required",
-        "incorporationDateRequired": "Incorporation date is required"
+        "industryRequired": "業種は必須です",
+        "companySizeRequired": "会社規模は必須です",
+        "incorporationDateRequired": "設立日は必須です"
       }
     },
     "authorizedReps": {
-      "representativeTitle": "Representative {n}",
-      "remove": "Remove",
-      "fullNameLabel": "Full Name *",
+      "representativeTitle": "代表者 {n}",
+      "remove": "削除",
+      "fullNameLabel": "氏名 *",
       "fullNamePlaceholder": "John Smith",
-      "emailLabel": "Email *",
+      "emailLabel": "メールアドレス *",
       "emailPlaceholder": "john@example.com",
-      "jobTitleLabel": "Job Title *",
+      "jobTitleLabel": "役職 *",
       "jobTitlePlaceholder": "CEO",
-      "addAnother": "Add Another Representative",
+      "addAnother": "代表者を追加",
       "validation": {
-        "nameRequired": "Name is required",
-        "emailRequired": "Email is required",
-        "titleRequired": "Title is required"
+        "nameRequired": "氏名は必須です",
+        "emailRequired": "メールアドレスは必須です",
+        "titleRequired": "役職は必須です"
       }
     },
     "uboDisclosure": {
-      "intro": "UBO (Ultimate Beneficial Owner) disclosure is required for compliance. Please provide information about the individuals who ultimately own or control the company.",
-      "ownershipStructureLabel": "Ownership Structure",
-      "directOwnership": "Direct ownership",
-      "indirectOwnership": "Indirect ownership (through another entity)",
-      "uboNameLabel": "UBO Full Name *",
+      "intro": "コンプライアンスのためUBO（実質的受益者）の開示が必要です。会社を最終的に所有または支配する個人の情報を提供してください。",
+      "ownershipStructureLabel": "所有構造",
+      "directOwnership": "直接所有",
+      "indirectOwnership": "間接所有（他の法人を通じた）",
+      "uboNameLabel": "UBO氏名 *",
       "uboNamePlaceholder": "Ida Mateyu",
-      "ownershipPercentLabel": "Ownership Percentage *",
+      "ownershipPercentLabel": "持株比率 *",
       "ownershipPercentPlaceholder": "25",
-      "nationalityLabel": "Nationality *",
+      "nationalityLabel": "国籍 *",
       "nationalityPlaceholder": "Malawian",
       "validation": {
-        "uboNameRequired": "UBO name is required",
-        "ownershipRequired": "Ownership percentage is required",
-        "nationalityRequired": "Nationality is required"
+        "uboNameRequired": "UBO氏名は必須です",
+        "ownershipRequired": "持株比率は必須です",
+        "nationalityRequired": "国籍は必須です"
       }
     },
     "bankingDetails": {
-      "bankNameLabel": "Bank Name *",
+      "bankNameLabel": "銀行名 *",
       "bankNamePlaceholder": "Example Bank",
-      "accountNumberLabel": "Account Number *",
+      "accountNumberLabel": "口座番号 *",
       "accountNumberPlaceholder": "123456789",
-      "bankCodeLabel": "Bank Code / SWIFT Code *",
+      "bankCodeLabel": "銀行コード / SWIFT *",
       "bankCodePlaceholder": "SWIFTCODE",
-      "accountHolderLabel": "Account Holder Name *",
+      "accountHolderLabel": "口座名義 *",
       "accountHolderPlaceholder": "Company Name",
-      "encryptedNote": "Your banking details are encrypted and used only for payouts.",
+      "encryptedNote": "銀行情報は暗号化され、支払い目的のみに使用されます。",
       "validation": {
-        "bankNameRequired": "Bank name is required",
-        "accountNumberRequired": "Account number is required",
-        "bankCodeRequired": "Bank code is required",
-        "accountHolderRequired": "Account holder name is required"
+        "bankNameRequired": "銀行名は必須です",
+        "accountNumberRequired": "口座番号は必須です",
+        "bankCodeRequired": "銀行コードは必須です",
+        "accountHolderRequired": "口座名義は必須です"
       }
     },
     "documentation": {
-      "incorporationLabel": "Certificate of Incorporation",
-      "articlesLabel": "Articles of Association",
-      "shareholdersLabel": "Shareholder Register",
-      "uploadSuccess": "File uploaded successfully",
-      "uploadCta": "Click to upload",
-      "uploadFormats": "PDF or DOC (max 20MB)",
-      "uploading": "Uploading...",
+      "incorporationLabel": "設立証明書",
+      "articlesLabel": "定款",
+      "shareholdersLabel": "株主名簿",
+      "uploadSuccess": "ファイルをアップロードしました",
+      "uploadCta": "クリックしてアップロード",
+      "uploadFormats": "PDFまたはDOC（最大20MB）",
+      "uploading": "アップロード中…",
       "validation": {
-        "incorporationRequired": "Certificate of incorporation is required",
-        "articlesRequired": "Articles of association are required"
+        "incorporationRequired": "設立証明書は必須です",
+        "articlesRequired": "定款は必須です"
       },
-      "errorUpload": "Failed to upload documents. Please try again."
+      "errorUpload": "書類のアップロードに失敗しました。もう一度お試しください。"
     },
     "compliance": {
-      "businessPurposeLabel": "Business Purpose *",
-      "selectPurpose": "Select business purpose",
+      "businessPurposeLabel": "事業目的 *",
+      "selectPurpose": "事業目的を選択",
       "purposes": {
-        "trading": "Trading",
-        "consulting": "Consulting",
-        "manufacturing": "Manufacturing",
-        "services": "Services",
-        "other": "Other"
+        "trading": "貿易",
+        "consulting": "コンサルティング",
+        "manufacturing": "製造",
+        "services": "サービス",
+        "other": "その他"
       },
-      "expectedVolumeLabel": "Expected Monthly Transaction Volume *",
-      "selectRange": "Select range",
+      "expectedVolumeLabel": "予想月間取引量 *",
+      "selectRange": "範囲を選択",
       "volume0": "$0 - $10,000",
       "volume1": "$10,000 - $50,000",
       "volume2": "$50,000 - $100,000",
       "volume3": "$100,000+",
-      "confirmationHeading": "Compliance Confirmation",
-      "confirmationBody": "I confirm that my company complies with all applicable regulations in the jurisdictions where it operates, including Malawi RBM requirements and China PBOC merchant requirements.",
-      "checkboxLabel": "I confirm compliance with all applicable regulations *",
-      "submit": "Complete Business Verification",
+      "confirmationHeading": "コンプライアンス確認",
+      "confirmationBody": "当社は、マラウイRBMおよび中国PBOCの要件を含め、事業を行うすべての法域の適用法規を遵守していることを確認します。",
+      "checkboxLabel": "適用されるすべての規制への準拠を確認します *",
+      "submit": "法人認証を完了",
       "validation": {
-        "purposeRequired": "Business purpose is required",
-        "volumeRequired": "Expected transaction volume is required",
-        "complianceRequired": "You must accept the compliance confirmation"
+        "purposeRequired": "事業目的は必須です",
+        "volumeRequired": "予想取引量は必須です",
+        "complianceRequired": "コンプライアンス確認に同意する必要があります"
       }
+    }
+  },
+  "AccountBlocked": {
+    "title": "アカウントがブロックされました",
+    "body": "管理者によりアカウントが制限されました。顧客機能へのアクセスは無効です。",
+    "hint": "誤りと思われる場合は、登録メールアドレスを添えてサポートにお問い合わせください。",
+    "supportContact": "サポート連絡先",
+    "copied": "コピーしました",
+    "copy": "コピー",
+    "signOutClear": "サインアウト / セッションをクリア",
+    "backToSignIn": "サインインに戻る"
+  },
+  "Language": {
+    "manageAll": "すべての言語",
+    "label": "表示言語",
+    "hint": "保存後、アプリ全体に適用されます。",
+    "searchPlaceholder": "言語を検索…"
+  },
+  "MoneySources": {
+    "fundingTitle": "資金源",
+    "payoutTitle": "支払いプロバイダー",
+    "moreInDeposit": "入金または送金時にさらに多くのプロバイダーが利用可能です。",
+    "processing": {
+      "instant": "即時",
+      "minutes": "5〜15分",
+      "days": "1〜2営業日",
+      "card": "10〜30分",
+      "api": "API決済"
     }
   }
 }

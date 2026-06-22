@@ -1,0 +1,90 @@
+{
+  "fr": {
+    "Dashboard.quickActions.title": "Actions rapides",
+    "Dashboard.quickActions.send": "Envoyer",
+    "Dashboard.quickActions.deposit": "Ajouter des fonds",
+    "Dashboard.quickActions.history": "Transactions",
+    "Dashboard.quickActions.wallets": "Portefeuilles",
+    "Dashboard.pendingActions.title": "À traiter",
+    "Dashboard.pendingActions.verifyIdentityTitle": "Vérifier votre identité",
+    "Dashboard.pendingActions.verifyIdentitySubtitle": "Débloquez portefeuilles et transferts internationaux.",
+    "Dashboard.pendingActions.verifyEmailTitle": "Vérifier votre e-mail",
+    "Dashboard.pendingActions.verifyEmailSubtitle": "Sécurisez la récupération et les alertes.",
+    "Dashboard.pendingActions.pendingTransfersTitle": "{count, plural, one {# transfert en attente} other {# transferts en attente}}",
+    "Dashboard.pendingActions.pendingTransfersSubtitle": "Consultez l'historique des transactions.",
+    "Sidebar.sectionMoney": "Argent",
+    "Sidebar.sectionAccount": "Compte",
+    "Sidebar.settings": "Paramètres",
+    "Language.label": "Langue d'affichage",
+    "Language.hint": "S'applique à toute l'application après enregistrement.",
+    "Language.manageAll": "Voir toutes les langues",
+    "Settings.language.title": "Langue et région",
+    "Settings.language.subtitle": "12 langues prises en charge.",
+    "Translation.backToSettings": "Retour aux paramètres",
+    "Wallet.recentActivityTitle": "Activité récente",
+    "Wallet.recentActivityViewAll": "Tout voir",
+    "Transactions.list.columns.description": "Description",
+    "Transactions.list.columns.amount": "Montant",
+    "Transactions.list.columns.status": "Statut",
+    "TopBar.titles.settings": "Paramètres",
+    "TopBar.account.member": "Compte"
+  },
+  "pt": {
+    "Dashboard.quickActions.title": "Ações rápidas",
+    "Dashboard.pendingActions.title": "Requer atenção",
+    "Sidebar.sectionMoney": "Dinheiro",
+    "Sidebar.sectionAccount": "Conta",
+    "Language.manageAll": "Ver todos os idiomas",
+    "Settings.language.title": "Idioma e região",
+    "Translation.backToSettings": "Voltar às definições",
+    "TopBar.titles.settings": "Definições"
+  },
+  "sw": {
+    "Dashboard.quickActions.title": "Vitendo vya haraka",
+    "Sidebar.sectionMoney": "Fedha",
+    "Sidebar.sectionAccount": "Akaunti",
+    "Language.manageAll": "Angalia lugha zote",
+    "Translation.backToSettings": "Rudi kwenye mipangilio"
+  },
+  "ar": {
+    "Dashboard.quickActions.title": "إجراءات سريعة",
+    "Sidebar.sectionMoney": "الأموال",
+    "Sidebar.sectionAccount": "الحساب",
+    "Language.manageAll": "عرض كل اللغات",
+    "Translation.backToSettings": "العودة إلى الإعدادات"
+  },
+  "zh": {
+    "Dashboard.quickActions.title": "快捷操作",
+    "Sidebar.sectionMoney": "资金",
+    "Sidebar.sectionAccount": "账户",
+    "Language.manageAll": "浏览所有语言",
+    "Translation.backToSettings": "返回设置"
+  },
+  "ja": {
+    "Dashboard.quickActions.title": "クイック操作",
+    "Sidebar.sectionMoney": "お金",
+    "Sidebar.sectionAccount": "アカウント",
+    "Language.manageAll": "すべての言語",
+    "Translation.backToSettings": "設定に戻る"
+  },
+  "am": {
+    "Dashboard.quickActions.title": "ፈጣን እርምጃዎች",
+    "Translation.backToSettings": "ወደ ቅንብሮች ተመለስ"
+  },
+  "yo": {
+    "Dashboard.quickActions.title": "Iṣe kíákíá",
+    "Translation.backToSettings": "Padà sí ètò"
+  },
+  "ha": {
+    "Dashboard.quickActions.title": "Ayyuka masu sauri",
+    "Translation.backToSettings": "Komawa saituna"
+  },
+  "zu": {
+    "Dashboard.quickActions.title": "Izenzo ezisheshayo",
+    "Translation.backToSettings": "Buyela ezilungiselelweni"
+  },
+  "ny": {
+    "Dashboard.quickActions.title": "Zochita mwachangu",
+    "Translation.backToSettings": "Bwererani ku zoikamo"
+  }
+}

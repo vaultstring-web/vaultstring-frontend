@@ -10,6 +10,7 @@ type SignupPayload = {
   user_type: string; 
   country_code: string;
   business_name?: string;
+  locale?: string;
 };
 
 export async function login(payload: LoginPayload) {
@@ -31,10 +32,15 @@ export async function login(payload: LoginPayload) {
 }
 
 export async function signup(payload: SignupPayload) {
-  return apiFetch('/auth/register', {
+  const res = await apiFetch('/auth/register', {
     method: 'POST',
     body: JSON.stringify(payload)
   });
+  const token = (res as { access_token?: string })?.access_token;
+  if (token) setToken(String(token));
+  const user = (res as { user?: unknown })?.user;
+  if (user) setUser(user);
+  return res;
 }
 
 export async function requestPasswordReset(email: string) {
@@ -62,7 +68,7 @@ export async function resendVerificationCode(email: string) {
   return apiFetch('/auth/verify/resend', {
     method: 'POST',
     body: JSON.stringify({ email })
-  });
+  }) as Promise<{ status?: string; dev_verification_code?: string }>;
 }
 
 export async function sendMagicLink(email: string) {

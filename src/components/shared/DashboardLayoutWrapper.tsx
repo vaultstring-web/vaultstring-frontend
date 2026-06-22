@@ -33,6 +33,7 @@ export default function DashboardLayoutWrapper({
     pathname === '/reset-password' ||
     pathname === '/verification' ||
     pathname === '/verify-email' ||
+    pathname === '/google-callback' ||
     pathname === '/onboarding' ||
     pathname === '/kyc' ||
     pathname === '/account-blocked';
@@ -52,7 +53,7 @@ export default function DashboardLayoutWrapper({
   }
 
   return (
-    <div className="h-screen bg-background text-foreground flex overflow-hidden">
+    <div className="flex h-screen overflow-hidden bg-muted/30 text-foreground">
       {/* Sidebar */}
       <Sidebar 
         isOpen={isMobileMenuOpen}
@@ -60,14 +61,14 @@ export default function DashboardLayoutWrapper({
       />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col h-full overflow-hidden">
+      <div className="flex min-w-0 flex-1 flex-col h-full overflow-hidden">
         <TopBar 
           user={user} 
           onMenuClick={() => setIsMobileMenuOpen(true)}
         />
         
-        <main className="flex-1 overflow-y-auto p-4 lg:p-8">
-          <div className="max-w-7xl mx-auto space-y-6">
+        <main className="flex-1 min-w-0 overflow-x-hidden overflow-y-auto p-4 lg:p-8">
+          <div className="mx-auto w-full min-w-0 max-w-6xl vs-page-stack">
             {user && !disableEmailVerification && !user.isEmailVerified && (
               <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-2xl p-4 flex items-center justify-between animate-in fade-in slide-in-from-top duration-500">
                 <div className="flex items-center gap-3">

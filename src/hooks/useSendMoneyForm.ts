@@ -1,7 +1,8 @@
 import { useState, useMemo, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/src/context/AuthContext';
 import { apiFetch, isAuthenticated } from '@/src/lib/api/api-client';
+import { normalizeWallets } from '@/src/lib/api/response';
 import { getFundingOptions } from '@/src/lib/constants/funding';
 import { AFRICAN_COUNTRIES } from '@/src/lib/constants/africa';
 import { getSupportedAfricanCurrencies } from '@/src/lib/utils/africa-utils';
@@ -45,8 +46,10 @@ export function useSendMoneyForm() {
     [tv]
   );
   const SUCCESS_TX_STORAGE_KEY = 'kyd_last_success_tx_id';
+const SUCCESS_FLOW_STORAGE_KEY = 'kyd_last_success_flow';
   const normalizeWalletNumber = (value: string) => value.replace(/\D/g, '');
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { user, refreshUser } = useAuth();
 
   const supportedAfricanCurrencies = useMemo(() => getSupportedAfricanCurrencies(), []);
@@ -93,10 +96,19 @@ export function useSendMoneyForm() {
   const [fundingSource, setFundingSource] = useState<string>('wallet_balance');
   const [payoutMethod, setPayoutMethod] = useState<string>('');
 
+  // Prefill from wallet withdraw flow (?from=MWK&amount=1000&payout=bank)
+  useEffect(() => {
+    const from = searchParams.get('from');
+    const amount = searchParams.get('amount');
+    const payout = searchParams.get('payout');
+    if (from) setValue('currency', from.toUpperCase());
+    if (amount) setValue('amount', amount);
+    if (payout === 'bank') setPayoutMethod('bank');
+  }, [searchParams, setValue]);
+
   // Status State
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
-  const [result, setResult] = useState<any | null>(null);
   
   // Wallet State
   const [walletBalance, setWalletBalance] = useState<number>(0);
@@ -145,7 +157,7 @@ export function useSendMoneyForm() {
   // Fetch Wallet Balance
   useEffect(() => {
     apiFetch('/wallets').then((res) => {
-      const wallets = Array.isArray(res?.wallets) ? res.wallets : [];
+      const wallets = normalizeWallets(res);
       const currencies = wallets
         .map((w: any) => String(w?.currency || '').toUpperCase())
         .filter(Boolean);
@@ -278,7 +290,6 @@ export function useSendMoneyForm() {
     
     setLoading(true);
     setServerError(null);
-    setResult(null);
     
     try {
       if (!isAuthenticated()) throw new Error('Please login to send a payment');
@@ -286,7 +297,7 @@ export function useSendMoneyForm() {
       let currencies = walletCurrencies;
       if (!Array.isArray(currencies) || currencies.length === 0) {
         const wres = await apiFetch('/wallets').catch(() => null);
-        const wallets = Array.isArray(wres?.wallets) ? wres.wallets : [];
+        const wallets = normalizeWallets(wres);
         currencies = wallets
           .map((w: any) => String(w?.currency || '').toUpperCase())
           .filter(Boolean);
@@ -331,7 +342,6 @@ export function useSendMoneyForm() {
         body: JSON.stringify(payload)
       });
 
-      setResult(res);
       refreshUser();
       reset();
       const txId =
@@ -347,11 +357,15 @@ export function useSendMoneyForm() {
       if (txId) {
         if (typeof window !== 'undefined') {
           localStorage.setItem(SUCCESS_TX_STORAGE_KEY, String(txId));
+          sessionStorage.setItem(SUCCESS_FLOW_STORAGE_KEY, 'send-money');
         }
-        router.push(`/transactions/success?tx=${encodeURIComponent(String(txId))}`);
+        router.push(`/transactions/success?tx=${encodeURIComponent(String(txId))}&from=send-money`);
       } else {
-        // Fallback route still opens success page where we auto-resolve latest tx.
-        router.push('/transactions/success');
+        if (typeof window !== 'undefined') {
+          sessionStorage.setItem(SUCCESS_FLOW_STORAGE_KEY, 'send-money');
+        }
+        // Fallback route opens success page and resolves latest when flow marker exists.
+        router.push('/transactions/success?from=send-money');
       }
     } catch (err: unknown) {
       setServerError(err instanceof Error ? err.message : 'Transaction initiation failed');
@@ -386,8 +400,6 @@ export function useSendMoneyForm() {
     loading,
     error: serverError,
     serverError,
-    result,
-    setResult,
     walletBalance,
     receiverName,
     receiverLoading,

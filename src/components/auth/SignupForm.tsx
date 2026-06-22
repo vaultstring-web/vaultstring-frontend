@@ -26,6 +26,9 @@ import { PasswordStrengthIndicator } from "@/src/components/forms/PasswordStreng
 import { RadioGroup, RadioGroupItem } from "@/src/components/ui/radio-group"
 import { Checkbox } from "@/src/components/ui/checkbox"
 import { SocialAuthDivider, SocialButton } from '@/src/components/forms/SocialAuthDivider'
+import { AuthLanguageSelector } from "@/src/components/auth/AuthLanguageSelector"
+import { getStoredLocale } from "@/src/lib/locale"
+import { normalizePhoneE164, passwordRegex } from "@/src/lib/utils/validation"
 
 function createSignupSchema(t: (key: string) => string) {
   return z.object({
@@ -33,10 +36,13 @@ function createSignupSchema(t: (key: string) => string) {
     email: z.string().email({ message: t('validation.emailInvalid') }),
     firstName: z.string().min(1, { message: t('validation.firstNameRequired') }),
     lastName: z.string().min(1, { message: t('validation.lastNameRequired') }),
-    phone: z.string().min(10, { message: t('validation.phoneInvalid') }),
+    phone: z.string().min(7, { message: t('validation.phoneInvalid') }),
     countryCode: z.string().length(2, { message: t('validation.countryCode') }),
     businessName: z.string().optional(),
-    password: z.string().min(8, { message: t('validation.passwordMin') }),
+    password: z
+      .string()
+      .min(8, { message: t('validation.passwordMin') })
+      .regex(passwordRegex, { message: t('validation.passwordStrength') }),
     confirmPassword: z.string(),
     termsAccepted: z.boolean().refine((val) => val === true, {
       message: t('validation.termsRequired'),
@@ -60,7 +66,9 @@ type SignupFormValues = z.infer<ReturnType<typeof createSignupSchema>>
 export function SignupForm() {
   const router = useRouter()
   const t = useTranslations('Auth.signup')
+  const tc = useTranslations('Common')
   const [globalError, setGlobalError] = React.useState<string | null>(null)
+  const [appleNotice, setAppleNotice] = React.useState(false)
   const [isSuccess, setIsSuccess] = React.useState(false)
 
   const signupSchema = useMemo(() => createSignupSchema(t), [t])
@@ -86,58 +94,78 @@ export function SignupForm() {
 
   const handleGoogleLogin = async () => {
     setGlobalError(null);
+    setAppleNotice(false);
     try {
-      const data = await apiFetch('/auth/google/start', { method: 'GET' })
+      const data = await apiFetch('/auth/google/start', { method: 'GET' });
       if (!data?.auth_url) {
-        throw new Error(t('errorGoogleInit'))
+        throw new Error(t('errorGoogleInit'));
       }
-      window.location.href = data.auth_url
+      window.location.href = data.auth_url;
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : t('errorGoogleInit')
-      setGlobalError(msg)
+      const msg = err instanceof Error ? err.message : t('errorGoogleInit');
+      setGlobalError(msg || t('errorGoogleNotConfigured'));
     }
   };
 
   const handleAppleLogin = () => {
     setGlobalError(null);
+    setAppleNotice(true);
   };
 
   async function onSubmit(values: SignupFormValues) {
-    setGlobalError(null)
+    setGlobalError(null);
+    setAppleNotice(false);
 
     try {
+      const countryCode = values.countryCode.trim().toUpperCase()
+      const phone = normalizePhoneE164(values.phone, countryCode)
+
       const resp = await signupApi({
-        email: values.email,
+        email: values.email.trim(),
         password: values.password,
-        first_name: values.firstName,
-        last_name: values.lastName,
-        phone: values.phone,
+        first_name: values.firstName.trim(),
+        last_name: values.lastName.trim(),
+        phone,
         user_type: values.accountType === "business" ? "merchant" : "individual",
-        country_code: values.countryCode,
-        business_name: values.accountType === "business" ? values.businessName : undefined,
+        country_code: countryCode,
+        business_name: values.accountType === "business" ? values.businessName?.trim() : undefined,
+        locale: getStoredLocale('en'),
       })
 
       if (resp?.user?.id) {
         setIsSuccess(true)
         setTimeout(() => {
-            router.push(`/verification?email=${encodeURIComponent(values.email)}`)
+            router.push(`/verification?email=${encodeURIComponent(values.email)}&next=onboarding`)
         }, 1500)
       } else {
         setGlobalError(resp?.message || t('errorSignupFailed'))
       }
     } catch (error: unknown) {
-      const msg = error instanceof Error ? error.message : t('errorUnexpected')
+      const apiErr = error as {
+        message?: string
+        data?: { error?: string; validation_errors?: Record<string, string> }
+      }
+      const validationErrors = apiErr?.data?.validation_errors
+      if (validationErrors && Object.keys(validationErrors).length > 0) {
+        setGlobalError(Object.values(validationErrors)[0] || t('errorSignupFailed'))
+        return
+      }
+      const msg = apiErr?.message || apiErr?.data?.error || t('errorUnexpected')
       setGlobalError(msg)
     }
   }
 
   return (
     <div className="grid gap-6">
-      {globalError && (
-        <Alert variant="destructive" className="mb-6 rounded-2xl">
+      {(globalError || appleNotice) && (
+        <Alert variant={appleNotice ? 'default' : 'destructive'} className="mb-6 rounded-2xl">
           <AlertCircle className="h-4 w-4" />
-          <AlertTitle>{t('alertFailedTitle')}</AlertTitle>
-          <AlertDescription>{globalError}</AlertDescription>
+          <AlertTitle>
+            {appleNotice ? t('alertComingSoonTitle') : t('alertFailedTitle')}
+          </AlertTitle>
+          <AlertDescription>
+            {appleNotice ? t('errorAppleComingSoon') : globalError}
+          </AlertDescription>
         </Alert>
       )}
 
@@ -151,6 +179,7 @@ export function SignupForm() {
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <AuthLanguageSelector />
 
           <FormField
             control={form.control}
@@ -326,7 +355,7 @@ export function SignupForm() {
                 <FormLabel className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">{t('passwordLabel')}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="••••••••"
+                    placeholder={tc('passwordMask')}
                     type="password"
                     className="h-14 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 dark:text-white border-none focus-visible:ring-2 focus-visible:ring-green-500/20 dark:focus-visible:ring-green-500/10"
                     {...field}
@@ -346,7 +375,7 @@ export function SignupForm() {
                 <FormLabel className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">{t('confirmPasswordLabel')}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="••••••••"
+                    placeholder={tc('passwordMask')}
                     type="password"
                     className="h-14 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 dark:text-white border-none focus-visible:ring-2 focus-visible:ring-green-500/20 dark:focus-visible:ring-green-500/10"
                     {...field}
@@ -388,7 +417,7 @@ export function SignupForm() {
 
           <Button
             type="submit"
-            className="w-full h-14 rounded-2xl bg-green-500 hover:bg-green-600 text-white font-bold text-lg shadow-lg shadow-green-500/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            className="w-full h-14 rounded-2xl bg-green-500 hover:bg-green-600 text-white font-bold text-lg shadow-lg shadow-green-500/20 transition-all active:scale-[0.98]"
             disabled={form.formState.isSubmitting || isSuccess}
           >
             {form.formState.isSubmitting ? (

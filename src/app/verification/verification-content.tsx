@@ -19,6 +19,7 @@ export default function VerificationContent() {
   const params = useSearchParams();
   const initialEmail = params?.get('email') || '';
   const token = params?.get('token');
+  const next = params?.get('next') || '';
   
   const [email, setEmail] = useState(initialEmail);
   const [cooldown, setCooldown] = useState(0);
@@ -26,6 +27,7 @@ export default function VerificationContent() {
   const [verifyingToken, setVerifyingToken] = useState(!!token);
   const [tokenError, setTokenError] = useState<string | null>(null);
   const verificationStarted = useRef(false);
+  const nextPath = next === 'onboarding' ? '/onboarding' : '/';
 
   // Handle direct token verification from email link
   useEffect(() => {
@@ -36,8 +38,7 @@ export default function VerificationContent() {
           await verifyEmailToken(token);
           await refreshUser();
           setVerifyingToken(false);
-          // Redirect to onboarding after short delay to show success
-          setTimeout(() => router.push('/onboarding'), 2000);
+          setTimeout(() => router.push(nextPath), 2000);
         } catch (err: any) {
           setVerifyingToken(false);
           setTokenError(err?.message || t('invalidLink'));
@@ -45,7 +46,7 @@ export default function VerificationContent() {
       };
       handleTokenVerify();
     }
-  }, [token, router, refreshUser]);
+  }, [token, router, refreshUser, nextPath, t]);
 
   const form = useFormValidation(
     { code: '' },
@@ -53,7 +54,7 @@ export default function VerificationContent() {
       try {
         await verifyEmail(email, String(values.code || ''));
         await refreshUser();
-        router.push('/onboarding');
+        router.push(nextPath);
       } catch (err: any) {
         form.setFieldError('code', err?.message || t('invalidCode'));
       }
@@ -61,6 +62,10 @@ export default function VerificationContent() {
   );
 
   const handleResend = async () => {
+    if (!email) {
+      setTokenError(t('emailRequired'));
+      return;
+    }
     try {
       await resendVerificationCode(email);
       setCooldown(60);
@@ -111,10 +116,25 @@ export default function VerificationContent() {
           </div>
           <p className="text-red-500 text-center font-bold px-4">{tokenError}</p>
           <div className="flex flex-col gap-3 w-full">
-            <Button variant="primary" onClick={() => {
-              setTokenError(null);
-              router.push('/login');
-            }}>
+            {email ? (
+              <Button variant="primary" onClick={() => setTokenError(null)}>
+                {t('continueWithCode')}
+              </Button>
+            ) : (
+              <>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  placeholder={t('emailPlaceholder')}
+                  className="h-12 rounded-lg border border-slate-200 dark:border-slate-700 px-3 bg-white dark:bg-slate-900"
+                />
+                <Button variant="primary" onClick={() => setTokenError(null)} disabled={!email}>
+                  {t('continueWithCode')}
+                </Button>
+              </>
+            )}
+            <Button variant="outline" onClick={() => router.push('/login')}>
               {t('backToLogin')}
             </Button>
             {email && (

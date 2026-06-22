@@ -1,0 +1,34 @@
+{
+  "fr": {
+    "Settings.nav.ariaLabel": "Sections des paramètres"
+  },
+  "pt": {
+    "Settings.nav.ariaLabel": "Secções das definições",
+    "Onboarding.authorizedReps.emailLabel": "Correio eletrónico *",
+    "Auth.signup.accountTypeIndividual": "Pessoa singular",
+    "Onboarding.userType.individualTitle": "Pessoa singular",
+    "MoneySources.processing.minutes": "minutos",
+    "Transactions.receiptModal.subtotal": "Subtotal"
+  },
+  "sw": {
+    "Settings.nav.ariaLabel": "Sehemu za mipangilio"
+  },
+  "ja": {
+    "Settings.nav.ariaLabel": "設定セクション"
+  },
+  "zh": {
+    "Settings.nav.ariaLabel": "设置部分"
+  },
+  "ar": {
+    "Settings.nav.ariaLabel": "أقسام الإعدادات"
+  },
+  "zu": {
+    "Settings.nav.ariaLabel": "Izingxenye zezilungiselelo"
+  },
+  "ha": {
+    "Settings.nav.ariaLabel": "Sashen saituna"
+  },
+  "am": {
+    "Settings.nav.ariaLabel": "የቅንብር ክፍሎች"
+  }
+}

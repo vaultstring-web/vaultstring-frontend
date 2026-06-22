@@ -13,7 +13,7 @@
   --primary-foreground: 255 255 255;
   --secondary: 241 245 249;
   --secondary-foreground: 15 23 42;
-  --muted: 241 245 249;
+  --muted: 248 250 252;
   --muted-foreground: 100 116 139;
   --accent: 241 245 249;
   --accent-foreground: 15 23 42;
@@ -21,13 +21,18 @@
   --destructive-foreground: 255 255 255;
   --border: 226 232 240;
   --input: 226 232 240;
-  --ring: 15 23 42;
+  --ring: 51 65 85;
   --sidebar: 250 250 250;
   --sidebar-foreground: 15 23 42;
   --sidebar-accent: 241 245 249;
   --sidebar-accent-foreground: 15 23 42;
   --sidebar-border: 226 232 240;
-  --radius: 0.5rem;
+  --radius: 0.75rem;
+  --brand: 68 138 51;
+  --vs-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+  --vs-shadow-md: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.06);
+  --vs-shadow-card: var(--vs-shadow-sm);
+  --vs-radius-card: 0.75rem;
 }
 
 .dark {
@@ -37,7 +42,7 @@
   --card-foreground: 241 245 249;
   --popover: 15 23 42;
   --popover-foreground: 241 245 249;
-  --primary: 203 213 225;
+  --primary: 226 232 240;
   --primary-foreground: 15 23 42;
   --secondary: 30 41 59;
   --secondary-foreground: 241 245 249;
@@ -57,6 +62,164 @@
   --sidebar-border: 30 41 59;
 }
 
-html, body {
+@theme inline {
+  --color-background: rgb(var(--background));
+  --color-foreground: rgb(var(--foreground));
+  --color-card: rgb(var(--card));
+  --color-card-foreground: rgb(var(--card-foreground));
+  --color-popover: rgb(var(--popover));
+  --color-popover-foreground: rgb(var(--popover-foreground));
+  --color-primary: rgb(var(--primary));
+  --color-primary-foreground: rgb(var(--primary-foreground));
+  --color-secondary: rgb(var(--secondary));
+  --color-secondary-foreground: rgb(var(--secondary-foreground));
+  --color-muted: rgb(var(--muted));
+  --color-muted-foreground: rgb(var(--muted-foreground));
+  --color-accent: rgb(var(--accent));
+  --color-accent-foreground: rgb(var(--accent-foreground));
+  --color-destructive: rgb(var(--destructive));
+  --color-destructive-foreground: rgb(var(--destructive-foreground));
+  --color-border: rgb(var(--border));
+  --color-input: rgb(var(--input));
+  --color-ring: rgb(var(--ring));
+  --color-sidebar: rgb(var(--sidebar));
+  --color-sidebar-foreground: rgb(var(--sidebar-foreground));
+  --color-sidebar-accent: rgb(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: rgb(var(--sidebar-accent-foreground));
+  --color-sidebar-border: rgb(var(--sidebar-border));
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased overflow-x-hidden;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+@utility vs-card-shell {
+  border-radius: var(--radius-xl);
+  border-width: 1px;
+  border-color: rgb(var(--border) / 0.6);
+  background-color: rgb(var(--card));
+  box-shadow: var(--vs-shadow-card);
+}
+
+@utility vs-data-card {
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  border-width: 1px;
+  border-color: rgb(var(--border) / 0.6);
+  background-color: rgb(var(--card));
+  box-shadow: var(--vs-shadow-card);
+}
+
+@utility vs-stat-card {
+  border-radius: var(--radius-xl);
+  border-width: 1px;
+  border-color: rgb(var(--border) / 0.6);
+  background-color: rgb(var(--card));
+  box-shadow: var(--vs-shadow-card);
+  padding: 1.25rem;
+  background-image: linear-gradient(
+    135deg,
+    rgb(var(--card)) 0%,
+    rgb(var(--muted) / 0.35) 100%
+  );
+}
+
+@utility vs-table-shell {
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  border-width: 1px;
+  border-color: rgb(var(--border) / 0.6);
+  background-color: rgb(var(--card));
+  box-shadow: var(--vs-shadow-card);
+}
+
+@utility vs-section-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgb(var(--muted-foreground));
+}
+
+@utility vs-icon-circle {
+  display: flex;
+  height: 2.25rem;
+  width: 2.25rem;
+  shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: rgb(var(--muted));
+  color: rgb(var(--muted-foreground));
+}
+
+@utility vs-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+@utility vs-empty-state-icon {
+  display: flex;
+  height: 3rem;
+  width: 3rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: rgb(var(--muted));
+  color: rgb(var(--muted-foreground));
+  margin-bottom: 1rem;
+}
+
+@utility vs-hero-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  border-width: 1px;
+  border-color: rgb(var(--border) / 0.6);
+  box-shadow: var(--vs-shadow-card);
+  background-image: linear-gradient(
+    135deg,
+    rgb(var(--primary)) 0%,
+    rgb(var(--primary) / 0.92) 50%,
+    rgb(var(--brand) / 0.35) 100%
+  );
+}
+
+@utility vs-page-stack {
+  & > * + * {
+    margin-top: 1.5rem;
+  }
+}
+
+@utility vs-page-stack-compact {
+  & > * + * {
+    margin-top: 1rem;
+  }
+}
+
+@utility vs-brand-accent-border {
+  border-color: rgb(var(--brand) / 0.15);
+}
+
+@utility vs-brand-accent-ring {
+  box-shadow: inset 3px 0 0 0 rgb(var(--brand));
+}
+
+html,
+body {
   height: 100%;
 }

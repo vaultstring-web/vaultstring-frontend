@@ -5,6 +5,8 @@ export interface FundingOption {
   label: string;
   channel: string;
   icon: LucideIcon;
+  /** Optional logo under public/images/ (see provider-images.ts) */
+  imageUrl?: string;
 }
 
 export const getFundingOptions = (currency: string, walletBalance: number): FundingOption[] => {

@@ -1,0 +1,38 @@
+globalThis.__BUILD_MANIFEST = {
+  "pages": {
+    "/_app": [
+      "static/chunks/b735b_next_dist_compiled_5976a08f._.js",
+      "static/chunks/b735b_next_dist_shared_lib_e686c433._.js",
+      "static/chunks/b735b_next_dist_client_d7a8e562._.js",
+      "static/chunks/b735b_next_dist_fe2d5725._.js",
+      "static/chunks/b735b_next_app_3f172989.js",
+      "static/chunks/[next]_entry_page-loader_ts_4e61cc8c._.js",
+      "static/chunks/8becc_react-dom_0ee3df1c._.js",
+      "static/chunks/5448c__pnpm_b99e3f8b._.js",
+      "static/chunks/[root-of-the-server]__54e10a5d._.js",
+      "static/chunks/Desktop_VaultString_Projects_vaultstring-frontend_pages__app_2da965e7._.js",
+      "static/chunks/turbopack-Desktop_VaultString_Projects_vaultstring-frontend_pages__app_36bb860f._.js"
+    ],
+    "/_error": [
+      "static/chunks/b735b_next_dist_compiled_5976a08f._.js",
+      "static/chunks/b735b_next_dist_shared_lib_9d578e2d._.js",
+      "static/chunks/b735b_next_dist_client_d7a8e562._.js",
+      "static/chunks/b735b_next_dist_3a9195da._.js",
+      "static/chunks/b735b_next_error_26b4c2d0.js",
+      "static/chunks/[next]_entry_page-loader_ts_a1addb24._.js",
+      "static/chunks/8becc_react-dom_0ee3df1c._.js",
+      "static/chunks/5448c__pnpm_b99e3f8b._.js",
+      "static/chunks/[root-of-the-server]__b52226c4._.js",
+      "static/chunks/Desktop_VaultString_Projects_vaultstring-frontend_pages__error_2da965e7._.js",
+      "static/chunks/88e7d_VaultString_Projects_vaultstring-frontend_pages__error_cebcd9aa._.js"
+    ]
+  },
+  "devFiles": [],
+  "polyfillFiles": [],
+  "lowPriorityFiles": [],
+  "rootMainFiles": []
+};
+globalThis.__BUILD_MANIFEST.lowPriorityFiles = [
+"/static/" + process.env.__NEXT_BUILD_ID + "/_buildManifest.js",
+"/static/" + process.env.__NEXT_BUILD_ID + "/_ssgManifest.js"
+];

@@ -11,6 +11,28 @@
     "recentActivity": "Atividade Recente",
     "viewAll": "Ver Tudo",
     "noRecentActivity": "Nenhuma atividade recente",
+    "quickActions": {
+      "title": "Ações rápidas",
+      "send": "Enviar dinheiro",
+      "deposit": "Adicionar fundos",
+      "history": "Histórico",
+      "wallets": "Carteiras"
+    },
+    "metrics": {
+      "activeWallets": "Carteiras ativas",
+      "pendingTransfers": "Transferências pendentes",
+      "primaryBalance": "Saldo principal",
+      "monthlyUsage": "Limite mensal usada"
+    },
+    "pendingActions": {
+      "title": "Requer atenção",
+      "verifyIdentityTitle": "Conclua a verificação de identidade",
+      "verifyIdentitySubtitle": "Desbloqueie carteiras, limites mais altos e transferências internacionais.",
+      "verifyEmailTitle": "Verifique o seu e-mail",
+      "verifyEmailSubtitle": "Confirme o seu e-mail para garantir a recuperação da conta e alertas.",
+      "pendingTransfersTitle": "{count, plural, one {# transferência pendente} other {# transferências pendentes}}",
+      "pendingTransfersSubtitle": "Reveja o estado no seu histórico de transações."
+    },
     "currentRate": "Taxa Atual",
     "lastUpdatedJustNow": "Atualizado: agora",
     "verificationRequired": "Verificação de Identidade Necessária",
@@ -22,7 +44,17 @@
       "setAlert": "Definir Alerta",
       "viewHistory": "Ver Histórico",
       "from": "De",
-      "to": "Para"
+      "to": "Para",
+      "currencyPlaceholder": "Moed.",
+      "amountPlaceholder": "0,00"
+    },
+    "balanceHistory": {
+      "title": "Histórico de saldo",
+      "selectPeriod": "Selecionar período",
+      "period7": "Últimos 7 dias",
+      "period30": "Últimos 30 dias",
+      "period90": "Últimos 3 meses",
+      "balanceLabel": "Saldo"
     },
     "market": {
       "overviewTitle": "Visão Geral do Mercado",
@@ -41,8 +73,25 @@
       },
       "source": {
         "title": "Fonte do Mercado",
-        "body": "Dados em tempo real fornecidos pelo Google Finance. As taxas são indicativas e podem variar por provedor."
-      }
+        "body": "Dados em tempo real fornecidos pelo Google Finance. As taxas são indicativas e podem variar por provedor.",
+        "bodyLive": "Taxas de APIs FX públicas (Frankfurter, exchangerate.host). Em cache e atualizadas a cada poucos minutos.",
+        "bodySeed": "Taxas de dados de teste offline. Defina FOREX_LIVE_ENABLED=true no backend para taxas ao vivo."
+      },
+      "rateLabel": "Taxa",
+      "badgeLive": "Ao vivo",
+      "badgeSeed": "Dados de teste"
+    },
+    "moneySources": {
+      "title": "Métodos de pagamento vinculados",
+      "subtitle": "Mesmos provedores do depósito — gerencie na Carteira ou Definições.",
+      "viewWallet": "Abrir carteira"
+    },
+    "walletData": {
+      "title": "Sem dados de carteira",
+      "seedHint": "Nenhuma carteira retornada pela API. Execute o seed do banco e entre com a conta de teste.",
+      "errorHint": "Falha na API da carteira. Confirme que o gateway está na porta 9000 e que você está autenticado.",
+      "loginHint": "Login de teste:",
+      "docsPath": "Passos seed: kyd-payment-system → docker compose --profile tools run --rm seed-runner (ver docs/LOCAL_TESTING.md)"
     }
   },
   "Wallet": {
@@ -84,6 +133,74 @@
       "discard": "Descartar Alterações",
       "success": "Carteira criada com sucesso",
       "error": "Falha ao criar carteira"
+    },
+    "overview": {
+      "title": "Resumo da carteira",
+      "empty": "Ainda não há saldos",
+      "walletCount": "{count, plural, one {# carteira} other {# carteiras}}",
+      "send": "Enviar",
+      "deposit": "Adicionar fundos",
+      "addWallet": "Adicionar carteira",
+      "withdraw": "Levantar"
+    },
+    "card": {
+      "balance": "Saldo",
+      "status": "Estado",
+      "active": "Ativo",
+      "addMoney": "Adicionar fundos"
+    },
+    "recentActivityTitle": "Atividade recente da carteira",
+    "recentActivityViewAll": "Ver Todas as Transações",
+    "depositModal": {
+      "secureBadge": "Financiamento seguro",
+      "title": "Depositar {currency}",
+      "subtitle": "Financie a sua carteira a partir do banco ou cartão associado.",
+      "fundingSource": "Origem dos fundos",
+      "selectSource": "Selecionar origem",
+      "linkedBank": "Banco associado (**** 1234)",
+      "visaCard": "Cartão Visa (**** 5678)",
+      "depositAmount": "Valor do depósito",
+      "amountPlaceholder": "0,00",
+      "serviceFee": "Taxa de serviço",
+      "totalSettlement": "Total a liquidar",
+      "confirmDeposit": "Confirmar depósito",
+      "success": "Depósito de {currency} {amount} concluído",
+      "error": "Falha no depósito",
+      "successWithRef": "Depositado {currency} {amount}. Referência: {ref}"
+    },
+    "subtitleCompact": "Saldos, fontes de fundos e atividade recente.",
+    "balanceToggle": {
+      "show": "Mostrar saldos",
+      "hide": "Ocultar saldos",
+      "visible": "Visível",
+      "hidden": "Oculto"
+    },
+    "balanceHeader": {
+      "totalBalance": "Saldo total",
+      "currencies": "Moedas",
+      "status": "Estado",
+      "active": "Ativo"
+    },
+    "moneySources": {
+      "title": "Depositar de",
+      "subtitle": "Escolha um banco, mobile money ou cartão — toque para adicionar fundos."
+    },
+    "withdrawModal": {
+      "secureBadge": "Transferência segura",
+      "title": "Levantar {currency}",
+      "subtitle": "Mova fundos para outra carteira ou conta bancária via Enviar Dinheiro.",
+      "available": "Saldo disponível",
+      "destination": "Destino",
+      "toWallet": "Carteira VaultString",
+      "toBank": "Banco associado",
+      "payoutAccount": "Conta de pagamento",
+      "selectAccount": "Selecionar conta",
+      "linkedBank": "Banco associado (**** 1234)",
+      "visaCard": "Cartão Visa (**** 5678)",
+      "bankNote": "Pagamentos bancários concluem via Enviar Dinheiro com o método selecionado.",
+      "amount": "Montante",
+      "amountPlaceholder": "0,00",
+      "continueToSend": "Continuar para Enviar Dinheiro"
     }
   },
   "Profile": {
@@ -104,7 +221,7 @@
     "updating": "Atualizando...",
     "mfa": "Autenticação de Dois Fatores",
     "mfaSubtitle": "Adicione uma camada extra de segurança à sua conta.",
-    "bio": "Bio",
+    "bio": "Isifinyezo",
     "country": "País",
     "city": "Cidade/Estado",
     "taxId": "ID Fiscal",
@@ -183,6 +300,25 @@
     "dialogIdentitySubtitle": "Mantenha seus dados de identidade atualizados no VaultString.",
     "bioPlaceholder": "Conte sobre você (opcional)",
     "defaultBioTagline": "Cliente VaultString",
+    "securitySettingsTitle": "Definições de segurança",
+    "passwordLastChanged": "Alterada há 3 meses",
+    "recoveryEmail": "Enviar <bpt i=\"1000001\" x=\"1000001\" type=\"formatting\">{i></bpt>email <ept i=\"1000001\"><i}</ept>de recuperação",
+    "recoveryEmailSet": "Email de recuperação definido",
+    "recoveryEmailHint": "Adicione um email de recuperação para proteger a sua conta",
+    "addEmail": "Adicionar email",
+    "connected": "Ligado",
+    "recoveryModalTitle": "Adicionar e-mail de recuperação",
+    "recoveryModalBody": "Enviaremos uma ligação de verificação para este email. Será usado para recuperar a sua conta se perder o acesso.",
+    "recoveryEmailLabel": "Endereço de e-mail de recuperação",
+    "recoveryPlaceholder": "por exemplo, your.backup@email.com",
+    "recoveryComingSoon": "Email de recuperação ainda não disponível. Contacte o suporte.",
+    "recoveryFailed": "Falha ao adicionar e-mail de recuperação",
+    "recoverySuccess": "E-mail de recuperação adicionado com sucesso",
+    "edit": "Editar",
+    "notSet": "Não definido",
+    "emailChangeHint": "(Contacte o suporte para alterar)",
+    "phoneNumber": "Número de telefone",
+    "kycStatusLabel": "Estado KYC",
     "toasts": {
       "profileUpdated": "Perfil atualizado com sucesso",
       "profileFailed": "Falha ao atualizar o perfil",
@@ -197,6 +333,12 @@
       "invalidTotpCode": "Código de verificação inválido",
       "avatarUploading": "Enviando avatar…",
       "avatarUpdated": "Avatar atualizado"
+    },
+    "loginHistory": {
+      "title": "Histórico de login",
+      "device": "Dispositivo",
+      "location": "Localização",
+      "dateTime": "Data e hora"
     }
   },
   "Sidebar": {
@@ -205,8 +347,14 @@
     "sendMoney": "Enviar Dinheiro",
     "transactions": "Movimentações",
     "profile": "Perfil",
+    "settings": "Definições",
+    "compliance": "Conformidade",
+    "notifications": "Notificações",
     "verifyIdentity": "Verificar Identidade",
-    "signOut": "Sair"
+    "signOut": "Sair",
+    "sectionMoney": "Dinheiro",
+    "sectionAccount": "Conta",
+    "closeMenu": "Fechar menu"
   },
   "SendMoney": {
     "title": "Enviar Dinheiro",
@@ -239,6 +387,8 @@
       "generic": "Algo deu errado. Por favor, tente novamente."
     },
     "feeNote": "As taxas são calculadas dinamicamente com base na liquidez e no volume da rede no momento da transferência.",
+    "reviewConfirm": "Revisei o destinatário, moeda, taxas e detalhes de pagamento antes de enviar.",
+    "reviewHint": "Confirme a lista de verificação da transferência para continuar.",
     "paymentDetails": "Detalhes do Pagamento",
     "international": "Internacional",
     "sameCurrency": "Mesma Moeda",
@@ -295,6 +445,16 @@
       "receiver": "Destinatário",
       "amountSent": "Valor enviado",
       "sendAnother": "Enviar outro pagamento"
+    },
+    "subtitleCompact": "Destinatário, montante, depois fontes de financiamento e pagamento.",
+    "stepper": {
+      "details": "Detalhes",
+      "review": "Revisão",
+      "success": "Concluído",
+      "detailsHeading": "Detalhes da transferência",
+      "reviewHeading": "Rever e confirmar",
+      "continue": "Continuar",
+      "backToEdit": "Voltar à edição"
     }
   },
   "Common": {
@@ -303,7 +463,12 @@
     "loading": "Processando...",
     "save": "Salvar",
     "error": "Erro",
-    "success": "Sucesso"
+    "success": "Sucesso",
+    "passwordMask": "••••••••",
+    "loadingAria": "A carregar",
+    "errorBoundaryTitle": "Algo correu mal",
+    "errorBoundaryMessage": "Ocorreu um erro inesperado ao carregar este componente.",
+    "errorBoundaryRetry": "Tentar novamente"
   },
   "Layout": {
     "emailVerificationRequired": {
@@ -323,16 +488,35 @@
       "compliance": "Conformidade e KYC",
       "profile": "Perfil e Segurança",
       "translation": "Configurações de Idioma",
-      "onboarding": "Verificação de Identidade"
+      "onboarding": "Verificação de Identidade",
+      "settings": "Definições"
+    },
+    "a11y": {
+      "openMenu": "Abrir menu"
     },
     "search": {
-      "placeholder": "Buscar transações..."
+      "placeholder": "Buscar transações...",
+      "noResults": "Sem resultados",
+      "aiSuggestions": "Sugestões IA",
+      "recentSearches": "Pesquisas recentes",
+      "clear": "Limpar",
+      "mock": {
+        "paymentTo": "Pagamento para {name}",
+        "paymentSuccess": "{amount} • Sucesso",
+        "withdrawalToBank": "Levantamento para o banco",
+        "withdrawalPending": "{amount} • Pendente",
+        "usdSavings": "Poupança USD",
+        "walletPrimary": "Principal • {balance}",
+        "sampleRecipient": "Destinatário sugerido",
+        "sampleRecipientEmail": "E-mail do destinatário"
+      }
     },
     "notifications": {
       "title": "Notificações",
       "newCount": "{count} Novas",
       "empty": "Nenhuma nova notificação",
-      "viewAll": "Ver Todas as Notificações"
+      "viewAll": "Ver Todas as Notificações",
+      "justNow": "Agora"
     },
     "theme": {
       "toggleAria": "Alternar tema"
@@ -343,7 +527,13 @@
       "security": "Segurança",
       "billing": "Faturamento e Cartões",
       "settings": "Configurações",
-      "signOut": "Sair"
+      "signOut": "Sair",
+      "member": "Conta",
+      "personal": "Conta pessoal",
+      "business": "Conta empresarial",
+      "agent": "Conta de agente",
+      "senderMalawi": "Remetente (Malawi)",
+      "receiverChina": "Destinatário (China)"
     }
   },
   "Settings": {
@@ -403,6 +593,88 @@
       "disabled": "Autenticação de dois fatores desativada",
       "error": "Falha ao atualizar configurações de 2FA",
       "invalidCode": "Código de verificação inválido"
+    },
+    "language": {
+      "title": "Idioma e região",
+      "subtitle": "Escolha como o VaultString é exibido. Todos os 12 locais suportados permanecem disponíveis."
+    },
+    "nav": {
+      "ariaLabel": "Secções das definições",
+      "account": "Conta",
+      "security": "Segurança",
+      "notifications": "Notificações",
+      "language": "Idioma e região",
+      "appearance": "Aparência",
+      "privacy": "Privacidade",
+      "limits": "Limites",
+      "connectedAccounts": "Contas ligadas",
+      "helpSupport": "Ajuda e suporte",
+      "profile": "Profile",
+      "documents": "Documents & KYC"
+    },
+    "account": {
+      "title": "Conta",
+      "subtitle": "A sua identidade VaultString e estado de verificação.",
+      "signedInAs": "Sessão iniciada como",
+      "verificationStatus": "Estado de verificação",
+      "memberSince": "Membro desde",
+      "manageProfile": "Gerir perfil",
+      "verified": "Verificado",
+      "pending": "Em revisão",
+      "unverified": "Não verificado"
+    },
+    "privacy": {
+      "title": "Privacidade",
+      "subtitle": "Controle como os seus dados são utilizados e partilhados.",
+      "analytics": {
+        "title": "Análise de uso",
+        "subtitle": "Ajude a melhorar o VaultString com dados de uso anonimizados"
+      },
+      "marketing": {
+        "title": "Ofertas personalizadas",
+        "subtitle": "Permitir recomendações personalizadas de produtos com base na atividade"
+      },
+      "profileVisibility": {
+        "title": "Perfil público",
+        "subtitle": "Mostrar a ligação do seu perfil em recibos de pagamento partilhados"
+      }
+    },
+    "limits": {
+      "title": "Limites",
+      "subtitle": "Limites de transação e conta para o seu nível de verificação.",
+      "monthlyLimit": "Limite de transferência mensal",
+      "usedThisMonth": "Este Mês",
+      "remaining": "Restante",
+      "readOnlyNote": "Os limites são definidos pelo seu nível de verificação e não podem ser alterados aqui.",
+      "upgradeCta": "Conclua a verificação para aumentar os limites"
+    },
+    "connectedAccounts": {
+      "title": "Contas associadas",
+      "subtitle": "Vincule carteiras externas e provedores de pagamento.",
+      "comingSoon": "Visualização",
+      "comingSoonDetail": "A vinculação bancária e de dinheiro móvel estará disponível em uma versão futura.",
+      "providersHint": "Fontes de fundos e provedores API suportados na sua região (pré-visualização só de leitura).",
+      "apiKeysPlaceholder": "Gestão de chaves API: POST /api/v1/providers/keys (placeholder — ligar no admin quando o backend estiver pronto)."
+    },
+    "helpSupport": {
+      "title": "Ajuda e suporte",
+      "subtitle": "Obtenha assistência e saiba mais sobre o VaultString.",
+      "helpCenter": "Centro de ajuda",
+      "helpCenterDesc": "Procurar guias e perguntas frequentes",
+      "contactSupport": "Contactar suporte",
+      "contactSupportDesc": "Envie um e-mail para nossa equipe de suporte.",
+      "compliance": "Verificação de Identidade",
+      "complianceDesc": "Gerir documentos e estado KYC",
+      "securityGuide": "Práticas recomendadas de segurança",
+      "securityGuideDesc": "Mantenha a sua conta segura"
+    },
+    "documents": {
+      "title": "Documents & KYC",
+      "subtitle": "View verification status and manage identity documents.",
+      "statusLabel": "Verification status",
+      "statusHint": "Upload or update your KYC documents from the compliance center.",
+      "manageCta": "Manage documents",
+      "startKycCta": "Start verification"
     }
   },
   "Notifications": {
@@ -442,6 +714,10 @@
       "success": "Sucesso",
       "warning": "Aviso",
       "error": "Alerta de Segurança"
+    },
+    "activity": {
+      "paymentTitle": "Atualização recente de pagamento",
+      "paymentBody": "A transferência de {amount} {currency} está agora {status}."
     },
     "loadMore": "Carregar mais",
     "loading": "Carregando notificações...",
@@ -488,7 +764,39 @@
       "unknownSender": "Remetente desconhecido",
       "unknownReceiver": "Destinatário desconhecido",
       "datePending": "Data pendente",
-      "invalidDate": "Data inválida"
+      "invalidDate": "Data inválida",
+      "columns": {
+        "description": "Descrição",
+        "amount": "Montante",
+        "status": "Estado"
+      }
+    },
+    "table": {
+      "actions": "Ações",
+      "viewReceipt": "Ver recibo",
+      "archive": "Arquivar",
+      "unread": "Não lido",
+      "sentSummary": "Enviou <amount></amount> para <name></name>",
+      "receivedSummary": "Recebeu <amount></amount> de <name></name>",
+      "dateAt": "{date} às {time}"
+    },
+    "receiptModal": {
+      "title": "Receção",
+      "totalAmount": "Montante Total",
+      "referenceId": "Id. de referência",
+      "sender": "Expedidor",
+      "receiver": "Receptor",
+      "subtotal": "Subtotal",
+      "serviceFee": "Tarifa de serviço",
+      "recipientReceives": "O destinatário recebe:",
+      "verifiedFooter": "Verificado pela VaultString Security"
+    },
+    "grid": {
+      "to": "Para",
+      "from": "De",
+      "amount": "Montante",
+      "date": "Data",
+      "time": "Hora"
     }
   },
   "Receipt": {
@@ -510,6 +818,7 @@
     "labelTxnId": "ID da transação",
     "labelSender": "Remetente",
     "labelReceiver": "Destinatário",
+    "labelStatus": "Estado",
     "labelAmount": "Valor",
     "labelFee": "Taxa de processamento",
     "labelTotalDebited": "Total debitado",
@@ -524,6 +833,14 @@
     "loadFailed": "Falha ao carregar o recibo"
   },
   "Auth": {
+    "language": {
+      "label": "Idioma"
+    },
+    "social": {
+      "orContinueWith": "Ou continuar com",
+      "google": "Google",
+      "apple": "Apple"
+    },
     "login": {
       "title": "Entrar",
       "subtitle": "Bem-vindo de volta ao VaultString",
@@ -551,7 +868,8 @@
       "validation": {
         "emailInvalid": "Digite um endereço de e-mail válido",
         "passwordRequired": "A senha é obrigatória"
-      }
+      },
+      "errorGoogleNotConfigured": "O login Google não está configurado no servidor. Defina GOOGLE_CLIENT_ID e GOOGLE_CLIENT_SECRET no .env do backend e reinicie o serviço de autenticação."
     },
     "signup": {
       "alertFailedTitle": "Falha no cadastro",
@@ -560,7 +878,7 @@
       "errorSignupFailed": "Falha no cadastro. Tente novamente.",
       "errorUnexpected": "Ocorreu um erro inesperado.",
       "errorGoogleInit": "Falha ao iniciar autenticação Google. Tente novamente.",
-      "accountTypeIndividual": "Individual",
+      "accountTypeIndividual": "Pessoa singular",
       "accountTypeBusiness": "Empresa",
       "businessNameLabel": "Nome da empresa",
       "businessNamePlaceholder": "Nome da sua empresa",
@@ -591,7 +909,12 @@
         "termsRequired": "Você deve aceitar os termos e condições",
         "passwordMismatch": "As senhas não coincidem",
         "businessNameRequired": "O nome da empresa é obrigatório para contas empresariais"
-      }
+      },
+      "alertComingSoonTitle": "Em breve",
+      "errorGoogleNotConfigured": "O login Google não está configurado no servidor. Defina GOOGLE_CLIENT_ID e GOOGLE_CLIENT_SECRET no .env do backend e reinicie o serviço de autenticação.",
+      "errorAppleComingSoon": "O login com Apple ainda não está disponível. Use e-mail e senha.",
+      "pageTitle": "Criar conta",
+      "pageSubtitle": "Junte-se à VaultString hoje"
     }
   },
   "Translation": {
@@ -600,7 +923,8 @@
     "appLanguageHint": "Escolha o idioma da interface.",
     "searchPlaceholder": "Pesquisar idiomas...",
     "languageUpdated": "Idioma atualizado com sucesso",
-    "translating": "Traduzindo…"
+    "translating": "Traduzindo…",
+    "backToSettings": "Voltar às definições"
   },
   "Verification": {
     "verifyingTitle": "A verificar e-mail",
@@ -627,7 +951,17 @@
     "useMagicLink": "Usar ligação mágica em vez disso",
     "invalidCode": "Código de verificação inválido",
     "invalidLink": "Ligação de verificação inválida ou expirada",
-    "resendFailed": "Falha ao reenviar código"
+    "resendFailed": "Falha ao reenviar código",
+    "continueWithCode": "Continuar com código de verificação",
+    "emailPlaceholder": "Introduza o seu endereço de e-mail",
+    "emailRequired": "O e-mail é necessário antes de reenviar um código.",
+    "emailPageTitle": "Verificação de email",
+    "emailPageSubtitle": "A confirmar a sua identidade",
+    "verifyingEmailMessage": "A verificar o seu email…",
+    "invalidLinkMissingToken": "Ligação de verificação inválida. Token em falta.",
+    "emailVerifiedMessage": "O seu email foi verificado com sucesso.",
+    "continueToLogin": "Continuar para entrar",
+    "resendHint": "Se continuar com problemas, peça uma nova ligação de verificação."
   },
   "ResetPassword": {
     "emailTitle": "Redefinir palavra-passe",
@@ -680,7 +1014,7 @@
     "driversLicense": "Carta de condução",
     "issuingCountry": "País emissor",
     "selectCountry": "Selecionar país",
-    "china": "China",
+    "china": "i-China",
     "docNumber": "Número do documento",
     "docNumberPlaceholder": "Introduza o número do documento",
     "docImage": "Imagem do documento (frente)",
@@ -698,7 +1032,30 @@
     "loadFailed": "Falha ao carregar o estado de conformidade",
     "fillAllFields": "Preencha todos os campos e carregue um documento",
     "submitSuccess": "Documentos KYC submetidos com sucesso",
-    "submitFailed": "Falha ao submeter documentos"
+    "submitFailed": "Falha ao submeter documentos",
+    "widgetTitle": "Conformidade e KYC",
+    "widgetSubtitle": "Faça a gestão dos seus documentos de verificação de identidade para desbloquear limites mais elevados.",
+    "accountStatus": "{status} Conta",
+    "uploadingDocument": "Atualizando seu documento...",
+    "uploadSuccess": "Documento carregado com sucesso. A nossa equipa irá analisá-lo em breve.",
+    "uploadFailed": "Falha ao carregar o documento. Tente novamente.",
+    "documentOnFile": "Documento em arquivo:",
+    "uploadedOn": "Enviado em {date}",
+    "uploadCta": "Clique para carregar ou arrastar e soltar",
+    "uploadFormatsSmall": "PDF, JPG ou PNG (máx. 5 MB)",
+    "approved": "APROVADO",
+    "idDocTitle": "BI / Passaporte",
+    "addressDocTitle": "Comprovativo de morada",
+    "verificationCard": {
+      "verifiedTitle": "Identidade verificada",
+      "requiredTitle": "Verificação necessária",
+      "verifiedBody": "A sua conta está totalmente verificada. Pode transacionar com limites mais elevados e todas as funcionalidades.",
+      "unverifiedBody": "Submeta um documento de identidade válido e comprovativo de morada para aumentar os limites.",
+      "dailyLimit": "Limite diário",
+      "monthlyLimit": "Limite mensal",
+      "intlTransfers": "Transferências internacionais",
+      "enabled": "Ativado"
+    }
   },
   "Onboarding": {
     "userType": {
@@ -803,11 +1160,12 @@
     },
     "sourceOfFunds": {
       "employmentStatusLabel": "Employment Status *",
-      "employmentEmployed": "employed",
-      "employmentSelfEmployed": "self employed",
-      "employmentRetired": "retired",
-      "employmentStudent": "student",
-      "employmentOther": "other",
+      "employmentEmployed": "empregado",
+      "employmentSelfEmployed": "trabalhador independente",
+      "employmentUnemployed": "Unemployed",
+      "employmentRetired": "reformado",
+      "employmentStudent": "estudante",
+      "employmentOther": "outro",
       "currencyLabel": "Currency *",
       "currencyMwk": "Malawian Kwacha (MWK)",
       "currencyCny": "Chinese Yuan (CNY)",
@@ -822,6 +1180,17 @@
       "incomeCny2": "200,000 - 500,000 CNY",
       "incomeCny3": "500,000 - 2,000,000 CNY",
       "incomeCny4": "2,000,000+ CNY",
+      "employmentOtherDescriptionLabel": "Descreva seu emprego *",
+      "employmentOtherDescriptionPlaceholder": "ex.: Consultor autônomo, agricultor sazonal",
+      "employmentSupplementaryLabel": "Detalhes adicionais de emprego (opcional)",
+      "employmentSupplementaryPlaceholder": "Conte-nos mais sobre como você ganha renda",
+      "incomeOther": "Outro / especificar",
+      "incomeOtherDescriptionLabel": "Descreva sua renda anual *",
+      "incomeOtherDescriptionPlaceholder": "ex.: Renda variável, aproximadamente 200.000–400.000 MWK por ano",
+      "validation": {
+        "employmentOtherRequired": "Descreva seu emprego",
+        "incomeOtherRequired": "Descreva sua faixa de renda"
+      },
       "amlNote": "This information helps us comply with anti-money laundering regulations."
     },
     "securitySetup": {
@@ -832,11 +1201,11 @@
       "answerPlaceholder": "Your answer",
       "recoveryNote": "These security questions help us verify your identity if you need to recover your account.",
       "questions": {
-        "maidenName": "What is your mother's maiden name?",
-        "firstPet": "What was the name of your first pet?",
-        "birthCity": "In what city were you born?",
-        "favoriteTeacher": "What is the name of your favorite teacher?",
-        "firstCar": "What was the make of your first car?"
+        "maidenName": "Qual é o nome de solteira da sua mãe?",
+        "firstPet": "Qual era o nome do seu primeiro animal de estimação?",
+        "birthCity": "Em que cidade nasceu?",
+        "favoriteTeacher": "Qual é o nome do seu professor favorito?",
+        "firstCar": "Qual era a marca do seu primeiro carro?"
       },
       "validation": {
         "questionRequired": "Please select a security question",
@@ -845,13 +1214,13 @@
     },
     "terms": {
       "heading": "Terms and Conditions",
-      "body1": "By using our KYC verification service, you agree to comply with all applicable laws and regulations. You represent that all information provided is accurate and complete. We reserve the right to deny access or cancel accounts if we detect fraudulent activity or violation of our terms.",
-      "body2": "Your data will be processed securely and in compliance with international data protection regulations including GDPR and local standards.",
-      "privacyLabel": "I have read and agree to the <privacy>Privacy Policy</privacy> *",
-      "privacyLink": "Privacy Policy",
-      "termsLabel": "I have read and agree to the <terms>Terms of Service</terms> *",
-      "termsLink": "Terms of Service",
-      "dataLabel": "I consent to the secure storage of my personal data *",
+      "body1": "Ao utilizar o nosso serviço de verificação KYC, concorda em cumprir todas as leis e regulamentos aplicáveis. Declara que todas as informações fornecidas são exatas e completas. Reservamo-nos o direito de negar acesso ou cancelar contas se detetarmos atividade fraudulenta ou violação dos nossos termos.",
+      "body2": "Os seus dados serão processados de forma segura e em conformidade com regulamentos internacionais de proteção de dados, incluindo o RGPD e normas locais.",
+      "privacyLabel": "Li e concordo com a <privacy>Política de Privacidade</privacy> *",
+      "privacyLink": "Política de Privacidade",
+      "termsLabel": "Li e concordo com os <terms>Termos de Serviço</terms> *",
+      "termsLink": "Termos de Serviço",
+      "dataLabel": "Consinto no armazenamento seguro dos meus dados pessoais *",
       "submit": "Concluir verificação",
       "submitting": "A enviar…",
       "validation": {
@@ -867,7 +1236,7 @@
       "subtitle": "Your verification is being processed",
       "thankYou": "Thank you for completing your verification. Our compliance team is now reviewing your application.",
       "reviewTimeLabel": "Review Time",
-      "reviewTimeValue": "24 - 48 Hours",
+      "reviewTimeValue": "24 - 48 horas",
       "confirmationLabel": "Confirmation",
       "confirmationValue": "Email will be sent",
       "securityLabel": "Security",
@@ -893,13 +1262,13 @@
       "industryLabel": "Industry *",
       "selectIndustry": "Select an industry",
       "industries": {
-        "technology": "Technology",
-        "finance": "Finance",
-        "healthcare": "Healthcare",
-        "retail": "Retail",
-        "manufacturing": "Manufacturing",
-        "education": "Education",
-        "other": "Other"
+        "technology": "Tecnologia",
+        "finance": "Finanças",
+        "healthcare": "Saúde",
+        "retail": "Retalho",
+        "manufacturing": "Indústria",
+        "education": "Educação",
+        "other": "Outro"
       },
       "companySizeLabel": "Company Size *",
       "selectCompanySize": "Select company size",
@@ -922,7 +1291,7 @@
       "remove": "Remove",
       "fullNameLabel": "Full Name *",
       "fullNamePlaceholder": "John Smith",
-      "emailLabel": "Email *",
+      "emailLabel": "E-mail *",
       "emailPlaceholder": "john@example.com",
       "jobTitleLabel": "Job Title *",
       "jobTitlePlaceholder": "CEO",
@@ -934,7 +1303,7 @@
       }
     },
     "uboDisclosure": {
-      "intro": "UBO (Ultimate Beneficial Owner) disclosure is required for compliance. Please provide information about the individuals who ultimately own or control the company.",
+      "intro": "A divulgação UBO (beneficiário efetivo final) é necessária para conformidade. Forneça informações sobre os indivíduos que detêm ou controlam a empresa.",
       "ownershipStructureLabel": "Ownership Structure",
       "directOwnership": "Direct ownership",
       "indirectOwnership": "Indirect ownership (through another entity)",
@@ -985,20 +1354,20 @@
       "businessPurposeLabel": "Business Purpose *",
       "selectPurpose": "Select business purpose",
       "purposes": {
-        "trading": "Trading",
-        "consulting": "Consulting",
-        "manufacturing": "Manufacturing",
-        "services": "Services",
-        "other": "Other"
+        "trading": "Comércio",
+        "consulting": "Consultoria",
+        "manufacturing": "Indústria",
+        "services": "Serviços",
+        "other": "Outro"
       },
       "expectedVolumeLabel": "Expected Monthly Transaction Volume *",
       "selectRange": "Select range",
-      "volume0": "$0 - $10,000",
-      "volume1": "$10,000 - $50,000",
-      "volume2": "$50,000 - $100,000",
-      "volume3": "$100,000+",
+      "volume0": "$0 - $10.000",
+      "volume1": "$10.000 - $50.000",
+      "volume2": "$50.000 - $100.000",
+      "volume3": "$100.000+",
       "confirmationHeading": "Compliance Confirmation",
-      "confirmationBody": "I confirm that my company complies with all applicable regulations in the jurisdictions where it operates, including Malawi RBM requirements and China PBOC merchant requirements.",
+      "confirmationBody": "Confirmo que a minha empresa cumpre todos os regulamentos aplicáveis nas jurisdições onde opera, incluindo requisitos RBM do Malawi e PBOC da China.",
       "checkboxLabel": "I confirm compliance with all applicable regulations *",
       "submit": "Concluir verificação empresarial",
       "validation": {
@@ -1006,6 +1375,34 @@
         "volumeRequired": "Expected transaction volume is required",
         "complianceRequired": "You must accept the compliance confirmation"
       }
+    }
+  },
+  "AccountBlocked": {
+    "title": "Conta bloqueada",
+    "body": "A sua conta foi restringida por um administrador. O acesso aos recursos do cliente está desativado.",
+    "hint": "Se acredita que isto é um erro, contacte o apoio e inclua o seu endereço de e-mail registado.",
+    "supportContact": "Contacto de assistência",
+    "copied": "Copiado",
+    "copy": "Copiar",
+    "signOutClear": "Terminar sessão/ Limpar sessão",
+    "backToSignIn": "Voltar ao início de sessão"
+  },
+  "Language": {
+    "manageAll": "Ver todos os idiomas",
+    "label": "Idioma de exibição",
+    "hint": "Aplica-se em toda a aplicação depois de guardar a sua escolha.",
+    "searchPlaceholder": "Pesquisar idiomas…"
+  },
+  "MoneySources": {
+    "fundingTitle": "Fontes de fundos",
+    "payoutTitle": "Provedores de pagamento",
+    "moreInDeposit": "Mais provedores ao depositar ou enviar dinheiro.",
+    "processing": {
+      "instant": "Instantâneo",
+      "minutes": "minutos",
+      "days": "1–2 dias úteis",
+      "card": "10~30 min",
+      "api": "Liquidação API"
     }
   }
 }

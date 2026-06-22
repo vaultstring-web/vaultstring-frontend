@@ -1,14 +1,18 @@
+'use client';
+
 import React, { useState } from 'react';
 import { User, Edit2, Save, X, Loader2 } from 'lucide-react';
 import { UserProfile } from '@/src/types/types';
 import { apiFetch } from '@/src/lib/api/api-client';
 import { toast } from 'sonner';
+import { useTranslations } from 'next-intl';
 
 interface PersonalDetailsProps {
   user: UserProfile;
 }
 
 const PersonalDetails: React.FC<PersonalDetailsProps> = ({ user: initialUser }) => {
+  const t = useTranslations('Profile');
   const [user, setUser] = useState(initialUser);
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,19 +43,25 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({ user: initialUser }) 
   const handleSave = async () => {
     setIsLoading(true);
     try {
-      // Assuming PATCH /users/me endpoint
-      const response = await apiFetch('/users/me', {
-        method: 'PATCH',
-        body: JSON.stringify(formData),
+      const nameParts = formData.name.trim().split(/\s+/);
+      const firstName = nameParts[0] || '';
+      const lastName = nameParts.slice(1).join(' ');
+
+      await apiFetch('/auth/me', {
+        method: 'PUT',
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          phone: formData.phone,
+        }),
       });
 
-      // Optimistic update or use response
       setUser({ ...user, ...formData });
-      toast.success('Profile updated successfully');
+      toast.success(t('toasts.profileUpdated'));
       setIsEditing(false);
     } catch (error) {
       console.error('Failed to update profile:', error);
-      toast.error('Failed to update profile. Please try again.');
+      toast.error(t('toasts.profileFailed'));
     } finally {
       setIsLoading(false);
     }
@@ -62,14 +72,14 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({ user: initialUser }) 
       <div className="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
         <h3 className="font-semibold text-slate-800 dark:text-white flex items-center gap-2">
           <User size={20} className="text-slate-400" />
-          Personal Information
+          {t('personalInfo')}
         </h3>
         {!isEditing ? (
           <button 
             onClick={handleEdit}
             className="text-sm text-green-600 hover:text-green-700 font-medium flex items-center gap-1 transition-colors"
           >
-            <Edit2 size={14} /> Edit
+            <Edit2 size={14} /> {t('edit')}
           </button>
         ) : (
           <div className="flex items-center gap-2">
@@ -78,21 +88,21 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({ user: initialUser }) 
               disabled={isLoading}
               className="text-sm text-slate-500 hover:text-slate-700 font-medium flex items-center gap-1 px-3 py-1.5 rounded-md hover:bg-slate-50 transition-colors"
             >
-              <X size={14} /> Cancel
+              <X size={14} /> {t('cancel')}
             </button>
             <button 
               onClick={handleSave}
               disabled={isLoading}
               className="text-sm bg-green-600 text-white hover:bg-green-700 font-medium flex items-center gap-1 px-3 py-1.5 rounded-md shadow-sm transition-colors disabled:opacity-50"
             >
-              {isLoading ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />} Save
+              {isLoading ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />} {t('saveChanges')}
             </button>
           </div>
         )}
       </div>
       <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">Full Name</label>
+          <label className="block text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">{t('fullName')}</label>
           {isEditing ? (
             <input
               type="text"
@@ -105,15 +115,14 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({ user: initialUser }) 
           )}
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">Email Address</label>
-           {/* Email is typically read-only or requires separate verification flow */}
-           <div className="text-slate-900 dark:text-slate-200 font-medium opacity-70 cursor-not-allowed" title="Email cannot be changed directly">
+          <label className="block text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">{t('email')}</label>
+           <div className="text-slate-900 dark:text-slate-200 font-medium opacity-70 cursor-not-allowed" title={t('emailChangeHint')}>
               {user.email}
-              {isEditing && <span className="text-xs text-slate-400 ml-2">(Contact support to change)</span>}
+              {isEditing && <span className="text-xs text-slate-400 ml-2">{t('emailChangeHint')}</span>}
            </div>
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">Phone Number</label>
+          <label className="block text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">{t('phoneNumber')}</label>
           {isEditing ? (
              <input
               type="tel"
@@ -122,11 +131,11 @@ const PersonalDetails: React.FC<PersonalDetailsProps> = ({ user: initialUser }) 
               className="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-500 transition-all"
             />
           ) : (
-            <div className="text-slate-900 dark:text-slate-200 font-medium">{user.phone || 'Not set'}</div>
+            <div className="text-slate-900 dark:text-slate-200 font-medium">{user.phone || t('notSet')}</div>
           )}
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">KYC Status</label>
+          <label className="block text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">{t('kycStatusLabel')}</label>
           <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 uppercase">
             {user.kycStatus}
           </div>

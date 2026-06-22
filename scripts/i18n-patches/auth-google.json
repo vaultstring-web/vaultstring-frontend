@@ -1,0 +1,68 @@
+{
+  "fr": {
+    "Auth.login.errorGoogleNotConfigured": "La connexion Google n'est pas configurée sur le serveur. Définissez GOOGLE_CLIENT_ID et GOOGLE_CLIENT_SECRET dans le .env backend, puis redémarrez le service d'authentification.",
+    "Auth.signup.alertComingSoonTitle": "Bientôt disponible",
+    "Auth.signup.errorAppleComingSoon": "La connexion Apple n'est pas encore disponible. Utilisez l'e-mail et le mot de passe.",
+    "Auth.signup.errorGoogleNotConfigured": "La connexion Google n'est pas configurée sur le serveur. Définissez GOOGLE_CLIENT_ID et GOOGLE_CLIENT_SECRET dans le .env backend, puis redémarrez le service d'authentification."
+  },
+  "pt": {
+    "Auth.login.errorGoogleNotConfigured": "O login Google não está configurado no servidor. Defina GOOGLE_CLIENT_ID e GOOGLE_CLIENT_SECRET no .env do backend e reinicie o serviço de autenticação.",
+    "Auth.signup.alertComingSoonTitle": "Em breve",
+    "Auth.signup.errorAppleComingSoon": "O login com Apple ainda não está disponível. Use e-mail e senha.",
+    "Auth.signup.errorGoogleNotConfigured": "O login Google não está configurado no servidor. Defina GOOGLE_CLIENT_ID e GOOGLE_CLIENT_SECRET no .env do backend e reinicie o serviço de autenticação."
+  },
+  "sw": {
+    "Auth.login.errorGoogleNotConfigured": "Kuingia kwa Google hakijasanidiwa kwenye seva. Weka GOOGLE_CLIENT_ID na GOOGLE_CLIENT_SECRET katika .env ya backend, kisha anzisha upya huduma ya uthibitishaji.",
+    "Auth.signup.alertComingSoonTitle": "Inakuja hivi karibuni",
+    "Auth.signup.errorAppleComingSoon": "Kuingia kwa Apple bado hakupatikani. Tumia barua pepe na nenosiri.",
+    "Auth.signup.errorGoogleNotConfigured": "Kuingia kwa Google hakijasanidiwa kwenye seva. Weka GOOGLE_CLIENT_ID na GOOGLE_CLIENT_SECRET katika .env ya backend, kisha anzisha upya huduma ya uthibitishaji."
+  },
+  "ja": {
+    "Auth.login.errorGoogleNotConfigured": "サーバーでGoogleサインインが設定されていません。バックエンドの.envにGOOGLE_CLIENT_IDとGOOGLE_CLIENT_SECRETを設定し、認証サービスを再起動してください。",
+    "Auth.signup.alertComingSoonTitle": "近日公開",
+    "Auth.signup.errorAppleComingSoon": "Appleサインインはまだ利用できません。メールとパスワードをご利用ください。",
+    "Auth.signup.errorGoogleNotConfigured": "サーバーでGoogleサインインが設定されていません。バックエンドの.envにGOOGLE_CLIENT_IDとGOOGLE_CLIENT_SECRETを設定し、認証サービスを再起動してください。"
+  },
+  "zh": {
+    "Auth.login.errorGoogleNotConfigured": "服务器未配置 Google 登录。请在后端 .env 中设置 GOOGLE_CLIENT_ID 和 GOOGLE_CLIENT_SECRET，然后重启认证服务。",
+    "Auth.signup.alertComingSoonTitle": "即将推出",
+    "Auth.signup.errorAppleComingSoon": "Apple 登录尚不可用。请使用电子邮件和密码。",
+    "Auth.signup.errorGoogleNotConfigured": "服务器未配置 Google 登录。请在后端 .env 中设置 GOOGLE_CLIENT_ID 和 GOOGLE_CLIENT_SECRET，然后重启认证服务。"
+  },
+  "ar": {
+    "Auth.login.errorGoogleNotConfigured": "لم يتم تكوين تسجيل الدخول عبر Google على الخادم. عيّن GOOGLE_CLIENT_ID وGOOGLE_CLIENT_SECRET في ملف .env للخادم ثم أعد تشغيل خدمة المصادقة.",
+    "Auth.signup.alertComingSoonTitle": "قريباً",
+    "Auth.signup.errorAppleComingSoon": "تسجيل الدخول عبر Apple غير متاح بعد. استخدم البريد الإلكتروني وكلمة المرور.",
+    "Auth.signup.errorGoogleNotConfigured": "لم يتم تكوين تسجيل الدخول عبر Google على الخادم. عيّن GOOGLE_CLIENT_ID وGOOGLE_CLIENT_SECRET في ملف .env للخادم ثم أعد تشغيل خدمة المصادقة."
+  },
+  "am": {
+    "Auth.login.errorGoogleNotConfigured": "የGoogle መግቢያ በሰርቨር ላይ አልተዋቀረም። በbackend .env ውስጥ GOOGLE_CLIENT_ID እና GOOGLE_CLIENT_SECRET ያስቀምጡና የማረጋገጫ አገልግሎቱን እንደገና ያስጀምሩ።",
+    "Auth.signup.alertComingSoonTitle": "በቅርቡ",
+    "Auth.signup.errorAppleComingSoon": "የApple መግቢያ ገና አይገኝም። ኢሜይል እና የይለፍ ቃል ይጠቀሙ።",
+    "Auth.signup.errorGoogleNotConfigured": "የGoogle መግቢያ በሰርቨር ላይ አልተዋቀረም። በbackend .env ውስጥ GOOGLE_CLIENT_ID እና GOOGLE_CLIENT_SECRET ያስቀምጡና የማረጋገጫ አገልግሎቱን እንደገና ያስጀምሩ።"
+  },
+  "yo": {
+    "Auth.login.errorGoogleNotConfigured": "Wiwọle Google ko ṣeeto lori olupin. Ṣeto GOOGLE_CLIENT_ID ati GOOGLE_CLIENT_SECRET ninu .env backend, ki o tun bẹrẹ iṣẹ idaniloju.",
+    "Auth.signup.alertComingSoonTitle": "Nbọ laipe",
+    "Auth.signup.errorAppleComingSoon": "Wiwọle Apple ko wa sibẹ sibẹ. Lo imeeli ati ọrọ aṣina.",
+    "Auth.signup.errorGoogleNotConfigured": "Wiwọle Google ko ṣeeto lori olupin. Ṣeto GOOGLE_CLIENT_ID ati GOOGLE_CLIENT_SECRET ninu .env backend, ki o tun bẹrẹ iṣẹ idaniloju."
+  },
+  "ny": {
+    "Auth.login.errorGoogleNotConfigured": "Kulowa ndi Google sikunikidwa pa seva. Ikani GOOGLE_CLIENT_ID ndi GOOGLE_CLIENT_SECRET mu backend .env, kenako yambitsaninso ntchito yochititsa umboni.",
+    "Auth.signup.alertComingSoonTitle": "Posachedwapa",
+    "Auth.signup.errorAppleComingSoon": "Kulowa ndi Apple sikunapezeka pano. Gwiritsani ntchito imelo ndi mawu achinsinsi.",
+    "Auth.signup.errorGoogleNotConfigured": "Kulowa ndi Google sikunikidwa pa seva. Ikani GOOGLE_CLIENT_ID ndi GOOGLE_CLIENT_SECRET mu backend .env, kenako yambitsaninso ntchito yochititsa umboni."
+  },
+  "zu": {
+    "Auth.login.errorGoogleNotConfigured": "Ukungena nge-Google akukho kumiselwe kuseva. Setha i-GOOGLE_CLIENT_ID ne-GOOGLE_CLIENT_SECRET ku-backend .env, bese uqala kabusha isevisi yokuqinisekisa.",
+    "Auth.signup.alertComingSoonTitle": "Kuyeza maduze",
+    "Auth.signup.errorAppleComingSoon": "Ukungena nge-Apple akukatholakali. Sebenzisa i-imeyili nephasiwedi.",
+    "Auth.signup.errorGoogleNotConfigured": "Ukungena nge-Google akukho kumiselwe kuseva. Setha i-GOOGLE_CLIENT_ID ne-GOOGLE_CLIENT_SECRET ku-backend .env, bese uqala kabusha isevisi yokuqinisekisa."
+  },
+  "ha": {
+    "Auth.login.errorGoogleNotConfigured": "Shiga ta Google ba a saita shi a uwar garken ba. Sanya GOOGLE_CLIENT_ID da GOOGLE_CLIENT_SECRET a backend .env, sannan sake kunna sabis na tantancewa.",
+    "Auth.signup.alertComingSoonTitle": "Nan ba da jimawa ba",
+    "Auth.signup.errorAppleComingSoon": "Shiga ta Apple ba ya samuwa tukuna. Yi amfani da imel da kalmar sirri.",
+    "Auth.signup.errorGoogleNotConfigured": "Shiga ta Google ba a saita shi a uwar garken ba. Sanya GOOGLE_CLIENT_ID da GOOGLE_CLIENT_SECRET a backend .env, sannan sake kunna sabis na tantancewa."
+  }
+}

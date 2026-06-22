@@ -1,11 +1,15 @@
+'use client';
+
 import React from 'react';
 import { Button } from '@/src/components/ui/button';
+import { useTranslations } from 'next-intl';
 
 export function SocialAuthDivider() {
+  const t = useTranslations('Auth.social');
   return (
     <div className="flex items-center gap-4 my-6">
       <div className="flex-1 h-px bg-gray-300 dark:bg-slate-700" />
-      <span className="text-sm text-gray-500 dark:text-slate-400">Or continue with</span>
+      <span className="text-sm text-gray-500 dark:text-slate-400">{t('orContinueWith')}</span>
       <div className="flex-1 h-px bg-gray-300 dark:bg-slate-700" />
     </div>
   );
@@ -20,6 +24,7 @@ interface SocialButtonProps {
 }
 
 export function SocialButton({ provider, icon, label, onClick, className }: SocialButtonProps) {
+  const t = useTranslations('Auth.social');
   let displayIcon = icon;
   let displayLabel = label;
 
@@ -32,14 +37,14 @@ export function SocialButton({ provider, icon, label, onClick, className }: Soci
         <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
       </svg>
     );
-    displayLabel = "Google";
+    displayLabel = t('google');
   } else if (provider === 'apple') {
     displayIcon = (
       <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.74 1.18 0 2.45-1.02 4.12-.95 1.76.08 2.66 1.25 2.66 1.25s-2.05 1.1-2.08 4.22c-.03 2.76 2.38 3.84 2.38 3.84-.1.35-.6 1.87-1.16 2.87zm-1.85-12.7c.6-1.09.28-2.68 0-3.58-1.29.11-2.73 1.12-3.13 2.58-.33 1.07.12 2.65.12 2.65.25.04 2.44-.57 3.01-1.65z" />
       </svg>
     );
-    displayLabel = "Apple";
+    displayLabel = t('apple');
   }
 
   return (

@@ -37,7 +37,28 @@ function applyPatches(locale, patches) {
   return count;
 }
 
-const patchFiles = ['auth.json', 'zu.json', 'ha.json', 'misc.json', 'onboarding.json'];
+// onboarding.json is excluded — flat patches contain English bleed for African/Asian locales.
+// Authoritative Onboarding copy lives in scripts/onboarding-i18n/{locale}.js (merged last).
+const patchFiles = [
+  'auth.json',
+  'auth-google.json',
+  'zu.json',
+  'ha.json',
+  'misc.json',
+  'dashboard-ui.json',
+  'deposit-modal.json',
+  'customer-enterprise-ui.json',
+  'pass2-customer-enterprise-ui.json',
+  'phase3-customer.json',
+  'missing-37-all-locales.json',
+  'second-pass-african-bleed.json',
+  'chichewa-settings-fix.json',
+  'fourth-pass-ui.json',
+  'common-error-boundary.json',
+  'settings-nav-aria.json',
+  'fr-corruption-fix.json',
+  'onboarding-gaps.json',
+];
 const stats = {};
 
 for (const pf of patchFiles) {

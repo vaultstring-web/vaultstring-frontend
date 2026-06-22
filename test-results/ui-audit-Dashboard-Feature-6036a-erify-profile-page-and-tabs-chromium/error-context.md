@@ -1,0 +1,180 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - link "VaultString Logo" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "VaultString Logo" [ref=e6]
+      - navigation [ref=e7]:
+        - link "Dashboard" [ref=e8] [cursor=pointer]:
+          - /url: /
+          - img [ref=e9]
+          - generic [ref=e14]: Dashboard
+        - link "My Wallet" [ref=e15] [cursor=pointer]:
+          - /url: /wallet
+          - img [ref=e16]
+          - generic [ref=e19]: My Wallet
+        - link "Send Money" [ref=e20] [cursor=pointer]:
+          - /url: /send-money
+          - img [ref=e21]
+          - generic [ref=e24]: Send Money
+        - link "Transactions" [ref=e25] [cursor=pointer]:
+          - /url: /transactions
+          - img [ref=e26]
+          - generic [ref=e30]: Transactions
+        - link "Profile" [ref=e31] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e32]
+          - generic [ref=e36]: Profile
+      - button "Sign Out" [ref=e38]:
+        - img [ref=e39]
+        - generic [ref=e42]: Sign Out
+    - generic [ref=e43]:
+      - banner [ref=e44]:
+        - generic [ref=e45]:
+          - generic [ref=e47]:
+            - heading "Profile & Security" [level=1] [ref=e48]
+            - paragraph [ref=e49]: Welcome back, Admin
+          - generic [ref=e50]:
+            - generic [ref=e52]:
+              - img [ref=e54]
+              - textbox "Search transactions..." [ref=e57]
+            - generic [ref=e58]:
+              - button [ref=e59]:
+                - img [ref=e60]
+              - button [ref=e63]:
+                - img [ref=e64]
+              - button "Admin User Admin User Personal Account" [ref=e67]:
+                - img "Admin User" [ref=e69]
+                - generic [ref=e70]:
+                  - paragraph [ref=e71]: Admin User
+                  - paragraph [ref=e72]: Personal Account
+                - img [ref=e73]
+      - main [ref=e75]:
+        - generic [ref=e77]:
+          - generic [ref=e78]:
+            - generic [ref=e79]:
+              - generic [ref=e83]: A
+              - button [ref=e84]:
+                - img [ref=e85]
+            - generic [ref=e86]:
+              - generic [ref=e87]:
+                - heading "admin" [level=1] [ref=e88]
+                - generic [ref=e89]:
+                  - button "Edit Profile" [ref=e90]
+                  - button "View Archive" [ref=e91]
+                  - button [ref=e92]:
+                    - img [ref=e93]
+              - generic [ref=e96]:
+                - generic [ref=e97]: 12transactions
+                - generic [ref=e98]: 3wallets
+                - generic [ref=e99]: 156recipients
+              - generic [ref=e100]:
+                - heading "Admin User" [level=2] [ref=e101]
+                - paragraph [ref=e102]: Premium VaultString Member
+                - generic [ref=e103]:
+                  - img [ref=e104]
+                  - link "vaultstring.com/p/admin" [ref=e107] [cursor=pointer]:
+                    - /url: "#"
+          - generic [ref=e109]:
+            - button "Activity" [ref=e110]:
+              - img [ref=e111]
+              - generic [ref=e113]: Activity
+            - button "Wallets" [ref=e114]:
+              - img [ref=e115]
+              - generic [ref=e118]: Wallets
+            - button "Security" [ref=e119]:
+              - img [ref=e120]
+              - generic [ref=e123]: Security
+            - button "Language" [ref=e124]:
+              - img [ref=e125]
+              - generic [ref=e128]: Language
+          - generic [ref=e131]:
+            - generic [ref=e132] [cursor=pointer]:
+              - img [ref=e134]
+              - generic [ref=e138]:
+                - generic [ref=e139]:
+                  - img [ref=e140]
+                  - generic [ref=e143]: Success
+                - generic [ref=e144]:
+                  - img [ref=e145]
+                  - generic [ref=e147]: $240
+            - generic [ref=e148] [cursor=pointer]:
+              - img [ref=e150]
+              - generic [ref=e154]:
+                - generic [ref=e155]:
+                  - img [ref=e156]
+                  - generic [ref=e159]: Success
+                - generic [ref=e160]:
+                  - img [ref=e161]
+                  - generic [ref=e163]: $240
+            - generic [ref=e164] [cursor=pointer]:
+              - img [ref=e166]
+              - generic [ref=e170]:
+                - generic [ref=e171]:
+                  - img [ref=e172]
+                  - generic [ref=e175]: Success
+                - generic [ref=e176]:
+                  - img [ref=e177]
+                  - generic [ref=e179]: $240
+            - generic [ref=e180] [cursor=pointer]:
+              - img [ref=e182]
+              - generic [ref=e186]:
+                - generic [ref=e187]:
+                  - img [ref=e188]
+                  - generic [ref=e191]: Success
+                - generic [ref=e192]:
+                  - img [ref=e193]
+                  - generic [ref=e195]: $240
+            - generic [ref=e196] [cursor=pointer]:
+              - img [ref=e198]
+              - generic [ref=e202]:
+                - generic [ref=e203]:
+                  - img [ref=e204]
+                  - generic [ref=e207]: Success
+                - generic [ref=e208]:
+                  - img [ref=e209]
+                  - generic [ref=e211]: $240
+            - generic [ref=e212] [cursor=pointer]:
+              - img [ref=e214]
+              - generic [ref=e218]:
+                - generic [ref=e219]:
+                  - img [ref=e220]
+                  - generic [ref=e223]: Success
+                - generic [ref=e224]:
+                  - img [ref=e225]
+                  - generic [ref=e227]: $240
+            - generic [ref=e228] [cursor=pointer]:
+              - img [ref=e230]
+              - generic [ref=e234]:
+                - generic [ref=e235]:
+                  - img [ref=e236]
+                  - generic [ref=e239]: Success
+                - generic [ref=e240]:
+                  - img [ref=e241]
+                  - generic [ref=e243]: $240
+            - generic [ref=e244] [cursor=pointer]:
+              - img [ref=e246]
+              - generic [ref=e250]:
+                - generic [ref=e251]:
+                  - img [ref=e252]
+                  - generic [ref=e255]: Success
+                - generic [ref=e256]:
+                  - img [ref=e257]
+                  - generic [ref=e259]: $240
+            - generic [ref=e260] [cursor=pointer]:
+              - img [ref=e262]
+              - generic [ref=e266]:
+                - generic [ref=e267]:
+                  - img [ref=e268]
+                  - generic [ref=e271]: Success
+                - generic [ref=e272]:
+                  - img [ref=e273]
+                  - generic [ref=e275]: $240
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - alert [ref=e276]
+```

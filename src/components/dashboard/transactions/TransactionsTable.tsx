@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { apiFetch } from '@/src/lib/api/api-client';
 import { ApiTransaction } from '@/src/types/api';
 import { formatWalletNumber, formatCurrency } from '@/src/lib/utils/formatters';
@@ -41,6 +42,8 @@ interface TransactionsTableProps {
 }
 
 export default function TransactionsTable({ transactions, userId }: TransactionsTableProps) {
+  const t = useTranslations('Transactions');
+  const tr = useTranslations('Transactions.receiptModal');
   const [receipt, setReceipt] = useState<any | null>(null);
   const [loadingId, setLoadingId] = useState<string | null>(null);
   const [page, setPage] = useState(1);
@@ -107,13 +110,13 @@ export default function TransactionsTable({ transactions, userId }: Transactions
                   <CreditCard className="text-white" size={24} />
                 </div>
               </div>
-              <div className="text-2xl font-bold tracking-tight">Receipt</div>
+              <div className="text-2xl font-bold tracking-tight">{tr('title')}</div>
               <div className="text-sm text-slate-400 mt-1">{new Date(receipt.date).toLocaleString()}</div>
             </div>
             
             <div className="p-8 space-y-6">
               <div className="text-center">
-                <div className="text-slate-500 dark:text-slate-400 text-sm font-medium uppercase tracking-wide">Total Amount</div>
+                <div className="text-slate-500 dark:text-slate-400 text-sm font-medium uppercase tracking-wide">{tr('totalAmount')}</div>
                 <div className="text-4xl font-bold text-slate-900 dark:text-white mt-2 tracking-tight">
                   {formatCurrency(receipt.total_debited || receipt.amount, receipt.currency)}
                 </div>
@@ -124,31 +127,31 @@ export default function TransactionsTable({ transactions, userId }: Transactions
 
               <div className="space-y-4 pt-6 border-t border-slate-100 dark:border-slate-800">
                 <div className="flex justify-between text-sm group">
-                  <span className="text-slate-500 dark:text-slate-400">Reference ID</span>
+                  <span className="text-slate-500 dark:text-slate-400">{tr('referenceId')}</span>
                   <span className="font-mono font-medium text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors cursor-pointer" onClick={() => navigator.clipboard.writeText(receipt.reference)}>
                     {receipt.reference}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-slate-500 dark:text-slate-400">Sender</span>
+                  <span className="text-slate-500 dark:text-slate-400">{tr('sender')}</span>
                   <span className="font-medium text-slate-900 dark:text-white">{receipt.sender_name}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-slate-500 dark:text-slate-400">Receiver</span>
+                  <span className="text-slate-500 dark:text-slate-400">{tr('receiver')}</span>
                   <span className="font-medium text-slate-900 dark:text-white">{receipt.receiver_name}</span>
                 </div>
                 <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg space-y-2 mt-2 border border-slate-100 dark:border-slate-800">
                   <div className="flex justify-between text-xs">
-                    <span className="text-slate-500 dark:text-slate-400">Subtotal</span>
+                    <span className="text-slate-500 dark:text-slate-400">{tr('subtotal')}</span>
                     <span className="font-medium text-slate-700 dark:text-slate-300">{formatCurrency(receipt.amount, receipt.currency)}</span>
                   </div>
                   <div className="flex justify-between text-xs">
-                    <span className="text-slate-500 dark:text-slate-400">Service Fee</span>
+                    <span className="text-slate-500 dark:text-slate-400">{tr('serviceFee')}</span>
                     <span className="font-medium text-slate-700 dark:text-slate-300">{formatCurrency(receipt.fee, receipt.fee_currency || receipt.currency)}</span>
                   </div>
                   {(receipt.received_amount || receipt.received_currency) && (
                     <div className="flex justify-between text-xs pt-2 border-t border-dashed border-slate-200 dark:border-slate-800">
-                      <span className="text-slate-500 dark:text-slate-400">Recipient Receives</span>
+                      <span className="text-slate-500 dark:text-slate-400">{tr('recipientReceives')}</span>
                       <span className="font-semibold text-emerald-700 dark:text-emerald-400">
                         {formatCurrency(parseNum(receipt.received_amount), receipt.received_currency || receipt.currency)}
                       </span>
@@ -158,7 +161,7 @@ export default function TransactionsTable({ transactions, userId }: Transactions
               </div>
             </div>
             <div className="bg-slate-50 dark:bg-slate-950 p-4 text-center border-t border-slate-100 dark:border-slate-800">
-              <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">Verified by VaultString Security</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">{tr('verifiedFooter')}</p>
             </div>
           </div>
         </div>
@@ -232,27 +235,44 @@ export default function TransactionsTable({ transactions, userId }: Transactions
                  <div className="flex items-start justify-between gap-2">
                    <div className="space-y-1">
                      <p className={cn("text-sm text-slate-900 dark:text-white leading-snug", isUnread ? "font-semibold" : "font-medium")}>
-                      {direction === 'sent' ? (
-                         <>
-                           Sent <span className="text-slate-900 dark:text-white font-bold">{formatCurrency(amount, currency)}</span> to <span className="text-indigo-600 dark:text-indigo-400">{counterpartyName}</span>
-                         </>
-                       ) : (
-                         <>
-                           Received <span className="text-emerald-600 dark:text-emerald-400 font-bold">{formatCurrency(amount, currency)}</span> from <span className="text-indigo-600 dark:text-indigo-400">{counterpartyName}</span>
-                         </>
-                       )}
+                      {direction === 'sent'
+                        ? t.rich('table.sentSummary', {
+                            amount: () => (
+                              <span className="font-bold text-slate-900 dark:text-white">
+                                {formatCurrency(amount, currency)}
+                              </span>
+                            ),
+                            name: () => (
+                              <span className="text-indigo-600 dark:text-indigo-400">{counterpartyName}</span>
+                            ),
+                          })
+                        : t.rich('table.receivedSummary', {
+                            amount: () => (
+                              <span className="font-bold text-emerald-600 dark:text-emerald-400">
+                                {formatCurrency(amount, currency)}
+                              </span>
+                            ),
+                            name: () => (
+                              <span className="text-indigo-600 dark:text-indigo-400">{counterpartyName}</span>
+                            ),
+                          })}
                      </p>
                      <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
                        <span className="capitalize">{description}</span>
                        <span>•</span>
-                       <span>{date.toLocaleDateString()} at {date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                       <span>
+                         {t('table.dateAt', {
+                           date: date.toLocaleDateString(),
+                           time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                         })}
+                       </span>
                      </div>
                    </div>
                    
                    {/* Actions */}
                    <div className="flex items-center gap-2">
                      {isUnread && (
-                       <span className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse" title="Unread"></span>
+                       <span className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse" title={t('table.unread')}></span>
                      )}
                      
                      <DropdownMenu>
@@ -262,15 +282,15 @@ export default function TransactionsTable({ transactions, userId }: Transactions
                          </Button>
                        </DropdownMenuTrigger>
                        <DropdownMenuContent align="end" className="w-40">
-                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                         <DropdownMenuLabel>{t('table.actions')}</DropdownMenuLabel>
                          <DropdownMenuSeparator />
                          <DropdownMenuItem onClick={() => handleViewReceipt(t.id)}>
                            <Eye className="mr-2 h-4 w-4" />
-                           View Receipt
+                           {t('table.viewReceipt')}
                          </DropdownMenuItem>
                          <DropdownMenuItem className="text-slate-500 dark:text-slate-400">
                            <Archive className="mr-2 h-4 w-4" />
-                           Archive
+                           {t('table.archive')}
                          </DropdownMenuItem>
                        </DropdownMenuContent>
                      </DropdownMenu>

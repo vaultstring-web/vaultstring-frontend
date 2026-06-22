@@ -30,6 +30,7 @@ type Receipt = {
 };
 
 const SUCCESS_TX_STORAGE_KEY = 'kyd_last_success_tx_id';
+const SUCCESS_FLOW_STORAGE_KEY = 'kyd_last_success_flow';
 
 function isUuid(v: string) {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v);
@@ -49,6 +50,7 @@ export default function TransactionSuccessPage() {
   const router = useRouter();
   const sp = useSearchParams();
   const tx = sp.get('tx') || '';
+  const from = sp.get('from') || '';
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -70,8 +72,11 @@ export default function TransactionSuccessPage() {
           if (isUuid(stored)) candidateTx = stored;
         }
 
-        // Final fallback: resolve from latest transaction list.
-        if (!candidateTx) {
+        // Final fallback: only resolve latest tx when user came directly from send flow.
+        const canResolveFromLatest =
+          from === 'send-money' ||
+          (typeof window !== 'undefined' && sessionStorage.getItem(SUCCESS_FLOW_STORAGE_KEY) === 'send-money');
+        if (!candidateTx && canResolveFromLatest) {
           const payments = await apiFetch<any>(`/payments?limit=5&offset=0`);
           const rows = Array.isArray(payments?.transactions)
             ? payments.transactions
@@ -93,7 +98,7 @@ export default function TransactionSuccessPage() {
           localStorage.setItem(SUCCESS_TX_STORAGE_KEY, candidateTx);
         }
 
-        const r = await apiFetch<Receipt>(`/payments/${encodeURIComponent(candidateTx)}/receipt`);
+        const r = await apiFetch<Receipt>(`/transactions/${encodeURIComponent(candidateTx)}/receipt`);
         if (!mounted) return;
         setReceipt(r);
       } catch (e: unknown) {
@@ -107,7 +112,7 @@ export default function TransactionSuccessPage() {
     return () => {
       mounted = false;
     };
-  }, [tx, canFetch, t]);
+  }, [tx, canFetch, t, from]);
 
   const title = receipt?.status?.toLowerCase().includes('pending')
     ? t('titlePending')
@@ -145,7 +150,7 @@ export default function TransactionSuccessPage() {
               <CheckCircle2 size={24} />
             </div>
             <div>
-              <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{title}</h1>
+              <h1 className="text-2xl font-semibold text-slate-900 dark:text-white tracking-tight">{title}</h1>
               <p className="text-slate-500 dark:text-slate-400 font-medium">{subtitle}</p>
             </div>
           </div>
@@ -168,14 +173,14 @@ export default function TransactionSuccessPage() {
               <FileText size={18} />
             </div>
             <div>
-              <div className="text-sm font-black text-slate-900 dark:text-white">{t('proofHeading')}</div>
+              <div className="text-sm font-semibold text-slate-900 dark:text-white">{t('proofHeading')}</div>
               <div className="text-xs font-bold text-slate-400 dark:text-slate-500">
                 {receipt?.reference ? t('referenceLabel', { ref: String(receipt.reference) }) : t('referencePending')}
               </div>
             </div>
           </div>
           {receipt?.status && (
-            <Badge variant="outline" className="rounded-full px-4 py-1.5 text-xs font-black uppercase tracking-widest">
+            <Badge variant="outline" className="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-widest">
               {String(receipt.status)}
             </Badge>
           )}
@@ -190,7 +195,7 @@ export default function TransactionSuccessPage() {
 
           {!loading && error && (
             <div className="p-6 rounded-2xl bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-900 text-red-700 dark:text-red-200">
-              <div className="font-black">{t('errorTitle')}</div>
+              <div className="font-semibold">{t('errorTitle')}</div>
               <div className="text-sm font-medium mt-1">{error}</div>
               <div className="mt-4 flex gap-2">
                 <Button variant="outline" className="rounded-xl" onClick={() => router.push('/transactions')}>
@@ -210,19 +215,19 @@ export default function TransactionSuccessPage() {
               <div className="md:col-span-2 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-5 space-y-3">
                 <div className="flex items-center justify-between text-sm">
                   <span className="font-bold text-slate-500 dark:text-slate-400">{t('labelAmount')}</span>
-                  <span className="font-black text-slate-900 dark:text-white">
+                  <span className="font-semibold text-slate-900 dark:text-white">
                     {formatCurrency(parseNum(receipt.amount), receipt.currency)}
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
                   <span className="font-bold text-slate-500 dark:text-slate-400">{t('labelFee')}</span>
-                  <span className="font-black text-slate-900 dark:text-white">
+                  <span className="font-semibold text-slate-900 dark:text-white">
                     {formatCurrency(parseNum(receipt.fee), receipt.currency)}
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-sm pt-2 border-t border-dashed border-slate-200 dark:border-slate-800">
                   <span className="font-bold text-slate-500 dark:text-slate-400">{t('labelTotalDebited')}</span>
-                  <span className="font-black text-slate-900 dark:text-white">
+                  <span className="font-semibold text-slate-900 dark:text-white">
                     {formatCurrency(parseNum(receipt.total_debited), receipt.currency)}
                   </span>
                 </div>
@@ -230,7 +235,7 @@ export default function TransactionSuccessPage() {
                 {(receipt.received_currency || receipt.received_amount) && (
                   <div className="flex items-center justify-between text-sm pt-2 border-t border-dashed border-slate-200 dark:border-slate-800">
                     <span className="font-bold text-slate-500 dark:text-slate-400">{t('labelRecipientReceives')}</span>
-                    <span className="font-black text-emerald-700 dark:text-emerald-400">
+                    <span className="font-semibold text-emerald-700 dark:text-emerald-400">
                       {formatCurrency(parseNum(receipt.received_amount), receipt.received_currency || receipt.currency)}
                     </span>
                   </div>
@@ -239,7 +244,7 @@ export default function TransactionSuccessPage() {
 
               {receipt.description && (
                 <div className="md:col-span-2">
-                  <div className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2">
+                  <div className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2">
                     {t('labelDescription')}
                   </div>
                   <div className="rounded-2xl border border-slate-100 dark:border-slate-800 p-4 text-sm font-medium text-slate-700 dark:text-slate-200">
@@ -261,7 +266,7 @@ export default function TransactionSuccessPage() {
 
           {!loading && !error && !receipt && !canFetch && (
             <div className="p-8 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 text-center space-y-3">
-              <div className="text-slate-900 dark:text-white font-black">{t('receiptUnavailableTitle')}</div>
+              <div className="text-slate-900 dark:text-white font-semibold">{t('receiptUnavailableTitle')}</div>
               <div className="text-sm text-slate-500 dark:text-slate-400 font-medium">
                 {t('receiptUnavailableBody')}
               </div>
@@ -281,7 +286,7 @@ export default function TransactionSuccessPage() {
 function InfoRow({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
   return (
     <div className="rounded-2xl border border-slate-100 dark:border-slate-800 p-4">
-      <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">
+      <div className="text-xs font-medium text-muted-foreground text-slate-400 dark:text-slate-500">
         {label}
       </div>
       <div className={mono ? 'mt-1 font-mono font-bold text-slate-900 dark:text-white text-sm break-all' : 'mt-1 font-bold text-slate-900 dark:text-white text-sm wrap-break-word'}>

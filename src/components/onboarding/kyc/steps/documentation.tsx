@@ -4,14 +4,33 @@ import type React from "react"
 
 import { useState } from "react"
 import { useTranslations } from "next-intl"
-import { Button } from "@/src/components/ui/button"
+import { FileText } from "lucide-react"
 import { apiFetch } from "@/src/lib/api/api-client"
+import {
+  OnboardingContinueButton,
+  OnboardingError,
+  OnboardingLabel,
+  onboardingUploadZone,
+} from "../onboarding-ui"
 
 interface DocumentationStepProps {
-  onNext: (data: any) => void
+  onNext: (data: Record<string, unknown>) => void
+  initialData?: Record<string, unknown>
 }
 
-export function DocumentationStep({ onNext }: DocumentationStepProps) {
+type DocumentField = "incorporation" | "articles" | "shareholders"
+
+const DOCUMENT_UPLOADS: Array<{
+  key: DocumentField
+  documentType: string
+  required: boolean
+}> = [
+  { key: "incorporation", documentType: "business_incorporation_certificate", required: true },
+  { key: "articles", documentType: "business_articles_association", required: true },
+  { key: "shareholders", documentType: "business_shareholder_register", required: false },
+]
+
+export function DocumentationStep({ onNext, initialData }: DocumentationStepProps) {
   const t = useTranslations("Onboarding.documentation")
   const tFlow = useTranslations("Onboarding.flow")
   const tv = useTranslations("Onboarding.documentation.validation")
@@ -33,17 +52,25 @@ export function DocumentationStep({ onNext }: DocumentationStepProps) {
 
   const handleFileChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    fieldName: "incorporation" | "articles" | "shareholders",
+    fieldName: DocumentField,
   ) => {
     const file = e.target.files?.[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setFiles({ ...files, [fieldName]: file })
-        setPreviews({ ...previews, [fieldName]: reader.result as string })
-      }
-      reader.readAsDataURL(file)
+    if (!file) return
+    if (file.size > 10 * 1024 * 1024) {
+      setErrors((prev) => ({ ...prev, [fieldName]: t("fileTooLarge") }))
+      return
     }
+    const reader = new FileReader()
+    reader.onloadend = () => {
+      setFiles((prev) => ({ ...prev, [fieldName]: file }))
+      setPreviews((prev) => ({ ...prev, [fieldName]: reader.result as string }))
+      setErrors((prev) => {
+        const next = { ...prev }
+        delete next[fieldName]
+        return next
+      })
+    }
+    reader.readAsDataURL(file)
   }
 
   const validateForm = () => {
@@ -61,20 +88,33 @@ export function DocumentationStep({ onNext }: DocumentationStepProps) {
     if (validateForm()) {
       setIsSubmitting(true)
       try {
-        const formData = new FormData()
-        if (files.incorporation) formData.append("incorporation", files.incorporation)
-        if (files.articles) formData.append("articles", files.articles)
-        if (files.shareholders) formData.append("shareholders", files.shareholders)
+        const registrationNumber = String(initialData?.registrationNumber || `BUS-${Date.now()}`)
+        const issuingCountry = String(initialData?.countryCode || initialData?.country || "MW").slice(0, 2).toUpperCase()
 
-        const data = await apiFetch('/compliance/kyc/submit', {
-          method: "POST",
-          body: formData,
-        })
+        for (const upload of DOCUMENT_UPLOADS) {
+          const file = files[upload.key]
+          if (!file) continue
 
-        console.log("Upload success:", data)
+          const formData = new FormData()
+          formData.append("documents", file)
+          formData.append("document_type", upload.documentType)
+          formData.append("document_number", `${registrationNumber}-${upload.key}`)
+          formData.append("issuing_country", issuingCountry)
+
+          await apiFetch("/compliance/kyc/submit", {
+            method: "POST",
+            body: formData,
+          })
+        }
+
+        if (process.env.NODE_ENV === "development") {
+          console.info("[KYC] Upload success")
+        }
         onNext({ documents: files })
       } catch (err) {
-        console.error("Upload failed", err)
+        if (process.env.NODE_ENV === "development") {
+          console.error("Upload failed", err)
+        }
         setErrors({ submit: t("errorUpload") })
       } finally {
         setIsSubmitting(false)
@@ -82,20 +122,24 @@ export function DocumentationStep({ onNext }: DocumentationStepProps) {
     }
   }
 
-  const docFields = [
-    { key: "incorporation" as const, label: t("incorporationLabel"), required: true },
-    { key: "articles" as const, label: t("articlesLabel"), required: true },
-    { key: "shareholders" as const, label: t("shareholdersLabel"), required: false },
-  ]
+  const docFields = DOCUMENT_UPLOADS.map((field) => ({
+    ...field,
+    label:
+      field.key === "incorporation"
+        ? t("incorporationLabel")
+        : field.key === "articles"
+          ? t("articlesLabel")
+          : t("shareholdersLabel"),
+  }))
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {docFields.map(({ key, label, required }) => (
         <div key={key}>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <OnboardingLabel htmlFor={`file-${key}`}>
             {label} {required && "*"}
-          </label>
-          <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:bg-gray-50 transition">
+          </OnboardingLabel>
+          <div className={onboardingUploadZone}>
             <input
               type="file"
               accept=".pdf,.doc,.docx"
@@ -103,43 +147,31 @@ export function DocumentationStep({ onNext }: DocumentationStepProps) {
               className="hidden"
               id={`file-${key}`}
             />
-            <label htmlFor={`file-${key}`} className="cursor-pointer">
+            <label htmlFor={`file-${key}`} className="cursor-pointer block">
               {previews[key] ? (
                 <div className="space-y-2">
-                  <p className="text-sm text-gray-600 font-medium">{files[key]?.name}</p>
-                  <p className="text-xs text-green-600">{t("uploadSuccess")}</p>
+                  <p className="text-sm text-muted-foreground font-medium">{files[key]?.name}</p>
+                  <p className="text-xs text-emerald-600 dark:text-emerald-400">{t("uploadSuccess")}</p>
                 </div>
               ) : (
                 <div className="space-y-2">
-                  <svg
-                    className="w-12 h-12 text-gray-400 mx-auto"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                    />
-                  </svg>
-                  <p className="text-sm font-medium text-gray-700">{t("uploadCta")}</p>
-                  <p className="text-xs text-gray-500">{t("uploadFormats")}</p>
+                  <FileText className="w-12 h-12 text-muted-foreground mx-auto" />
+                  <p className="text-sm font-medium text-foreground">{t("uploadCta")}</p>
+                  <p className="text-xs text-muted-foreground">{t("uploadFormats")}</p>
                 </div>
               )}
             </label>
           </div>
-          {errors[key] && <p className="text-red-600 text-sm mt-1">{errors[key]}</p>}
+          {errors[key] ? <OnboardingError>{errors[key]}</OnboardingError> : null}
         </div>
       ))}
-      
-      {errors.submit && <p className="text-red-600 text-sm text-center">{errors.submit}</p>}
+
+      {errors.submit ? <OnboardingError>{errors.submit}</OnboardingError> : null}
 
       <div className="flex justify-end gap-2 pt-4">
-        <Button type="submit" className="bg-secondary hover:bg-secondary/90 text-white" disabled={isSubmitting}>
+        <OnboardingContinueButton fullWidth={false} disabled={isSubmitting}>
           {isSubmitting ? t("uploading") : tFlow("continue")}
-        </Button>
+        </OnboardingContinueButton>
       </div>
     </form>
   )

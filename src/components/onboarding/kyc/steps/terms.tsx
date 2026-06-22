@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import { useTranslations } from "next-intl"
-import { Button } from "@/src/components/ui/button"
+import { OnboardingContinueButton } from "../onboarding-ui"
 import { apiFetch } from "@/src/lib/api/api-client"
 import { Loader2 } from "lucide-react"
 
@@ -48,12 +48,27 @@ export function TermsStep({ onNext, allData }: TermsStepProps) {
           date_of_birth: allData?.dateOfBirth,
           nationality: allData?.nationality,
           id_type: allData?.idType,
-          id_number: allData?.idNumber,
+          id_number: allData?.documentNumber ?? allData?.idNumber,
+          id_expiry_date: allData?.expiryDate,
+          phone: allData?.phone,
+          email: allData?.email,
           address: allData?.address,
           city: allData?.city,
-          country_code: allData?.countryCode || "MW",
+          country_code: allData?.countryCode || allData?.country || "MW",
           postal_code: allData?.postalCode,
-          source_of_funds: allData?.sourceOfFunds,
+          source_of_funds: {
+            employment_status: allData?.employmentStatus,
+            employment_description:
+              allData?.employmentStatus === "other"
+                ? allData?.employmentOtherDescription
+                : allData?.employmentSupplementary || undefined,
+            currency: allData?.currency,
+            income_range:
+              allData?.incomeRange === "other"
+                ? allData?.incomeRangeOther
+                : allData?.incomeRange,
+          },
+          security_question: allData?.securityQuestion1,
           two_fa_enabled: allData?.twoFAEnabled,
           terms_accepted: true,
           privacy_policy_accepted: true,
@@ -77,12 +92,12 @@ export function TermsStep({ onNext, allData }: TermsStepProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 space-y-4 max-h-64 overflow-y-auto">
-        <h3 className="font-bold text-slate-900 dark:text-white uppercase text-[11px] tracking-widest">
+      <div className="bg-muted/50 border border-border rounded-2xl p-6 space-y-4 max-h-64 overflow-y-auto">
+        <h3 className="font-bold text-foreground uppercase text-[11px] tracking-widest">
           {t("heading")}
         </h3>
-        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{t("body1")}</p>
-        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{t("body2")}</p>
+        <p className="text-sm text-muted-foreground leading-relaxed">{t("body1")}</p>
+        <p className="text-sm text-muted-foreground leading-relaxed">{t("body2")}</p>
       </div>
 
       <div className="space-y-4">
@@ -92,11 +107,11 @@ export function TermsStep({ onNext, allData }: TermsStepProps) {
             id="privacy"
             checked={formData.privacyPolicy}
             onChange={(e) => setFormData({ ...formData, privacyPolicy: e.target.checked })}
-            className="w-5 h-5 text-green-500 border-slate-300 dark:border-slate-700 rounded-lg focus:ring-green-500/20 mt-0.5 cursor-pointer accent-green-500"
+            className="w-5 h-5 border-border rounded-lg focus:ring-ring/30 mt-0.5 cursor-pointer accent-[rgb(var(--brand))]"
           />
-          <label htmlFor="privacy" className="text-sm text-slate-600 dark:text-slate-400 cursor-pointer font-medium">
+          <label htmlFor="privacy" className="text-sm text-foreground cursor-pointer font-medium">
             {t.rich("privacyLabel", {
-              privacy: (chunks) => <span className="text-green-600 hover:underline">{chunks}</span>,
+              privacy: (chunks) => <span className="text-[rgb(var(--brand))] hover:underline">{chunks}</span>,
             })}
           </label>
         </div>
@@ -110,11 +125,11 @@ export function TermsStep({ onNext, allData }: TermsStepProps) {
             id="terms"
             checked={formData.termsOfService}
             onChange={(e) => setFormData({ ...formData, termsOfService: e.target.checked })}
-            className="w-5 h-5 text-green-500 border-slate-300 dark:border-slate-700 rounded-lg focus:ring-green-500/20 mt-0.5 cursor-pointer accent-green-500"
+            className="w-5 h-5 border-border rounded-lg focus:ring-ring/30 mt-0.5 cursor-pointer accent-[rgb(var(--brand))]"
           />
-          <label htmlFor="terms" className="text-sm text-slate-600 dark:text-slate-400 cursor-pointer font-medium">
+          <label htmlFor="terms" className="text-sm text-foreground cursor-pointer font-medium">
             {t.rich("termsLabel", {
-              terms: (chunks) => <span className="text-green-600 hover:underline">{chunks}</span>,
+              terms: (chunks) => <span className="text-[rgb(var(--brand))] hover:underline">{chunks}</span>,
             })}
           </label>
         </div>
@@ -128,9 +143,9 @@ export function TermsStep({ onNext, allData }: TermsStepProps) {
             id="data"
             checked={formData.dataProcessing}
             onChange={(e) => setFormData({ ...formData, dataProcessing: e.target.checked })}
-            className="w-5 h-5 text-green-500 border-slate-300 dark:border-slate-700 rounded-lg focus:ring-green-500/20 mt-0.5 cursor-pointer accent-green-500"
+            className="w-5 h-5 border-border rounded-lg focus:ring-ring/30 mt-0.5 cursor-pointer accent-[rgb(var(--brand))]"
           />
-          <label htmlFor="data" className="text-sm text-slate-600 dark:text-slate-400 cursor-pointer font-medium">
+          <label htmlFor="data" className="text-sm text-foreground cursor-pointer font-medium">
             {t("dataLabel")}
           </label>
         </div>
@@ -138,18 +153,14 @@ export function TermsStep({ onNext, allData }: TermsStepProps) {
           <p className="text-red-500 text-[10px] font-bold uppercase tracking-tight ml-8">{errors.dataProcessing}</p>
         )}
         {errors.submit && (
-          <p className="text-red-500 text-[10px] font-bold uppercase tracking-tight bg-red-50 dark:bg-red-950/20 p-3 rounded-xl mt-2">
+          <p className="text-destructive text-[10px] font-bold uppercase tracking-tight bg-destructive/10 p-3 rounded-xl mt-2">
             {errors.submit}
           </p>
         )}
       </div>
 
       <div className="pt-4">
-        <Button
-          type="submit"
-          disabled={isLoading}
-          className="w-full h-14 rounded-2xl bg-green-500 hover:bg-green-600 text-white font-bold text-lg shadow-lg shadow-green-500/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
-        >
+        <OnboardingContinueButton disabled={isLoading}>
           {isLoading ? (
             <>
               <Loader2 className="mr-2 h-5 w-5 animate-spin" />
@@ -158,7 +169,7 @@ export function TermsStep({ onNext, allData }: TermsStepProps) {
           ) : (
             t("submit")
           )}
-        </Button>
+        </OnboardingContinueButton>
       </div>
     </form>
   )

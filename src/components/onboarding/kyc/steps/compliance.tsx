@@ -4,20 +4,27 @@ import type React from "react"
 
 import { useState } from "react"
 import { useTranslations } from "next-intl"
-import { Button } from "@/src/components/ui/button"
+import {
+  OnboardingContinueButton,
+  OnboardingError,
+  OnboardingInfoBox,
+  OnboardingLabel,
+  onboardingSelectClass,
+} from "../onboarding-ui"
 
 interface ComplianceStepProps {
-  onNext: (data: any) => void
+  onNext: (data: Record<string, unknown>) => void
+  initialData?: Record<string, unknown>
 }
 
-export function ComplianceStep({ onNext }: ComplianceStepProps) {
+export function ComplianceStep({ onNext, initialData }: ComplianceStepProps) {
   const t = useTranslations("Onboarding.compliance")
   const tv = useTranslations("Onboarding.compliance.validation")
 
   const [formData, setFormData] = useState({
-    businessPurpose: "",
-    expectedVolume: "",
-    compliance: false,
+    businessPurpose: String(initialData?.businessPurpose ?? ""),
+    expectedVolume: String(initialData?.expectedVolume ?? ""),
+    compliance: Boolean(initialData?.compliance ?? false),
   })
 
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -43,11 +50,12 @@ export function ComplianceStep({ onNext }: ComplianceStepProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">{t("businessPurposeLabel")}</label>
+        <OnboardingLabel htmlFor="businessPurpose">{t("businessPurposeLabel")}</OnboardingLabel>
         <select
+          id="businessPurpose"
           value={formData.businessPurpose}
           onChange={(e) => setFormData({ ...formData, businessPurpose: e.target.value })}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
+          className={onboardingSelectClass}
         >
           <option value="">{t("selectPurpose")}</option>
           <option value="trading">{t("purposes.trading")}</option>
@@ -56,15 +64,16 @@ export function ComplianceStep({ onNext }: ComplianceStepProps) {
           <option value="services">{t("purposes.services")}</option>
           <option value="other">{t("purposes.other")}</option>
         </select>
-        {errors.businessPurpose && <p className="text-red-600 text-sm mt-1">{errors.businessPurpose}</p>}
+        {errors.businessPurpose ? <OnboardingError>{errors.businessPurpose}</OnboardingError> : null}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">{t("expectedVolumeLabel")}</label>
+        <OnboardingLabel htmlFor="expectedVolume">{t("expectedVolumeLabel")}</OnboardingLabel>
         <select
+          id="expectedVolume"
           value={formData.expectedVolume}
           onChange={(e) => setFormData({ ...formData, expectedVolume: e.target.value })}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
+          className={onboardingSelectClass}
         >
           <option value="">{t("selectRange")}</option>
           <option value="0-10000">{t("volume0")}</option>
@@ -72,13 +81,13 @@ export function ComplianceStep({ onNext }: ComplianceStepProps) {
           <option value="50000-100000">{t("volume2")}</option>
           <option value="100000+">{t("volume3")}</option>
         </select>
-        {errors.expectedVolume && <p className="text-red-600 text-sm mt-1">{errors.expectedVolume}</p>}
+        {errors.expectedVolume ? <OnboardingError>{errors.expectedVolume}</OnboardingError> : null}
       </div>
 
-      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 space-y-3">
-        <p className="text-sm font-medium text-yellow-900">{t("confirmationHeading")}</p>
-        <p className="text-sm text-yellow-800">{t("confirmationBody")}</p>
-      </div>
+      <OnboardingInfoBox variant="warning">
+        <p className="font-medium">{t("confirmationHeading")}</p>
+        <p>{t("confirmationBody")}</p>
+      </OnboardingInfoBox>
 
       <div className="flex items-start gap-3">
         <input
@@ -86,18 +95,16 @@ export function ComplianceStep({ onNext }: ComplianceStepProps) {
           id="compliance"
           checked={formData.compliance}
           onChange={(e) => setFormData({ ...formData, compliance: e.target.checked })}
-          className="w-4 h-4 text-secondary border-gray-300 rounded focus:ring-secondary mt-1"
+          className="w-4 h-4 text-primary border-border rounded focus:ring-ring mt-1"
         />
-        <label htmlFor="compliance" className="text-sm text-gray-700 cursor-pointer">
+        <label htmlFor="compliance" className="text-sm text-foreground cursor-pointer">
           {t("checkboxLabel")}
         </label>
       </div>
-      {errors.compliance && <p className="text-red-600 text-sm">{errors.compliance}</p>}
+      {errors.compliance ? <OnboardingError>{errors.compliance}</OnboardingError> : null}
 
       <div className="flex justify-end gap-2 pt-4">
-        <Button type="submit" className="bg-secondary hover:bg-secondary/90 text-white">
-          {t("submit")}
-        </Button>
+        <OnboardingContinueButton fullWidth={false}>{t("submit")}</OnboardingContinueButton>
       </div>
     </form>
   )

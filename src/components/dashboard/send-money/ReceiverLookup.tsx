@@ -118,7 +118,7 @@ export default function ReceiverLookup({
                   <CheckCircle2 size={12} fill="currentColor" className="text-green-200 dark:text-green-900" />
                   {t('verifiedReceiver')}
                 </div>
-                <div className="text-lg font-black text-slate-900 dark:text-white">{receiverName}</div>
+                <div className="text-lg font-semibold text-slate-900 dark:text-white">{receiverName}</div>
               </div>
             </div>
           </div>

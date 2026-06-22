@@ -1,10 +1,13 @@
 import React from 'react';
 import { ApiTransaction } from '@/src/types/api';
 import { formatCurrency } from '@/src/lib/utils/formatters';
-import { Avatar, AvatarFallback, AvatarImage } from '@/src/components/ui/avatar';
-import { ArrowDownLeft, ArrowUpRight, Coffee, Monitor, ShoppingBag, Zap, MoreHorizontal } from 'lucide-react';
+import { ArrowDownLeft, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/src/components/ui/button';
 import { useTranslations } from 'next-intl';
+import { StatusChip } from '@/src/components/enterprise/StatusChip';
+import { EmptyState } from '@/src/components/enterprise/EmptyState';
+import { cn } from '@/lib/utils';
+import { Receipt } from 'lucide-react';
 
 interface TransactionListProps {
   transactions: ApiTransaction[];
@@ -14,7 +17,21 @@ interface TransactionListProps {
   showViewAll?: boolean;
 }
 
-export default function TransactionList({ transactions, userId, onViewReceipt, onViewAll, showViewAll = true }: TransactionListProps) {
+function statusTone(status: string): 'success' | 'warning' | 'danger' | 'neutral' {
+  const s = status.toLowerCase();
+  if (s === 'completed' || s === 'success') return 'success';
+  if (s === 'pending' || s === 'processing') return 'warning';
+  if (s === 'failed' || s === 'cancelled' || s === 'rejected') return 'danger';
+  return 'neutral';
+}
+
+export default function TransactionList({
+  transactions,
+  userId,
+  onViewReceipt,
+  onViewAll,
+  showViewAll = true,
+}: TransactionListProps) {
   const t = useTranslations('Transactions');
 
   const parseNum = (v: unknown) => {
@@ -28,16 +45,17 @@ export default function TransactionList({ transactions, userId, onViewReceipt, o
 
   const deriveDisplay = (tx: ApiTransaction) => {
     const isReceived = tx.receiver_id === userId;
-    const fee = parseNum((tx as any).fee_amount ?? 0);
-    const totalDebited = parseNum((tx as any).total_debited ?? 0) || (parseNum(tx.amount) + fee);
+    const fee = parseNum((tx as { fee_amount?: unknown }).fee_amount ?? 0);
+    const totalDebited =
+      parseNum((tx as { total_debited?: unknown }).total_debited ?? 0) ||
+      parseNum(tx.amount) + fee;
 
     if (isReceived) {
       const receivedAmount =
-        (tx as any).converted_amount ??
-        tx.net_amount ??
-        tx.amount;
-      const receivedCurrency =
-        String((tx as any).converted_currency || tx.currency || '').toUpperCase();
+        (tx as { converted_amount?: unknown }).converted_amount ?? tx.net_amount ?? tx.amount;
+      const receivedCurrency = String(
+        (tx as { converted_currency?: string }).converted_currency || tx.currency || ''
+      ).toUpperCase();
       return {
         amount: parseNum(receivedAmount),
         currency: receivedCurrency,
@@ -46,7 +64,6 @@ export default function TransactionList({ transactions, userId, onViewReceipt, o
       };
     }
 
-    // Sent
     return {
       amount: totalDebited > 0 ? totalDebited : parseNum(tx.amount),
       currency: String(tx.currency || '').toUpperCase(),
@@ -54,87 +71,109 @@ export default function TransactionList({ transactions, userId, onViewReceipt, o
       isReceived: false,
     };
   };
-  
-  // Helper to guess icon based on description/category
-  const getIcon = (tx: ApiTransaction) => {
-    const text = (tx.description || tx.category || '').toLowerCase();
-    if (text.includes('coffee') || text.includes('starbucks')) return <Coffee size={16} />;
-    if (text.includes('netflix') || text.includes('subscription')) return <Monitor size={16} />;
-    if (text.includes('shop') || text.includes('store')) return <ShoppingBag size={16} />;
-    return <Zap size={16} />;
-  };
-
-  const getColor = (tx: ApiTransaction) => {
-     const text = (tx.description || tx.category || '').toLowerCase();
-     if (text.includes('coffee')) return 'bg-emerald-100 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400';
-     if (text.includes('netflix')) return 'bg-red-100 text-red-600 dark:bg-red-500/10 dark:text-red-400';
-     if (text.includes('shop')) return 'bg-blue-100 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400';
-     return 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400';
-  };
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-[32px] p-8 shadow-sm border border-slate-100 dark:border-slate-800 h-full">
-      <div className="flex items-center justify-between mb-8">
-        <h2 className="text-xl font-black text-slate-900 dark:text-white">{t('list.title')}</h2>
-        {showViewAll && (
-            <Button 
-                variant="ghost" 
-                size="sm" 
-                className="text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
-                onClick={onViewAll}
-            >
-                {t('list.viewAll')}
-            </Button>
-        )}
+    <div>
+      <div className="sticky top-0 z-10 hidden border-b border-border bg-card/95 px-6 py-3 backdrop-blur sm:grid sm:grid-cols-[1fr_auto_auto] sm:gap-4">
+        <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          {t('list.columns.description')}
+        </span>
+        <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground sm:text-right">
+          {t('list.columns.amount')}
+        </span>
+        <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground sm:text-right">
+          {t('list.columns.status')}
+        </span>
       </div>
 
-      <div className="space-y-6">
+      <div className="flex items-center justify-between border-b border-border px-6 py-4 sm:hidden">
+        <h2 className="text-sm font-semibold text-foreground">{t('list.title')}</h2>
+        {showViewAll ? (
+          <Button variant="ghost" size="sm" onClick={onViewAll}>
+            {t('list.viewAll')}
+          </Button>
+        ) : null}
+      </div>
+
+      <div className="divide-y divide-border">
         {transactions.length === 0 ? (
-            <div className="text-center py-10 text-slate-400 dark:text-slate-500 font-medium">{t('list.empty')}</div>
+          <EmptyState
+            icon={Receipt}
+            title={t('list.empty')}
+            description={t('list.emptyHint', { defaultValue: 'Your transactions will appear here.' })}
+          />
         ) : (
-            transactions.map((tx) => {
-                if (!tx) return null;
-                const d = deriveDisplay(tx);
-                const amountDisplay = `${d.sign}${formatCurrency(d.amount, d.currency)}`;
-                
-                const colorClass = d.isReceived ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-900 dark:text-white';
+          transactions.map((tx) => {
+            if (!tx) return null;
+            const d = deriveDisplay(tx);
+            const amountDisplay = `${d.sign}${formatCurrency(d.amount, d.currency)}`;
+            const status = String(tx.status || 'pending');
+            const counterparty = d.isReceived
+              ? tx.sender_name || tx.SenderName || t('list.unknownSender')
+              : tx.receiver_name || tx.ReceiverName || tx.description || t('list.unknownReceiver');
 
-                return (
-                    <div key={tx.id} className="flex items-center justify-between group cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 -mx-4 p-4 rounded-2xl transition-colors" onClick={() => onViewReceipt?.(tx.id)}>
-                        <div className="flex items-center gap-4">
-                            <div className={`h-12 w-12 rounded-2xl flex items-center justify-center ${getColor(tx)}`}>
-                                {getIcon(tx)}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <div className="font-bold text-slate-900 dark:text-white mb-0.5">
-                                    {d.isReceived
-                                      ? (tx.sender_name || tx.SenderName || tx.sender?.name || t('list.unknownSender'))
-                                      : (tx.receiver_name || tx.ReceiverName || tx.receiver?.name || tx.description || t('list.unknownReceiver'))}
-                                </div>
-                                <div className="text-xs text-slate-400 dark:text-slate-500 font-medium" suppressHydrationWarning>
-                                    {(() => {
-                                        try {
-                                            return tx.created_at ? new Date(tx.created_at).toLocaleString('en-US', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : t('list.datePending');
-                                        } catch {
-                                            return t('list.invalidDate');
-                                        }
-                                    })()}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="text-right">
-                            <div className={`font-black text-sm ${colorClass}`}>{amountDisplay}</div>
-                            <div className="text-[10px] font-bold text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full inline-block mt-1 uppercase tracking-wide">
-                                {tx.status}
-                            </div>
-                        </div>
-                    </div>
-                );
-            })
+            let dateLabel = t('list.datePending');
+            try {
+              if (tx.created_at) {
+                dateLabel = new Date(tx.created_at).toLocaleString(undefined, {
+                  day: 'numeric',
+                  month: 'short',
+                  year: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                });
+              }
+            } catch {
+              dateLabel = t('list.invalidDate');
+            }
+
+            return (
+              <button
+                key={tx.id}
+                type="button"
+                onClick={() => onViewReceipt?.(tx.id)}
+                className="grid w-full grid-cols-1 gap-2 px-6 py-4 text-left transition-colors hover:bg-muted/50 sm:grid-cols-[1fr_auto_auto] sm:items-center sm:gap-4"
+              >
+                <div className="flex min-w-0 items-center gap-3">
+                  <div
+                    className={cn(
+                      'flex h-9 w-9 shrink-0 items-center justify-center rounded-full',
+                      d.isReceived
+                        ? 'bg-emerald-500/10 text-emerald-600'
+                        : 'bg-muted text-muted-foreground'
+                    )}
+                  >
+                    {d.isReceived ? <ArrowDownLeft size={16} /> : <ArrowUpRight size={16} />}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-medium text-foreground">{counterparty}</p>
+                    <p className="text-xs text-muted-foreground">{dateLabel}</p>
+                  </div>
+                </div>
+                <p
+                  className={cn(
+                    'text-sm font-medium tabular-nums sm:text-right',
+                    d.isReceived ? 'text-emerald-600 dark:text-emerald-400' : 'text-foreground'
+                  )}
+                >
+                  {amountDisplay}
+                </p>
+                <div className="sm:flex sm:justify-end">
+                  <StatusChip label={status} tone={statusTone(status)} />
+                </div>
+              </button>
+            );
+          })
         )}
       </div>
 
-      {/* Removed static Load More button as we use external pagination or View All */}
+      {showViewAll && transactions.length > 0 ? (
+        <div className="hidden border-t border-border px-6 py-3 sm:block">
+          <Button variant="ghost" size="sm" className="w-full" onClick={onViewAll}>
+            {t('list.viewAll')}
+          </Button>
+        </div>
+      ) : null}
     </div>
   );
 }

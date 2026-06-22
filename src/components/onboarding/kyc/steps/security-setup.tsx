@@ -4,15 +4,32 @@ import type React from "react"
 
 import { useMemo, useState } from "react"
 import { useTranslations } from "next-intl"
-import { Button } from "@/src/components/ui/button"
+import { Input } from "@/src/components/ui/input"
+import { Switch } from "@/src/components/ui/switch"
+import { Label } from "@/src/components/ui/label"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/src/components/ui/select"
+import {
+  OnboardingContinueButton,
+  OnboardingError,
+  OnboardingInfoBox,
+  OnboardingLabel,
+  onboardingInputClass,
+} from "../onboarding-ui"
 
 interface SecuritySetupStepProps {
   onNext: (data: Record<string, unknown>) => void
+  initialData?: Record<string, unknown>
 }
 
 const QUESTION_KEYS = ["maidenName", "firstPet", "birthCity", "favoriteTeacher", "firstCar"] as const
 
-export function SecuritySetupStep({ onNext }: SecuritySetupStepProps) {
+export function SecuritySetupStep({ onNext, initialData }: SecuritySetupStepProps) {
   const t = useTranslations("Onboarding.securitySetup")
   const tFlow = useTranslations("Onboarding.flow")
   const tv = useTranslations("Onboarding.securitySetup.validation")
@@ -23,11 +40,11 @@ export function SecuritySetupStep({ onNext }: SecuritySetupStepProps) {
   )
 
   const [formData, setFormData] = useState({
-    twoFAEnabled: false,
-    securityQuestion1: "",
-    securityAnswer1: "",
-    securityQuestion2: "",
-    securityAnswer2: "",
+    twoFAEnabled: Boolean(initialData?.twoFAEnabled ?? false),
+    securityQuestion1: String(initialData?.securityQuestion1 ?? ""),
+    securityAnswer1: String(initialData?.securityAnswer1 ?? ""),
+    securityQuestion2: String(initialData?.securityQuestion2 ?? ""),
+    securityAnswer2: String(initialData?.securityAnswer2 ?? ""),
   })
 
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -51,56 +68,56 @@ export function SecuritySetupStep({ onNext }: SecuritySetupStepProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="flex items-center gap-3 p-4 bg-blue-50 rounded-lg border border-blue-100">
-        <input
-          type="checkbox"
+      <div className="flex items-center justify-between gap-4 rounded-lg border border-border bg-muted/30 p-4">
+        <div className="space-y-0.5">
+          <Label htmlFor="twoFA" className="text-sm font-medium text-foreground">
+            {t("twoFaLabel")}
+          </Label>
+        </div>
+        <Switch
           id="twoFA"
           checked={formData.twoFAEnabled}
-          onChange={(e) => setFormData({ ...formData, twoFAEnabled: e.target.checked })}
-          className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+          onCheckedChange={(checked) => setFormData({ ...formData, twoFAEnabled: checked })}
         />
-        <label htmlFor="twoFA" className="text-sm text-gray-700 cursor-pointer">
-          {t("twoFaLabel")}
-        </label>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">{t("question1Label")}</label>
-        <select
+        <OnboardingLabel>{t("question1Label")}</OnboardingLabel>
+        <Select
           value={formData.securityQuestion1}
-          onChange={(e) => setFormData({ ...formData, securityQuestion1: e.target.value })}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          onValueChange={(value) => setFormData({ ...formData, securityQuestion1: value })}
         >
-          <option value="">{t("selectQuestion")}</option>
-          {questions.map((q) => (
-            <option key={q.key} value={q.label}>
-              {q.label}
-            </option>
-          ))}
-        </select>
-        {errors.securityQuestion1 && <p className="text-red-600 text-sm mt-1">{errors.securityQuestion1}</p>}
+          <SelectTrigger className="w-full h-14 rounded-2xl">
+            <SelectValue placeholder={t("selectQuestion")} />
+          </SelectTrigger>
+          <SelectContent>
+            {questions.map((q) => (
+              <SelectItem key={q.key} value={q.label}>
+                {q.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        {errors.securityQuestion1 ? <OnboardingError>{errors.securityQuestion1}</OnboardingError> : null}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">{t("answerLabel")}</label>
-        <input
+        <OnboardingLabel htmlFor="securityAnswer">{t("answerLabel")}</OnboardingLabel>
+        <Input
+          id="securityAnswer"
           type="text"
           placeholder={t("answerPlaceholder")}
           value={formData.securityAnswer1}
           onChange={(e) => setFormData({ ...formData, securityAnswer1: e.target.value })}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          className={onboardingInputClass}
         />
-        {errors.securityAnswer1 && <p className="text-red-600 text-sm mt-1">{errors.securityAnswer1}</p>}
+        {errors.securityAnswer1 ? <OnboardingError>{errors.securityAnswer1}</OnboardingError> : null}
       </div>
 
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <p className="text-sm text-blue-900">{t("recoveryNote")}</p>
-      </div>
+      <OnboardingInfoBox>{t("recoveryNote")}</OnboardingInfoBox>
 
       <div className="flex justify-end gap-2 pt-4">
-        <Button type="submit" className="bg-primary hover:bg-primary/90 text-white">
-          {tFlow("continue")}
-        </Button>
+        <OnboardingContinueButton fullWidth={false}>{tFlow("continue")}</OnboardingContinueButton>
       </div>
     </form>
   )

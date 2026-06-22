@@ -4,16 +4,23 @@ import type React from "react"
 
 import { useMemo, useState } from "react"
 import { useTranslations } from "next-intl"
-import { Button } from "@/src/components/ui/button"
 import { Input } from "@/src/components/ui/input"
+import {
+  OnboardingContinueButton,
+  OnboardingError,
+  OnboardingLabel,
+  onboardingInputClass,
+  onboardingSelectClass,
+} from "../onboarding-ui"
 
 interface BusinessInfoStepProps {
   onNext: (data: Record<string, unknown>) => void
+  initialData?: Record<string, unknown>
 }
 
 const INDUSTRY_KEYS = ["technology", "finance", "healthcare", "retail", "manufacturing", "education", "other"] as const
 
-export function BusinessInfoStep({ onNext }: BusinessInfoStepProps) {
+export function BusinessInfoStep({ onNext, initialData }: BusinessInfoStepProps) {
   const t = useTranslations("Onboarding.businessInfo")
   const tFlow = useTranslations("Onboarding.flow")
   const tv = useTranslations("Onboarding.businessInfo.validation")
@@ -24,10 +31,10 @@ export function BusinessInfoStep({ onNext }: BusinessInfoStepProps) {
   )
 
   const [formData, setFormData] = useState({
-    industry: "",
-    companySize: "",
-    website: "",
-    incorporationDate: "",
+    industry: String(initialData?.industry ?? ""),
+    companySize: String(initialData?.companySize ?? ""),
+    website: String(initialData?.website ?? ""),
+    incorporationDate: String(initialData?.incorporationDate ?? ""),
   })
 
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -53,11 +60,12 @@ export function BusinessInfoStep({ onNext }: BusinessInfoStepProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">{t("industryLabel")}</label>
+        <OnboardingLabel htmlFor="industry">{t("industryLabel")}</OnboardingLabel>
         <select
+          id="industry"
           value={formData.industry}
           onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
+          className={onboardingSelectClass}
         >
           <option value="">{t("selectIndustry")}</option>
           {industries.map((ind) => (
@@ -66,15 +74,16 @@ export function BusinessInfoStep({ onNext }: BusinessInfoStepProps) {
             </option>
           ))}
         </select>
-        {errors.industry && <p className="text-red-600 text-sm mt-1">{errors.industry}</p>}
+        {errors.industry ? <OnboardingError>{errors.industry}</OnboardingError> : null}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">{t("companySizeLabel")}</label>
+        <OnboardingLabel htmlFor="companySize">{t("companySizeLabel")}</OnboardingLabel>
         <select
+          id="companySize"
           value={formData.companySize}
           onChange={(e) => setFormData({ ...formData, companySize: e.target.value })}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
+          className={onboardingSelectClass}
         >
           <option value="">{t("selectCompanySize")}</option>
           <option value="1-10">{t("size1")}</option>
@@ -83,35 +92,35 @@ export function BusinessInfoStep({ onNext }: BusinessInfoStepProps) {
           <option value="201-500">{t("size4")}</option>
           <option value="500+">{t("size5")}</option>
         </select>
-        {errors.companySize && <p className="text-red-600 text-sm mt-1">{errors.companySize}</p>}
+        {errors.companySize ? <OnboardingError>{errors.companySize}</OnboardingError> : null}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">{t("websiteLabel")}</label>
+        <OnboardingLabel htmlFor="website">{t("websiteLabel")}</OnboardingLabel>
         <Input
+          id="website"
           type="url"
           placeholder={t("websitePlaceholder")}
           value={formData.website}
           onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-          className="w-full"
+          className={onboardingInputClass}
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">{t("incorporationDateLabel")}</label>
+        <OnboardingLabel htmlFor="incorporationDate">{t("incorporationDateLabel")}</OnboardingLabel>
         <Input
+          id="incorporationDate"
           type="date"
           value={formData.incorporationDate}
           onChange={(e) => setFormData({ ...formData, incorporationDate: e.target.value })}
-          className="w-full"
+          className={onboardingInputClass}
         />
-        {errors.incorporationDate && <p className="text-red-600 text-sm mt-1">{errors.incorporationDate}</p>}
+        {errors.incorporationDate ? <OnboardingError>{errors.incorporationDate}</OnboardingError> : null}
       </div>
 
       <div className="flex justify-end gap-2 pt-4">
-        <Button type="submit" className="bg-secondary hover:bg-secondary/90 text-white">
-          {tFlow("continue")}
-        </Button>
+        <OnboardingContinueButton fullWidth={false}>{tFlow("continue")}</OnboardingContinueButton>
       </div>
     </form>
   )

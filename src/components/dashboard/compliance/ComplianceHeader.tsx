@@ -1,17 +1,22 @@
+'use client';
+
 import React from 'react';
 import { CheckCircle2, Clock } from 'lucide-react';
 import { UserProfile } from '@/src/types/types';
+import { useTranslations } from 'next-intl';
 
 interface ComplianceHeaderProps {
   kycStatus: UserProfile['kycStatus'];
 }
 
 const ComplianceHeader: React.FC<ComplianceHeaderProps> = ({ kycStatus }) => {
+  const t = useTranslations('Compliance');
+
   return (
     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
       <div>
-        <h2 className="text-2xl font-bold text-slate-500 dark:text-slate-400">Compliance & KYC</h2>
-        <p className="text-slate-500 dark:text-slate-400">Manage your identity verification documents to unlock higher limits.</p>
+        <h2 className="text-2xl font-bold text-slate-500 dark:text-slate-400">{t('widgetTitle')}</h2>
+        <p className="text-slate-500 dark:text-slate-400">{t('widgetSubtitle')}</p>
       </div>
       <div className={`px-4 py-2 rounded-full flex items-center gap-2 border ${
         kycStatus === 'verified' 
@@ -19,7 +24,7 @@ const ComplianceHeader: React.FC<ComplianceHeaderProps> = ({ kycStatus }) => {
         : 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800 text-yellow-700 dark:text-yellow-400'
       }`}>
         {kycStatus === 'verified' ? <CheckCircle2 size={18} /> : <Clock size={18} />}
-        <span className="font-semibold capitalize">{kycStatus} Account</span>
+        <span className="font-semibold capitalize">{t('accountStatus', { status: kycStatus })}</span>
       </div>
     </div>
   );

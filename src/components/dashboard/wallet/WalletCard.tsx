@@ -1,7 +1,7 @@
 import { Wifi, Copy, PlusCircle } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { Wallet } from '@/src/hooks/useWalletStats';
 import { generateFallbackWalletNumber, formatWalletNumber, getWalletGradient } from '@/src/lib/utils/formatters';
-import { Button } from '@/src/components/ui/button';
 import { getCountryByCurrency } from '@/src/lib/utils/africa-utils';
 
 interface WalletCardProps {
@@ -11,6 +11,7 @@ interface WalletCardProps {
 }
 
 export default function WalletCard({ wallet, userId, onDeposit }: WalletCardProps) {
+  const t = useTranslations('Wallet.card');
   const bal = parseFloat(String(wallet.available_balance ?? wallet.balance ?? 0));
   const currency = String(wallet.currency).toUpperCase();
   const country = getCountryByCurrency(currency);
@@ -33,7 +34,7 @@ export default function WalletCard({ wallet, userId, onDeposit }: WalletCardProp
   };
 
   return (
-    <div className={`relative group rounded-3xl shadow-2xl p-8 text-white overflow-hidden ${getWalletGradient(currency)} aspect-[1.586/1] transition-transform hover:-translate-y-1 duration-300`}>
+    <div className={`relative group flex h-full min-h-[220px] flex-col rounded-xl shadow-sm p-6 text-white overflow-hidden ${getWalletGradient(currency)} aspect-[1.586/1] max-h-[280px] transition-transform hover:-translate-y-0.5 duration-200`}>
       
       {/* Background Noise/Texture */}
       <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
@@ -57,12 +58,14 @@ export default function WalletCard({ wallet, userId, onDeposit }: WalletCardProp
                   <button 
                     onClick={(e) => { e.stopPropagation(); onDeposit(wallet); }}
                     className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors backdrop-blur-sm text-white/90"
-                    title="Add Money"
+                    title={t('addMoney')}
                   >
                     <PlusCircle size={20} />
                   </button>
                 )}
-                <span className="font-mono text-lg font-bold tracking-wider opacity-90">{currency}</span>
+                <span className="rounded-full bg-white/15 px-2.5 py-0.5 font-mono text-xs font-semibold tracking-wide backdrop-blur-sm">
+                  {currency}
+                </span>
             </div>
          </div>
 
@@ -75,17 +78,17 @@ export default function WalletCard({ wallet, userId, onDeposit }: WalletCardProp
          {/* Footer */}
          <div className="flex justify-between items-end">
             <div>
-               <p className="text-xs text-white/60 font-medium uppercase tracking-wider mb-1">Balance</p>
-               <h3 className="text-3xl font-bold tracking-tight">
+               <p className="text-xs text-white/60 font-medium uppercase tracking-wider mb-1">{t('balance')}</p>
+               <h3 className="text-2xl font-bold tabular-nums tracking-tight">
                  <span className="text-xl mr-1">{symbol}</span>
                  {bal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                </h3>
             </div>
             <div className="text-right">
-               <p className="text-xs text-white/60 font-medium uppercase tracking-wider mb-1">Status</p>
+               <p className="text-xs text-white/60 font-medium uppercase tracking-wider mb-1">{t('status')}</p>
                <div className="flex items-center gap-1.5 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full">
-                 <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                 <span className="text-xs font-semibold">Active</span>
+                 <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
+                 <span className="text-xs font-semibold">{t('active')}</span>
                </div>
             </div>
          </div>

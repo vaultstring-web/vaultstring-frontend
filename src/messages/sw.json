@@ -11,6 +11,28 @@
     "recentActivity": "Shughuli za Hivi Karibuni",
     "viewAll": "Tazama Zote",
     "noRecentActivity": "Hakuna shughuli za hivi karibuni",
+    "quickActions": {
+      "title": "Vitendo vya haraka",
+      "send": "Tuma pesa",
+      "deposit": "Ongeza fedha",
+      "history": "Miamala",
+      "wallets": "Pochi"
+    },
+    "metrics": {
+      "activeWallets": "Pochi hai",
+      "pendingTransfers": "Uhamisho unaosubiri",
+      "primaryBalance": "Salio la msingi",
+      "monthlyUsage": "Kikomo cha kila mwezi kinachotumika"
+    },
+    "pendingActions": {
+      "title": "Inahitaji umakini wako",
+      "verifyIdentityTitle": "Kamilisha uthibitishaji wa utambulisho",
+      "verifyIdentitySubtitle": "Fungua pochi, vikomo vya juu na uhamishaji wa kimataifa.",
+      "verifyEmailTitle": "Thibitisha barua pepe yako",
+      "verifyEmailSubtitle": "Thibitisha barua pepe yako ili kupata urejeshaji wa akaunti na arifa.",
+      "pendingTransfersTitle": "{count, plural, one {uhamisho # unasubiri} other {uhamisho # unasubiri}}",
+      "pendingTransfersSubtitle": "Tathmini hali katika historia yako ya muamala."
+    },
     "currentRate": "Kiwango cha Sasa",
     "lastUpdatedJustNow": "Imeboreshwa: sasa hivi",
     "verificationRequired": "Uthibitisho wa Kitambulisho Unahitajika",
@@ -22,7 +44,17 @@
       "setAlert": "Weka Tahadhari",
       "viewHistory": "Tazama Historia",
       "from": "Kutoka",
-      "to": "Kwenda"
+      "to": "Kwenda",
+      "currencyPlaceholder": "Cur",
+      "amountPlaceholder": "0.00"
+    },
+    "balanceHistory": {
+      "title": "Historia ya salio",
+      "selectPeriod": "Chagua Kipindi",
+      "period7": "Siku 7 Zilizopita",
+      "period30": "Siku 30 Zilizopita",
+      "period90": "Miezi 3",
+      "balanceLabel": "Uwiano"
     },
     "market": {
       "overviewTitle": "Muhtasari wa Soko",
@@ -41,8 +73,25 @@
       },
       "source": {
         "title": "Chanzo cha Soko",
-        "body": "Data ya wakati halisi inatolewa na Google Finance. Viwango ni vya makadirio na vinaweza kutofautiana na mtoa huduma."
-      }
+        "body": "Data ya wakati halisi inatolewa na Google Finance. Viwango ni vya makadirio na vinaweza kutofautiana na mtoa huduma.",
+        "bodyLive": "Viwango kutoka API za FX za umma (Frankfurter, exchangerate.host). Vinahifadhiwa na kusasishwa kila dakika chache.",
+        "bodySeed": "Viwango kutoka data ya majaribio nje ya mtandao. Weka FOREX_LIVE_ENABLED=true kwenye backend kwa viwango halisi."
+      },
+      "rateLabel": "Kiwango",
+      "badgeLive": "Moja kwa moja",
+      "badgeSeed": "Data ya majaribio"
+    },
+    "moneySources": {
+      "title": "Njia za malipo zilizounganishwa",
+      "subtitle": "Watoa huduma sawa na amana — simamia kwenye Mkoba au Mipangilio.",
+      "viewWallet": "Fungua mkoba"
+    },
+    "walletData": {
+      "title": "Hakuna data ya mkoba",
+      "seedHint": "Hakuna mkoba uliorudishwa na API. Endesha seed ya hifadhidata, kisha ingia kwa akaunti ya majaribio.",
+      "errorHint": "Ombi la API la mkoba limeshindwa. Thibitisha lango liko bandari 9000 na umeingia.",
+      "loginHint": "Kuingia kwa majaribio:",
+      "docsPath": "Hatua za seed: kyd-payment-system → docker compose --profile tools run --rm seed-runner (tazama docs/LOCAL_TESTING.md)"
     }
   },
   "Wallet": {
@@ -84,6 +133,74 @@
       "discard": "Tupa Mabadiliko",
       "success": "Mkoba umeundwa kwa mafanikio",
       "error": "Imeshindwa kuunda mkoba"
+    },
+    "overview": {
+      "title": "Muhtasari wa kwingineko",
+      "empty": "Bado hakuna salio",
+      "walletCount": "{count, plural, one {pochi #} other {pochi #}}",
+      "send": "Tuma pesa",
+      "deposit": "Ongeza fedha",
+      "addWallet": "Weka pochi",
+      "withdraw": "Toa"
+    },
+    "card": {
+      "balance": "Uwiano",
+      "status": "Hali",
+      "active": "Mchangamfu",
+      "addMoney": "Ongeza fedha"
+    },
+    "recentActivityTitle": "Shughuli za hivi karibuni za mkoba",
+    "recentActivityViewAll": "Miamala Yote",
+    "depositModal": {
+      "secureBadge": "Ufadhili salama",
+      "title": "Weka {currency}",
+      "subtitle": "Ongeza fedha kwenye pochi yako papo hapo kutoka benki au kadi iliyounganishwa.",
+      "fundingSource": "Chanzo cha fedha",
+      "selectSource": "Chagua chanzo",
+      "linkedBank": "Benki iliyounganishwa (**** 1234)",
+      "visaCard": "Kadi ya Visa (**** 5678)",
+      "depositAmount": "Kiasi cha amana",
+      "amountPlaceholder": "0.00",
+      "serviceFee": "Ada ya huduma",
+      "totalSettlement": "Jumla ya malipo",
+      "confirmDeposit": "Thibitisha amana",
+      "success": "Amana ya {currency} {amount} imefanikiwa",
+      "error": "Imeshindwa kuweka fedha",
+      "successWithRef": "Imewekwa {currency} {amount}. Rejea: {ref}"
+    },
+    "subtitleCompact": "Salio, vyanzo vya fedha, na shughuli za hivi karibuni.",
+    "balanceToggle": {
+      "show": "Onyesha salio",
+      "hide": "Ficha salio",
+      "visible": "Inaonekana",
+      "hidden": "Imefichwa"
+    },
+    "balanceHeader": {
+      "totalBalance": "Jumla ya salio",
+      "currencies": "Sarafu",
+      "status": "Hali",
+      "active": "Hai"
+    },
+    "moneySources": {
+      "title": "Weka kutoka",
+      "subtitle": "Chagua benki, pesa ya simu, au kadi — gusa kuongeza fedha."
+    },
+    "withdrawModal": {
+      "secureBadge": "Uhamisho salama",
+      "title": "Toa {currency}",
+      "subtitle": "Hamisha fedha kwenda mkoba mwingine au akaunti ya benki kupitia Tuma Pesa.",
+      "available": "Salio linalopatikana",
+      "destination": "Mahali pa kwenda",
+      "toWallet": "Mkoba wa VaultString",
+      "toBank": "Benki iliyounganishwa",
+      "payoutAccount": "Akaunti ya malipo",
+      "selectAccount": "Chagua akaunti",
+      "linkedBank": "Benki iliyounganishwa (**** 1234)",
+      "visaCard": "Kadi ya Visa (**** 5678)",
+      "bankNote": "Malipo ya benki yanakamilika kupitia Tuma Pesa na njia uliyochagua.",
+      "amount": "Kiasi",
+      "amountPlaceholder": "0.00",
+      "continueToSend": "Endelea kwenda Tuma Pesa"
     }
   },
   "Profile": {
@@ -183,6 +300,25 @@
     "dialogIdentitySubtitle": "Weka taarifa zako za kitambulisho kuwa za kisasa kwenye VaultString.",
     "bioPlaceholder": "Eleza kuhusu wewe (si lazima)",
     "defaultBioTagline": "Mteja wa VaultString",
+    "securitySettingsTitle": "mipangilio ya usalama",
+    "passwordLastChanged": "Ilibadilishwa mwisho miezi 3 iliyopita",
+    "recoveryEmail": "Barua pepe ya Kurejesha",
+    "recoveryEmailSet": "Barua pepe ya kurejesha imewekwa",
+    "recoveryEmailHint": "Weka barua pepe ya kurejesha kwa ajili ya ufikiaji wa akaunti",
+    "addEmail": "Weka Barua Pepe",
+    "connected": "Imeunganishwa",
+    "recoveryModalTitle": "Ongeza Barua Pepe ya U",
+    "recoveryModalBody": "Tutatuma kiunganishi cha uthibitishaji kwenye anwani hii ya barua pepe. Itatumika kurejesha akaunti yako ikiwa utapoteza ufikiaji.",
+    "recoveryEmailLabel": "Anwani ya Barua Pepe ya",
+    "recoveryPlaceholder": "mfano your.backup@email.com",
+    "recoveryComingSoon": "Barua pepe ya kurejesha bado haipatikani. Tafadhali wasiliana na usaidizi kwa wateja.",
+    "recoveryFailed": "Imeshindwa kuongeza barua pepe ya urejeshaji",
+    "recoverySuccess": "Barua pepe ya urejeshaji imeongezwa kwa mafanikio",
+    "edit": "Hariri",
+    "notSet": "Haijawekwa",
+    "emailChangeHint": "(Wasiliana na msaada kubadilisha)",
+    "phoneNumber": "Nambari ya simu",
+    "kycStatusLabel": "Hali ya KYC",
     "toasts": {
       "profileUpdated": "Wasifu umesasishwa kwa mafanikio",
       "profileFailed": "Imeshindwa kusasisha wasifu",
@@ -197,6 +333,12 @@
       "invalidTotpCode": "Msimbo wa uthibitisho si sahihi",
       "avatarUploading": "Inapakia picha ya wasifu…",
       "avatarUpdated": "Picha ya wasifu imesasishwa"
+    },
+    "loginHistory": {
+      "title": "Historia ya kuingia",
+      "device": "Kifaa",
+      "location": "Mahali",
+      "dateTime": "Tarehe na saa"
     }
   },
   "Sidebar": {
@@ -205,8 +347,14 @@
     "sendMoney": "Tuma Pesa",
     "transactions": "Miamala",
     "profile": "Wasifu",
+    "settings": "Mipangilio",
+    "compliance": "Uzingatiaji",
+    "notifications": "Arifa",
     "verifyIdentity": "Thibitisha Kitambulisho",
-    "signOut": "Ondoka"
+    "signOut": "Ondoka",
+    "sectionMoney": "Fedha",
+    "sectionAccount": "Akaunti",
+    "closeMenu": "Funga menyu"
   },
   "SendMoney": {
     "title": "Tuma Pesa",
@@ -239,6 +387,8 @@
       "generic": "Hitilafu imetokea. Tafadhali jaribu tena."
     },
     "feeNote": "Ada huhesabiwa kulingana na ukwasi na ujazo wa mtandao wakati wa uhamishaji.",
+    "reviewConfirm": "Nimekagua mpokeaji, sarafu, ada, na maelezo ya malipo kabla ya kutuma.",
+    "reviewHint": "Thibitisha orodha ya ukaguzi wa uhamisho ili kuendelea.",
     "paymentDetails": "Maelezo ya Malipo",
     "international": "Kimataifa",
     "sameCurrency": "Sarafu Moja",
@@ -295,6 +445,16 @@
       "receiver": "Mpokeaji",
       "amountSent": "Kiasi kilichotumwa",
       "sendAnother": "Tuma malipo mengine"
+    },
+    "subtitleCompact": "Mpokeaji, kiasi, kisha vyanzo vya fedha na malipo.",
+    "stepper": {
+      "details": "Maelezo",
+      "review": "Kagua",
+      "success": "Imekamilika",
+      "detailsHeading": "Maelezo ya uhamishaji",
+      "reviewHeading": "Kagua na thibitisha",
+      "continue": "Endelea",
+      "backToEdit": "Rudi kuhariri"
     }
   },
   "Common": {
@@ -303,7 +463,12 @@
     "loading": "Inachakata...",
     "save": "Hifadhi",
     "error": "Hitilafu",
-    "success": "Mafanikio"
+    "success": "Mafanikio",
+    "passwordMask": "••••••••",
+    "loadingAria": "Inapakia",
+    "errorBoundaryTitle": "Kuna tatizo limetokea",
+    "errorBoundaryMessage": "Hitilafu isiyotarajiwa imetokea wakati wa kupakia sehemu hii.",
+    "errorBoundaryRetry": "Jaribu tena"
   },
   "Layout": {
     "emailVerificationRequired": {
@@ -323,16 +488,35 @@
       "compliance": "Uzingatiaji na KYC",
       "profile": "Wasifu na Usalama",
       "translation": "Mipangilio ya Lugha",
-      "onboarding": "Uthibitisho wa Kitambulisho"
+      "onboarding": "Uthibitisho wa Kitambulisho",
+      "settings": "Mipangilio"
+    },
+    "a11y": {
+      "openMenu": "Fungua menyu"
     },
     "search": {
-      "placeholder": "Tafuta miamala..."
+      "placeholder": "Tafuta miamala...",
+      "noResults": "Hakuna matokeo",
+      "aiSuggestions": "Mapendekezo ya AI",
+      "recentSearches": "Utafutaji wa hivi karibuni",
+      "clear": "Futa",
+      "mock": {
+        "paymentTo": "Malipo kwa {name}",
+        "paymentSuccess": "{amount} • Imefanikiwa",
+        "withdrawalToBank": "Uondoaji kwenye benki",
+        "withdrawalPending": "{amount} • Inasubiri",
+        "usdSavings": "Akiba ya USD",
+        "walletPrimary": "Msingi • {balance}",
+        "sampleRecipient": "Mpokeaji aliyependekezwa",
+        "sampleRecipientEmail": "Barua pepe ya mpokeaji"
+      }
     },
     "notifications": {
       "title": "Arifa",
       "newCount": "Mpya {count}",
       "empty": "Hakuna arifa mpya",
-      "viewAll": "Tazama Arifa Zote"
+      "viewAll": "Tazama Arifa Zote",
+      "justNow": "Hivi punde"
     },
     "theme": {
       "toggleAria": "Badilisha mandhari"
@@ -343,7 +527,13 @@
       "security": "Usalama",
       "billing": "Malipo na Kadi",
       "settings": "Mipangilio",
-      "signOut": "Ondoka"
+      "signOut": "Ondoka",
+      "member": "Akaunti",
+      "personal": "Akaunti ya kibinafsi",
+      "business": "Akaunti ya biashara",
+      "agent": "Akaunti ya wakala",
+      "senderMalawi": "Mtumaji (Malawi)",
+      "receiverChina": "Mpokeaji (China)"
     }
   },
   "Settings": {
@@ -403,6 +593,88 @@
       "disabled": "Uthibitishaji wa sababu mbili umezimwa",
       "error": "Imeshindwa kusasisha mipangilio ya 2FA",
       "invalidCode": "Kodi ya uthibitisho si sahihi"
+    },
+    "language": {
+      "title": "Lugha na eneo",
+      "subtitle": "Chagua jinsi VaultString inavyoonyeshwa. Maeneo yote 12 yanayotumika bado yanapatikana."
+    },
+    "nav": {
+      "ariaLabel": "Sehemu za mipangilio",
+      "account": "Akaunti",
+      "security": "Usalama",
+      "notifications": "Arifa",
+      "language": "Lugha na eneo",
+      "appearance": "Mwonekano",
+      "privacy": "Faragha",
+      "limits": "Vikomo",
+      "connectedAccounts": "Akaunti zilizounganishwa",
+      "helpSupport": "Msaada",
+      "profile": "Profile",
+      "documents": "Documents & KYC"
+    },
+    "account": {
+      "title": "Akaunti",
+      "subtitle": "Utambulisho wako wa VaultString na hali ya uthibitishaji.",
+      "signedInAs": "Umeingia kama",
+      "verificationStatus": "Hali ya uthibitishaji",
+      "memberSince": "Mwanachama tangu",
+      "manageProfile": "Dhibiti wasifu",
+      "verified": "Imethibitishwa",
+      "pending": "Inakaguliwa",
+      "unverified": "Haijathibitishwa"
+    },
+    "privacy": {
+      "title": "Faragha",
+      "subtitle": "Dhibiti jinsi data yako inavyotumiwa na kushirikiwa.",
+      "analytics": {
+        "title": "Uchanganuzi wa matumizi",
+        "subtitle": "Saidia kuboresha VaultString kwa kutumia data ya utumiaji isiyojulikana"
+      },
+      "marketing": {
+        "title": "Ofa mahususi",
+        "subtitle": "Ruhusu mapendekezo ya bidhaa mahususi kulingana na shughuli"
+      },
+      "profileVisibility": {
+        "title": "wasifu wangu wa umma",
+        "subtitle": "Onyesha kiunganishi chako cha wasifu kwenye risiti za malipo za pamoja"
+      }
+    },
+    "limits": {
+      "title": "Mipaka",
+      "subtitle": "Mipaka ya muamala na akaunti kwa kiwango chako cha uthibitishaji.",
+      "monthlyLimit": "Kikomo cha uhamisho wa kila mwezi",
+      "usedThisMonth": "Mwezi Huu",
+      "remaining": "imebaki kuwa story",
+      "readOnlyNote": "Vikomo vinawekwa na kiwango chako cha uthibitishaji na haviwezi kubadilishwa hapa.",
+      "upgradeCta": "Kamilisha uthibitishaji ili kuongeza vikomo"
+    },
+    "connectedAccounts": {
+      "title": "Akaunti zilizounganishwa",
+      "subtitle": "Unganisha pochi za nje na watoa huduma wa malipo.",
+      "comingSoon": "Onyesho",
+      "comingSoonDetail": "Kuunganisha benki na pesa ya simu kutapatikana katika toleo lijalo.",
+      "providersHint": "Vyanzo vya fedha na watoa huduma wa API vinavyotumika katika eneo lako (hakiki ya kusoma tu).",
+      "apiKeysPlaceholder": "Usimamizi wa funguo za API: POST /api/v1/providers/keys (kipengele cha nafasi —unganisha kwenye admin backend ikitayari)."
+    },
+    "helpSupport": {
+      "title": "Msaada na usaidizi",
+      "subtitle": "Pata msaada na ujifunze zaidi kuhusu VaultString.",
+      "helpCenter": "Kituo cha msaada",
+      "helpCenterDesc": "Vinjari miongozo na maswali yanayoulizwa mara kwa mara",
+      "contactSupport": "Wasiliana na msaada",
+      "contactSupportDesc": "Tuma barua pepe kwa timu yetu ya usaidizi",
+      "compliance": "Uthibitishaji wa utambulisho",
+      "complianceDesc": "Dhibiti hati na hadhi ya KYC",
+      "securityGuide": "Mazoea bora ya usalama",
+      "securityGuideDesc": "Dumisha usalama wa akaunti yako"
+    },
+    "documents": {
+      "title": "Documents & KYC",
+      "subtitle": "View verification status and manage identity documents.",
+      "statusLabel": "Verification status",
+      "statusHint": "Upload or update your KYC documents from the compliance center.",
+      "manageCta": "Manage documents",
+      "startKycCta": "Start verification"
     }
   },
   "Notifications": {
@@ -438,10 +710,14 @@
       "subtitle": "Tutakujulisha jambo muhimu likitokea."
     },
     "types": {
-      "info": "Habari",
+      "info": "Taarifa",
       "success": "Mafanikio",
       "warning": "Onyo",
       "error": "Tahadhari ya Usalama"
+    },
+    "activity": {
+      "paymentTitle": "Sasisho la hivi karibuni la malipo",
+      "paymentBody": "{amount} {currency} uhamisho sasa ni {status}."
     },
     "loadMore": "Pakia Zaidi",
     "loading": "Inapakia arifa...",
@@ -488,7 +764,39 @@
       "unknownSender": "Mtumaji asiyejulikana",
       "unknownReceiver": "Mpokeaji asiyejulikana",
       "datePending": "Tarehe inasubiri",
-      "invalidDate": "Tarehe si sahihi"
+      "invalidDate": "Tarehe si sahihi",
+      "columns": {
+        "description": "Maelezo",
+        "amount": "Kiasi",
+        "status": "Hali"
+      }
+    },
+    "table": {
+      "actions": "Vitendo",
+      "viewReceipt": "Angalia Risiti",
+      "archive": "Kumbukumbu",
+      "unread": "Haijasomwa",
+      "sentSummary": "Imetumwa <amount></amount> kwenda <name></name>",
+      "receivedSummary": "Imepokelewa <amount></amount> kutoka <name></name>",
+      "dateAt": "{date} saa {time}"
+    },
+    "receiptModal": {
+      "title": "Risiti",
+      "totalAmount": "Jumla ya kiwango kamili",
+      "referenceId": "Kitambulisho cha Marejeleo",
+      "sender": "Mtumaji",
+      "receiver": "Mpokeaji",
+      "subtotal": "Jumla ndogo",
+      "serviceFee": "Ada ya huduma",
+      "recipientReceives": "Mapokezi ya Mpokeaji",
+      "verifiedFooter": "Imethibitishwa na Usalama wa VaultString"
+    },
+    "grid": {
+      "to": "Kwa",
+      "from": "Kutoka",
+      "amount": "Kiasi",
+      "date": "Tarehe",
+      "time": "Saa"
     }
   },
   "Receipt": {
@@ -510,6 +818,7 @@
     "labelTxnId": "Kitambulisho cha muamala",
     "labelSender": "Mtumaji",
     "labelReceiver": "Mpokeaji",
+    "labelStatus": "Hali",
     "labelAmount": "Kiasi",
     "labelFee": "Ada ya uchakataji",
     "labelTotalDebited": "Jumla iliyokatwa",
@@ -524,6 +833,14 @@
     "loadFailed": "Imeshindwa kupakia risiti"
   },
   "Auth": {
+    "language": {
+      "label": "Lugha"
+    },
+    "social": {
+      "orContinueWith": "Au endelea na",
+      "google": "Google",
+      "apple": "Apple"
+    },
     "login": {
       "title": "Ingia",
       "subtitle": "Karibu tena VaultString",
@@ -551,7 +868,8 @@
       "validation": {
         "emailInvalid": "Tafadhali ingiza anwani halali ya barua pepe",
         "passwordRequired": "Nenosiri linahitajika"
-      }
+      },
+      "errorGoogleNotConfigured": "Kuingia kwa Google hakijasanidiwa kwenye seva. Weka GOOGLE_CLIENT_ID na GOOGLE_CLIENT_SECRET katika .env ya backend, kisha anzisha upya huduma ya uthibitishaji."
     },
     "signup": {
       "alertFailedTitle": "Usajili umeshindwa",
@@ -591,7 +909,12 @@
         "termsRequired": "Lazima ukubali masharti na vigezo",
         "passwordMismatch": "Manenosiri hayalingani",
         "businessNameRequired": "Jina la biashara linahitajika kwa akaunti za biashara"
-      }
+      },
+      "alertComingSoonTitle": "Inakuja hivi karibuni",
+      "errorGoogleNotConfigured": "Kuingia kwa Google hakijasanidiwa kwenye seva. Weka GOOGLE_CLIENT_ID na GOOGLE_CLIENT_SECRET katika .env ya backend, kisha anzisha upya huduma ya uthibitishaji.",
+      "errorAppleComingSoon": "Kuingia kwa Apple bado hakupatikani. Tumia barua pepe na nenosiri.",
+      "pageTitle": "Unda Akaunti",
+      "pageSubtitle": "Jiunge na VaultString leo"
     }
   },
   "Translation": {
@@ -600,7 +923,8 @@
     "appLanguageHint": "Chagua lugha ya kiolesura.",
     "searchPlaceholder": "Tafuta lugha...",
     "languageUpdated": "Lugha imesasishwa kwa mafanikio",
-    "translating": "Inatafsiri…"
+    "translating": "Inatafsiri…",
+    "backToSettings": "Rudi kwenye mipangilio"
   },
   "Verification": {
     "verifyingTitle": "Inathibitisha Barua Pepe",
@@ -627,7 +951,17 @@
     "useMagicLink": "Tumia kiungo cha kichawi badala yake",
     "invalidCode": "Msimbo wa uthibitishaji si sahihi",
     "invalidLink": "Kiungo cha uthibitishaji si sahihi au kimeisha muda",
-    "resendFailed": "Imeshindwa kutuma tena msimbo"
+    "resendFailed": "Imeshindwa kutuma tena msimbo",
+    "continueWithCode": "Endelea na msimbo wa uthibitishaji",
+    "emailPlaceholder": "Weka anwani yako ya barua pepe",
+    "emailRequired": "Barua pepe inahitajika kabla ya kutuma tena msimbo.",
+    "emailPageTitle": "User Email Verification",
+    "emailPageSubtitle": "Inathibitisha utambulisho wako",
+    "verifyingEmailMessage": "Inathibitisha barua pepe yako...",
+    "invalidLinkMissingToken": "Kiunganishi batili cha uthibitishaji. Alama inayokosekana.",
+    "emailVerifiedMessage": "Barua pepe yako imethibitishwa kwa mafanikio.",
+    "continueToLogin": "Endelea kuingia",
+    "resendHint": "Ikiwa utaendelea kuwa na matatizo, tafadhali omba kiunganishi kipya cha uthibitishaji."
   },
   "ResetPassword": {
     "emailTitle": "Weka Upya Nenosiri",
@@ -698,26 +1032,49 @@
     "loadFailed": "Imeshindwa kupakia hali ya utii",
     "fillAllFields": "Tafadhali jaza sehemu zote na pakia hati",
     "submitSuccess": "Hati za KYC zimewasilishwa kwa mafanikio",
-    "submitFailed": "Imeshindwa kuwasilisha hati"
+    "submitFailed": "Imeshindwa kuwasilisha hati",
+    "widgetTitle": "Kuzingatia & KYC",
+    "widgetSubtitle": "Dhibiti hati zako za uthibitishaji wa utambulisho ili ufungue vikomo vya juu.",
+    "accountStatus": "{status} Akaunti",
+    "uploadingDocument": "Inapakia hati...",
+    "uploadSuccess": "Hati imepakiwa kwa mafanikio. Timu yetu itaikagua hivi karibuni.",
+    "uploadFailed": "Imeshindwa kupakia hati. Tafadhali jaribu tena.",
+    "documentOnFile": "Hati iliyo kwenye faili:",
+    "uploadedOn": "Imepakiwa tarehe {date}",
+    "uploadCta": "Bofya ili kupakia au kuburuta na kushusha",
+    "uploadFormatsSmall": "PDF, JPG, au PNG (Max 5MB)",
+    "approved": "Imeidhinishwa ",
+    "verificationCard": {
+      "verifiedTitle": "Utambulisho umethibitishwa",
+      "requiredTitle": "Uthibitishaji unahitajika",
+      "verifiedBody": "Akaunti yako imethibitishwa kikamilifu. Unaweza kufanya miamala na vikomo vya juu na vipengele vyote.",
+      "unverifiedBody": "Tafadhali wasilisha kitambulisho halali cha serikali na uthibitisho wa anwani ili kuongeza vikomo.",
+      "dailyLimit": "Kikomo cha kila siku",
+      "monthlyLimit": "Kikomo cha kila mwezi",
+      "intlTransfers": "Uhamisho wa kimataifa",
+      "enabled": "Imewashwa"
+    },
+    "idDocTitle": "Kitambulisho cha Taifa/Pasipoti ",
+    "addressDocTitle": "• Uthibitisho wa Anwani"
   },
   "Onboarding": {
     "userType": {
       "title": "Mjue Mteja Wako",
       "subtitle": "Chagua aina ya akaunti kuanza mchakato wa uthibitishaji",
       "individualTitle": "Binafsi",
-      "individualDescription": "Verify as a private person. Takes about 10 minutes.",
-      "individualFeaturePersonal": "Personal information",
-      "individualFeatureId": "ID verification",
-      "individualFeatureAddress": "Address proof",
+      "individualDescription": "Thibitisha kama mtu binafsi. Inachukua dakika 10.",
+      "individualFeaturePersonal": "Taarifa za kibinafsi",
+      "individualFeatureId": "Uthibitishaji wa kitambulisho",
+      "individualFeatureAddress": "Uthibitisho wa anwani",
       "individualCta": "Endelea kama Binafsi",
       "businessTitle": "Biashara",
-      "businessDescription": "Verify your company. Takes about 15 minutes.",
-      "businessFeatureCompany": "Company details",
-      "businessFeatureUbo": "UBO disclosure",
-      "businessFeatureDocs": "Documentation",
+      "businessDescription": "Thibitisha kampuni yako. Inachukua dakika 15.",
+      "businessFeatureCompany": "Maelezo ya kampuni",
+      "businessFeatureUbo": "Ufichuzi wa UBO",
+      "businessFeatureDocs": "Nyaraka",
       "businessCta": "Endelea kama Biashara",
-      "privacyNote": "We take your privacy seriously. Your information is encrypted and secure.",
-      "complianceNote": "Compliant with Malawi RBM and China PBOC regulations"
+      "privacyNote": "Tunachukulia faragha yako kwa uzito. Taarifa zako zimesimbwa na salama.",
+      "complianceNote": "Inafuata kanuni za RBM ya Malawi na PBOC ya China"
     },
     "flow": {
       "changeType": "Badilisha Aina",
@@ -728,90 +1085,91 @@
       "continue": "Endelea Hatua Inayofuata"
     },
     "individualSteps": {
-      "personal": "Personal Details",
-      "contact": "Contact Information",
-      "id": "ID Verification",
-      "funds": "Source of Funds",
-      "security": "Security Setup",
-      "terms": "Terms & Agreements"
+      "personal": "Maelezo ya Kibinafsi",
+      "contact": "Taarifa za Mawasiliano",
+      "id": "Uthibitishaji wa Kitambulisho",
+      "funds": "Chanzo cha Fedha",
+      "security": "Usalama",
+      "terms": "Masharti na Makubaliano"
     },
     "businessSteps": {
-      "company": "Company Details",
-      "business": "Business Information",
-      "reps": "Authorized Representatives",
-      "ubo": "UBO Disclosure",
-      "banking": "Banking Details",
-      "docs": "Documentation",
-      "compliance": "Compliance"
+      "company": "Maelezo ya Kampuni",
+      "business": "Taarifa za Biashara",
+      "reps": "Wawakilishi Walioidhinishwa",
+      "ubo": "Ufichuzi wa UBO",
+      "banking": "Maelezo ya Benki",
+      "docs": "Nyaraka",
+      "compliance": "Uzingatiaji"
     },
     "personalDetails": {
-      "firstNameLabel": "First Name *",
-      "firstNamePlaceholder": "John",
-      "lastNameLabel": "Last Name *",
+      "firstNameLabel": "Jina la Kwanza *",
+      "firstNamePlaceholder": "Asha",
+      "lastNameLabel": "Jina la Mwisho *",
       "lastNamePlaceholder": "Doe",
-      "dateOfBirthLabel": "Date of Birth *",
-      "nationalityLabel": "Nationality *",
+      "dateOfBirthLabel": "Tarehe ya Kuzaliwa *",
+      "nationalityLabel": "Uraia *",
       "nationalityPlaceholder": "United States",
-      "idTypeLabel": "ID Type",
-      "idTypePassport": "Passport",
-      "idTypeDriverLicense": "Driver's License",
-      "idTypeNationalId": "National ID",
-      "encryptionNote": "Your personal information is encrypted and will only be used for verification purposes.",
+      "idTypeLabel": "Aina ya Kitambulisho",
+      "idTypePassport": "Pasipoti",
+      "idTypeDriverLicense": "Leseni ya Udereva",
+      "idTypeNationalId": "Kitambulisho cha Taifa",
+      "encryptionNote": "Taarifa zako za kibinafsi zimesimbwa na zitatumika tu kwa uthibitishaji.",
       "validation": {
-        "firstNameRequired": "First name is required",
-        "lastNameRequired": "Last name is required",
-        "dateOfBirthRequired": "Date of birth is required",
-        "nationalityRequired": "Nationality is required"
+        "firstNameRequired": "Jina la kwanza linahitajika",
+        "lastNameRequired": "Jina la mwisho linahitajika",
+        "dateOfBirthRequired": "Tarehe ya kuzaliwa inahitajika",
+        "nationalityRequired": "Uraia unahitajika"
       }
     },
     "contactInfo": {
-      "phoneLabel": "Phone Number *",
+      "phoneLabel": "Nambari ya Simu *",
       "phonePlaceholder": "+1 (555) 123-4567",
-      "emailLabel": "Email Address *",
+      "emailLabel": "Anwani ya Barua Pepe *",
       "emailPlaceholder": "kelvin@example.com",
-      "addressLabel": "Address *",
+      "addressLabel": "Anwani *",
       "addressPlaceholder": "123 Main Street",
-      "cityLabel": "City *",
+      "cityLabel": "Jiji *",
       "cityPlaceholder": "Lilongwe",
-      "countryLabel": "Country *",
+      "countryLabel": "Nchi *",
       "countryPlaceholder": "Malawi",
-      "postalCodeLabel": "Postal Code *",
+      "postalCodeLabel": "Msimbo wa Posta *",
       "postalCodePlaceholder": "10001",
       "validation": {
-        "phoneRequired": "Phone number is required",
-        "emailRequired": "Email is required",
-        "addressRequired": "Address is required",
-        "cityRequired": "City is required",
-        "countryRequired": "Country is required",
-        "postalCodeRequired": "Postal code is required"
+        "phoneRequired": "Nambari ya simu inahitajika",
+        "emailRequired": "Barua pepe inahitajika",
+        "addressRequired": "Anwani inahitajika",
+        "cityRequired": "Jiji linahitajika",
+        "countryRequired": "Nchi inahitajika",
+        "postalCodeRequired": "Msimbo wa posta unahitajika"
       }
     },
     "idVerification": {
-      "documentNumberLabel": "Document Number *",
+      "documentNumberLabel": "Nambari ya Hati *",
       "documentNumberPlaceholder": "ABC123456789",
-      "expiryDateLabel": "Expiry Date *",
-      "uploadLabel": "Upload Document *",
+      "expiryDateLabel": "Tarehe ya Mwisho *",
+      "uploadLabel": "Pakia Hati *",
       "previewAlt": "Preview",
-      "uploadCta": "Click to upload or drag and drop",
-      "uploadFormats": "PNG, JPG, or PDF (max 10MB)",
-      "secureNote": "Your document is verified securely. We only use it to confirm your identity.",
+      "uploadCta": "Bofya kupakia au buruta na uachie",
+      "uploadFormats": "PNG, JPG au PDF (kiwango cha juu 10MB)",
+      "secureNote": "Hati yako inathibitishwa kwa usalama ili kuthibitisha utambulisho wako.",
       "validation": {
-        "documentNumberRequired": "Document number is required",
-        "expiryDateRequired": "Expiry date is required",
-        "fileRequired": "Document file is required"
+        "documentNumberRequired": "Nambari ya hati inahitajika",
+        "expiryDateRequired": "Tarehe ya mwisho inahitajika",
+        "fileRequired": "Faili ya hati inahitajika"
       }
     },
     "sourceOfFunds": {
-      "employmentStatusLabel": "Employment Status *",
-      "employmentEmployed": "employed",
-      "employmentSelfEmployed": "self employed",
-      "employmentRetired": "retired",
-      "employmentStudent": "student",
-      "employmentOther": "other",
-      "currencyLabel": "Currency *",
-      "currencyMwk": "Malawian Kwacha (MWK)",
-      "currencyCny": "Chinese Yuan (CNY)",
-      "incomeRangeLabel": "Annual Income Range *",
+      "employmentStatusLabel": "Hali ya Ajira *",
+      "employmentEmployed": "ajiriwa",
+      "employmentSelfEmployed": "ajiriwa mwenyewe",
+      "employmentUnemployed": "Unemployed",
+      "employmentRetired": "staafu",
+      "employmentStudent": "mwanafunzi",
+      "employmentOther": "nyingine",
+      "currencyLabel": "Sarafu *",
+      "currencyMwk": "Kwacha ya Malawi (MWK)",
+      "currencyCny": "Yuan ya China (CNY)",
+      "incomeRangeLabel": "Masafa ya Mapato ya Mwaka *",
       "incomeMwk0": "0 - 100,000 MWK",
       "incomeMwk1": "100,000 - 500,000 MWK",
       "incomeMwk2": "500,000 - 1,000,000 MWK",
@@ -822,190 +1180,229 @@
       "incomeCny2": "200,000 - 500,000 CNY",
       "incomeCny3": "500,000 - 2,000,000 CNY",
       "incomeCny4": "2,000,000+ CNY",
-      "amlNote": "This information helps us comply with anti-money laundering regulations."
+      "employmentOtherDescriptionLabel": "Describe your employment *",
+      "employmentOtherDescriptionPlaceholder": "e.g. Freelance consultant, seasonal farmer",
+      "employmentSupplementaryLabel": "Additional employment details (optional)",
+      "employmentSupplementaryPlaceholder": "Tell us more about how you earn income",
+      "incomeOther": "Other / specify",
+      "incomeOtherDescriptionLabel": "Describe your annual income *",
+      "incomeOtherDescriptionPlaceholder": "e.g. Variable income, approximately 200,000–400,000 MWK per year",
+      "validation": {
+        "employmentOtherRequired": "Please describe your employment",
+        "incomeOtherRequired": "Please describe your income range"
+      },
+      "amlNote": "Taarifa hii inatusaidia kufuata kanuni za kupambana na utapeli wa fedha."
     },
     "securitySetup": {
-      "twoFaLabel": "Enable two-factor authentication (2FA) for enhanced security",
-      "question1Label": "Security Question 1 *",
-      "selectQuestion": "Select a question",
-      "answerLabel": "Your Answer *",
-      "answerPlaceholder": "Your answer",
-      "recoveryNote": "These security questions help us verify your identity if you need to recover your account.",
+      "twoFaLabel": "Washa uthibitishaji wa hatua mbili (2FA) kwa usalama zaidi",
+      "question1Label": "Swali la Usalama 1 *",
+      "selectQuestion": "Chagua swali",
+      "answerLabel": "Jibu Lako *",
+      "answerPlaceholder": "Jibu lako",
+      "recoveryNote": "Maswali haya ya usalama yanatusaidia kuthibitisha utambulisho wako ukiwa unahitaji kurejesha akaunti.",
       "questions": {
-        "maidenName": "What is your mother's maiden name?",
-        "firstPet": "What was the name of your first pet?",
-        "birthCity": "In what city were you born?",
-        "favoriteTeacher": "What is the name of your favorite teacher?",
-        "firstCar": "What was the make of your first car?"
+        "maidenName": "Jina la ubikini la mama yako ni nani?",
+        "firstPet": "Jina la mnyama wako wa kwanza wa kufuga lilikuwa nani?",
+        "birthCity": "Ulizaliwa katika mji gani?",
+        "favoriteTeacher": "Jina la mwalimu wako unaempenda ni nani?",
+        "firstCar": "Chapa ya gari lako la kwanza ilikuwa nini?"
       },
       "validation": {
-        "questionRequired": "Please select a security question",
-        "answerRequired": "Please answer the security question"
+        "questionRequired": "Tafadhali chagua swali la usalama",
+        "answerRequired": "Tafadhali jibu swali la usalama"
       }
     },
     "terms": {
-      "heading": "Terms and Conditions",
-      "body1": "By using our KYC verification service, you agree to comply with all applicable laws and regulations. You represent that all information provided is accurate and complete. We reserve the right to deny access or cancel accounts if we detect fraudulent activity or violation of our terms.",
-      "body2": "Your data will be processed securely and in compliance with international data protection regulations including GDPR and local standards.",
-      "privacyLabel": "I have read and agree to the <privacy>Privacy Policy</privacy> *",
-      "privacyLink": "Privacy Policy",
-      "termsLabel": "I have read and agree to the <terms>Terms of Service</terms> *",
-      "termsLink": "Terms of Service",
-      "dataLabel": "I consent to the secure storage of my personal data *",
+      "heading": "Masharti na Vigezo",
+      "body1": "Kwa kutumia huduma yetu ya uthibitishaji KYC, unakubali kufuata sheria na kanuni zote zinazotumika. Unawakilisha kuwa taarifa zote ulizotoa ni sahihi na kamili. Tunahifadhi haki ya kukataa ufikiaji au kufuta akaunti tukigundua shughuli za ulaghai au ukiukaji wa masharti yetu.",
+      "body2": "Data yako itashughulikiwa kwa usalama na kulingana na kanuni za kimataifa za ulinzi wa data ikiwa ni pamoja na GDPR na viwango vya ndani.",
+      "privacyLabel": "Nimesoma na nakubali <privacy>Sera ya Faragha</privacy> *",
+      "privacyLink": "Sera ya Faragha",
+      "termsLabel": "Nimesoma na nakubali <terms>Masharti ya Huduma</terms> *",
+      "termsLink": "Masharti ya Huduma",
+      "dataLabel": "Nakubali kuhifadhiwa kwa usalama kwa data yangu ya kibinafsi *",
       "submit": "Maliza Uthibitishaji",
       "submitting": "Inawasilishwa...",
       "validation": {
-        "privacyRequired": "You must accept the privacy policy",
-        "termsRequired": "You must accept the terms of service",
-        "dataRequired": "You must consent to data processing"
+        "privacyRequired": "Lazima ukubali sera ya faragha",
+        "termsRequired": "Lazima ukubali masharti ya huduma",
+        "dataRequired": "Lazima ukubali uchakataji wa data"
       },
-      "errorSubmit": "Failed to submit KYC. Please try again."
+      "errorSubmit": "Imeshindwa kuwasilisha KYC. Tafadhali jaribu tena."
     },
     "completion": {
-      "individualTitle": "KYC Submitted",
-      "businessTitle": "Business KYC Submitted",
-      "subtitle": "Your verification is being processed",
-      "thankYou": "Thank you for completing your verification. Our compliance team is now reviewing your application.",
-      "reviewTimeLabel": "Review Time",
-      "reviewTimeValue": "24 - 48 Hours",
-      "confirmationLabel": "Confirmation",
-      "confirmationValue": "Email will be sent",
-      "securityLabel": "Security",
-      "securityValue": "Full access on approval",
+      "individualTitle": "KYC Imewasilishwa",
+      "businessTitle": "KYC ya Biashara Imewasilishwa",
+      "subtitle": "Uthibitishaji wako unachakatwa",
+      "thankYou": "Asante kwa kukamilisha uthibitishaji wako. Timu yetu ya uzingatiaji inakagua ombi lako.",
+      "reviewTimeLabel": "Muda wa Ukaguzi",
+      "reviewTimeValue": "Masaa 24 - 48",
+      "confirmationLabel": "Uthibitisho",
+      "confirmationValue": "Barua pepe itatumwa",
+      "securityLabel": "Usalama",
+      "securityValue": "Ufikiaji kamili baada ya idhini",
       "goDashboard": "Nenda kwenye Dashibodi",
       "startAnother": "Anza Uthibitishaji Mwingine",
       "referenceId": "Reference ID: KYC-{id}"
     },
     "companyDetails": {
-      "legalNameLabel": "Legal Company Name *",
+      "legalNameLabel": "Jina la Kisheria la Kampuni *",
       "legalNamePlaceholder": "ABC Corporation Ltd.",
-      "registrationLabel": "Registration Number *",
+      "registrationLabel": "Nambari ya Usajili *",
       "registrationPlaceholder": "REG123456",
-      "taxIdLabel": "Tax ID *",
+      "taxIdLabel": "Kitambulisho cha Kodi *",
       "taxIdPlaceholder": "TAX123456789",
       "validation": {
-        "legalNameRequired": "Legal name is required",
-        "registrationRequired": "Registration number is required",
-        "taxIdRequired": "Tax ID is required"
+        "legalNameRequired": "Jina la kisheria linahitajika",
+        "registrationRequired": "Nambari ya usajili inahitajika",
+        "taxIdRequired": "Kitambulisho cha kodi kinahitajika"
       }
     },
     "businessInfo": {
-      "industryLabel": "Industry *",
-      "selectIndustry": "Select an industry",
+      "industryLabel": "Sekta *",
+      "selectIndustry": "Chagua sekta",
       "industries": {
-        "technology": "Technology",
-        "finance": "Finance",
-        "healthcare": "Healthcare",
-        "retail": "Retail",
-        "manufacturing": "Manufacturing",
-        "education": "Education",
-        "other": "Other"
+        "technology": "Teknolojia",
+        "finance": "Fedha",
+        "healthcare": "Afya",
+        "retail": "Rejareja",
+        "manufacturing": "Uzalishaji",
+        "education": "Elimu",
+        "other": "Nyingine"
       },
-      "companySizeLabel": "Company Size *",
-      "selectCompanySize": "Select company size",
+      "companySizeLabel": "Ukubwa wa Kampuni *",
+      "selectCompanySize": "Chagua ukubwa wa kampuni",
       "size1": "1-10 employees",
       "size2": "11-50 employees",
       "size3": "51-200 employees",
       "size4": "201-500 employees",
       "size5": "500+ employees",
-      "websiteLabel": "Website (Optional)",
+      "websiteLabel": "Tovuti (Hiari)",
       "websitePlaceholder": "https://example.com",
-      "incorporationDateLabel": "Incorporation Date *",
+      "incorporationDateLabel": "Tarehe ya Uanzishaji *",
       "validation": {
-        "industryRequired": "Industry is required",
-        "companySizeRequired": "Company size is required",
-        "incorporationDateRequired": "Incorporation date is required"
+        "industryRequired": "Sekta inahitajika",
+        "companySizeRequired": "Ukubwa wa kampuni unahitajika",
+        "incorporationDateRequired": "Tarehe ya uanzishaji inahitajika"
       }
     },
     "authorizedReps": {
-      "representativeTitle": "Representative {n}",
-      "remove": "Remove",
-      "fullNameLabel": "Full Name *",
-      "fullNamePlaceholder": "John Smith",
-      "emailLabel": "Email *",
+      "representativeTitle": "Mwakilishi {n}",
+      "remove": "Ondoa",
+      "fullNameLabel": "Jina Kamili *",
+      "fullNamePlaceholder": "Asha Mwangi",
+      "emailLabel": "Barua pepe *",
       "emailPlaceholder": "john@example.com",
-      "jobTitleLabel": "Job Title *",
+      "jobTitleLabel": "Cheo cha Kazi *",
       "jobTitlePlaceholder": "CEO",
-      "addAnother": "Add Another Representative",
+      "addAnother": "Ongeza Mwakilishi Mwingine",
       "validation": {
-        "nameRequired": "Name is required",
-        "emailRequired": "Email is required",
-        "titleRequired": "Title is required"
+        "nameRequired": "Jina linahitajika",
+        "emailRequired": "Barua pepe inahitajika",
+        "titleRequired": "Cheo cha kazi kinahitajika"
       }
     },
     "uboDisclosure": {
-      "intro": "UBO (Ultimate Beneficial Owner) disclosure is required for compliance. Please provide information about the individuals who ultimately own or control the company.",
-      "ownershipStructureLabel": "Ownership Structure",
-      "directOwnership": "Direct ownership",
-      "indirectOwnership": "Indirect ownership (through another entity)",
-      "uboNameLabel": "UBO Full Name *",
+      "intro": "Ufunuo wa UBO (Mmiliki Halisi wa Mwisho) unahitajika kwa utii. Tafadhali toa taarifa kuhusu watu wanaomiliki au kudhibiti kampuni.",
+      "ownershipStructureLabel": "Muundo wa Umiliki",
+      "directOwnership": "Umiliki wa moja kwa moja",
+      "indirectOwnership": "Umiliki usio wa moja kwa moja (kupitia chombo kingine)",
+      "uboNameLabel": "Jina Kamili la UBO *",
       "uboNamePlaceholder": "Ida Mateyu",
-      "ownershipPercentLabel": "Ownership Percentage *",
+      "ownershipPercentLabel": "Asilimia ya Umiliki *",
       "ownershipPercentPlaceholder": "25",
-      "nationalityLabel": "Nationality *",
+      "nationalityLabel": "Uraia *",
       "nationalityPlaceholder": "Malawian",
       "validation": {
-        "uboNameRequired": "UBO name is required",
-        "ownershipRequired": "Ownership percentage is required",
-        "nationalityRequired": "Nationality is required"
+        "uboNameRequired": "Jina la UBO linahitajika",
+        "ownershipRequired": "Asilimia ya umiliki inahitajika",
+        "nationalityRequired": "Uraia unahitajika"
       }
     },
     "bankingDetails": {
-      "bankNameLabel": "Bank Name *",
+      "bankNameLabel": "Jina la Benki *",
       "bankNamePlaceholder": "Example Bank",
-      "accountNumberLabel": "Account Number *",
+      "accountNumberLabel": "Nambari ya Akaunti *",
       "accountNumberPlaceholder": "123456789",
-      "bankCodeLabel": "Bank Code / SWIFT Code *",
+      "bankCodeLabel": "Msimbo wa Benki / SWIFT *",
       "bankCodePlaceholder": "SWIFTCODE",
-      "accountHolderLabel": "Account Holder Name *",
+      "accountHolderLabel": "Jina la Mmiliki wa Akaunti *",
       "accountHolderPlaceholder": "Company Name",
-      "encryptedNote": "Your banking details are encrypted and used only for payouts.",
+      "encryptedNote": "Maelezo yako ya benki yamesimbwa na yanatumika tu kwa malipo.",
       "validation": {
-        "bankNameRequired": "Bank name is required",
-        "accountNumberRequired": "Account number is required",
-        "bankCodeRequired": "Bank code is required",
-        "accountHolderRequired": "Account holder name is required"
+        "bankNameRequired": "Jina la benki linahitajika",
+        "accountNumberRequired": "Nambari ya akaunti inahitajika",
+        "bankCodeRequired": "Msimbo wa benki unahitajika",
+        "accountHolderRequired": "Jina la mmiliki wa akaunti linahitajika"
       }
     },
     "documentation": {
-      "incorporationLabel": "Certificate of Incorporation",
-      "articlesLabel": "Articles of Association",
-      "shareholdersLabel": "Shareholder Register",
-      "uploadSuccess": "File uploaded successfully",
-      "uploadCta": "Click to upload",
-      "uploadFormats": "PDF or DOC (max 20MB)",
-      "uploading": "Uploading...",
+      "incorporationLabel": "Cheti cha Uanzishaji",
+      "articlesLabel": "Sheria za Muundo",
+      "shareholdersLabel": "Daftari la Wanahisa",
+      "uploadSuccess": "Faili imepakiwa kwa mafanikio",
+      "uploadCta": "Bofya kupakia",
+      "uploadFormats": "PDF au DOC (kiwango cha juu 20MB)",
+      "uploading": "Inapakia...",
       "validation": {
-        "incorporationRequired": "Certificate of incorporation is required",
-        "articlesRequired": "Articles of association are required"
+        "incorporationRequired": "Cheti cha uanzishaji kinahitajika",
+        "articlesRequired": "Sheria za muundo zinahitajika"
       },
-      "errorUpload": "Failed to upload documents. Please try again."
+      "errorUpload": "Imeshindwa kupakia nyaraka. Tafadhali jaribu tena."
     },
     "compliance": {
-      "businessPurposeLabel": "Business Purpose *",
-      "selectPurpose": "Select business purpose",
+      "businessPurposeLabel": "Lengo la Biashara *",
+      "selectPurpose": "Chagua lengo la biashara",
       "purposes": {
-        "trading": "Trading",
-        "consulting": "Consulting",
-        "manufacturing": "Manufacturing",
-        "services": "Services",
-        "other": "Other"
+        "trading": "Biashara",
+        "consulting": "Ushauri",
+        "manufacturing": "Uzalishaji",
+        "services": "Huduma",
+        "other": "Nyingine"
       },
-      "expectedVolumeLabel": "Expected Monthly Transaction Volume *",
-      "selectRange": "Select range",
+      "expectedVolumeLabel": "Kiasi cha Muamala wa Kila Mwezi Kinachotarajiwa *",
+      "selectRange": "Chagua masafa",
       "volume0": "$0 - $10,000",
       "volume1": "$10,000 - $50,000",
       "volume2": "$50,000 - $100,000",
       "volume3": "$100,000+",
-      "confirmationHeading": "Compliance Confirmation",
-      "confirmationBody": "I confirm that my company complies with all applicable regulations in the jurisdictions where it operates, including Malawi RBM requirements and China PBOC merchant requirements.",
-      "checkboxLabel": "I confirm compliance with all applicable regulations *",
-      "submit": "Complete Business Verification",
+      "confirmationHeading": "Uthibitisho wa Uzingatiaji",
+      "confirmationBody": "Nathibitisha kuwa kampuni yangu inafuata kanuni zote zinazotumika katika maeneo inayofanya kazi, ikiwa ni pamoja na mahitaji ya RBM ya Malawi na PBOC ya China.",
+      "checkboxLabel": "Ninathibitisha uzingatiaji wa kanuni zote zinazotumika *",
+      "submit": "Maliza Uthibitishaji wa Biashara",
       "validation": {
-        "purposeRequired": "Business purpose is required",
-        "volumeRequired": "Expected transaction volume is required",
-        "complianceRequired": "You must accept the compliance confirmation"
+        "purposeRequired": "Lengo la biashara linahitajika",
+        "volumeRequired": "Kiasi cha muamala kinachotarajiwa kinahitajika",
+        "complianceRequired": "Lazima ukubali uthibitisho wa uzingatiaji"
       }
+    }
+  },
+  "AccountBlocked": {
+    "title": "Akaunti imefungwa",
+    "body": "Akaunti yako imezuiwa na msimamizi. Ufikiaji wa vipengele vya mteja umelemazwa.",
+    "hint": "Ikiwa unaamini hili ni kosa, wasiliana na usaidizi kwa wateja na ujumuishe anwani yako ya barua pepe iliyosajiliwa.",
+    "supportContact": "Mawasiliano ya usaidizi",
+    "copied": "Imenakiliwa",
+    "copy": "Nakili ",
+    "signOutClear": "Toka / Futa kipindi",
+    "backToSignIn": "Rudi kwenye Ingia"
+  },
+  "Language": {
+    "manageAll": "Angalia lugha zote",
+    "label": "Onyesha lugha",
+    "hint": "Inatumika kwenye programu baada ya kuhifadhi chaguo lako.",
+    "searchPlaceholder": "Tafuta lugha…"
+  },
+  "MoneySources": {
+    "fundingTitle": "Vyanzo vya fedha",
+    "payoutTitle": "Watoa huduma wa malipo",
+    "moreInDeposit": "Watoa huduma zaidi unapoweka au kutuma pesa.",
+    "processing": {
+      "instant": "Papo hapo",
+      "minutes": "Dakika 5–15",
+      "days": "Siku 1–2 za kazi",
+      "card": "Dakika 10–30",
+      "api": "Malipo ya API"
     }
   }
 }

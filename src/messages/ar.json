@@ -11,6 +11,28 @@
     "recentActivity": "النشاط الأخير",
     "viewAll": "عرض الكل",
     "noRecentActivity": "لا يوجد نشاط أخير",
+    "quickActions": {
+      "title": "إجراءات سريعة",
+      "send": "إرسال الأموال",
+      "deposit": "إضافة أموال",
+      "history": "السجل",
+      "wallets": "المحافظ"
+    },
+    "metrics": {
+      "activeWallets": "المحافظ النشطة",
+      "pendingTransfers": "تحويلات معلقة",
+      "primaryBalance": "الرصيد الرئيسي",
+      "monthlyUsage": "الحد الشهري المستخدم"
+    },
+    "pendingActions": {
+      "title": "يتطلب انتباهك",
+      "verifyIdentityTitle": "أكمل التحقق من الهوية",
+      "verifyIdentitySubtitle": "افتح المحافظ والحدود والتحويلات الدولية.",
+      "verifyEmailTitle": "تحقق من بريدك",
+      "verifyEmailSubtitle": "أكد بريدك لتأمين الاسترداد والتنبيهات.",
+      "pendingTransfersTitle": "{count, plural, one {تحويل واحد معلق} other {# تحويلات معلقة}}",
+      "pendingTransfersSubtitle": "راجع الحالة في سجل المعاملات."
+    },
     "currentRate": "السعر الحالي",
     "lastUpdatedJustNow": "آخر تحديث: الآن",
     "verificationRequired": "مطلوب التحقق من الهوية",
@@ -22,7 +44,17 @@
       "setAlert": "ضبط التنبيه",
       "viewHistory": "عرض السجل",
       "from": "من",
-      "to": "إلى"
+      "to": "إلى",
+      "currencyPlaceholder": "عملة",
+      "amountPlaceholder": "0,00"
+    },
+    "balanceHistory": {
+      "title": "سجل الرصيد",
+      "selectPeriod": "اختر الفترة",
+      "period7": "7 أيام",
+      "period30": "30 يوماً",
+      "period90": "90 يوماً",
+      "balanceLabel": "الرصيد"
     },
     "market": {
       "overviewTitle": "نظرة عامة على السوق",
@@ -41,8 +73,25 @@
       },
       "source": {
         "title": "مصدر السوق",
-        "body": "البيانات المقدمة من Google Finance. الأسعار تقريبية وقد تختلف من مزود لآخر."
-      }
+        "body": "البيانات المقدمة من Google Finance. الأسعار تقريبية وقد تختلف من مزود لآخر.",
+        "bodyLive": "أسعار من واجهات FX العامة (Frankfurter، exchangerate.host). مخزنة ومحدّثة كل بضع دقائق.",
+        "bodySeed": "أسعار من بيانات تجريبية دون اتصال. عيّن FOREX_LIVE_ENABLED=true في الخادم للأسعار المباشرة."
+      },
+      "rateLabel": "السعر",
+      "badgeLive": "مباشر",
+      "badgeSeed": "بيانات تجريبية"
+    },
+    "moneySources": {
+      "title": "طرق الدفع المرتبطة",
+      "subtitle": "نفس مزودي الإيداع — أدرها في المحفظة أو الإعدادات.",
+      "viewWallet": "فتح المحفظة"
+    },
+    "walletData": {
+      "title": "لا توجد بيانات محفظة",
+      "seedHint": "لم تُرجع الواجهة أي محفظة. شغّل بذرة قاعدة البيانات ثم سجّل الدخول بحساب العميل التجريبي.",
+      "errorHint": "فشل طلب API للمحفظة. تأكد أن البوابة تعمل على المنفذ 9000 وأنك مسجل الدخول.",
+      "loginHint": "تسجيل تجريبي:",
+      "docsPath": "خطوات البذرة: kyd-payment-system → docker compose --profile tools run --rm seed-runner (راجع docs/LOCAL_TESTING.md)"
     }
   },
   "Wallet": {
@@ -84,6 +133,74 @@
       "discard": "تجاهل التغييرات",
       "success": "تم إنشاء المحفظة بنجاح",
       "error": "فشل إنشاء المحفظة"
+    },
+    "overview": {
+      "title": "ملخص المحفظة",
+      "empty": "لا أرصدة بعد",
+      "walletCount": "{count, plural, one {محفظة واحدة} other {# محافظ}}",
+      "send": "إرسال الأموال",
+      "deposit": "إضافة أموال",
+      "addWallet": "إضافة محفظة",
+      "withdraw": "سحب"
+    },
+    "card": {
+      "balance": "الرصيد",
+      "status": "الحالة",
+      "active": "نشط",
+      "addMoney": "إضافة أموال"
+    },
+    "recentActivityTitle": "نشاط المحفظة الأخير",
+    "recentActivityViewAll": "كل المعاملات",
+    "depositModal": {
+      "secureBadge": "تمويل آمن",
+      "title": "إيداع {currency}",
+      "subtitle": "موّل محفظتك فوراً من البنك أو البطاقة المرتبطة.",
+      "fundingSource": "مصدر التمويل",
+      "selectSource": "اختر المصدر",
+      "linkedBank": "البنك المرتبط (**** 1234)",
+      "visaCard": "بطاقة فيزا (**** 5678)",
+      "depositAmount": "مبلغ الإيداع",
+      "amountPlaceholder": "0.00",
+      "serviceFee": "رسوم الخدمة",
+      "totalSettlement": "إجمالي التسوية",
+      "confirmDeposit": "تأكيد الإيداع",
+      "success": "تم إيداع {currency} {amount} بنجاح",
+      "error": "فشل الإيداع",
+      "successWithRef": "تم إيداع {currency} {amount}. المرجع: {ref}"
+    },
+    "subtitleCompact": "الأرصدة ومصادر التمويل والنشاط الأخير.",
+    "balanceToggle": {
+      "show": "إظهار الأرصدة",
+      "hide": "إخفاء الأرصدة",
+      "visible": "ظاهر",
+      "hidden": "مخفي"
+    },
+    "balanceHeader": {
+      "totalBalance": "إجمالي الرصيد",
+      "currencies": "العملات",
+      "status": "الحالة",
+      "active": "نشط"
+    },
+    "moneySources": {
+      "title": "إيداع من",
+      "subtitle": "اختر بنكًا أو محفظة جوال أو بطاقة — اضغط لإضافة الأموال."
+    },
+    "withdrawModal": {
+      "secureBadge": "تحويل آمن",
+      "title": "سحب {currency}",
+      "subtitle": "انقل الأموال إلى محفظة أخرى أو حساب بنكي مرتبط عبر إرسال الأموال.",
+      "available": "الرصيد المتاح",
+      "destination": "الوجهة",
+      "toWallet": "محفظة VaultString",
+      "toBank": "بنك مرتبط",
+      "payoutAccount": "حساب الدفع",
+      "selectAccount": "اختر الحساب",
+      "linkedBank": "بنك مرتبط (**** 1234)",
+      "visaCard": "بطاقة Visa (**** 5678)",
+      "bankNote": "تكتمل مدفوعات البنك عبر إرسال الأموال بطريقة الدفع المختارة.",
+      "amount": "المبلغ",
+      "amountPlaceholder": "0.00",
+      "continueToSend": "متابعة إلى إرسال الأموال"
     }
   },
   "Profile": {
@@ -183,6 +300,25 @@
     "dialogIdentitySubtitle": "حافظ على بيانات هويتك محدثة في VaultString.",
     "bioPlaceholder": "عرف بنفسك (اختياري)",
     "defaultBioTagline": "عميل VaultString",
+    "securitySettingsTitle": "إعدادات الأمان",
+    "passwordLastChanged": "آخر تغيير منذ 3 أشهر",
+    "recoveryEmail": "بريد الاسترداد",
+    "recoveryEmailSet": "تم تعيين بريد الاسترداد",
+    "recoveryEmailHint": "أضف بريد استرداد لحماية حسابك",
+    "addEmail": "إضافة بريد",
+    "connected": "متصل",
+    "recoveryModalTitle": "إضافة بريد استرداد",
+    "recoveryModalBody": "سنرسل رابط تحقق إلى هذا البريد. يُستخدم لاسترداد حسابك عند فقدان الوصول.",
+    "recoveryEmailLabel": "عنوان بريد الاسترداد",
+    "recoveryPlaceholder": "مثال backup@example.com",
+    "recoveryComingSoon": "بريد الاسترداد غير متاح بعد. يرجى الاتصال بالدعم.",
+    "recoveryFailed": "فشل إضافة بريد الاسترداد",
+    "recoverySuccess": "تمت إضافة بريد الاسترداد بنجاح",
+    "edit": "تعديل",
+    "notSet": "غير محدد",
+    "emailChangeHint": "(اتصل بالدعم للتغيير)",
+    "phoneNumber": "رقم الهاتف",
+    "kycStatusLabel": "حالة KYC",
     "toasts": {
       "profileUpdated": "تم تحديث الملف الشخصي بنجاح",
       "profileFailed": "فشل تحديث الملف الشخصي",
@@ -197,6 +333,12 @@
       "invalidTotpCode": "رمز التحقق غير صالح",
       "avatarUploading": "جارٍ رفع الصورة الرمزية…",
       "avatarUpdated": "تم تحديث الصورة الرمزية"
+    },
+    "loginHistory": {
+      "title": "سجل تسجيل الدخول",
+      "device": "الجهاز",
+      "location": "الموقع",
+      "dateTime": "التاريخ والوقت"
     }
   },
   "Sidebar": {
@@ -205,8 +347,14 @@
     "sendMoney": "إرسال الأموال",
     "transactions": "المعاملات",
     "profile": "الملف الشخصي",
+    "settings": "الإعدادات",
+    "compliance": "الامتثال",
+    "notifications": "الإشعارات",
     "verifyIdentity": "التحقق من الهوية",
-    "signOut": "تسجيل الخروج"
+    "signOut": "تسجيل الخروج",
+    "sectionMoney": "الأموال",
+    "sectionAccount": "الحساب",
+    "closeMenu": "إغلاق القائمة"
   },
   "SendMoney": {
     "title": "إرسال الأموال",
@@ -239,6 +387,8 @@
       "generic": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
     },
     "feeNote": "يتم احتساب الرسوم بناءً على السيولة وحجم الشبكة وقت التحويل.",
+    "reviewConfirm": "راجعت المستلم والعملة والرسوم وتفاصيل الدفع قبل الإرسال.",
+    "reviewHint": "أكد قائمة مراجعة التحويل للمتابعة.",
     "paymentDetails": "تفاصيل الدفع",
     "international": "دولي",
     "sameCurrency": "نفس العملة",
@@ -295,6 +445,16 @@
       "receiver": "المستلم",
       "amountSent": "المبلغ المرسل",
       "sendAnother": "إرسال دفعة أخرى"
+    },
+    "subtitleCompact": "المستلم والمبلغ ثم مزودو التمويل والدفع.",
+    "stepper": {
+      "details": "التفاصيل",
+      "review": "مراجعة",
+      "success": "تم",
+      "detailsHeading": "تفاصيل التحويل",
+      "reviewHeading": "مراجعة وتأكيد",
+      "continue": "متابعة",
+      "backToEdit": "العودة للتعديل"
     }
   },
   "Common": {
@@ -303,7 +463,12 @@
     "loading": "جاري المعالجة...",
     "save": "حفظ",
     "error": "خطأ",
-    "success": "نجاح"
+    "success": "نجاح",
+    "passwordMask": "••••••••",
+    "loadingAria": "جارٍ التحميل",
+    "errorBoundaryTitle": "حدث خطأ ما",
+    "errorBoundaryMessage": "حدث خطأ غير متوقع أثناء تحميل هذا المكوّن.",
+    "errorBoundaryRetry": "حاول مرة أخرى"
   },
   "Layout": {
     "emailVerificationRequired": {
@@ -323,16 +488,35 @@
       "compliance": "الامتثال و KYC",
       "profile": "الملف الشخصي والأمان",
       "translation": "إعدادات اللغة",
-      "onboarding": "التحقق من الهوية"
+      "onboarding": "التحقق من الهوية",
+      "settings": "الإعدادات"
+    },
+    "a11y": {
+      "openMenu": "فتح القائمة"
     },
     "search": {
-      "placeholder": "بحث في المعاملات..."
+      "placeholder": "بحث في المعاملات...",
+      "noResults": "لا توجد نتائج",
+      "aiSuggestions": "اقتراحات الذكاء الاصطناعي",
+      "recentSearches": "عمليات البحث الأخيرة",
+      "clear": "مسح",
+      "mock": {
+        "paymentTo": "دفع إلى {name}",
+        "paymentSuccess": "{amount} • نجاح",
+        "withdrawalToBank": "سحب إلى البنك",
+        "withdrawalPending": "{amount} • قيد الانتظار",
+        "usdSavings": "ادخار USD",
+        "walletPrimary": "أساسي • {balance}",
+        "sampleRecipient": "مستلم مقترح",
+        "sampleRecipientEmail": "بريد المستلم"
+      }
     },
     "notifications": {
       "title": "الإشعارات",
       "newCount": "{count} جديدة",
       "empty": "لا توجد إشعارات جديدة",
-      "viewAll": "عرض جميع الإشعارات"
+      "viewAll": "عرض جميع الإشعارات",
+      "justNow": "الآن"
     },
     "theme": {
       "toggleAria": "تبديل المظهر"
@@ -343,7 +527,13 @@
       "security": "الأمان",
       "billing": "الفواتير والبطاقات",
       "settings": "الإعدادات",
-      "signOut": "تسجيل الخروج"
+      "signOut": "تسجيل الخروج",
+      "member": "الحساب",
+      "personal": "حساب شخصي",
+      "business": "حساب تجاري",
+      "agent": "حساب وكيل",
+      "senderMalawi": "مرسل (مالاوي)",
+      "receiverChina": "مستلم (الصين)"
     }
   },
   "Settings": {
@@ -403,6 +593,88 @@
       "disabled": "تم تعطيل المصادقة الثنائية",
       "error": "فشل في تحديث إعدادات 2FA",
       "invalidCode": "رمز التحقق غير صحيح"
+    },
+    "language": {
+      "title": "اللغة والمنطقة",
+      "subtitle": "اختر طريقة عرض VaultString. جميع اللغات الـ12 متاحة."
+    },
+    "nav": {
+      "ariaLabel": "أقسام الإعدادات",
+      "account": "الحساب",
+      "security": "الأمان",
+      "notifications": "الإشعارات",
+      "language": "اللغة والمنطقة",
+      "appearance": "المظهر",
+      "privacy": "الخصوصية",
+      "limits": "الحدود",
+      "connectedAccounts": "الحسابات المرتبطة",
+      "helpSupport": "المساعدة والدعم",
+      "profile": "Profile",
+      "documents": "Documents & KYC"
+    },
+    "account": {
+      "title": "الحساب",
+      "subtitle": "هويتك على VaultString وحالة التحقق.",
+      "signedInAs": "مسجّل الدخول كـ",
+      "verificationStatus": "حالة التحقق",
+      "memberSince": "عضو منذ",
+      "manageProfile": "إدارة الملف",
+      "verified": "موثّق",
+      "pending": "قيد المراجعة",
+      "unverified": "غير موثّق"
+    },
+    "privacy": {
+      "title": "الخصوصية",
+      "subtitle": "تحكم في كيفية استخدام بياناتك ومشاركتها.",
+      "analytics": {
+        "title": "تحليلات الاستخدام",
+        "subtitle": "ساعد في تحسين VaultString ببيانات مجهولة"
+      },
+      "marketing": {
+        "title": "عروض مخصصة",
+        "subtitle": "السماح بتوصيات مبنية على النشاط"
+      },
+      "profileVisibility": {
+        "title": "ملف عام",
+        "subtitle": "إظهار رابط ملفك الشخصي على إيصالات الدفع المشتركة"
+      }
+    },
+    "limits": {
+      "title": "الحدود",
+      "subtitle": "حدود المعاملات والحساب لمستوى التحقق الخاص بك.",
+      "monthlyLimit": "حد التحويل الشهري",
+      "usedThisMonth": "المستخدم هذا الشهر",
+      "remaining": "المتبقي",
+      "readOnlyNote": "يتم تحديد الحدود بواسطة مستوى التحقق ولا يمكن تغييرها هنا.",
+      "upgradeCta": "أكمل التحقق لزيادة الحدود"
+    },
+    "connectedAccounts": {
+      "title": "الحسابات المتصلة",
+      "subtitle": "اربط المحافظ الخارجية ومزودي الدفع.",
+      "comingSoon": "معاينة",
+      "comingSoonDetail": "سيتوفر ربط البنك والمال المحمول في إصدار مستقبلي.",
+      "providersHint": "مصادر الأموال ومزودو API المدعومون في منطقتك (معاينة للقراءة فقط).",
+      "apiKeysPlaceholder": "إدارة مفاتيح API: POST /api/v1/providers/keys (عنصر نائب — ربط في الإدارة عند جاهزية الخادم)."
+    },
+    "helpSupport": {
+      "title": "المساعدة والدعم",
+      "subtitle": "احصل على المساعدة وتعرّف أكثر على VaultString.",
+      "helpCenter": "مركز المساعدة",
+      "helpCenterDesc": "تصفح الأدلة والأسئلة الشائعة",
+      "contactSupport": "اتصل بالدعم",
+      "contactSupportDesc": "راسل فريق الدعم",
+      "compliance": "التحقق من الهوية",
+      "complianceDesc": "إدارة مستندات KYC والحالة",
+      "securityGuide": "أفضل ممارسات الأمان",
+      "securityGuideDesc": "حافظ على أمان حسابك"
+    },
+    "documents": {
+      "title": "Documents & KYC",
+      "subtitle": "View verification status and manage identity documents.",
+      "statusLabel": "Verification status",
+      "statusHint": "Upload or update your KYC documents from the compliance center.",
+      "manageCta": "Manage documents",
+      "startKycCta": "Start verification"
     }
   },
   "Notifications": {
@@ -442,6 +714,10 @@
       "success": "نجاح",
       "warning": "تحذير",
       "error": "تنبيه أمني"
+    },
+    "activity": {
+      "paymentTitle": "تحديث دفع حديث",
+      "paymentBody": "تحويل {amount} {currency} أصبح الآن {status}."
     },
     "loadMore": "تحميل المزيد",
     "loading": "جاري تحميل الإشعارات...",
@@ -488,7 +764,39 @@
       "unknownSender": "مرسل غير معروف",
       "unknownReceiver": "مستلم غير معروف",
       "datePending": "التاريخ معلق",
-      "invalidDate": "تاريخ غير صحيح"
+      "invalidDate": "تاريخ غير صحيح",
+      "columns": {
+        "description": "الوصف",
+        "amount": "المبلغ",
+        "status": "الحالة"
+      }
+    },
+    "table": {
+      "actions": "إجراءات",
+      "viewReceipt": "عرض الإيصال",
+      "archive": "أرشفة",
+      "unread": "غير مقروء",
+      "sentSummary": "أُرسل <amount></amount> إلى <name></name>",
+      "receivedSummary": "استُلم <amount></amount> من <name></name>",
+      "dateAt": "{date} في {time}"
+    },
+    "receiptModal": {
+      "title": "إيصال",
+      "totalAmount": "المبلغ الإجمالي",
+      "referenceId": "معرف المرجع",
+      "sender": "المرسل",
+      "receiver": "المستلم",
+      "subtotal": "المجموع الفرعي",
+      "serviceFee": "رسوم الخدمة",
+      "recipientReceives": "ما يستلمه المستلم",
+      "verifiedFooter": "تم التحقق بواسطة VaultString Security"
+    },
+    "grid": {
+      "to": "إلى",
+      "from": "من",
+      "amount": "المبلغ",
+      "date": "التاريخ",
+      "time": "الوقت"
     }
   },
   "Receipt": {
@@ -510,6 +818,7 @@
     "labelTxnId": "معرّف المعاملة",
     "labelSender": "المرسل",
     "labelReceiver": "المستلم",
+    "labelStatus": "الحالة",
     "labelAmount": "المبلغ",
     "labelFee": "رسوم المعالجة",
     "labelTotalDebited": "إجمالي الخصم",
@@ -524,6 +833,14 @@
     "loadFailed": "فشل تحميل الإيصال"
   },
   "Auth": {
+    "language": {
+      "label": "اللغة"
+    },
+    "social": {
+      "orContinueWith": "أو المتابعة باستخدام",
+      "google": "Google",
+      "apple": "Apple"
+    },
     "login": {
       "title": "تسجيل الدخول",
       "subtitle": "مرحبًا بعودتك إلى VaultString",
@@ -551,7 +868,8 @@
       "validation": {
         "emailInvalid": "يرجى إدخال بريد إلكتروني صالح",
         "passwordRequired": "كلمة المرور مطلوبة"
-      }
+      },
+      "errorGoogleNotConfigured": "لم يتم تكوين تسجيل الدخول عبر Google على الخادم. عيّن GOOGLE_CLIENT_ID وGOOGLE_CLIENT_SECRET في ملف .env للخادم ثم أعد تشغيل خدمة المصادقة."
     },
     "signup": {
       "alertFailedTitle": "فشل التسجيل",
@@ -591,7 +909,12 @@
         "termsRequired": "يجب قبول الشروط والأحكام",
         "passwordMismatch": "كلمات المرور غير متطابقة",
         "businessNameRequired": "اسم الشركة مطلوب لحسابات الأعمال"
-      }
+      },
+      "alertComingSoonTitle": "قريباً",
+      "errorGoogleNotConfigured": "لم يتم تكوين تسجيل الدخول عبر Google على الخادم. عيّن GOOGLE_CLIENT_ID وGOOGLE_CLIENT_SECRET في ملف .env للخادم ثم أعد تشغيل خدمة المصادقة.",
+      "errorAppleComingSoon": "تسجيل الدخول عبر Apple غير متاح بعد. استخدم البريد الإلكتروني وكلمة المرور.",
+      "pageTitle": "إنشاء حساب",
+      "pageSubtitle": "انضم إلى VaultString اليوم"
     }
   },
   "Translation": {
@@ -600,7 +923,8 @@
     "appLanguageHint": "اختر لغة الواجهة.",
     "searchPlaceholder": "البحث عن اللغات...",
     "languageUpdated": "تم تحديث اللغة بنجاح",
-    "translating": "جارٍ الترجمة…"
+    "translating": "جارٍ الترجمة…",
+    "backToSettings": "العودة إلى الإعدادات"
   },
   "Verification": {
     "verifyingTitle": "جارٍ التحقق من البريد",
@@ -627,13 +951,23 @@
     "useMagicLink": "استخدم الرابط السحري بدلاً من ذلك",
     "invalidCode": "رمز التحقق غير صالح",
     "invalidLink": "رابط التحقق غير صالح أو منتهٍ",
-    "resendFailed": "فشل إعادة إرسال الرمز"
+    "resendFailed": "فشل إعادة إرسال الرمز",
+    "continueWithCode": "المتابعة برمز التحقق",
+    "emailPlaceholder": "أدخل عنوان بريدك الإلكتروني",
+    "emailRequired": "البريد الإلكتروني مطلوب قبل إعادة إرسال الرمز.",
+    "emailPageTitle": "التحقق من البريد",
+    "emailPageSubtitle": "جاري تأكيد هويتك",
+    "verifyingEmailMessage": "جاري التحقق من بريدك…",
+    "invalidLinkMissingToken": "رابط تحقق غير صالح. الرمز مفقود.",
+    "emailVerifiedMessage": "تم التحقق من بريدك بنجاح.",
+    "continueToLogin": "متابعة إلى تسجيل الدخول",
+    "resendHint": "إذا استمرت المشكلة، اطلب رابط تحقق جديد."
   },
   "ResetPassword": {
     "emailTitle": "إعادة تعيين كلمة المرور",
     "emailSubtitle": "أدخل بريدك لتلقي تعليمات إعادة التعيين",
     "emailLabel": "عنوان البريد الإلكتروني",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "wena@isibonelo.com",
     "sendLink": "إرسال رابط إعادة التعيين",
     "rememberPassword": "تتذكر كلمة المرور؟",
     "signIn": "تسجيل الدخول",
@@ -698,26 +1032,49 @@
     "loadFailed": "فشل تحميل حالة الامتثال",
     "fillAllFields": "يرجى ملء جميع الحقول ورفع مستند",
     "submitSuccess": "تم تقديم مستندات KYC بنجاح",
-    "submitFailed": "فشل تقديم المستندات"
+    "submitFailed": "فشل تقديم المستندات",
+    "widgetTitle": "الامتثال و KYC",
+    "widgetSubtitle": "أدر مستندات التحقق من الهوية لفتح حدود أعلى.",
+    "accountStatus": "حساب {status}",
+    "uploadingDocument": "جاري رفع المستند…",
+    "uploadSuccess": "تم رفع المستند. سيراجعه فريقنا قريباً.",
+    "uploadFailed": "فشل رفع المستند. يرجى المحاولة مرة أخرى.",
+    "documentOnFile": "مستند في الملف:",
+    "uploadedOn": "تم الرفع في {date}",
+    "uploadCta": "انقر للرفع أو اسحب وأفلت",
+    "uploadFormatsSmall": "PDF أو JPG أو PNG (بحد أقصى 5MB)",
+    "approved": "موافق عليه",
+    "idDocTitle": "الهوية الوطنية / جواز السفر",
+    "addressDocTitle": "إثبات العنوان",
+    "verificationCard": {
+      "verifiedTitle": "تم التحقق من الهوية",
+      "requiredTitle": "التحقق مطلوب",
+      "verifiedBody": "تم التحقق من حسابك بالكامل. يمكنك إجراء معاملات بحدود أعلى وجميع الميزات.",
+      "unverifiedBody": "يرجى تقديم هوية حكومية سارية وإثبات عنوان لرفع حدود المعاملات.",
+      "dailyLimit": "الحد اليومي",
+      "monthlyLimit": "الحد الشهري",
+      "intlTransfers": "تحويلات دولية",
+      "enabled": "مفعّل"
+    }
   },
   "Onboarding": {
     "userType": {
       "title": "اعرف عميلك",
       "subtitle": "اختر نوع الحساب لبدء عملية التحقق",
       "individualTitle": "فرد",
-      "individualDescription": "Verify as a private person. Takes about 10 minutes.",
-      "individualFeaturePersonal": "Personal information",
-      "individualFeatureId": "ID verification",
-      "individualFeatureAddress": "Address proof",
+      "individualDescription": "تحقق كشخص خاص. يستغرق حوالي 10 دقائق.",
+      "individualFeaturePersonal": "المعلومات الشخصية",
+      "individualFeatureId": "التحقق من الهوية",
+      "individualFeatureAddress": "إثبات العنوان",
       "individualCta": "المتابعة كفرد",
       "businessTitle": "شركة",
-      "businessDescription": "Verify your company. Takes about 15 minutes.",
-      "businessFeatureCompany": "Company details",
-      "businessFeatureUbo": "UBO disclosure",
-      "businessFeatureDocs": "Documentation",
+      "businessDescription": "تحقق من شركتك. يستغرق حوالي 15 دقيقة.",
+      "businessFeatureCompany": "تفاصيل الشركة",
+      "businessFeatureUbo": "الإفصاح عن UBO",
+      "businessFeatureDocs": "المستندات",
       "businessCta": "المتابعة كشركة",
-      "privacyNote": "We take your privacy seriously. Your information is encrypted and secure.",
-      "complianceNote": "Compliant with Malawi RBM and China PBOC regulations"
+      "privacyNote": "نأخذ خصوصيتك على محمل الجد. معلوماتك مشفرة وآمنة.",
+      "complianceNote": "متوافق مع لوائح RBM في مالاوي وPBOC في الصين"
     },
     "flow": {
       "changeType": "تغيير النوع",
@@ -728,90 +1085,91 @@
       "continue": "المتابعة إلى الخطوة التالية"
     },
     "individualSteps": {
-      "personal": "Personal Details",
-      "contact": "Contact Information",
-      "id": "ID Verification",
-      "funds": "Source of Funds",
-      "security": "Security Setup",
-      "terms": "Terms & Agreements"
+      "personal": "البيانات الشخصية",
+      "contact": "معلومات الاتصال",
+      "id": "التحقق من الهوية",
+      "funds": "مصدر الأموال",
+      "security": "إعداد الأمان",
+      "terms": "الشروط والاتفاقيات"
     },
     "businessSteps": {
-      "company": "Company Details",
-      "business": "Business Information",
-      "reps": "Authorized Representatives",
-      "ubo": "UBO Disclosure",
-      "banking": "Banking Details",
-      "docs": "Documentation",
-      "compliance": "Compliance"
+      "company": "تفاصيل الشركة",
+      "business": "معلومات الأعمال",
+      "reps": "الممثلون المفوضون",
+      "ubo": "الإفصاح عن UBO",
+      "banking": "البيانات المصرفية",
+      "docs": "المستندات",
+      "compliance": "الامتثال"
     },
     "personalDetails": {
-      "firstNameLabel": "First Name *",
+      "firstNameLabel": "الاسم الأول *",
       "firstNamePlaceholder": "John",
-      "lastNameLabel": "Last Name *",
+      "lastNameLabel": "اسم العائلة *",
       "lastNamePlaceholder": "Doe",
-      "dateOfBirthLabel": "Date of Birth *",
-      "nationalityLabel": "Nationality *",
+      "dateOfBirthLabel": "تاريخ الميلاد *",
+      "nationalityLabel": "الجنسية *",
       "nationalityPlaceholder": "United States",
-      "idTypeLabel": "ID Type",
-      "idTypePassport": "Passport",
-      "idTypeDriverLicense": "Driver's License",
-      "idTypeNationalId": "National ID",
-      "encryptionNote": "Your personal information is encrypted and will only be used for verification purposes.",
+      "idTypeLabel": "نوع الهوية",
+      "idTypePassport": "جواز السفر",
+      "idTypeDriverLicense": "رخصة القيادة",
+      "idTypeNationalId": "الهوية الوطنية",
+      "encryptionNote": "معلوماتك الشخصية مشفرة وتُستخدم فقط لأغراض التحقق.",
       "validation": {
-        "firstNameRequired": "First name is required",
-        "lastNameRequired": "Last name is required",
-        "dateOfBirthRequired": "Date of birth is required",
-        "nationalityRequired": "Nationality is required"
+        "firstNameRequired": "الاسم الأول مطلوب",
+        "lastNameRequired": "اسم العائلة مطلوب",
+        "dateOfBirthRequired": "تاريخ الميلاد مطلوب",
+        "nationalityRequired": "الجنسية مطلوبة"
       }
     },
     "contactInfo": {
-      "phoneLabel": "Phone Number *",
+      "phoneLabel": "رقم الهاتف *",
       "phonePlaceholder": "+1 (555) 123-4567",
-      "emailLabel": "Email Address *",
+      "emailLabel": "عنوان البريد الإلكتروني *",
       "emailPlaceholder": "kelvin@example.com",
-      "addressLabel": "Address *",
+      "addressLabel": "العنوان *",
       "addressPlaceholder": "123 Main Street",
-      "cityLabel": "City *",
+      "cityLabel": "المدينة *",
       "cityPlaceholder": "Lilongwe",
-      "countryLabel": "Country *",
+      "countryLabel": "البلد *",
       "countryPlaceholder": "Malawi",
-      "postalCodeLabel": "Postal Code *",
+      "postalCodeLabel": "الرمز البريدي *",
       "postalCodePlaceholder": "10001",
       "validation": {
-        "phoneRequired": "Phone number is required",
-        "emailRequired": "Email is required",
-        "addressRequired": "Address is required",
-        "cityRequired": "City is required",
-        "countryRequired": "Country is required",
-        "postalCodeRequired": "Postal code is required"
+        "phoneRequired": "رقم الهاتف مطلوب",
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "addressRequired": "العنوان مطلوب",
+        "cityRequired": "المدينة مطلوبة",
+        "countryRequired": "البلد مطلوب",
+        "postalCodeRequired": "الرمز البريدي مطلوب"
       }
     },
     "idVerification": {
-      "documentNumberLabel": "Document Number *",
+      "documentNumberLabel": "رقم المستند *",
       "documentNumberPlaceholder": "ABC123456789",
-      "expiryDateLabel": "Expiry Date *",
-      "uploadLabel": "Upload Document *",
+      "expiryDateLabel": "تاريخ الانتهاء *",
+      "uploadLabel": "رفع المستند *",
       "previewAlt": "Preview",
-      "uploadCta": "Click to upload or drag and drop",
-      "uploadFormats": "PNG, JPG, or PDF (max 10MB)",
-      "secureNote": "Your document is verified securely. We only use it to confirm your identity.",
+      "uploadCta": "انقر للرفع أو اسحب وأفلت",
+      "uploadFormats": "PNG أو JPG أو PDF (بحد أقصى 10 ميجابايت)",
+      "secureNote": "يتم التحقق من مستندك بشكل آمن. نستخدمه فقط لتأكيد هويتك.",
       "validation": {
-        "documentNumberRequired": "Document number is required",
-        "expiryDateRequired": "Expiry date is required",
-        "fileRequired": "Document file is required"
+        "documentNumberRequired": "رقم المستند مطلوب",
+        "expiryDateRequired": "تاريخ الانتهاء مطلوب",
+        "fileRequired": "ملف المستند مطلوب"
       }
     },
     "sourceOfFunds": {
-      "employmentStatusLabel": "Employment Status *",
-      "employmentEmployed": "employed",
-      "employmentSelfEmployed": "self employed",
-      "employmentRetired": "retired",
-      "employmentStudent": "student",
-      "employmentOther": "other",
-      "currencyLabel": "Currency *",
-      "currencyMwk": "Malawian Kwacha (MWK)",
-      "currencyCny": "Chinese Yuan (CNY)",
-      "incomeRangeLabel": "Annual Income Range *",
+      "employmentStatusLabel": "حالة التوظيف *",
+      "employmentEmployed": "موظف",
+      "employmentSelfEmployed": "عامل حر",
+      "employmentUnemployed": "Unemployed",
+      "employmentRetired": "متقاعد",
+      "employmentStudent": "طالب",
+      "employmentOther": "أخرى",
+      "currencyLabel": "العملة *",
+      "currencyMwk": "كواشا مالاوي (MWK)",
+      "currencyCny": "يوان صيني (CNY)",
+      "incomeRangeLabel": "نطاق الدخل السنوي *",
       "incomeMwk0": "0 - 100,000 MWK",
       "incomeMwk1": "100,000 - 500,000 MWK",
       "incomeMwk2": "500,000 - 1,000,000 MWK",
@@ -822,190 +1180,229 @@
       "incomeCny2": "200,000 - 500,000 CNY",
       "incomeCny3": "500,000 - 2,000,000 CNY",
       "incomeCny4": "2,000,000+ CNY",
-      "amlNote": "This information helps us comply with anti-money laundering regulations."
+      "employmentOtherDescriptionLabel": "صف عملك *",
+      "employmentOtherDescriptionPlaceholder": "مثال: مستشار مستقل، مزارع موسمي",
+      "employmentSupplementaryLabel": "تفاصيل إضافية عن العمل (اختياري)",
+      "employmentSupplementaryPlaceholder": "أخبرنا المزيد عن كيفية كسبك للدخل",
+      "incomeOther": "أخرى / حدد",
+      "incomeOtherDescriptionLabel": "صف دخلك السنوي *",
+      "incomeOtherDescriptionPlaceholder": "مثال: دخل متغير، حوالي 200,000–400,000 MWK سنوياً",
+      "validation": {
+        "employmentOtherRequired": "يرجى وصف عملك",
+        "incomeOtherRequired": "يرجى وصف نطاق دخلك"
+      },
+      "amlNote": "تساعدنا هذه المعلومات على الامتثال للوائح مكافحة غسل الأموال."
     },
     "securitySetup": {
-      "twoFaLabel": "Enable two-factor authentication (2FA) for enhanced security",
-      "question1Label": "Security Question 1 *",
-      "selectQuestion": "Select a question",
-      "answerLabel": "Your Answer *",
+      "twoFaLabel": "تفعيل المصادقة الثنائية (2FA) لتعزيز الأمان",
+      "question1Label": "سؤال الأمان 1 *",
+      "selectQuestion": "اختر سؤالاً",
+      "answerLabel": "إجابتك *",
       "answerPlaceholder": "Your answer",
-      "recoveryNote": "These security questions help us verify your identity if you need to recover your account.",
+      "recoveryNote": "تساعدنا أسئلة الأمان هذه على التحقق من هويتك عند استرداد حسابك.",
       "questions": {
-        "maidenName": "What is your mother's maiden name?",
-        "firstPet": "What was the name of your first pet?",
-        "birthCity": "In what city were you born?",
-        "favoriteTeacher": "What is the name of your favorite teacher?",
-        "firstCar": "What was the make of your first car?"
+        "maidenName": "ما اسم عائلة والدتك قبل الزواج؟",
+        "firstPet": "ما اسم حيوانك الأليف الأول؟",
+        "birthCity": "في أي مدينة وُلدت؟",
+        "favoriteTeacher": "ما اسم معلمك المفضل؟",
+        "firstCar": "ما كانت ماركة سيارتك الأولى؟"
       },
       "validation": {
-        "questionRequired": "Please select a security question",
-        "answerRequired": "Please answer the security question"
+        "questionRequired": "يرجى اختيار سؤال أمان",
+        "answerRequired": "يرجى الإجابة على سؤال الأمان"
       }
     },
     "terms": {
-      "heading": "Terms and Conditions",
-      "body1": "By using our KYC verification service, you agree to comply with all applicable laws and regulations. You represent that all information provided is accurate and complete. We reserve the right to deny access or cancel accounts if we detect fraudulent activity or violation of our terms.",
-      "body2": "Your data will be processed securely and in compliance with international data protection regulations including GDPR and local standards.",
-      "privacyLabel": "I have read and agree to the <privacy>Privacy Policy</privacy> *",
-      "privacyLink": "Privacy Policy",
-      "termsLabel": "I have read and agree to the <terms>Terms of Service</terms> *",
-      "termsLink": "Terms of Service",
-      "dataLabel": "I consent to the secure storage of my personal data *",
+      "heading": "الشروط والأحكام",
+      "body1": "باستخدام خدمة التحقق KYC، فإنك توافق على الامتثال لجميع القوانين واللوائح المعمول بها.",
+      "body2": "ستُعالَج بياناتك بشكل آمن وفقًا للوائح حماية البيانات الدولية.",
+      "privacyLabel": "لقد قرأت وأوافق على <privacy>سياسة الخصوصية</privacy> *",
+      "privacyLink": "سياسة الخصوصية",
+      "termsLabel": "لقد قرأت وأوافق على <terms>شروط الخدمة</terms> *",
+      "termsLink": "شروط الخدمة",
+      "dataLabel": "أوافق على التخزين الآمن لبياناتي الشخصية *",
       "submit": "إكمال التحقق",
       "submitting": "جارٍ الإرسال…",
       "validation": {
-        "privacyRequired": "You must accept the privacy policy",
-        "termsRequired": "You must accept the terms of service",
-        "dataRequired": "You must consent to data processing"
+        "privacyRequired": "يجب قبول سياسة الخصوصية",
+        "termsRequired": "يجب قبول شروط الخدمة",
+        "dataRequired": "يجب الموافقة على معالجة البيانات"
       },
-      "errorSubmit": "Failed to submit KYC. Please try again."
+      "errorSubmit": "فشل إرسال KYC. يرجى المحاولة مرة أخرى."
     },
     "completion": {
-      "individualTitle": "KYC Submitted",
-      "businessTitle": "Business KYC Submitted",
-      "subtitle": "Your verification is being processed",
-      "thankYou": "Thank you for completing your verification. Our compliance team is now reviewing your application.",
-      "reviewTimeLabel": "Review Time",
-      "reviewTimeValue": "24 - 48 Hours",
-      "confirmationLabel": "Confirmation",
-      "confirmationValue": "Email will be sent",
-      "securityLabel": "Security",
-      "securityValue": "Full access on approval",
+      "individualTitle": "تم إرسال KYC",
+      "businessTitle": "تم إرسال KYC للشركة",
+      "subtitle": "جارٍ معالجة التحقق",
+      "thankYou": "شكراً لإكمال التحقق. فريق الامتثال لدينا يراجع طلبك الآن.",
+      "reviewTimeLabel": "وقت المراجعة",
+      "reviewTimeValue": "24 - 48 ساعة",
+      "confirmationLabel": "التأكيد",
+      "confirmationValue": "سيتم إرسال بريد إلكتروني",
+      "securityLabel": "الأمان",
+      "securityValue": "وصول كامل بعد الموافقة",
       "goDashboard": "الانتقال إلى لوحة التحكم",
       "startAnother": "بدء تحقق آخر",
       "referenceId": "Reference ID: KYC-{id}"
     },
     "companyDetails": {
-      "legalNameLabel": "Legal Company Name *",
+      "legalNameLabel": "الاسم القانوني للشركة *",
       "legalNamePlaceholder": "ABC Corporation Ltd.",
-      "registrationLabel": "Registration Number *",
+      "registrationLabel": "رقم التسجيل *",
       "registrationPlaceholder": "REG123456",
-      "taxIdLabel": "Tax ID *",
+      "taxIdLabel": "الرقم الضريبي *",
       "taxIdPlaceholder": "TAX123456789",
       "validation": {
-        "legalNameRequired": "Legal name is required",
-        "registrationRequired": "Registration number is required",
-        "taxIdRequired": "Tax ID is required"
+        "legalNameRequired": "الاسم القانوني مطلوب",
+        "registrationRequired": "رقم التسجيل مطلوب",
+        "taxIdRequired": "الرقم الضريبي مطلوب"
       }
     },
     "businessInfo": {
-      "industryLabel": "Industry *",
-      "selectIndustry": "Select an industry",
+      "industryLabel": "القطاع *",
+      "selectIndustry": "اختر القطاع",
       "industries": {
-        "technology": "Technology",
-        "finance": "Finance",
-        "healthcare": "Healthcare",
-        "retail": "Retail",
-        "manufacturing": "Manufacturing",
-        "education": "Education",
-        "other": "Other"
+        "technology": "التكنولوجيا",
+        "finance": "المالية",
+        "healthcare": "الرعاية الصحية",
+        "retail": "التجزئة",
+        "manufacturing": "التصنيع",
+        "education": "التعليم",
+        "other": "أخرى"
       },
-      "companySizeLabel": "Company Size *",
-      "selectCompanySize": "Select company size",
+      "companySizeLabel": "حجم الشركة *",
+      "selectCompanySize": "اختر حجم الشركة",
       "size1": "1-10 employees",
       "size2": "11-50 employees",
       "size3": "51-200 employees",
       "size4": "201-500 employees",
       "size5": "500+ employees",
-      "websiteLabel": "Website (Optional)",
+      "websiteLabel": "الموقع الإلكتروني (اختياري)",
       "websitePlaceholder": "https://example.com",
-      "incorporationDateLabel": "Incorporation Date *",
+      "incorporationDateLabel": "تاريخ التأسيس *",
       "validation": {
-        "industryRequired": "Industry is required",
-        "companySizeRequired": "Company size is required",
-        "incorporationDateRequired": "Incorporation date is required"
+        "industryRequired": "القطاع مطلوب",
+        "companySizeRequired": "حجم الشركة مطلوب",
+        "incorporationDateRequired": "تاريخ التأسيس مطلوب"
       }
     },
     "authorizedReps": {
-      "representativeTitle": "Representative {n}",
-      "remove": "Remove",
-      "fullNameLabel": "Full Name *",
+      "representativeTitle": "الممثل {n}",
+      "remove": "إزالة",
+      "fullNameLabel": "الاسم الكامل *",
       "fullNamePlaceholder": "John Smith",
-      "emailLabel": "Email *",
+      "emailLabel": "البريد الإلكتروني *",
       "emailPlaceholder": "john@example.com",
-      "jobTitleLabel": "Job Title *",
+      "jobTitleLabel": "المسمى الوظيفي *",
       "jobTitlePlaceholder": "CEO",
-      "addAnother": "Add Another Representative",
+      "addAnother": "إضافة ممثل آخر",
       "validation": {
-        "nameRequired": "Name is required",
-        "emailRequired": "Email is required",
-        "titleRequired": "Title is required"
+        "nameRequired": "الاسم مطلوب",
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "titleRequired": "المسمى الوظيفي مطلوب"
       }
     },
     "uboDisclosure": {
-      "intro": "UBO (Ultimate Beneficial Owner) disclosure is required for compliance. Please provide information about the individuals who ultimately own or control the company.",
-      "ownershipStructureLabel": "Ownership Structure",
-      "directOwnership": "Direct ownership",
-      "indirectOwnership": "Indirect ownership (through another entity)",
-      "uboNameLabel": "UBO Full Name *",
+      "intro": "الإفصاح عن UBO مطلوب للامتثال. يرجى تقديم معلومات عن الأفراد الذين يملكون أو يتحكمون في الشركة.",
+      "ownershipStructureLabel": "هيكل الملكية",
+      "directOwnership": "ملكية مباشرة",
+      "indirectOwnership": "ملكية غير مباشرة (عبر كيان آخر)",
+      "uboNameLabel": "الاسم الكامل لـ UBO *",
       "uboNamePlaceholder": "Ida Mateyu",
-      "ownershipPercentLabel": "Ownership Percentage *",
+      "ownershipPercentLabel": "نسبة الملكية *",
       "ownershipPercentPlaceholder": "25",
-      "nationalityLabel": "Nationality *",
+      "nationalityLabel": "الجنسية *",
       "nationalityPlaceholder": "Malawian",
       "validation": {
-        "uboNameRequired": "UBO name is required",
-        "ownershipRequired": "Ownership percentage is required",
-        "nationalityRequired": "Nationality is required"
+        "uboNameRequired": "اسم UBO مطلوب",
+        "ownershipRequired": "نسبة الملكية مطلوبة",
+        "nationalityRequired": "الجنسية مطلوبة"
       }
     },
     "bankingDetails": {
-      "bankNameLabel": "Bank Name *",
+      "bankNameLabel": "اسم البنك *",
       "bankNamePlaceholder": "Example Bank",
-      "accountNumberLabel": "Account Number *",
+      "accountNumberLabel": "رقم الحساب *",
       "accountNumberPlaceholder": "123456789",
-      "bankCodeLabel": "Bank Code / SWIFT Code *",
+      "bankCodeLabel": "رمز البنك / SWIFT *",
       "bankCodePlaceholder": "SWIFTCODE",
-      "accountHolderLabel": "Account Holder Name *",
+      "accountHolderLabel": "اسم صاحب الحساب *",
       "accountHolderPlaceholder": "Company Name",
-      "encryptedNote": "Your banking details are encrypted and used only for payouts.",
+      "encryptedNote": "بياناتك المصرفية مشفرة وتُستخدم فقط للمدفوعات.",
       "validation": {
-        "bankNameRequired": "Bank name is required",
-        "accountNumberRequired": "Account number is required",
-        "bankCodeRequired": "Bank code is required",
-        "accountHolderRequired": "Account holder name is required"
+        "bankNameRequired": "اسم البنك مطلوب",
+        "accountNumberRequired": "رقم الحساب مطلوب",
+        "bankCodeRequired": "رمز البنك مطلوب",
+        "accountHolderRequired": "اسم صاحب الحساب مطلوب"
       }
     },
     "documentation": {
-      "incorporationLabel": "Certificate of Incorporation",
-      "articlesLabel": "Articles of Association",
-      "shareholdersLabel": "Shareholder Register",
-      "uploadSuccess": "File uploaded successfully",
-      "uploadCta": "Click to upload",
-      "uploadFormats": "PDF or DOC (max 20MB)",
-      "uploading": "Uploading...",
+      "incorporationLabel": "شهادة التأسيس",
+      "articlesLabel": "النظام الأساسي",
+      "shareholdersLabel": "سجل المساهمين",
+      "uploadSuccess": "تم رفع الملف بنجاح",
+      "uploadCta": "انقر للرفع",
+      "uploadFormats": "PDF أو DOC (بحد أقصى 20 ميجابايت)",
+      "uploading": "جارٍ الرفع…",
       "validation": {
-        "incorporationRequired": "Certificate of incorporation is required",
-        "articlesRequired": "Articles of association are required"
+        "incorporationRequired": "شهادة التأسيس مطلوبة",
+        "articlesRequired": "النظام الأساسي مطلوب"
       },
-      "errorUpload": "Failed to upload documents. Please try again."
+      "errorUpload": "فشل رفع المستندات. يرجى المحاولة مرة أخرى."
     },
     "compliance": {
-      "businessPurposeLabel": "Business Purpose *",
-      "selectPurpose": "Select business purpose",
+      "businessPurposeLabel": "الغرض التجاري *",
+      "selectPurpose": "اختر الغرض التجاري",
       "purposes": {
-        "trading": "Trading",
-        "consulting": "Consulting",
-        "manufacturing": "Manufacturing",
-        "services": "Services",
-        "other": "Other"
+        "trading": "التجارة",
+        "consulting": "الاستشارات",
+        "manufacturing": "التصنيع",
+        "services": "الخدمات",
+        "other": "أخرى"
       },
-      "expectedVolumeLabel": "Expected Monthly Transaction Volume *",
-      "selectRange": "Select range",
+      "expectedVolumeLabel": "حجم المعاملات الشهرية المتوقع *",
+      "selectRange": "اختر النطاق",
       "volume0": "$0 - $10,000",
       "volume1": "$10,000 - $50,000",
       "volume2": "$50,000 - $100,000",
       "volume3": "$100,000+",
-      "confirmationHeading": "Compliance Confirmation",
-      "confirmationBody": "I confirm that my company complies with all applicable regulations in the jurisdictions where it operates, including Malawi RBM requirements and China PBOC merchant requirements.",
-      "checkboxLabel": "I confirm compliance with all applicable regulations *",
-      "submit": "Complete Business Verification",
+      "confirmationHeading": "تأكيد الامتثال",
+      "confirmationBody": "أؤكد أن شركتي تلتزم بجميع اللوائح المعمول بها، بما في ذلك متطلبات RBM في مالاوي وPBOC في الصين.",
+      "checkboxLabel": "أؤكد الامتثال لجميع اللوائح المعمول بها *",
+      "submit": "إكمال التحقق من الشركة",
       "validation": {
-        "purposeRequired": "Business purpose is required",
-        "volumeRequired": "Expected transaction volume is required",
-        "complianceRequired": "You must accept the compliance confirmation"
+        "purposeRequired": "الغرض التجاري مطلوب",
+        "volumeRequired": "حجم المعاملات المتوقع مطلوب",
+        "complianceRequired": "يجب قبول تأكيد الامتثال"
       }
+    }
+  },
+  "AccountBlocked": {
+    "title": "تم حظر الحساب",
+    "body": "تم تقييد حسابك من قبل المسؤول. الوصول إلى ميزات العملاء معطل.",
+    "hint": "إذا كنت تعتقد أن هذا خطأ، اتصل بالدعم واذكر بريدك المسجل.",
+    "supportContact": "جهة اتصال الدعم",
+    "copied": "تم النسخ",
+    "copy": "نسخ",
+    "signOutClear": "تسجيل الخروج / مسح الجلسة",
+    "backToSignIn": "العودة لتسجيل الدخول"
+  },
+  "Language": {
+    "manageAll": "عرض كل اللغات",
+    "label": "لغة العرض",
+    "hint": "يُطبق على التطبيق بالكامل بعد الحفظ.",
+    "searchPlaceholder": "البحث عن اللغات…"
+  },
+  "MoneySources": {
+    "fundingTitle": "مصادر الأموال",
+    "payoutTitle": "مزودو الدفع",
+    "moreInDeposit": "مزودون إضافيون عند الإيداع أو الإرسال.",
+    "processing": {
+      "instant": "فوري",
+      "minutes": "5–15 دقيقة",
+      "days": "1–2 أيام عمل",
+      "card": "10–30 دقيقة",
+      "api": "تسوية API"
     }
   }
 }

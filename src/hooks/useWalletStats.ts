@@ -1,15 +1,15 @@
-import { useState, useEffect, useMemo } from 'react';
-import { apiFetch } from '@/src/lib/api/api-client';
+import { useState, useEffect, useMemo, useCallback } from 'react';
+import { apiFetch, getToken, isAuthenticated } from '@/src/lib/api/api-client';
+import {
+  normalizeWallets,
+  unwrapForexMeta,
+  unwrapForexRates,
+  type ForexRatesMeta,
+  type NormalizedWallet,
+} from '@/src/lib/api/response';
 import { useAuth } from '@/src/context/AuthContext';
-import { EXCHANGE_RATE_MWK_TO_CNY, EXCHANGE_RATE_CNY_TO_MWK } from '@/src/lib/constants';
 
-export interface Wallet {
-  id: string;
-  currency: string;
-  balance: string;
-  available_balance: string;
-  type: string;
-}
+export type Wallet = NormalizedWallet;
 
 export interface WalletStats {
   balanceMWK: number;
@@ -22,29 +22,64 @@ export interface WalletStats {
 
 export function useWalletStats() {
   const { user } = useAuth();
+  const authToken = typeof window !== 'undefined' ? getToken() : null;
   const [wallets, setWallets] = useState<Wallet[]>([]);
   const [rates, setRates] = useState<Record<string, number>>({});
   const [rateDetails, setRateDetails] = useState<Record<string, any>>({});
+  const [forexMeta, setForexMeta] = useState<ForexRatesMeta>({});
+  const [limits, setLimits] = useState<{ monthlyLimit: number; spentThisMonth: number } | null>(null);
   const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
+    if (!isAuthenticated()) {
+      setWallets([]);
+      setFetchError(null);
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
+    setFetchError(null);
     try {
-      const [wRes, rRes] = await Promise.all([
-        apiFetch('/wallets', { cache: 'no-store' }).catch(() => null),
+      const [wRes, rRes, lRes] = await Promise.all([
+        apiFetch('/wallets', { cache: 'no-store' }),
         apiFetch('/forex/rates', { cache: 'no-store' }).catch(() => null),
+        apiFetch('/payments/limits', { cache: 'no-store' }).catch(() => null),
       ]);
-      
-      const userWallets = (Array.isArray(wRes?.wallets) ? wRes.wallets : []).filter(Boolean);
-      setWallets(userWallets);
-      
-      // Process rates into a lookup map "FROM-TO" -> Rate
+
+      setWallets(normalizeWallets(wRes));
+
+      if (lRes && typeof lRes === 'object') {
+        const raw = lRes as Record<string, unknown>;
+        const monthlyLimit = Number(raw.monthly_limit);
+        const spentThisMonth = Number(raw.spent_this_month);
+        if (Number.isFinite(monthlyLimit) && Number.isFinite(spentThisMonth)) {
+          setLimits({ monthlyLimit, spentThisMonth });
+        }
+      }
+
       const newRates: Record<string, number> = {};
       const newDetails: Record<string, any> = {};
 
-      if (rRes?.rates && Array.isArray(rRes.rates)) {
-        rRes.rates.forEach((r: any) => {
-          const key = `${r.base_currency}-${r.target_currency}`;
+      const meta = unwrapForexMeta(rRes);
+      const rateRows = unwrapForexRates(rRes);
+      let dataMode = meta.data_mode;
+      if (!dataMode && rateRows.length > 0) {
+        const hasLive = rateRows.some((r: Record<string, unknown>) => {
+          const p = String(r.provider ?? '').toLowerCase();
+          return p !== '' && p !== 'seed-runner' && p !== 'mockprovider';
+        });
+        dataMode = hasLive ? 'live' : 'unavailable';
+      }
+      setForexMeta({ ...meta, data_mode: dataMode });
+
+      if (rateRows.length > 0) {
+        rateRows.forEach((r: any) => {
+          const base = r.base_currency ?? r.baseCurrency ?? r.from;
+          const target = r.target_currency ?? r.targetCurrency ?? r.to;
+          if (!base || !target) return;
+          const key = `${base}-${target}`;
           newRates[key] = parseFloat(r.rate);
           newDetails[key] = {
             rate: parseFloat(r.rate),
@@ -52,36 +87,40 @@ export function useWalletStats() {
             changePercent: parseFloat(r.change_percent || 0),
             high24h: parseFloat(r.high_24h || r.rate),
             low24h: parseFloat(r.low_24h || r.rate),
-            lastUpdated: r.last_updated
+            lastUpdated: r.last_updated,
           };
 
-          // Also store simple keys for legacy support if needed
-          if (r.base_currency === 'MWK' && r.target_currency === 'CNY') newRates['mwkToCny'] = parseFloat(r.rate);
-          if (r.base_currency === 'CNY' && r.target_currency === 'MWK') newRates['cnyToMwk'] = parseFloat(r.rate);
-          if (r.base_currency === 'USD' && r.target_currency === 'MWK') newRates['usdToMwk'] = parseFloat(r.rate);
+          if (base === 'MWK' && target === 'CNY') newRates['mwkToCny'] = parseFloat(r.rate);
+          if (base === 'CNY' && target === 'MWK') newRates['cnyToMwk'] = parseFloat(r.rate);
+          if (base === 'USD' && target === 'MWK') newRates['usdToMwk'] = parseFloat(r.rate);
         });
       } else {
-        // Fallback
-        newRates['mwkToCny'] = EXCHANGE_RATE_MWK_TO_CNY;
-        newRates['cnyToMwk'] = EXCHANGE_RATE_CNY_TO_MWK;
-        newRates['MWK-CNY'] = EXCHANGE_RATE_MWK_TO_CNY;
-        newRates['CNY-MWK'] = EXCHANGE_RATE_CNY_TO_MWK;
+        setFetchError('Live exchange rates are temporarily unavailable. Please try again shortly.');
       }
-      
+
       setRates(newRates);
       setRateDetails(newDetails);
     } catch (e) {
-      console.error('Failed to fetch wallet stats', e);
+      const message = e instanceof Error ? e.message : 'Failed to load wallets';
+      setFetchError(message);
+      setWallets([]);
+      if (process.env.NODE_ENV === 'development') {
+        console.error('[useWalletStats]', message, e);
+      }
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    if (user) {
+    if (isAuthenticated()) {
       fetchData();
+      return;
     }
-  }, [user]);
+    setWallets([]);
+    setFetchError(null);
+    setLoading(false);
+  }, [fetchData, user?.id, authToken]);
 
   const refetch = () => fetchData();
 
@@ -91,8 +130,8 @@ export function useWalletStats() {
       const cur = String(w.currency).toUpperCase();
 
       if (cur === 'MWK') return sum + bal;
-      if (cur === 'CNY') return sum + bal * (rates['cnyToMwk'] || EXCHANGE_RATE_CNY_TO_MWK);
-      if (cur === 'USD') return sum + bal * (rates['usdToMwk'] || 1745);
+      if (cur === 'CNY') return sum + bal * (rates['cnyToMwk'] ?? 0);
+      if (cur === 'USD') return sum + bal * (rates['usdToMwk'] ?? 0);
       return sum + bal;
     }, 0);
 
@@ -101,10 +140,10 @@ export function useWalletStats() {
       const cur = String(w.currency).toUpperCase();
 
       if (cur === 'CNY') return sum + bal;
-      if (cur === 'MWK') return sum + bal * (rates['mwkToCny'] || EXCHANGE_RATE_MWK_TO_CNY);
+      if (cur === 'MWK') return sum + bal * (rates['mwkToCny'] ?? 0);
       if (cur === 'USD') {
-        const usdToMwk = rates['usdToMwk'] || 1745;
-        const mwkToCny = rates['mwkToCny'] || EXCHANGE_RATE_MWK_TO_CNY;
+        const usdToMwk = rates['usdToMwk'] ?? 0;
+        const mwkToCny = rates['mwkToCny'] ?? 0;
         return sum + bal * usdToMwk * mwkToCny;
       }
       return sum + bal;
@@ -118,17 +157,19 @@ export function useWalletStats() {
       balanceCNY: Math.round(totalCNY),
       primaryCurrency,
       lastDepositDate: new Date().toISOString().slice(0, 10),
-      monthlyLimit: 5000000,
-      spentThisMonth: Math.round((primaryCurrency === 'CNY' ? totalCNY : totalMWK) * 0.15),
+      monthlyLimit: limits?.monthlyLimit ?? 0,
+      spentThisMonth: limits?.spentThisMonth ?? 0,
     };
-  }, [wallets, rates, user]);
+  }, [wallets, rates, user, limits]);
 
   return {
     wallets,
     stats,
     rates,
     rateDetails,
+    forexMeta,
     loading,
+    fetchError,
     refetch,
   };
 }

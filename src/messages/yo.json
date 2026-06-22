@@ -11,6 +11,28 @@
     "recentActivity": "Iṣẹ́ Tuntun",
     "viewAll": "Wo Gbogbo Rẹ̀",
     "noRecentActivity": "Kò sí iṣẹ́ tuntun",
+    "quickActions": {
+      "title": "Iṣe kíákíá",
+      "send": "Ranṣẹ owo",
+      "deposit": "Fi owo kun",
+      "history": "Itan",
+      "wallets": "Awọn apamọwọ"
+    },
+    "metrics": {
+      "activeWallets": "Awọn apamọwọ ti nṣiṣẹ",
+      "pendingTransfers": "Awọn gbigbe ti nduro",
+      "primaryBalance": "Iwontunwonsi akọkọ",
+      "monthlyUsage": "Aala oṣooṣu ti a lo"
+    },
+    "pendingActions": {
+      "title": "O nilo akitiyan rẹ",
+      "verifyIdentityTitle": "Parí ìdánimọ̀ rẹ",
+      "verifyIdentitySubtitle": "Ṣii awọn apamọwọ, awọn aala ati awọn gbigbe agbaye.",
+      "verifyEmailTitle": "Jẹrisi imeeli rẹ",
+      "verifyEmailSubtitle": "Jẹrisi imeeli rẹ lati daabo bo irapada akanti ati awọn itaniji.",
+      "pendingTransfersTitle": "{count, plural, one {gbigbe # ti nduro} other {awọn gbigbe # ti nduro}}",
+      "pendingTransfersSubtitle": "Ṣayẹwo ipo ni itan iṣowo rẹ."
+    },
     "currentRate": "Oṣuwọn lọwọlọwọ",
     "lastUpdatedJustNow": "Tuntun: Ni bayi",
     "verificationRequired": "Ìjerìsí Ìdánimọ̀ jẹ́ dandan",
@@ -22,7 +44,17 @@
       "setAlert": "Ṣeto Itaniji",
       "viewHistory": "Wo Itan",
       "from": "Lati",
-      "to": "Si"
+      "to": "Si",
+      "currencyPlaceholder": "Owo",
+      "amountPlaceholder": "0,00"
+    },
+    "balanceHistory": {
+      "title": "Itan iye owo",
+      "selectPeriod": "Yan akoko",
+      "period7": "Ọjọ 7",
+      "period30": "Ọjọ 30",
+      "period90": "Ọjọ 90",
+      "balanceLabel": "Iwontunwonsi"
     },
     "market": {
       "overviewTitle": "Akopọ Ọja",
@@ -41,8 +73,25 @@
       },
       "source": {
         "title": "Orisun Ọja",
-        "body": "Awọn data akoko gidi ti a pese nipasẹ Google Finance. Awọn oṣuwọn jẹ itọkasi ati pe o le yatọ nipasẹ olupese."
-      }
+        "body": "Awọn data akoko gidi ti a pese nipasẹ Google Finance. Awọn oṣuwọn jẹ itọkasi ati pe o le yatọ nipasẹ olupese.",
+        "bodyLive": "Awọn oṣuwọn lati awọn API FX gbangba (Frankfurter, exchangerate.host). Ti a ṣe atokọ ati ṣe imudojuiwọn ni iṣẹju diẹ.",
+        "bodySeed": "Awọn oṣuwọn lati data idanwo aisinipo. Ṣeto FOREX_LIVE_ENABLED=true lori backend fun awọn oṣuwọn taara."
+      },
+      "rateLabel": "Oṣuwọn",
+      "badgeLive": "Taara",
+      "badgeSeed": "Data idanwo"
+    },
+    "moneySources": {
+      "title": "Awọn ọna isanwo ti a sopọ",
+      "subtitle": "Awọn olupese kanna bi idogo — ṣakoso ni Wallet tabi Eto.",
+      "viewWallet": "Ṣii wallet"
+    },
+    "walletData": {
+      "title": "Ko si data wallet",
+      "seedHint": "Ko si wallet ti API da pada. Ṣe seed data, lẹhinna wọle pẹlu akanti idanwo onibara.",
+      "errorHint": "Ibeere API wallet kuna. Jẹrisi pe agbọn nṣiṣẹ lori port 9000 ati pe o ti wọle.",
+      "loginHint": "Iwọle idanwo:",
+      "docsPath": "Awọn igbese seed: kyd-payment-system → docker compose --profile tools run --rm seed-runner (wo docs/LOCAL_TESTING.md)"
     }
   },
   "Wallet": {
@@ -84,6 +133,74 @@
       "discard": "Pa Awọn Iyipada Rẹ",
       "success": "Àpò-owó ti ṣẹda ni aṣeyọri",
       "error": "Ikuna lati ṣẹda àpò-owó"
+    },
+    "overview": {
+      "title": "Akopọ akopọ",
+      "empty": "Ko si iwontunwonsi sibẹ",
+      "walletCount": "{count, plural, one {apamọwọ #} other {awọn apamọwọ #}}",
+      "send": "Ranṣẹ owo",
+      "deposit": "Fi owo kun",
+      "addWallet": "Fi apamọwọ kun",
+      "withdraw": "Yọ kuro"
+    },
+    "card": {
+      "balance": "Iwontunwonsi",
+      "status": "Ipo",
+      "active": "Ti nṣiṣẹ",
+      "addMoney": "Fi owo kun"
+    },
+    "recentActivityTitle": "Iṣẹ apamọwọ to ṣẹṣẹ",
+    "recentActivityViewAll": "Gbogbo iṣowo",
+    "depositModal": {
+      "secureBadge": "Ifowopamọ aabo",
+      "title": "Fi {currency} pamọ",
+      "subtitle": "Fi owo pamọ ni apo rẹ kiakia lati banki tabi kaadi ti a sopọ.",
+      "fundingSource": "Orisun owo",
+      "selectSource": "Yan orisun",
+      "linkedBank": "Banki ti a sopọ (**** 1234)",
+      "visaCard": "Kaadi Visa (**** 5678)",
+      "depositAmount": "Iye idiyele",
+      "amountPlaceholder": "0.00",
+      "serviceFee": "Owo iṣẹ",
+      "totalSettlement": "Apapọ siseto",
+      "confirmDeposit": "Jẹri idiyele",
+      "success": "A ṣe idiyele {currency} {amount} ni aṣeyọri",
+      "error": "Kuna lati fi owo pamọ",
+      "successWithRef": "Ti fi {currency} {amount} si. Itọkasi: {ref}"
+    },
+    "subtitleCompact": "Awọn iye, orisun owo, ati iṣẹ aipẹ.",
+    "balanceToggle": {
+      "show": "Fi awọn iye han",
+      "hide": "Tọju awọn iye",
+      "visible": "Ti han",
+      "hidden": "Ti tọju"
+    },
+    "balanceHeader": {
+      "totalBalance": "Lapapọ iye",
+      "currencies": "Awọn owo",
+      "status": "Ipo",
+      "active": "Ti nṣiṣẹ"
+    },
+    "moneySources": {
+      "title": "Fi si lati",
+      "subtitle": "Yan banki, owo alagbeka, tabi kaadi — tẹ lati fi owo kun."
+    },
+    "withdrawModal": {
+      "secureBadge": "Gbigbe ailewu",
+      "title": "Yọ {currency} kuro",
+      "subtitle": "Gbe owo lọ si wallet miiran tabi akanti banki nipasẹ Ranṣẹ Owo.",
+      "available": "Iye to wa",
+      "destination": "Ibi aabo",
+      "toWallet": "Wallet VaultString",
+      "toBank": "Banki ti a sopọ",
+      "payoutAccount": "Akanti sisan",
+      "selectAccount": "Yan akanti",
+      "linkedBank": "Banki ti a sopọ (**** 1234)",
+      "visaCard": "Kaadi Visa (**** 5678)",
+      "bankNote": "Awọn sisan banki pari nipasẹ Ranṣẹ Owo pẹlu ọna sisan ti o yan.",
+      "amount": "Iye",
+      "amountPlaceholder": "0.00",
+      "continueToSend": "Tẹsiwaju si Ranṣẹ Owo"
     }
   },
   "Profile": {
@@ -104,11 +221,11 @@
     "updating": "N ṣe imudojuiwọn...",
     "mfa": "Ìfọwọ́sowọ́pọ̀ Aláyọ̀ Méjì",
     "mfaSubtitle": "Ṣafikun afikun aabo si account rẹ.",
-    "bio": "Bio",
+    "bio": "Isifinyezo",
     "country": "Orilẹ-ede",
     "city": "Ilu/Ipinle",
-    "taxId": "Tax ID",
-    "postalCode": "Postal Code",
+    "taxId": "I-ID yentela",
+    "postalCode": "Ikhodi yeposi",
     "memberSince": "Ọmọ ẹgbẹ lati",
     "accountStatus": "Ipo Account",
     "verified": "Ti jẹrisi",
@@ -183,6 +300,25 @@
     "dialogIdentitySubtitle": "Mu alaye ara ẹni rẹ wa ni isinsinyi lori VaultString.",
     "bioPlaceholder": "Sọ nipa ara rẹ (aṣayan)",
     "defaultBioTagline": "Onibara VaultString",
+    "securitySettingsTitle": "Eto aabo",
+    "passwordLastChanged": "Ti yí padà osù 3 sẹyin",
+    "recoveryEmail": "Imeeli irapada",
+    "recoveryEmailSet": "Imeeli irapada ti ṣeto",
+    "recoveryEmailHint": "Fi imeeli irapada kun lati daabo bo akanti rẹ",
+    "addEmail": "Fi imeeli kun",
+    "connected": "Ti sopọ",
+    "recoveryModalTitle": "Fi imeeli irapada kun",
+    "recoveryModalBody": "A o fi ọna asopọ ijẹrisi ranṣẹ si imeeli yii. A o lo lati gba akanti rẹ pada ti o ba padanu wiwọle.",
+    "recoveryEmailLabel": "Adirẹsi imeeli irapada",
+    "recoveryPlaceholder": "apẹ. backup@imeeli.com",
+    "recoveryComingSoon": "Imeeli irapada ko wa sibẹ. Jọwọ kan si atilẹyin.",
+    "recoveryFailed": "Kuna lati fi imeeli igbapada kun",
+    "recoverySuccess": "Imeeli igbapada kun ni aṣeyọri",
+    "edit": "Ṣatunkọ",
+    "notSet": "Ko ti ṣeto",
+    "emailChangeHint": "(Kan si atilẹyin lati yi pada)",
+    "phoneNumber": "Nọmba foonu",
+    "kycStatusLabel": "Ipo KYC",
     "toasts": {
       "profileUpdated": "Profaili ni imudojuiwọn ni aṣeyọri",
       "profileFailed": "Kuna lati ṣe imudojuiwọn profaili",
@@ -197,6 +333,12 @@
       "invalidTotpCode": "Koodu ijẹrisi ko tọ",
       "avatarUploading": "N gbe aworan profaili soke…",
       "avatarUpdated": "Aworan profaili ni imudojuiwọn"
+    },
+    "loginHistory": {
+      "title": "Itan wiwọle",
+      "device": "Ẹrọ",
+      "location": "Ibi",
+      "dateTime": "Ọjọ ati akoko"
     }
   },
   "Sidebar": {
@@ -205,8 +347,14 @@
     "sendMoney": "Fi Owo Ránṣẹ",
     "transactions": "Àwọn Ìdúró-owó",
     "profile": "Profaili",
+    "settings": "Ètò",
+    "compliance": "Ibamu",
+    "notifications": "Ìkìlọ",
     "verifyIdentity": "Jẹrisi Idanimọ",
-    "signOut": "Jáde"
+    "signOut": "Jáde",
+    "sectionMoney": "Owó",
+    "sectionAccount": "Àkántì",
+    "closeMenu": "Pa akojọpọ"
   },
   "SendMoney": {
     "title": "Fi Owo Ránṣẹ",
@@ -239,6 +387,8 @@
       "generic": "Nkan kan ko tọ. Jọwọ tun gbiyanju."
     },
     "feeNote": "Awọn idiyele ti wa ni iṣiro da lori oloomi ati iwọn nẹtiwọọki ni akoko gbigbe.",
+    "reviewConfirm": "Mo ti ṣayẹwo olugba, owo, owo-ori, ati alaye sisan ṣaaju gbigbe.",
+    "reviewHint": "Jẹrisi atokọ ayẹwo gbigbe lati tẹsiwaju.",
     "paymentDetails": "Awọn alaye Sisanwo",
     "international": "Agbaye",
     "sameCurrency": "Owo Kanna",
@@ -295,6 +445,16 @@
       "receiver": "Olugba",
       "amountSent": "Iye ti a ran",
       "sendAnother": "Ran sanwo miiran"
+    },
+    "subtitleCompact": "Olugbọ, iye, lẹhinna awọn olupese owo ati sisan.",
+    "stepper": {
+      "details": "Awọn alaye",
+      "review": "Atunyẹwo",
+      "success": "Parí",
+      "detailsHeading": "Awọn alaye gbigbe",
+      "reviewHeading": "Atunyẹwo ati jẹrisi",
+      "continue": "Tẹsiwaju",
+      "backToEdit": "Pada si ṣatunkọ"
     }
   },
   "Common": {
@@ -303,7 +463,12 @@
     "loading": "N ṣiṣẹ lọwọ...",
     "save": "Fipamọ",
     "error": "Àṣìṣe",
-    "success": "Àṣeyọrí"
+    "success": "Àṣeyọrí",
+    "passwordMask": "••••••••",
+    "loadingAria": "N gbigbe",
+    "errorBoundaryTitle": "Aṣiṣe kan ṣẹlẹ",
+    "errorBoundaryMessage": "Aṣiṣe aito ṣẹlẹ lakoko igbasilẹ apá yìí.",
+    "errorBoundaryRetry": "Gbiyanju lẹkan si"
   },
   "Layout": {
     "emailVerificationRequired": {
@@ -323,16 +488,35 @@
       "compliance": "Ibamu ati KYC",
       "profile": "Profaili ati Aabo",
       "translation": "Ètò Èdè",
-      "onboarding": "Ìjerìsí Ìdánimọ̀"
+      "onboarding": "Ìjerìsí Ìdánimọ̀",
+      "settings": "Eto"
+    },
+    "a11y": {
+      "openMenu": "Ṣii akojọ"
     },
     "search": {
-      "placeholder": "Wa awọn ìdúró-owó..."
+      "placeholder": "Wa awọn ìdúró-owó...",
+      "noResults": "Ko si esi",
+      "aiSuggestions": "Awọn imọran AI",
+      "recentSearches": "Awọn wiwa to ṣẹṣẹ",
+      "clear": "Paarẹ",
+      "mock": {
+        "paymentTo": "Isanwo si {name}",
+        "paymentSuccess": "{amount} • Aṣeyọri",
+        "withdrawalToBank": "Yiyọ si banki",
+        "withdrawalPending": "{amount} • Nduro",
+        "usdSavings": "Ipona USD",
+        "walletPrimary": "Akọkọ • {balance}",
+        "sampleRecipient": "Olugba ti a ṣeduro",
+        "sampleRecipientEmail": "Imeeli olugba"
+      }
     },
     "notifications": {
       "title": "Àwọn Ìfilọ̀",
       "newCount": "{count} Tuntun",
       "empty": "Kò sí iwifunni tuntun",
-      "viewAll": "Wo gbogbo awọn iwifunni"
+      "viewAll": "Wo gbogbo awọn iwifunni",
+      "justNow": "Bayi"
     },
     "theme": {
       "toggleAria": "Yipada akori"
@@ -343,7 +527,13 @@
       "security": "Ààbò",
       "billing": "Ìdíyelé ati Awọn Kaadi",
       "settings": "Ètò",
-      "signOut": "Jáde"
+      "signOut": "Jáde",
+      "member": "Àkọọ́lẹ̀",
+      "personal": "Àkọọ́lẹ̀ ti ara ẹni",
+      "business": "Àkọọ́lẹ̀ iṣowo",
+      "agent": "Àkọọ́lẹ̀ aṣoju",
+      "senderMalawi": "Olufiranṣẹ (Malawi)",
+      "receiverChina": "Olugba (China)"
     }
   },
   "Settings": {
@@ -403,6 +593,88 @@
       "disabled": "Ìfọwọ́sowọ́pọ̀ aláyọ̀ méjì ti wa ni pipade",
       "error": "Ikuna lati ṣe imudojuiwọn awọn eto 2FA",
       "invalidCode": "Koodu ijẹrisi ko wulo"
+    },
+    "language": {
+      "title": "Ede ati agbegbe",
+      "subtitle": "Yan bii a ṣe n ṣafihan VaultString. Gbogbo awọn ede 12 wa."
+    },
+    "nav": {
+      "ariaLabel": "Awọn apakan ti eto",
+      "account": "Àkọọ́lẹ̀",
+      "security": "Ààbò",
+      "notifications": "Awọn iwifunni",
+      "language": "Èdè àti agbègbè",
+      "appearance": "Àrà",
+      "privacy": "Àṣírí",
+      "limits": "Àwọn ààlà",
+      "connectedAccounts": "Àwọn àkọọ́lẹ̀ tí a so pọ̀",
+      "helpSupport": "Ìrànlọ́wọ́ àti àtìlẹ́yìn",
+      "profile": "Profile",
+      "documents": "Documents & KYC"
+    },
+    "account": {
+      "title": "Àkọọ́lẹ̀",
+      "subtitle": "Idanimọ VaultString rẹ ati ipo ijẹrisi rẹ.",
+      "signedInAs": "Ti wọlé gẹgẹ bi",
+      "verificationStatus": "Ipo ijẹrisi",
+      "memberSince": "Ọmọ ẹgbẹ lati",
+      "manageProfile": "Ṣakoso profaili",
+      "verified": "Ti jẹrisi",
+      "pending": "Nduro fun ayẹwo",
+      "unverified": "Ko ti jẹrisi"
+    },
+    "privacy": {
+      "title": "Àṣírí",
+      "subtitle": "Ṣakoso bi a ṣe nlo data rẹ.",
+      "analytics": {
+        "title": "Itupalẹ lilo",
+        "subtitle": "Ṣe iranlọwọ lati mu VaultString dara pẹlu data ailorukọ"
+      },
+      "marketing": {
+        "title": "Awọn ipese ti ara ẹni",
+        "subtitle": "Gba awọn igbasilẹ ẹya ti o da lori iṣẹ"
+      },
+      "profileVisibility": {
+        "title": "Profaili gbangba",
+        "subtitle": "Ṣafihan ọna asopọ profaili rẹ lori awọn risiti sisanwo ti a pinpin"
+      }
+    },
+    "limits": {
+      "title": "Àwọn Ààlà",
+      "subtitle": "Àwọn ààlà iṣowo àti àkọọ́lẹ̀ fún ìpele ìjẹrisi rẹ.",
+      "monthlyLimit": "Ààlà gbigbe oṣooṣu",
+      "usedThisMonth": "Ti a lo ni oṣu yii",
+      "remaining": "Tó kù",
+      "readOnlyNote": "Àwọn ààlà ṣeto nipasẹ ìpele ìjẹrisi rẹ ati pe ko le yi pada nibi.",
+      "upgradeCta": "Parí ìjẹrisi láti ṣe àfikún àwọn ààlà"
+    },
+    "connectedAccounts": {
+      "title": "Àwọn àkọọ́lẹ̀ tí a so pọ̀",
+      "subtitle": "So àwọn apamọwọ ati àwọn olùpèsè sísanwo ti ita pọ̀.",
+      "comingSoon": "Àwòtẹ́lẹ̀",
+      "comingSoonDetail": "So asopọ banki ati owo alagbeja yoo wa ni ẹda to n bọ.",
+      "providersHint": "Awọn orisun owo ati awọn olupese API ti a fọwọsi ni agbegbe rẹ (iwoye kika nikan).",
+      "apiKeysPlaceholder": "Isakoso bọtini API: POST /api/v1/providers/keys (placeholder — so pọ ni admin nigbati backend ba setan)."
+    },
+    "helpSupport": {
+      "title": "Ìrànlọ́wọ́ àti àtìlẹ́yìn",
+      "subtitle": "Gba iranlọwọ ki o si kọ ẹkọ diẹ sii nipa VaultString.",
+      "helpCenter": "Ile-iṣẹ iranlọwọ",
+      "helpCenterDesc": "Ṣawari awọn itọsọna ati awọn FAQ",
+      "contactSupport": "Kan si atilẹyin",
+      "contactSupportDesc": "Fi imeeli ranṣẹ si ẹgbẹ atilẹyin wa",
+      "compliance": "Ìjẹrisi idanimọ",
+      "complianceDesc": "Ṣakoso awọn iwe KYC ati ipo",
+      "securityGuide": "Awọn iṣe aabo to dara julọ",
+      "securityGuideDesc": "Pa àkọọ́lẹ̀ rẹ mọ aabo"
+    },
+    "documents": {
+      "title": "Documents & KYC",
+      "subtitle": "View verification status and manage identity documents.",
+      "statusLabel": "Verification status",
+      "statusHint": "Upload or update your KYC documents from the compliance center.",
+      "manageCta": "Manage documents",
+      "startKycCta": "Start verification"
     }
   },
   "Notifications": {
@@ -443,6 +715,10 @@
       "warning": "Ikilọ",
       "error": "Ikilọ Aabo"
     },
+    "activity": {
+      "paymentTitle": "Imudojuiwọn isanwo to ṣẹṣẹ",
+      "paymentBody": "Gbigbe {amount} {currency} bayi jẹ {status}."
+    },
     "loadMore": "Gbe diẹ sii",
     "loading": "N gbe awọn iwifunni soke...",
     "deleteConfirm": "Ṣe o da ọ loju pe o fẹ pa iwifunni yii rẹ?",
@@ -478,7 +754,7 @@
       "title": "Awọn Kaadi Mi",
       "manage": "Ṣakoso",
       "totalBalance": "Lapapọ Owo",
-      "walletId": "Wallet ID",
+      "walletId": "I-ID yewalethi",
       "addNewCard": "Fi Kaadi Tuntun Kún Un"
     },
     "list": {
@@ -488,7 +764,39 @@
       "unknownSender": "Olufiranṣẹ ti a ko mọ",
       "unknownReceiver": "Olugba ti a ko mọ",
       "datePending": "Ọjọ ti o duro de",
-      "invalidDate": "Ọjọ ti ko tọ"
+      "invalidDate": "Ọjọ ti ko tọ",
+      "columns": {
+        "description": "Apejuwe",
+        "amount": "Iye owo",
+        "status": "Ipo"
+      }
+    },
+    "table": {
+      "actions": "Awọn iṣe",
+      "viewReceipt": "Wo risiti",
+      "archive": "Fi pamọ",
+      "unread": "Aikà",
+      "sentSummary": "Ran <amount></amount> si <name></name>",
+      "receivedSummary": "Gba <amount></amount> lati <name></name>",
+      "dateAt": "{date} ni {time}"
+    },
+    "receiptModal": {
+      "title": "Risiti",
+      "totalAmount": "Lapapọ Iye Owo",
+      "referenceId": "ID Itọkasi",
+      "sender": "Olufiranṣẹ",
+      "receiver": "Olugba",
+      "subtotal": "Akopọ kekere",
+      "serviceFee": "Owo Iṣẹ",
+      "recipientReceives": "Olugba Gba",
+      "verifiedFooter": "Ni ijeri nipasẹ VaultString Security"
+    },
+    "grid": {
+      "to": "Si",
+      "from": "Lati",
+      "amount": "Iye",
+      "date": "Ọjọ",
+      "time": "Akoko"
     }
   },
   "Receipt": {
@@ -510,6 +818,7 @@
     "labelTxnId": "ID idunadura",
     "labelSender": "Oluranṣẹ",
     "labelReceiver": "Olugba",
+    "labelStatus": "Ipo",
     "labelAmount": "Iye",
     "labelFee": "Owo ilana",
     "labelTotalDebited": "Lapapọ ti a ya kuro",
@@ -524,6 +833,14 @@
     "loadFailed": "Kuna lati gba risiti"
   },
   "Auth": {
+    "language": {
+      "label": "Èdè"
+    },
+    "social": {
+      "orContinueWith": "Tabi tẹsiwaju pẹlu",
+      "google": "Google",
+      "apple": "Apple"
+    },
     "login": {
       "title": "Wọlé",
       "subtitle": "Kaabo pada si VaultString",
@@ -551,7 +868,8 @@
       "validation": {
         "emailInvalid": "Jọwọ tẹ adirẹsi imeeli to wulo",
         "passwordRequired": "Ọrọ igbaniwọle jẹ dandan"
-      }
+      },
+      "errorGoogleNotConfigured": "Wiwọle Google ko ṣeeto lori olupin. Ṣeto GOOGLE_CLIENT_ID ati GOOGLE_CLIENT_SECRET ninu .env backend, ki o tun bẹrẹ iṣẹ idaniloju."
     },
     "signup": {
       "alertFailedTitle": "Iforukọsilẹ kuna",
@@ -591,7 +909,12 @@
         "termsRequired": "O gbọdọ gba awọn ofin ati ipo",
         "passwordMismatch": "Awọn ọrọ igbaniwọle ko baramu",
         "businessNameRequired": "Orukọ iṣowo jẹ dandan fun awọn akọọlẹ iṣowo"
-      }
+      },
+      "alertComingSoonTitle": "Nbọ laipe",
+      "errorGoogleNotConfigured": "Wiwọle Google ko ṣeeto lori olupin. Ṣeto GOOGLE_CLIENT_ID ati GOOGLE_CLIENT_SECRET ninu .env backend, ki o tun bẹrẹ iṣẹ idaniloju.",
+      "errorAppleComingSoon": "Wiwọle Apple ko wa sibẹ sibẹ. Lo imeeli ati ọrọ aṣina.",
+      "pageTitle": "Ṣẹda Akanti",
+      "pageSubtitle": "Darapọ mọ VaultString loni"
     }
   },
   "Translation": {
@@ -600,7 +923,8 @@
     "appLanguageHint": "Yan èdè fún àwòrán.",
     "searchPlaceholder": "Wa èdè...",
     "languageUpdated": "A ṣe imudojuiwọn èdè ni aṣeyọri",
-    "translating": "Ń túmọ̀…"
+    "translating": "Ń túmọ̀…",
+    "backToSettings": "Padà sí ètò"
   },
   "Verification": {
     "verifyingTitle": "Ń Ṣàrídájú Ímeèlì",
@@ -627,7 +951,17 @@
     "useMagicLink": "Lo àsopọ̀ aṣẹran dípò",
     "invalidCode": "Kóòdù àrídájú kò tọ́",
     "invalidLink": "Àsopọ̀ àrídájú kò tọ́ tàbí ó ti parí",
-    "resendFailed": "Kùnà láti tún kóòdù ranṣẹ́"
+    "resendFailed": "Kùnà láti tún kóòdù ranṣẹ́",
+    "continueWithCode": "Tẹsiwaju pẹlu koodu ijẹrisi",
+    "emailPlaceholder": "Tẹ adirẹsi imeeli rẹ",
+    "emailRequired": "A nilo imeeli ṣaaju titun gbigbe koodu.",
+    "emailPageTitle": "Ijẹrisi Imẹeli",
+    "emailPageSubtitle": "N jẹrisi idanimọ rẹ",
+    "verifyingEmailMessage": "N jẹrisi imeeli rẹ…",
+    "invalidLinkMissingToken": "Ọna asopọ ijẹrisi ko tọ. A ko ri ami.",
+    "emailVerifiedMessage": "Imeeli rẹ ti jẹrisi ni aṣeyọri.",
+    "continueToLogin": "Tẹsiwaju si wiwọle",
+    "resendHint": "Ti o ba tẹsiwaju ni awọn iṣoro, beere ọna asopọ ijẹrisi tuntun."
   },
   "ResetPassword": {
     "emailTitle": "Tún Ọ̀rọ̀ Aṣínà Ṣe",
@@ -698,120 +1032,144 @@
     "loadFailed": "Kùnà láti ṣe ìgbéjáde ipò ìtẹ̀lé",
     "fillAllFields": "Jọ̀wọ́ kún gbogbo àwọn ààyè kí o sì gbé ìwé kan sókè",
     "submitSuccess": "A fi àwọn ìwé KYC sílẹ̀ ni aṣeyọri",
-    "submitFailed": "Kùnà láti fi àwọn ìwé sílẹ̀"
+    "submitFailed": "Kùnà láti fi àwọn ìwé sílẹ̀",
+    "widgetTitle": "Ìtẹ̀lé àti KYC",
+    "widgetSubtitle": "Ṣakoso awọn iwe ijeri idanimọ rẹ lati ṣii awọn ààlà to ga julọ.",
+    "accountStatus": "Àkọọ́lẹ̀ {status}",
+    "uploadingDocument": "N gbé ìwé sókè...",
+    "uploadSuccess": "A gbe ìwé pada ni aṣeyori. Ẹgbẹ wa yoo ṣe ayẹwo laipẹ.",
+    "uploadFailed": "Kuna lati gbe ìwé pada. Jọwọ gbiyanju lẹẹkansi.",
+    "documentOnFile": "Ìwé ni fáìlì:",
+    "uploadedOn": "Ti a gbe pada ni {date}",
+    "uploadCta": "Tẹ láti gbé sókè tàbí fa ki o ju",
+    "uploadFormatsSmall": "PDF, JPG, tàbí PNG (Òṣìṣẹ́ 5MB)",
+    "approved": "TI A FI ẸNU JADE",
+    "idDocTitle": "ID Orilẹ-ede / Pasipọọti",
+    "addressDocTitle": "Ẹri Adirẹsi",
+    "verificationCard": {
+      "verifiedTitle": "A ti jẹrisi idanimọ",
+      "requiredTitle": "Ijẹrisi nilo",
+      "verifiedBody": "A ti jẹrisi akọọlẹ rẹ ni pipe. O le ṣe iṣowo pẹlu awọn aala ti o ga ati gbogbo awọn ẹya.",
+      "unverifiedBody": "Jọwọ fi idanimọ ijọba ati ẹri adirẹsi silẹ lati mu awọn aala pọ si.",
+      "dailyLimit": "Aala ojoojumọ",
+      "monthlyLimit": "Aala oṣooṣu",
+      "intlTransfers": "Awọn gbigbe agbaye",
+      "enabled": "Ti ṣiṣẹ"
+    }
   },
   "Onboarding": {
     "userType": {
       "title": "Mọ Onibara Rẹ",
       "subtitle": "Yan iru iwe akọọlẹ lati bẹrẹ iṣẹ idaniloju",
-      "individualTitle": "Individual",
-      "individualDescription": "Verify as a private person. Takes about 10 minutes.",
-      "individualFeaturePersonal": "Personal information",
-      "individualFeatureId": "ID verification",
-      "individualFeatureAddress": "Address proof",
+      "individualTitle": "Eniyan",
+      "individualDescription": "Ṣe idaniloju gẹgẹbi eniyan aladani. O gba nipa iṣẹju 10.",
+      "individualFeaturePersonal": "Alaye ti ara ẹni",
+      "individualFeatureId": "Idaniloju idanimọ",
+      "individualFeatureAddress": "Ijẹri adirẹsi",
       "individualCta": "Tẹsiwaju gẹgẹbi Eniyan",
-      "businessTitle": "Business",
-      "businessDescription": "Verify your company. Takes about 15 minutes.",
-      "businessFeatureCompany": "Company details",
-      "businessFeatureUbo": "UBO disclosure",
-      "businessFeatureDocs": "Documentation",
+      "businessTitle": "Iṣowo",
+      "businessDescription": "Ṣe idaniloju ile-iṣẹ rẹ. O gba nipa iṣẹju 15.",
+      "businessFeatureCompany": "Alaye ile-iṣẹ",
+      "businessFeatureUbo": "Ifihan UBO",
+      "businessFeatureDocs": "Iwe aṣẹ",
       "businessCta": "Tẹsiwaju gẹgẹbi Iṣowo",
-      "privacyNote": "We take your privacy seriously. Your information is encrypted and secure.",
-      "complianceNote": "Compliant with Malawi RBM and China PBOC regulations"
+      "privacyNote": "A gba aṣiri rẹ pataki. Alaye rẹ ni a fi paṣipaṣi ati aabo.",
+      "complianceNote": "O baamu pẹlu ofin RBM Malawi ati PBOC China"
     },
     "flow": {
       "changeType": "Yi Irú Padà",
       "saveDraft": "Fi Akọsilẹ Pamọ",
       "draftSaved": "A ti fi ilọsiwaju pamọ. O le tẹsiwaju nigbamii.",
       "back": "Pada si igbesẹ to kọja",
-      "stepSubtitle": "Step {current} of {total}",
+      "stepSubtitle": "Igbesẹ {current} ninu {total}",
       "continue": "Tẹsiwaju si Igbesẹ to Kan"
     },
     "individualSteps": {
-      "personal": "Personal Details",
-      "contact": "Contact Information",
-      "id": "ID Verification",
-      "funds": "Source of Funds",
-      "security": "Security Setup",
-      "terms": "Terms & Agreements"
+      "personal": "Alaye Ti Ara Ẹni",
+      "contact": "Alaye Ibi Ikanṣẹ",
+      "id": "Idaniloju Idanimọ",
+      "funds": "Orisun Owo",
+      "security": "Aabo",
+      "terms": "Awọn Ofin ati Adehun"
     },
     "businessSteps": {
-      "company": "Company Details",
-      "business": "Business Information",
-      "reps": "Authorized Representatives",
-      "ubo": "UBO Disclosure",
-      "banking": "Banking Details",
-      "docs": "Documentation",
-      "compliance": "Compliance"
+      "company": "Alaye Ile-iṣẹ",
+      "business": "Alaye Iṣowo",
+      "reps": "Awọn Aṣoju Ti A Gba Laaye",
+      "ubo": "Ifihan UBO",
+      "banking": "Alaye Banki",
+      "docs": "Iwe Aṣẹ",
+      "compliance": "Iṣẹ Aniyan"
     },
     "personalDetails": {
-      "firstNameLabel": "First Name *",
+      "firstNameLabel": "Orukọ Akọkọ *",
       "firstNamePlaceholder": "John",
-      "lastNameLabel": "Last Name *",
+      "lastNameLabel": "Orukọ Idile *",
       "lastNamePlaceholder": "Doe",
-      "dateOfBirthLabel": "Date of Birth *",
-      "nationalityLabel": "Nationality *",
+      "dateOfBirthLabel": "Ọjọ Ibí *",
+      "nationalityLabel": "Orilẹ-ede *",
       "nationalityPlaceholder": "United States",
-      "idTypeLabel": "ID Type",
-      "idTypePassport": "Passport",
-      "idTypeDriverLicense": "Driver's License",
-      "idTypeNationalId": "National ID",
-      "encryptionNote": "Your personal information is encrypted and will only be used for verification purposes.",
+      "idTypeLabel": "Iru Idanimọ",
+      "idTypePassport": "Pasipọọti",
+      "idTypeDriverLicense": "Iwe-ẹri Awakọ",
+      "idTypeNationalId": "Idanimọ Orilẹ-ede",
+      "encryptionNote": "Alaye ti ara ẹni rẹ ni a fi paṣipaṣi ati a ma lo fun idaniloju nikan.",
       "validation": {
-        "firstNameRequired": "First name is required",
-        "lastNameRequired": "Last name is required",
-        "dateOfBirthRequired": "Date of birth is required",
-        "nationalityRequired": "Nationality is required"
+        "firstNameRequired": "Orukọ akọkọ jẹ dandan",
+        "lastNameRequired": "Orukọ idile jẹ dandan",
+        "dateOfBirthRequired": "Ọjọ ibí jẹ dandan",
+        "nationalityRequired": "Orilẹ-ede jẹ dandan"
       }
     },
     "contactInfo": {
-      "phoneLabel": "Phone Number *",
+      "phoneLabel": "Nomba Foonu *",
       "phonePlaceholder": "+1 (555) 123-4567",
-      "emailLabel": "Email Address *",
+      "emailLabel": "Adirẹsi Imẹẹli *",
       "emailPlaceholder": "kelvin@example.com",
-      "addressLabel": "Address *",
+      "addressLabel": "Adirẹsi *",
       "addressPlaceholder": "123 Main Street",
-      "cityLabel": "City *",
+      "cityLabel": "Ilu *",
       "cityPlaceholder": "Lilongwe",
-      "countryLabel": "Country *",
+      "countryLabel": "Orilẹ-ede *",
       "countryPlaceholder": "Malawi",
-      "postalCodeLabel": "Postal Code *",
+      "postalCodeLabel": "Koodu Posti *",
       "postalCodePlaceholder": "10001",
       "validation": {
-        "phoneRequired": "Phone number is required",
-        "emailRequired": "Email is required",
-        "addressRequired": "Address is required",
-        "cityRequired": "City is required",
-        "countryRequired": "Country is required",
-        "postalCodeRequired": "Postal code is required"
+        "phoneRequired": "Nomba foonu jẹ dandan",
+        "emailRequired": "Imẹẹli jẹ dandan",
+        "addressRequired": "Adirẹsi jẹ dandan",
+        "cityRequired": "Ilu jẹ dandan",
+        "countryRequired": "Orilẹ-ede jẹ dandan",
+        "postalCodeRequired": "Koodu posti jẹ dandan"
       }
     },
     "idVerification": {
-      "documentNumberLabel": "Document Number *",
+      "documentNumberLabel": "Nomba Iwe Aṣẹ *",
       "documentNumberPlaceholder": "ABC123456789",
-      "expiryDateLabel": "Expiry Date *",
-      "uploadLabel": "Upload Document *",
+      "expiryDateLabel": "Ọjọ Ipari *",
+      "uploadLabel": "Gbe Iwe Aṣẹ Sọke *",
       "previewAlt": "Preview",
-      "uploadCta": "Click to upload or drag and drop",
-      "uploadFormats": "PNG, JPG, or PDF (max 10MB)",
-      "secureNote": "Your document is verified securely. We only use it to confirm your identity.",
+      "uploadCta": "Tẹ lati gbe sọke tabi fa ki o ju",
+      "uploadFormats": "PNG, JPG tabi PDF (o pọju 10MB)",
+      "secureNote": "A ṣe idaniloju iwe aṣẹ rẹ ni aabo. A lo nikan lati jẹrisi idanimọ rẹ.",
       "validation": {
-        "documentNumberRequired": "Document number is required",
-        "expiryDateRequired": "Expiry date is required",
-        "fileRequired": "Document file is required"
+        "documentNumberRequired": "Nomba iwe aṣẹ jẹ dandan",
+        "expiryDateRequired": "Ọjọ ipari jẹ dandan",
+        "fileRequired": "Faili iwe aṣẹ jẹ dandan"
       }
     },
     "sourceOfFunds": {
-      "employmentStatusLabel": "Employment Status *",
-      "employmentEmployed": "employed",
-      "employmentSelfEmployed": "self employed",
-      "employmentRetired": "retired",
-      "employmentStudent": "student",
-      "employmentOther": "other",
-      "currencyLabel": "Currency *",
-      "currencyMwk": "Malawian Kwacha (MWK)",
-      "currencyCny": "Chinese Yuan (CNY)",
-      "incomeRangeLabel": "Annual Income Range *",
+      "employmentStatusLabel": "Ipo Iṣẹ *",
+      "employmentEmployed": "osise",
+      "employmentSelfEmployed": "alagbara ara ẹni",
+      "employmentUnemployed": "Unemployed",
+      "employmentRetired": "agbalagba ti o ti fi iṣẹ silẹ",
+      "employmentStudent": "akẹkọ",
+      "employmentOther": "miiran",
+      "currencyLabel": "Owo *",
+      "currencyMwk": "Kwacha Malawi (MWK)",
+      "currencyCny": "Yuan China (CNY)",
+      "incomeRangeLabel": "Ipele Owo Ori Ti Odun *",
       "incomeMwk0": "0 - 100,000 MWK",
       "incomeMwk1": "100,000 - 500,000 MWK",
       "incomeMwk2": "500,000 - 1,000,000 MWK",
@@ -822,190 +1180,229 @@
       "incomeCny2": "200,000 - 500,000 CNY",
       "incomeCny3": "500,000 - 2,000,000 CNY",
       "incomeCny4": "2,000,000+ CNY",
-      "amlNote": "This information helps us comply with anti-money laundering regulations."
+      "employmentOtherDescriptionLabel": "Ṣe apejuwe iṣẹ rẹ *",
+      "employmentOtherDescriptionPlaceholder": "apẹẹrẹ, Onimọran alagbara, Agbe akoko",
+      "employmentSupplementaryLabel": "Awọn alaye iṣẹ afikun (aṣayan)",
+      "employmentSupplementaryPlaceholder": "Sọ fun wa bi o ṣe n gba owo wọle",
+      "incomeOther": "Miiran / ṣe apejuwe",
+      "incomeOtherDescriptionLabel": "Ṣe apejuwe owo ori ọdun rẹ *",
+      "incomeOtherDescriptionPlaceholder": "apẹẹrẹ, Owo ori ayipada, taara 200,000–400,000 MWK fun ọdun kan",
+      "validation": {
+        "employmentOtherRequired": "Jọwọ ṣe apejuwe iṣẹ rẹ",
+        "incomeOtherRequired": "Jọwọ ṣe apejuwe ibi owo ori rẹ"
+      },
+      "amlNote": "Alaye yii ran wa lọwọ lati tẹle awọn ofin anti-money laundering."
     },
     "securitySetup": {
-      "twoFaLabel": "Enable two-factor authentication (2FA) for enhanced security",
-      "question1Label": "Security Question 1 *",
-      "selectQuestion": "Select a question",
-      "answerLabel": "Your Answer *",
+      "twoFaLabel": "Mu iṣẹ idaniloju meji (2FA) ṣiṣẹ fun aabo to dara si",
+      "question1Label": "Ibeere Aabo 1 *",
+      "selectQuestion": "Yan ibeere kan",
+      "answerLabel": "Idahun Rẹ *",
       "answerPlaceholder": "Your answer",
-      "recoveryNote": "These security questions help us verify your identity if you need to recover your account.",
+      "recoveryNote": "Awọn ibeere aabo wọnyi ran wa lọwọ lati jẹrisi idanimọ rẹ ti o ba nilo lati gba pada iwe akọọlẹ rẹ.",
       "questions": {
-        "maidenName": "What is your mother's maiden name?",
-        "firstPet": "What was the name of your first pet?",
-        "birthCity": "In what city were you born?",
-        "favoriteTeacher": "What is the name of your favorite teacher?",
-        "firstCar": "What was the make of your first car?"
+        "maidenName": "Kini orukọ abiye iya rẹ?",
+        "firstPet": "Kini orukọ ẹranko rẹ akọkọ?",
+        "birthCity": "Ni ilu wo ni a bi ẹ?",
+        "favoriteTeacher": "Kini orukọ olukọ ti o fẹran?",
+        "firstCar": "Kini aṣọ ọkọ rẹ akọkọ?"
       },
       "validation": {
-        "questionRequired": "Please select a security question",
-        "answerRequired": "Please answer the security question"
+        "questionRequired": "Jọwọ yan ibeere aabo kan",
+        "answerRequired": "Jọwọ dahun ibeere aabo"
       }
     },
     "terms": {
-      "heading": "Terms and Conditions",
-      "body1": "By using our KYC verification service, you agree to comply with all applicable laws and regulations. You represent that all information provided is accurate and complete. We reserve the right to deny access or cancel accounts if we detect fraudulent activity or violation of our terms.",
-      "body2": "Your data will be processed securely and in compliance with international data protection regulations including GDPR and local standards.",
-      "privacyLabel": "I have read and agree to the <privacy>Privacy Policy</privacy> *",
-      "privacyLink": "Privacy Policy",
-      "termsLabel": "I have read and agree to the <terms>Terms of Service</terms> *",
-      "termsLink": "Terms of Service",
-      "dataLabel": "I consent to the secure storage of my personal data *",
+      "heading": "Awọn Ofin ati Awọn Ipinnu",
+      "body1": "Nipa lilo iṣẹ iṣamudaju KYC wa, o gba lati tẹle gbogbo ofin ati ilana ti o wulo.",
+      "body2": "A o ṣe iṣẹ data rẹ ni ailewu ati ni ibamu pẹlu awọn ilana aabo data agbaye.",
+      "privacyLabel": "Mo ti ka o si gba <privacy>Ilana Asiri</privacy> *",
+      "privacyLink": "Ilana Asiri",
+      "termsLabel": "Mo ti ka o si gba <terms>Awọn Ofin Iṣẹ</terms> *",
+      "termsLink": "Awọn Ofin Iṣẹ",
+      "dataLabel": "Mo gba si ipamọ ailewu data ara ẹmi mi *",
       "submit": "Parí Idaniloju",
       "submitting": "N fi ránṣẹ...",
       "validation": {
-        "privacyRequired": "You must accept the privacy policy",
-        "termsRequired": "You must accept the terms of service",
-        "dataRequired": "You must consent to data processing"
+        "privacyRequired": "O gbọdọ gba eto imulo aṣiri",
+        "termsRequired": "O gbọdọ gba awọn ofin iṣẹ",
+        "dataRequired": "O gbọdọ gba si iṣeto data"
       },
-      "errorSubmit": "Failed to submit KYC. Please try again."
+      "errorSubmit": "Kuna lati fi KYC ranṣẹ. Jọwọ gbiyanju lẹẹkansi."
     },
     "completion": {
-      "individualTitle": "KYC Submitted",
-      "businessTitle": "Business KYC Submitted",
-      "subtitle": "Your verification is being processed",
-      "thankYou": "Thank you for completing your verification. Our compliance team is now reviewing your application.",
-      "reviewTimeLabel": "Review Time",
-      "reviewTimeValue": "24 - 48 Hours",
-      "confirmationLabel": "Confirmation",
-      "confirmationValue": "Email will be sent",
-      "securityLabel": "Security",
-      "securityValue": "Full access on approval",
+      "individualTitle": "A Ti Fi KYC Ranṣẹ",
+      "businessTitle": "A Ti Fi KYC Iṣowo Ranṣẹ",
+      "subtitle": "A n ṣe idaniloju rẹ lọwọ",
+      "thankYou": "O ṣeun fun pipari idaniloju rẹ. Ẹgbẹ aniyan wa n ṣe atunyẹwo ibeere rẹ bayi.",
+      "reviewTimeLabel": "Akoko Atunyẹwo",
+      "reviewTimeValue": "Wakati 24 - 48",
+      "confirmationLabel": "Ijẹrisi",
+      "confirmationValue": "A o fi imẹẹli ranṣẹ",
+      "securityLabel": "Aabo",
+      "securityValue": "Wiwọle pipe lori ifọwọsi",
       "goDashboard": "Lọ si Dasibodu",
       "startAnother": "Bẹrẹ Idaniloju Miiran",
       "referenceId": "Reference ID: KYC-{id}"
     },
     "companyDetails": {
-      "legalNameLabel": "Legal Company Name *",
+      "legalNameLabel": "Orukọ Ofin Ile-iṣẹ *",
       "legalNamePlaceholder": "ABC Corporation Ltd.",
-      "registrationLabel": "Registration Number *",
+      "registrationLabel": "Nomba Iforukọsilẹ *",
       "registrationPlaceholder": "REG123456",
-      "taxIdLabel": "Tax ID *",
+      "taxIdLabel": "ID Owo-ori *",
       "taxIdPlaceholder": "TAX123456789",
       "validation": {
-        "legalNameRequired": "Legal name is required",
-        "registrationRequired": "Registration number is required",
-        "taxIdRequired": "Tax ID is required"
+        "legalNameRequired": "Orukọ ofin jẹ dandan",
+        "registrationRequired": "Nomba iforukọsilẹ jẹ dandan",
+        "taxIdRequired": "ID owo-ori jẹ dandan"
       }
     },
     "businessInfo": {
-      "industryLabel": "Industry *",
-      "selectIndustry": "Select an industry",
+      "industryLabel": "Iṣẹ-ogun *",
+      "selectIndustry": "Yan iṣẹ-ogun kan",
       "industries": {
-        "technology": "Technology",
-        "finance": "Finance",
-        "healthcare": "Healthcare",
-        "retail": "Retail",
-        "manufacturing": "Manufacturing",
-        "education": "Education",
-        "other": "Other"
+        "technology": "Imọ-ẹrọ",
+        "finance": "Isuna",
+        "healthcare": "Ilera",
+        "retail": "Tita",
+        "manufacturing": "Imọ-ṣiṣe",
+        "education": "Ẹkọ",
+        "other": "Miiran"
       },
-      "companySizeLabel": "Company Size *",
-      "selectCompanySize": "Select company size",
+      "companySizeLabel": "Iwọn Ile-iṣẹ *",
+      "selectCompanySize": "Yan iwọn ile-iṣẹ",
       "size1": "1-10 employees",
       "size2": "11-50 employees",
       "size3": "51-200 employees",
       "size4": "201-500 employees",
       "size5": "500+ employees",
-      "websiteLabel": "Website (Optional)",
+      "websiteLabel": "Aaye ayelujara (Aṣayan)",
       "websitePlaceholder": "https://example.com",
-      "incorporationDateLabel": "Incorporation Date *",
+      "incorporationDateLabel": "Ọjọ Iforukọsilẹ *",
       "validation": {
-        "industryRequired": "Industry is required",
-        "companySizeRequired": "Company size is required",
-        "incorporationDateRequired": "Incorporation date is required"
+        "industryRequired": "Iṣẹ-ogun jẹ dandan",
+        "companySizeRequired": "Iwọn ile-iṣẹ jẹ dandan",
+        "incorporationDateRequired": "Ọjọ iforukọsilẹ jẹ dandan"
       }
     },
     "authorizedReps": {
-      "representativeTitle": "Representative {n}",
-      "remove": "Remove",
-      "fullNameLabel": "Full Name *",
+      "representativeTitle": "Aṣoju {n}",
+      "remove": "Yọ Kuro",
+      "fullNameLabel": "Orukọ Kikun *",
       "fullNamePlaceholder": "John Smith",
-      "emailLabel": "Email *",
+      "emailLabel": "Imeeli *",
       "emailPlaceholder": "john@example.com",
-      "jobTitleLabel": "Job Title *",
+      "jobTitleLabel": "Akọle Iṣẹ *",
       "jobTitlePlaceholder": "CEO",
-      "addAnother": "Add Another Representative",
+      "addAnother": "Fi Aṣoju Miiran Kun",
       "validation": {
-        "nameRequired": "Name is required",
-        "emailRequired": "Email is required",
-        "titleRequired": "Title is required"
+        "nameRequired": "Orukọ jẹ dandan",
+        "emailRequired": "Imẹẹli jẹ dandan",
+        "titleRequired": "Akọle iṣẹ jẹ dandan"
       }
     },
     "uboDisclosure": {
-      "intro": "UBO (Ultimate Beneficial Owner) disclosure is required for compliance. Please provide information about the individuals who ultimately own or control the company.",
-      "ownershipStructureLabel": "Ownership Structure",
-      "directOwnership": "Direct ownership",
-      "indirectOwnership": "Indirect ownership (through another entity)",
-      "uboNameLabel": "UBO Full Name *",
+      "intro": "Ifihan UBO jẹ dandan fun ibamu. Jọwọ pese alaye nipa awọn eniyan ti o ni tabi ṣakoso ile-iṣẹ naa.",
+      "ownershipStructureLabel": "Eto Ipinle",
+      "directOwnership": "Ipinle taara",
+      "indirectOwnership": "Ipinle ai taara (nipasẹ agbara miiran)",
+      "uboNameLabel": "Orukọ Kikun UBO *",
       "uboNamePlaceholder": "Ida Mateyu",
-      "ownershipPercentLabel": "Ownership Percentage *",
+      "ownershipPercentLabel": "Ogorun Ipinle *",
       "ownershipPercentPlaceholder": "25",
-      "nationalityLabel": "Nationality *",
+      "nationalityLabel": "Orilẹ-ede *",
       "nationalityPlaceholder": "Malawian",
       "validation": {
-        "uboNameRequired": "UBO name is required",
-        "ownershipRequired": "Ownership percentage is required",
-        "nationalityRequired": "Nationality is required"
+        "uboNameRequired": "Orukọ UBO jẹ dandan",
+        "ownershipRequired": "Ogorun ipinle jẹ dandan",
+        "nationalityRequired": "Orilẹ-ede jẹ dandan"
       }
     },
     "bankingDetails": {
-      "bankNameLabel": "Bank Name *",
+      "bankNameLabel": "Orukọ Banki *",
       "bankNamePlaceholder": "Example Bank",
-      "accountNumberLabel": "Account Number *",
+      "accountNumberLabel": "Nomba Iwe Akọọlẹ *",
       "accountNumberPlaceholder": "123456789",
-      "bankCodeLabel": "Bank Code / SWIFT Code *",
+      "bankCodeLabel": "Koodu Banki / SWIFT *",
       "bankCodePlaceholder": "SWIFTCODE",
-      "accountHolderLabel": "Account Holder Name *",
+      "accountHolderLabel": "Orukọ Oludari Iwe Akọọlẹ *",
       "accountHolderPlaceholder": "Company Name",
-      "encryptedNote": "Your banking details are encrypted and used only for payouts.",
+      "encryptedNote": "Alaye banki rẹ ni a fi paṣipaṣi ati a lo fun sisan nikan.",
       "validation": {
-        "bankNameRequired": "Bank name is required",
-        "accountNumberRequired": "Account number is required",
-        "bankCodeRequired": "Bank code is required",
-        "accountHolderRequired": "Account holder name is required"
+        "bankNameRequired": "Orukọ banki jẹ dandan",
+        "accountNumberRequired": "Nomba iwe akọọlẹ jẹ dandan",
+        "bankCodeRequired": "Koodu banki jẹ dandan",
+        "accountHolderRequired": "Orukọ oludari iwe akọọlẹ jẹ dandan"
       }
     },
     "documentation": {
-      "incorporationLabel": "Certificate of Incorporation",
-      "articlesLabel": "Articles of Association",
-      "shareholdersLabel": "Shareholder Register",
-      "uploadSuccess": "File uploaded successfully",
-      "uploadCta": "Click to upload",
-      "uploadFormats": "PDF or DOC (max 20MB)",
-      "uploading": "Uploading...",
+      "incorporationLabel": "Iwe-ẹri Iforukọsilẹ",
+      "articlesLabel": "Awọn Ofin Egbẹ",
+      "shareholdersLabel": "Iwe Akọsilẹ Awọn Onipin",
+      "uploadSuccess": "A gbe faili sọke ni aṣeyọri",
+      "uploadCta": "Tẹ lati gbe sọke",
+      "uploadFormats": "PDF tabi DOC (o pọju 20MB)",
+      "uploading": "N gbe sọke...",
       "validation": {
-        "incorporationRequired": "Certificate of incorporation is required",
-        "articlesRequired": "Articles of association are required"
+        "incorporationRequired": "Iwe-ẹri iforukọsilẹ jẹ dandan",
+        "articlesRequired": "Awọn ofin egbẹ jẹ dandan"
       },
-      "errorUpload": "Failed to upload documents. Please try again."
+      "errorUpload": "Kuna lati gbe awọn iwe aṣẹ sọke. Jọwọ gbiyanju lẹẹkansi."
     },
     "compliance": {
-      "businessPurposeLabel": "Business Purpose *",
-      "selectPurpose": "Select business purpose",
+      "businessPurposeLabel": "Idi Iṣowo *",
+      "selectPurpose": "Yan idi iṣowo",
       "purposes": {
-        "trading": "Trading",
-        "consulting": "Consulting",
-        "manufacturing": "Manufacturing",
-        "services": "Services",
-        "other": "Other"
+        "trading": "Iṣowo",
+        "consulting": "Imọran",
+        "manufacturing": "Imọ-ṣiṣe",
+        "services": "Awọn iṣẹ",
+        "other": "Miiran"
       },
-      "expectedVolumeLabel": "Expected Monthly Transaction Volume *",
-      "selectRange": "Select range",
+      "expectedVolumeLabel": "Iye Iṣowo Oṣooṣu Ti A Reti *",
+      "selectRange": "Yan ipele kan",
       "volume0": "$0 - $10,000",
       "volume1": "$10,000 - $50,000",
       "volume2": "$50,000 - $100,000",
       "volume3": "$100,000+",
-      "confirmationHeading": "Compliance Confirmation",
-      "confirmationBody": "I confirm that my company complies with all applicable regulations in the jurisdictions where it operates, including Malawi RBM requirements and China PBOC merchant requirements.",
-      "checkboxLabel": "I confirm compliance with all applicable regulations *",
-      "submit": "Complete Business Verification",
+      "confirmationHeading": "Ijẹrisi Aniyan",
+      "confirmationBody": "Mo jẹri pe ile-iṣẹ mi tẹle gbogbo ilana ti o wulo, pẹlu awọn ibeere RBM Malawi ati PBOC China.",
+      "checkboxLabel": "Mo jẹrisi pe mo tẹle gbogbo awọn ofin ti o wulo *",
+      "submit": "Parí Idaniloju Iṣowo",
       "validation": {
-        "purposeRequired": "Business purpose is required",
-        "volumeRequired": "Expected transaction volume is required",
-        "complianceRequired": "You must accept the compliance confirmation"
+        "purposeRequired": "Idi iṣowo jẹ dandan",
+        "volumeRequired": "Iye iṣowo ti a reti jẹ dandan",
+        "complianceRequired": "O gbọdọ gba ijẹrisi aniyan"
       }
+    }
+  },
+  "AccountBlocked": {
+    "title": "A ti da akanti mo",
+    "body": "Olùṣàkóso ti da àkọọ́lẹ̀ rẹ mo. Wiwọ si awọn ẹya onibara ti wa ni pipa.",
+    "hint": "Ti o ba gbagba pe eyi jẹ aṣiṣe, kan si atilẹyin ki o si fi adiresi imeeli ti a forukọsilẹ rẹ.",
+    "supportContact": "Kan si atilẹyin",
+    "copied": "Ti daakọ",
+    "copy": "Daakọ",
+    "signOutClear": "Jade / Pa ipele rẹ",
+    "backToSignIn": "Padà sí Wíwọlé"
+  },
+  "Language": {
+    "label": "Ede ifihan",
+    "hint": "O wulo kọja app lẹhin ti o ba fi yan rẹ pamọ.",
+    "searchPlaceholder": "Wa awọn ede…",
+    "manageAll": "Wo gbogbo awọn ede"
+  },
+  "MoneySources": {
+    "fundingTitle": "Awọn orisun owo",
+    "payoutTitle": "Awọn olupese sisan",
+    "moreInDeposit": "Awọn olupese diẹ sii wa nigba ti o ba fi owo si tabi ranṣẹ.",
+    "processing": {
+      "instant": "Ni kiakia",
+      "minutes": "Iṣẹju 5–15",
+      "days": "Ọjọ iṣẹ 1–2",
+      "card": "Iṣẹju 10–30",
+      "api": "Isanwo API"
     }
   }
 }

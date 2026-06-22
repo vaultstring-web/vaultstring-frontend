@@ -23,12 +23,6 @@ const mapToProfile = (raw: any): UserProfile => {
   const type = String(raw?.user_type || '').toLowerCase();
   const country = rawCountry || ((type === 'merchant' || type === 'agent') ? 'CN' : 'MW');
   
-  let accountLabel = 'Personal Account';
-  if (country === 'MW' && type === 'individual') accountLabel = 'Sender (Malawi)';
-  else if (country === 'CN' && (type === 'merchant' || type === 'agent')) accountLabel = 'Receiver (China)';
-  else if (type === 'merchant') accountLabel = 'Business Account';
-  else if (type === 'agent') accountLabel = 'Agent Account';
-
   return {
     id: raw?.id || raw?.ID || '',
     name,
@@ -36,7 +30,6 @@ const mapToProfile = (raw: any): UserProfile => {
     phone: String(raw?.phone || ''),
     kycStatus: raw?.kyc_status || 'unverified',
     avatarUrl: String(raw?.profile_picture_url || raw?.profilePictureURL || raw?.avatarUrl || ''),
-    accountLabel,
     countryCode: country,
     userType: type,
     isEmailVerified: bypassEmailVerification ? true : !!raw?.email_verified,

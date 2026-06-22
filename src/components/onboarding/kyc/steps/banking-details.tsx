@@ -4,23 +4,30 @@ import type React from "react"
 
 import { useState } from "react"
 import { useTranslations } from "next-intl"
-import { Button } from "@/src/components/ui/button"
 import { Input } from "@/src/components/ui/input"
+import {
+  OnboardingContinueButton,
+  OnboardingError,
+  OnboardingInfoBox,
+  OnboardingLabel,
+  onboardingInputClass,
+} from "../onboarding-ui"
 
 interface BankingDetailsStepProps {
-  onNext: (data: any) => void
+  onNext: (data: Record<string, unknown>) => void
+  initialData?: Record<string, unknown>
 }
 
-export function BankingDetailsStep({ onNext }: BankingDetailsStepProps) {
+export function BankingDetailsStep({ onNext, initialData }: BankingDetailsStepProps) {
   const t = useTranslations("Onboarding.bankingDetails")
   const tFlow = useTranslations("Onboarding.flow")
   const tv = useTranslations("Onboarding.bankingDetails.validation")
 
   const [formData, setFormData] = useState({
-    bankName: "",
-    accountNumber: "",
-    bankCode: "",
-    accountHolder: "",
+    bankName: String(initialData?.bankName ?? ""),
+    accountNumber: String(initialData?.accountNumber ?? ""),
+    bankCode: String(initialData?.bankCode ?? ""),
+    accountHolder: String(initialData?.accountHolder ?? ""),
   })
 
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -47,62 +54,62 @@ export function BankingDetailsStep({ onNext }: BankingDetailsStepProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">{t("bankNameLabel")}</label>
+        <OnboardingLabel htmlFor="bankName">{t("bankNameLabel")}</OnboardingLabel>
         <Input
+          id="bankName"
           type="text"
           placeholder={t("bankNamePlaceholder")}
           value={formData.bankName}
           onChange={(e) => setFormData({ ...formData, bankName: e.target.value })}
-          className="w-full"
+          className={onboardingInputClass}
         />
-        {errors.bankName && <p className="text-red-600 text-sm mt-1">{errors.bankName}</p>}
+        {errors.bankName ? <OnboardingError>{errors.bankName}</OnboardingError> : null}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">{t("accountNumberLabel")}</label>
+          <OnboardingLabel htmlFor="accountNumber">{t("accountNumberLabel")}</OnboardingLabel>
           <Input
+            id="accountNumber"
             type="text"
             placeholder={t("accountNumberPlaceholder")}
             value={formData.accountNumber}
             onChange={(e) => setFormData({ ...formData, accountNumber: e.target.value })}
-            className="w-full"
+            className={onboardingInputClass}
           />
-          {errors.accountNumber && <p className="text-red-600 text-sm mt-1">{errors.accountNumber}</p>}
+          {errors.accountNumber ? <OnboardingError>{errors.accountNumber}</OnboardingError> : null}
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">{t("bankCodeLabel")}</label>
+          <OnboardingLabel htmlFor="bankCode">{t("bankCodeLabel")}</OnboardingLabel>
           <Input
+            id="bankCode"
             type="text"
             placeholder={t("bankCodePlaceholder")}
             value={formData.bankCode}
             onChange={(e) => setFormData({ ...formData, bankCode: e.target.value })}
-            className="w-full"
+            className={onboardingInputClass}
           />
-          {errors.bankCode && <p className="text-red-600 text-sm mt-1">{errors.bankCode}</p>}
+          {errors.bankCode ? <OnboardingError>{errors.bankCode}</OnboardingError> : null}
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">{t("accountHolderLabel")}</label>
+        <OnboardingLabel htmlFor="accountHolder">{t("accountHolderLabel")}</OnboardingLabel>
         <Input
+          id="accountHolder"
           type="text"
           placeholder={t("accountHolderPlaceholder")}
           value={formData.accountHolder}
           onChange={(e) => setFormData({ ...formData, accountHolder: e.target.value })}
-          className="w-full"
+          className={onboardingInputClass}
         />
-        {errors.accountHolder && <p className="text-red-600 text-sm mt-1">{errors.accountHolder}</p>}
+        {errors.accountHolder ? <OnboardingError>{errors.accountHolder}</OnboardingError> : null}
       </div>
 
-      <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-        <p className="text-sm text-green-900">{t("encryptedNote")}</p>
-      </div>
+      <OnboardingInfoBox variant="success">{t("encryptedNote")}</OnboardingInfoBox>
 
       <div className="flex justify-end gap-2 pt-4">
-        <Button type="submit" className="bg-secondary hover:bg-secondary/90 text-white">
-          {tFlow("continue")}
-        </Button>
+        <OnboardingContinueButton fullWidth={false}>{tFlow("continue")}</OnboardingContinueButton>
       </div>
     </form>
   )

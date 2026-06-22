@@ -1,0 +1,120 @@
+{
+  "fr": {
+    "Dashboard.metrics.activeWallets": "Portefeuilles actifs",
+    "Dashboard.metrics.pendingTransfers": "Transferts en attente",
+    "Dashboard.metrics.primaryBalance": "Solde principal",
+    "Dashboard.metrics.monthlyUsage": "Plafond mensuel utilisé",
+    "Wallet.overview.title": "Résumé du portefeuille",
+    "Wallet.overview.empty": "Aucun solde pour le moment",
+    "Wallet.overview.walletCount": "{count, plural, one {# portefeuille} other {# portefeuilles}}",
+    "Wallet.overview.send": "Envoyer",
+    "Wallet.overview.deposit": "Ajouter des fonds",
+    "Wallet.overview.addWallet": "Ajouter un portefeuille",
+    "Wallet.card.balance": "Solde",
+    "Wallet.card.status": "Statut",
+    "Wallet.card.active": "Actif",
+    "Wallet.card.addMoney": "Ajouter des fonds",
+    "Sidebar.closeMenu": "Fermer le menu",
+    "TopBar.a11y.openMenu": "Ouvrir le menu",
+    "TopBar.search.clear": "Effacer",
+    "Sidebar.compliance": "Conformité",
+    "Sidebar.notifications": "Notifications",
+    "Sidebar.settings": "Paramètres",
+    "Sidebar.sectionMoney": "Argent",
+    "Sidebar.sectionAccount": "Compte"
+  },
+  "pt": {
+    "Dashboard.metrics.activeWallets": "Carteiras ativas",
+    "Dashboard.metrics.pendingTransfers": "Transferências pendentes",
+    "Dashboard.metrics.primaryBalance": "Saldo principal",
+    "Dashboard.metrics.monthlyUsage": "Limite mensal usada",
+    "Wallet.overview.title": "Resumo da carteira",
+    "Wallet.overview.send": "Enviar",
+    "Wallet.overview.deposit": "Adicionar fundos",
+    "Wallet.overview.addWallet": "Adicionar carteira",
+    "Wallet.card.balance": "Saldo",
+    "Wallet.card.status": "Estado",
+    "Wallet.card.active": "Ativo",
+    "Sidebar.closeMenu": "Fechar menu",
+    "TopBar.a11y.openMenu": "Abrir menu",
+    "TopBar.search.clear": "Limpar",
+    "Sidebar.compliance": "Conformidade",
+    "Sidebar.notifications": "Notificações",
+    "Sidebar.settings": "Definições"
+  },
+  "sw": {
+    "Dashboard.metrics.activeWallets": "Pochi hai",
+    "Dashboard.metrics.pendingTransfers": "Uhamisho unaosubiri",
+    "Sidebar.closeMenu": "Funga menyu",
+    "TopBar.search.clear": "Futa",
+    "Sidebar.compliance": "Uzingatiaji",
+    "Sidebar.notifications": "Arifa",
+    "Sidebar.settings": "Mipangilio"
+  },
+  "ar": {
+    "Dashboard.metrics.activeWallets": "المحافظ النشطة",
+    "Dashboard.metrics.pendingTransfers": "تحويلات معلقة",
+    "Sidebar.closeMenu": "إغلاق القائمة",
+    "TopBar.search.clear": "مسح",
+    "Sidebar.compliance": "الامتثال",
+    "Sidebar.notifications": "الإشعارات",
+    "Sidebar.settings": "الإعدادات"
+  },
+  "zh": {
+    "Dashboard.metrics.activeWallets": "活跃钱包",
+    "Dashboard.metrics.pendingTransfers": "待处理转账",
+    "Sidebar.closeMenu": "关闭菜单",
+    "TopBar.search.clear": "清除",
+    "Sidebar.compliance": "合规",
+    "Sidebar.notifications": "通知",
+    "Sidebar.settings": "设置"
+  },
+  "ja": {
+    "Dashboard.metrics.activeWallets": "アクティブなウォレット",
+    "Dashboard.metrics.pendingTransfers": "保留中の送金",
+    "Sidebar.closeMenu": "メニューを閉じる",
+    "TopBar.search.clear": "クリア",
+    "Sidebar.compliance": "コンプライアンス",
+    "Sidebar.notifications": "通知",
+    "Sidebar.settings": "設定"
+  },
+  "ha": {
+    "Dashboard.metrics.activeWallets": "Wallet masu aiki",
+    "Dashboard.metrics.pendingTransfers": "Canja wuri masu jira",
+    "Sidebar.closeMenu": "Rufe menu",
+    "TopBar.search.clear": "Share",
+    "Sidebar.compliance": "Bin doka",
+    "Sidebar.notifications": "Sanarwa",
+    "Sidebar.settings": "Saituna",
+    "Sidebar.sectionMoney": "Kuɗi",
+    "Sidebar.sectionAccount": "Asusu"
+  },
+  "am": {
+    "Sidebar.closeMenu": "ምናሌ ዝጋ",
+    "TopBar.search.clear": "አጽዳ",
+    "Sidebar.compliance": "ተገዢነት",
+    "Sidebar.notifications": "ማሳወቂያዎች",
+    "Sidebar.settings": "ቅንብሮች"
+  },
+  "yo": {
+    "Sidebar.closeMenu": "Pa akojọpọ",
+    "TopBar.search.clear": "Paarẹ",
+    "Sidebar.compliance": "Ibamu",
+    "Sidebar.notifications": "Ìkìlọ",
+    "Sidebar.settings": "Ètò"
+  },
+  "zu": {
+    "Sidebar.closeMenu": "Vala imenyu",
+    "TopBar.search.clear": "Sula",
+    "Sidebar.compliance": "Ukuhambisana",
+    "Sidebar.notifications": "Izaziso",
+    "Sidebar.settings": "Izilungiselelo"
+  },
+  "ny": {
+    "Sidebar.closeMenu": "Tseka menyu",
+    "TopBar.search.clear": "Chotsani",
+    "Sidebar.compliance": "Kutsatira",
+    "Sidebar.notifications": "Zidziwitso",
+    "Sidebar.settings": "Zokonda"
+  }
+}

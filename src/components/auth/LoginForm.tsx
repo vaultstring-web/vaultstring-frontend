@@ -7,6 +7,7 @@ import * as z from 'zod';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Loader2, AlertCircle } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/src/components/ui/button';
 import { Input } from '@/src/components/ui/input';
@@ -23,6 +24,7 @@ import { SocialAuthDivider, SocialButton } from '@/src/components/forms/SocialAu
 import { login as loginApi } from '@/src/lib/auth/auth';
 import { useAuth } from '@/src/context/AuthContext';
 import { apiFetch } from '@/src/lib/api/api-client';
+import { AuthLanguageSelector } from '@/src/components/auth/AuthLanguageSelector';
 
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/src/components/ui/input-otp';
 
@@ -37,9 +39,21 @@ function createLoginSchema(t: (key: string) => string) {
 
 type LoginValues = z.infer<ReturnType<typeof createLoginSchema>>;
 
+function classifyLoginError(error: unknown): 'mfa' | 'blocked' | 'reset' | 'generic' {
+  const status = (error as { status?: number } | undefined)?.status;
+  const message = String((error as { message?: string } | undefined)?.message || '').toLowerCase();
+
+  if (message.includes('mfa required') || message.includes('totp required')) return 'mfa';
+  if (status === 403 || message.includes('blocked') || message.includes('restricted')) return 'blocked';
+  if (status === 423 || message.includes('password reset required') || message.includes('reset required')) return 'reset';
+  return 'generic';
+}
+
 export function LoginForm() {
+  const router = useRouter();
   const t = useTranslations('Auth.login');
-  const { refreshUser } = useAuth();
+  const tc = useTranslations('Common');
+  const { refreshUser, user } = useAuth();
   const [globalError, setGlobalError] = useState<string | null>(null);
   const [appleNotice, setAppleNotice] = useState(false);
   const [showMFA, setShowMFA] = useState(false);
@@ -71,22 +85,37 @@ export function LoginForm() {
       });
 
       if (resp?.access_token || resp?.token) {
+        const responseUser = resp?.user as { email_verified?: boolean; kyc_status?: string } | undefined;
+        const emailVerifiedFromResponse = !!responseUser?.email_verified;
+        const kycStatusFromResponse = String(responseUser?.kyc_status || '');
         await refreshUser();
-        window.location.href = '/'; // Hard reload to root
+        const email = String(data.email || '').trim();
+        const requiresEmailVerification =
+          !(emailVerifiedFromResponse || user?.isEmailVerified) &&
+          process.env.NEXT_PUBLIC_DISABLE_EMAIL_VERIFICATION !== 'true' &&
+          process.env.NEXT_PUBLIC_BYPASS_EMAIL_VERIFICATION !== 'true';
+
+        if (requiresEmailVerification) {
+          router.push(`/verification?email=${encodeURIComponent(email)}&next=onboarding`);
+        } else if (kycStatusFromResponse ? kycStatusFromResponse !== 'verified' : user?.kycStatus !== 'verified') {
+          router.push('/onboarding');
+        } else {
+          router.push('/');
+        }
       } else {
         setGlobalError(t('errorInvalidCredentials'));
       }
     } catch (err: unknown) {
-      console.error('Login error:', err);
       const message = err instanceof Error ? err.message : '';
-      if (message === 'mfa required') {
+      const category = classifyLoginError(err);
+
+      if (category === 'mfa') {
         setShowMFA(true);
         setGlobalError(t('errorMfaRequired'));
-      } else if (
-        (err as { status?: number })?.status === 403 ||
-        String(message || '').toLowerCase().includes('blocked')
-      ) {
+      } else if (category === 'blocked') {
         window.location.href = '/account-blocked';
+      } else if (category === 'reset') {
+        window.location.href = '/reset-password';
       } else {
         setGlobalError(message || t('errorUnexpected'));
       }
@@ -99,13 +128,14 @@ export function LoginForm() {
     try {
       const data = await apiFetch('/auth/google/start');
 
-      if (data.auth_url) {
-        window.location.href = data.auth_url;
+      if (!data?.auth_url) {
+        throw new Error(t('errorGoogleInit'));
       }
+      window.location.href = data.auth_url;
     } catch (err: unknown) {
       console.error('Google OAuth initiation failed:', err);
       const msg = err instanceof Error ? err.message : '';
-      setGlobalError(msg || t('errorGoogleInit'));
+      setGlobalError(msg || t('errorGoogleNotConfigured'));
     }
   };
 
@@ -122,7 +152,7 @@ export function LoginForm() {
     <div className="w-full max-w-md">
       <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white dark:border-slate-800 shadow-[0_20px_50px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)] rounded-[40px] p-10">
         <div className="text-center mb-10">
-          <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">{t('title')}</h1>
+          <h1 className="text-3xl font-semibold text-slate-900 dark:text-white tracking-tight">{t('title')}</h1>
           <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium">{t('subtitle')}</p>
         </div>
 
@@ -144,6 +174,7 @@ export function LoginForm() {
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} method="POST" className="space-y-6">
+            <AuthLanguageSelector />
             {!showMFA ? (
               <>
                 <FormField
@@ -176,7 +207,7 @@ export function LoginForm() {
                       <FormControl>
                         <Input
                           type="password"
-                          placeholder="••••••••"
+                          placeholder={tc('passwordMask')}
                           className="h-14 rounded-2xl bg-slate-50/50 dark:bg-slate-800/50 dark:text-white border-none focus-visible:ring-2 focus-visible:ring-green-500/20 dark:focus-visible:ring-green-500/10"
                           {...field}
                         />
@@ -224,7 +255,7 @@ export function LoginForm() {
             <Button
               type="submit"
               disabled={isSubmitting || (showMFA && mfaCode.length !== 6)}
-              className="w-full h-14 bg-slate-900 hover:bg-black dark:bg-green-600 dark:hover:bg-green-500 text-white rounded-2xl font-bold shadow-xl shadow-slate-200 dark:shadow-none transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="w-full h-14 bg-slate-900 hover:bg-black dark:bg-green-600 dark:hover:bg-green-500 text-white rounded-2xl font-bold shadow-xl shadow-slate-200 dark:shadow-none transition-all active:scale-[0.98]"
             >
               {isSubmitting ? (
                 <>

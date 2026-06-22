@@ -9,7 +9,19 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dir = path.join(__dirname, '..', 'src', 'messages');
 
-const OVERLAY_KEYS = ['Profile', 'SendMoney', 'Receipt', 'Auth'];
+const OVERLAY_KEYS = [
+  'Profile',
+  'SendMoney',
+  'Receipt',
+  'Auth',
+  'Settings',
+  'Dashboard',
+  'Sidebar',
+  'TopBar',
+  'Wallet',
+  'Notifications',
+  'Transactions',
+];
 
 const en = JSON.parse(fs.readFileSync(path.join(dir, 'en.json'), 'utf8'));
 

@@ -1,0 +1,150 @@
+{
+  "Wallet.subtitleCompact": {
+    "en": "Balances, funding sources, and recent activity.",
+    "fr": "Soldes, sources de financement et activité récente."
+  },
+  "Wallet.overview.withdraw": {
+    "en": "Withdraw",
+    "fr": "Retirer"
+  },
+  "Wallet.balanceToggle.show": {
+    "en": "Show balances",
+    "fr": "Afficher soldes 0"
+  },
+  "Wallet.balanceToggle.hide": {
+    "en": "Hide balances",
+    "fr": "Masquer soldes 0"
+  },
+  "Wallet.balanceToggle.visible": {
+    "en": "Visible",
+    "fr": "Visible"
+  },
+  "Wallet.balanceToggle.hidden": {
+    "en": "Hidden",
+    "fr": "caché"
+  },
+  "Wallet.balanceHeader.totalBalance": {
+    "en": "Total balance",
+    "fr": "Solde total"
+  },
+  "Wallet.balanceHeader.currencies": {
+    "en": "Currencies",
+    "fr": "Devises"
+  },
+  "Wallet.balanceHeader.status": {
+    "en": "Status",
+    "fr": "Statut"
+  },
+  "Wallet.balanceHeader.active": {
+    "en": "Active",
+    "fr": "Actif"
+  },
+  "Wallet.moneySources.title": {
+    "en": "Deposit from",
+    "fr": "bourbe"
+  },
+  "Wallet.moneySources.subtitle": {
+    "en": "Choose a bank, mobile money, or card provider — tap to add funds.",
+    "fr": "Choisissez une banque, un service d'argent mobile ou un fournisseur de cartes. Appuyez pour ajouter des fonds."
+  },
+  "Wallet.withdrawModal.secureBadge": {
+    "en": "Secure transfer",
+    "fr": "Transfert sécurisé"
+  },
+  "Wallet.withdrawModal.title": {
+    "en": "Withdraw {currency}",
+    "fr": "Retrait {currency}"
+  },
+  "Wallet.withdrawModal.subtitle": {
+    "en": "Move funds to another wallet or linked bank account via Send Money.",
+    "fr": "Déplacez des fonds vers un autre portefeuille ou un compte bancaire lié via Envoyer de l'argent."
+  },
+  "Wallet.withdrawModal.available": {
+    "en": "Available balance",
+    "fr": "Montant disponible"
+  },
+  "Wallet.withdrawModal.destination": {
+    "en": "Destination",
+    "fr": "Destination"
+  },
+  "Wallet.withdrawModal.toWallet": {
+    "en": "VaultString wallet",
+    "fr": "Portefeuille VaultString"
+  },
+  "Wallet.withdrawModal.toBank": {
+    "en": "Linked bank",
+    "fr": "Banque liée"
+  },
+  "Wallet.withdrawModal.payoutAccount": {
+    "en": "Payout account",
+    "fr": "Compte de versement"
+  },
+  "Wallet.withdrawModal.selectAccount": {
+    "en": "Select account",
+    "fr": "Sélectionner compte"
+  },
+  "Wallet.withdrawModal.linkedBank": {
+    "en": "Linked Bank (**** 1234)",
+    "fr": "Banque liée (**** 1234)"
+  },
+  "Wallet.withdrawModal.visaCard": {
+    "en": "Visa Card (**** 5678)",
+    "fr": "Carte Visa (**** 5678)"
+  },
+  "Wallet.withdrawModal.bankNote": {
+    "en": "Bank payouts complete through Send Money with your selected payout method.",
+    "fr": "Les versements bancaires sont effectués via Envoyer de l'argent avec le mode de versement sélectionné."
+  },
+  "Wallet.withdrawModal.amount": {
+    "en": "Amount",
+    "fr": "Montant"
+  },
+  "Wallet.withdrawModal.amountPlaceholder": {
+    "en": "0.00",
+    "fr": "0.00"
+  },
+  "Wallet.withdrawModal.continueToSend": {
+    "en": "Continue to Send Money",
+    "fr": "Continuer à envoyer de l'argent"
+  },
+  "SendMoney.subtitleCompact": {
+    "en": "Recipient, amount, then funding and payout providers.",
+    "fr": "Bénéficiaire, montant, puis fournisseurs de financement et de versement."
+  },
+  "SendMoney.stepper.details": {
+    "en": "Details",
+    "fr": "Détails"
+  },
+  "SendMoney.stepper.review": {
+    "en": "Review",
+    "fr": "Examiner"
+  },
+  "SendMoney.stepper.success": {
+    "en": "Done",
+    "fr": "Terminé"
+  },
+  "SendMoney.stepper.detailsHeading": {
+    "en": "Transfer details",
+    "fr": "Détails du virement"
+  },
+  "SendMoney.stepper.reviewHeading": {
+    "en": "Review & confirm",
+    "fr": "Vérifier et confirmer"
+  },
+  "SendMoney.stepper.continue": {
+    "en": "Continue",
+    "fr": "Continuer"
+  },
+  "SendMoney.stepper.backToEdit": {
+    "en": "Back to edit",
+    "fr": "Retour à l'édition"
+  },
+  "Settings.connectedAccounts.providersHint": {
+    "en": "Supported money sources and API providers for your region (read-only preview).",
+    "fr": "Sources d'argent et fournisseurs d'API pris en charge pour votre région (aperçu en lecture seule)."
+  },
+  "Settings.connectedAccounts.apiKeysPlaceholder": {
+    "en": "API key management: POST /api/v1/providers/keys (placeholder — wire in admin when backend is ready).",
+    "fr": "Gestion des clés API : POST /api/v1/providers/keys (espace réservé — virement dans admin lorsque le backend est prêt)."
+  }
+}

@@ -30,6 +30,8 @@ interface KYCDocument {
 
 import { AFRICAN_COUNTRIES } from '@/src/lib/constants/africa';
 import { useTranslations } from 'next-intl';
+import { CustomerPageShell } from '@/src/components/enterprise/CustomerPageShell';
+import { PageHeader } from '@/src/components/enterprise/PageHeader';
 
 export default function CompliancePage() {
   const t = useTranslations('Compliance');
@@ -137,15 +139,10 @@ export default function CompliancePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] dark:bg-slate-950 p-4 md:p-8 space-y-8 max-w-[1200px] mx-auto">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">{t('title')}</h1>
-        <p className="text-slate-500 dark:text-slate-400">
-          {t('subtitle')}
-        </p>
-      </div>
+    <CustomerPageShell width="wide">
+      <PageHeader title={t('title')} description={t('subtitle')} />
 
-      <div className="grid gap-8 md:grid-cols-3">
+      <div className="grid gap-5 md:grid-cols-3">
         {/* Status Card */}
         <div className="md:col-span-1 space-y-6">
           <Card className="border-slate-200 dark:border-slate-800 shadow-sm">
@@ -325,7 +322,7 @@ export default function CompliancePage() {
               <p className="text-slate-600 dark:text-slate-400 max-w-md mx-auto">
                 {t('fullyVerifiedBody')}
               </p>
-              <Button variant="outline" className="mt-4" onClick={() => window.location.href = '/dashboard'}>
+              <Button variant="outline" className="mt-4" onClick={() => window.location.href = '/'}>
                 {t('returnDashboard')}
               </Button>
             </div>
@@ -342,6 +339,6 @@ export default function CompliancePage() {
           )}
         </div>
       </div>
-    </div>
+    </CustomerPageShell>
   );
 }

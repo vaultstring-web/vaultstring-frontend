@@ -1,9 +1,13 @@
+'use client';
+
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Clock, ArrowUpRight, ArrowDownLeft } from 'lucide-react';
 import { Transaction } from '@/src/types/types';
 import { format } from 'date-fns';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { StatusChip } from '@/src/components/enterprise/StatusChip';
 import {
   Pagination,
   PaginationContent,
@@ -17,88 +21,102 @@ interface RecentActivityListProps {
   recentTransactions: Transaction[];
 }
 
+function statusTone(status: string): 'success' | 'warning' | 'danger' | 'neutral' {
+  const s = status.toLowerCase();
+  if (s === 'completed' || s === 'success') return 'success';
+  if (s === 'pending' || s === 'processing') return 'warning';
+  if (s === 'failed' || s === 'rejected') return 'danger';
+  return 'neutral';
+}
+
 export default function RecentActivityList({ recentTransactions }: RecentActivityListProps) {
   const t = useTranslations('Dashboard');
+  const router = useRouter();
   const [page, setPage] = useState(1);
-  const limit = 5;
-  const total = recentTransactions.length;
-  const totalPages = Math.ceil(total / limit);
-
+  const limit = 6;
+  const totalPages = Math.max(1, Math.ceil(recentTransactions.length / limit));
   const paginatedTransactions = recentTransactions.slice((page - 1) * limit, page * limit);
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col">
-      <div className="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center shrink-0">
-        <h3 className="font-semibold text-slate-800 dark:text-white flex items-center gap-2">
-          <Clock size={20} className="text-slate-400 dark:text-slate-500" />
+    <div className="vs-table-shell flex flex-col">
+      <div className="flex shrink-0 items-center justify-between border-b border-border px-6 py-4">
+        <h3 className="flex items-center gap-2 text-sm font-semibold text-foreground">
+          <Clock size={18} className="text-muted-foreground" />
           {t('recentActivity')}
         </h3>
-        <Link
-          href="/transactions"
-          className="text-sm text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-medium"
-        >
+        <Link href="/transactions" className="text-sm font-medium text-primary hover:underline">
           {t('viewAll')}
         </Link>
       </div>
-      <div className="overflow-y-auto flex-1 p-0">
-        <div className="divide-y divide-slate-100 dark:divide-slate-800">
-          {paginatedTransactions.map((txn) => (
-            <div key={txn.id} className="p-4 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
-                  txn.type === 'deposit' ? 'bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
-                }`}>
-                  {txn.type === 'deposit' ? <ArrowDownLeft size={18} /> : <ArrowUpRight size={18} />}
-                </div>
-                <div className="min-w-0">
-                  <p className="font-medium text-slate-900 dark:text-white truncate">{txn.merchantName}</p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">
-                    {format(new Date(txn.date), 'MM/dd/yyyy')}
-                  </p>
-                </div>
+      <div className="divide-y divide-border">
+        {paginatedTransactions.map((txn) => (
+          <button
+            key={txn.id}
+            type="button"
+            onClick={() => router.push(`/transactions?highlight=${encodeURIComponent(txn.id)}`)}
+            className="flex w-full items-center justify-between gap-4 px-6 py-4 text-left transition-colors hover:bg-muted/50"
+          >
+            <div className="flex min-w-0 items-center gap-3">
+              <div
+                className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${
+                  txn.type === 'deposit'
+                    ? 'bg-emerald-500/10 text-emerald-600'
+                    : 'bg-muted text-muted-foreground'
+                }`}
+              >
+                {txn.type === 'deposit' ? <ArrowDownLeft size={16} /> : <ArrowUpRight size={16} />}
               </div>
-              <div className="text-right shrink-0">
-                <p className={`font-medium ${txn.type === 'deposit' ? 'text-green-600 dark:text-green-400' : 'text-slate-900 dark:text-white'}`}>
-                  {txn.type === 'deposit' ? '+' : '-'} {txn.amountMWK.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+              <div className="min-w-0">
+                <p className="truncate text-sm font-medium text-foreground">{txn.merchantName}</p>
+                <p className="text-xs text-muted-foreground">
+                  {format(new Date(txn.date), 'MMM d, yyyy')}
                 </p>
-                {txn.amountCNY > 0 && (
-                  <p className="text-xs text-slate-500 dark:text-slate-400">¥ {txn.amountCNY.toLocaleString()}</p>
-                )}
               </div>
             </div>
-          ))}
-          {recentTransactions.length === 0 && (
-             <div className="p-8 text-center text-slate-500 dark:text-slate-400">{t('noRecentActivity')}</div>
-          )}
-        </div>
+            <div className="flex shrink-0 flex-col items-end gap-1">
+              <p
+                className={`text-sm font-medium ${
+                  txn.type === 'deposit' ? 'text-emerald-600 dark:text-emerald-400' : 'text-foreground'
+                }`}
+              >
+                {txn.type === 'deposit' ? '+' : '-'}
+                {txn.amountMWK.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+              </p>
+              <StatusChip label={txn.status} tone={statusTone(txn.status)} />
+            </div>
+          </button>
+        ))}
+        {recentTransactions.length === 0 && (
+          <div className="px-6 py-12 text-center text-sm text-muted-foreground">{t('noRecentActivity')}</div>
+        )}
       </div>
       {totalPages > 1 && (
-        <div className="p-4 border-t border-slate-100 dark:border-slate-800 flex justify-center">
+        <div className="flex justify-center border-t border-border p-4">
           <Pagination>
             <PaginationContent>
               <PaginationItem>
-                <PaginationPrevious 
+                <PaginationPrevious
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
                     if (page > 1) setPage(page - 1);
                   }}
-                  className={`dark:text-slate-200 dark:hover:bg-slate-800 ${page <= 1 ? 'pointer-events-none opacity-50' : ''}`}
+                  className={page <= 1 ? 'pointer-events-none opacity-50' : ''}
                 />
               </PaginationItem>
               <PaginationItem>
-                <PaginationLink href="#" onClick={(e) => e.preventDefault()} isActive className="dark:text-slate-900 dark:bg-slate-200">
+                <PaginationLink href="#" onClick={(e) => e.preventDefault()} isActive>
                   {page}
                 </PaginationLink>
               </PaginationItem>
               <PaginationItem>
-                <PaginationNext 
+                <PaginationNext
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
                     if (page < totalPages) setPage(page + 1);
                   }}
-                  className={`dark:text-slate-200 dark:hover:bg-slate-800 ${page >= totalPages ? 'pointer-events-none opacity-50' : ''}`}
+                  className={page >= totalPages ? 'pointer-events-none opacity-50' : ''}
                 />
               </PaginationItem>
             </PaginationContent>

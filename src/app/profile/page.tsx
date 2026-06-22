@@ -3,8 +3,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useAuth } from '@/src/context/AuthContext';
 import { apiFetch } from '@/src/lib/api/api-client';
+import { normalizeWallets } from '@/src/lib/api/response';
 import {
-  Globe,
   CheckCircle2,
   Settings as SettingsIcon,
   ShieldCheck,
@@ -42,18 +42,21 @@ import {
 } from "@/src/components/ui/input-otp";
 import { QRCodeSVG } from 'qrcode.react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTranslations, useLocale } from 'next-intl';
-import { SUPPORTED_LANGUAGES } from '@/src/lib/constants/africa';
+import { useTranslations } from 'next-intl';
 import { formatCurrency } from '@/src/lib/utils/formatters';
+import { CustomerPageShell } from '@/src/components/enterprise/CustomerPageShell';
 
 export default function ProfilePage() {
   const t = useTranslations('Profile');
   const tb = useTranslations('TopBar');
-  const currentLocale = useLocale();
+  const tc = useTranslations('Common');
   const { user, refreshUser } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [activeTab, setActiveTab] = useState(() => searchParams.get('tab') || 'posts');
+  const initialTab = searchParams.get('tab');
+  const [activeTab, setActiveTab] = useState(() =>
+    initialTab === 'translation' ? 'posts' : initialTab || 'posts'
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -136,7 +139,11 @@ export default function ProfilePage() {
           apiFetch('/wallets'),
           apiFetch('/payments?limit=1&offset=0'),
         ]);
-        const walletItems = Array.isArray(walletRes?.wallets) ? walletRes.wallets : [];
+        const walletItems = normalizeWallets(walletRes).map((w) => ({
+          id: w.id,
+          currency: w.currency,
+          available_balance: w.available_balance,
+        }));
         setWallets(walletItems);
         setTxCount(Number(txRes?.total || 0));
       } catch {
@@ -281,10 +288,33 @@ export default function ProfilePage() {
   };
 
   const handleAvatarClick = () => fileInputRef.current?.click();
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.[0]) {
-      toast.info(t('toasts.avatarUploading'));
-      setTimeout(() => toast.success(t('toasts.avatarUpdated')), 1500);
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+    if (!allowed.includes(file.type)) {
+      toast.error(t('toasts.avatarInvalidType'));
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      return;
+    }
+    if (file.size > 1_500_000) {
+      toast.error(t('toasts.avatarTooLarge'));
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      return;
+    }
+
+    toast.info(t('toasts.avatarUploading'));
+    try {
+      const form = new FormData();
+      form.append('avatar', file);
+      await apiFetch('/auth/me/avatar', { method: 'POST', body: form });
+      await refreshUser();
+      toast.success(t('toasts.avatarUpdated'));
+    } catch {
+      toast.error(t('toasts.avatarFailed'));
+    } finally {
+      if (fileInputRef.current) fileInputRef.current.value = '';
     }
   };
 
@@ -292,19 +322,18 @@ export default function ProfilePage() {
     { id: 'posts', label: t('tabs.activity'), icon: Grid },
     { id: 'wallets', label: t('tabs.wallets'), icon: Wallet },
     { id: 'security', label: t('tabs.security'), icon: Lock },
-    { id: 'translation', label: t('tabs.language'), icon: Globe },
   ];
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-6 pb-24">
-      <header className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-16 mb-12">
+    <CustomerPageShell width="narrow" compact className="pb-12">
+      <header className="mb-6 flex flex-col items-start gap-4 md:flex-row md:items-center">
         {/* Avatar Section */}
         <div className="relative group mx-auto md:mx-0">
           <div className="w-32 h-32 md:w-40 md:h-40 rounded-full p-1 bg-linear-to-tr from-yellow-400 via-red-500 to-purple-600">
             <div className="w-full h-full rounded-full border-4 border-white dark:border-slate-950 overflow-hidden bg-slate-100 dark:bg-slate-800">
               <Avatar className="w-full h-full">
                 <AvatarImage src={user?.avatarUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || tb('fallbackUser'))}&background=random`} />
-                <AvatarFallback className="text-4xl font-black">{user?.name?.charAt(0)}</AvatarFallback>
+                <AvatarFallback className="text-4xl font-semibold">{user?.name?.charAt(0)}</AvatarFallback>
               </Avatar>
             </div>
           </div>
@@ -377,21 +406,22 @@ export default function ProfilePage() {
         </div>
       </header>
 
-      {/* Tabs */}
-      <div className="border-t border-slate-200 dark:border-slate-800">
-        <div className="flex justify-center gap-12 -mt-px">
+      {/* Tabs — horizontal strip (not nested sidebar) */}
+      <div className="border-b border-border">
+        <div className="flex gap-1 overflow-x-auto py-1">
           {tabs.map((tab) => (
             <button
               key={tab.id}
+              type="button"
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 py-4 border-t-2 transition-all uppercase tracking-widest text-[11px] font-bold ${
-                activeTab === tab.id 
-                ? 'border-slate-900 dark:border-white text-slate-900 dark:text-white' 
-                : 'border-transparent text-slate-400 hover:text-slate-600'
+              className={`inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
+                activeTab === tab.id
+                  ? 'bg-muted text-foreground'
+                  : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
               }`}
             >
-              <tab.icon size={14} strokeWidth={activeTab === tab.id ? 3 : 2} />
-              <span className="hidden sm:inline">{tab.label}</span>
+              <tab.icon size={16} />
+              {tab.label}
             </button>
           ))}
         </div>
@@ -411,7 +441,7 @@ export default function ProfilePage() {
               <div className="space-y-6">
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <p className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight">{t('activityDevices')}</p>
+                    <p className="text-sm font-semibold text-foreground">{t('activityDevices')}</p>
                     <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                       {t('activitySubtitle')}
                     </p>
@@ -427,31 +457,14 @@ export default function ProfilePage() {
                   </Button>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="rounded-xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{t('knownDevices')}</p>
-                    <p className="text-2xl font-black text-slate-900 dark:text-white mt-1">{devices.length}</p>
-                  </div>
-                  <div className="rounded-xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{t('recentEvents')}</p>
-                    <p className="text-2xl font-black text-slate-900 dark:text-white mt-1">{activity.length}</p>
-                  </div>
-                  <div className="rounded-xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{t('lastLogin')}</p>
-                    <p className="text-sm font-black text-slate-900 dark:text-white mt-2">
-                      {(user as { lastLoginAt?: string })?.lastLoginAt ? new Date((user as { lastLoginAt?: string }).lastLoginAt!).toLocaleString() : t('dash')}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                  <div className="rounded-[32px] border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-3">
+                <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                  <div className="vs-card-shell p-6 space-y-3">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-xs font-black uppercase tracking-widest text-slate-900 dark:text-white flex items-center gap-2">
-                        <Smartphone size={14} className="text-indigo-600" />
+                      <h3 className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                        <Smartphone size={16} className="text-primary" />
                         {t('devicesHeading')}
                       </h3>
-                      <Badge variant="outline" className="text-[10px] font-black uppercase tracking-widest">
+                      <Badge variant="outline" className="text-[10px] font-medium uppercase tracking-wide">
                         {activityLoading ? t('badgeLoading') : t('badgeLive')}
                       </Badge>
                     </div>
@@ -462,7 +475,7 @@ export default function ProfilePage() {
                         {devices.slice(0, 10).map((d) => (
                           <div key={d.id} className="rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/30 p-4 flex items-start justify-between gap-3">
                             <div className="min-w-0">
-                              <div className="text-sm font-black text-slate-900 dark:text-white truncate">
+                              <div className="text-sm font-semibold text-slate-900 dark:text-white truncate">
                                 {d.device_name || t('unknownDevice')}
                               </div>
                               <div className="mt-1 text-[11px] text-slate-500 dark:text-slate-400 font-mono truncate">
@@ -472,7 +485,7 @@ export default function ProfilePage() {
                                 {t('lastSeen')}: {d.last_seen_at ? new Date(d.last_seen_at).toLocaleString() : t('dash')}
                               </div>
                             </div>
-                            <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border ${
+                            <span className={`text-xs font-medium text-muted-foreground px-3 py-1 rounded-full border ${
                               d.is_trusted ? 'border-green-200 bg-green-50 text-green-700 dark:border-green-500/20 dark:bg-green-500/10 dark:text-green-300'
                               : 'border-yellow-200 bg-yellow-50 text-yellow-800 dark:border-yellow-500/20 dark:bg-yellow-500/10 dark:text-yellow-200'
                             }`}>
@@ -484,13 +497,13 @@ export default function ProfilePage() {
                     )}
                   </div>
 
-                  <div className="rounded-[32px] border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-3">
+                  <div className="vs-card-shell p-6 space-y-3">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-xs font-black uppercase tracking-widest text-slate-900 dark:text-white flex items-center gap-2">
-                        <History size={14} className="text-indigo-600" />
+                      <h3 className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                        <History size={16} className="text-primary" />
                         {t('recentActivityHeading')}
                       </h3>
-                      <Badge variant="outline" className="text-[10px] font-black uppercase tracking-widest">
+                      <Badge variant="outline" className="text-[10px] font-medium uppercase tracking-wide">
                         {activityLoading ? t('badgeLoading') : t('badgeLive')}
                       </Badge>
                     </div>
@@ -501,7 +514,7 @@ export default function ProfilePage() {
                         {activity.slice(0, 12).map((a) => (
                           <div key={a.id} className="rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/30 p-4">
                             <div className="flex items-start justify-between gap-3">
-                              <div className="text-sm font-black text-slate-900 dark:text-white">{a.action}</div>
+                              <div className="text-sm font-semibold text-slate-900 dark:text-white">{a.action}</div>
                               <div className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
                                 {a.created_at ? new Date(a.created_at).toLocaleString() : t('dash')}
                               </div>
@@ -524,16 +537,16 @@ export default function ProfilePage() {
             {activeTab === 'wallets' && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {wallets.map((wallet, i) => (
-                  <div key={wallet.id || i} className="p-6 rounded-[32px] bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all flex items-center justify-between group">
+                  <div key={wallet.id || i} className="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all flex items-center justify-between group">
                     <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
+                      <div className="w-14 h-10 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
                         <Wallet size={24} className="text-slate-500 dark:text-slate-300" />
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t('walletCardTitle', { currency: wallet.currency })}</p>
+                          <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">{t('walletCardTitle', { currency: wallet.currency })}</p>
                         </div>
-                        <p className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+                        <p className="text-2xl font-semibold text-slate-900 dark:text-white tracking-tight">
                           {formatCurrency(Number(wallet.available_balance || 0), wallet.currency)}
                         </p>
                       </div>
@@ -544,7 +557,7 @@ export default function ProfilePage() {
                   </div>
                 ))}
                 {wallets.length === 0 && (
-                  <div className="col-span-full p-8 rounded-[32px] border border-dashed border-slate-200 dark:border-slate-800 text-center text-slate-500 dark:text-slate-400 font-medium">
+                  <div className="col-span-full p-8 rounded-xl border border-dashed border-slate-200 dark:border-slate-800 text-center text-slate-500 dark:text-slate-400 font-medium">
                     {t('noWalletsMessage')}
                   </div>
                 )}
@@ -560,7 +573,7 @@ export default function ProfilePage() {
                   </div>
                   <div className="flex items-center justify-between mb-8 relative z-10">
                     <div className="flex items-center gap-5">
-                      <div className="h-14 w-14 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center text-indigo-600 shadow-xl shadow-indigo-200/50 dark:shadow-none">
+                      <div className="h-10 w-14 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center text-indigo-600 shadow-xl shadow-indigo-200/50 dark:shadow-none">
                         <Smartphone size={28} />
                       </div>
                       <div>
@@ -574,7 +587,7 @@ export default function ProfilePage() {
                     {t('twoFactorBlurb')}
                   </p>
                   {twoFactor && (
-                    <div className="flex items-center gap-2 text-green-600 font-black text-[10px] uppercase tracking-widest bg-green-50 dark:bg-green-500/10 w-fit px-4 py-2 rounded-full border border-green-100 dark:border-green-500/20">
+                    <div className="flex items-center gap-2 text-green-600 font-semibold text-[10px] uppercase tracking-widest bg-green-50 dark:bg-green-500/10 w-fit px-4 py-2 rounded-full border border-green-100 dark:border-green-500/20">
                       <CheckCircle2 size={14} />
                       {t('activeProtection')}
                     </div>
@@ -583,37 +596,37 @@ export default function ProfilePage() {
 
                 {/* Password Section */}
                 <div className="space-y-6 bg-white dark:bg-slate-900 p-8 rounded-[40px] border border-slate-100 dark:border-slate-800 shadow-sm">
-                  <h3 className="font-black text-slate-900 dark:text-white uppercase tracking-widest text-sm flex items-center gap-2">
+                  <h3 className="font-semibold text-slate-900 dark:text-white uppercase tracking-widest text-sm flex items-center gap-2">
                     <Key size={18} className="text-indigo-600" />
                     {t('changePassword')}
                   </h3>
                   <div className="grid gap-6">
                     <div className="space-y-2">
-                      <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">{t('currentPassword')}</Label>
+                      <Label className="text-xs font-medium text-muted-foreground text-slate-400 ml-2">{t('currentPassword')}</Label>
                       <Input 
                         type="password" 
-                        placeholder="••••••••" 
-                        className="rounded-2xl border-slate-100 dark:border-slate-800 h-14 bg-slate-50 dark:bg-slate-800/50 focus:bg-white transition-all"
+                        placeholder={tc('passwordMask')} 
+                        className="rounded-2xl border-slate-100 dark:border-slate-800 h-10 bg-slate-50 dark:bg-slate-800/50 focus:bg-white transition-all"
                         value={formData.currentPassword}
                         onChange={(e) => setFormData({...formData, currentPassword: e.target.value})}
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">{t('newPassword')}</Label>
+                      <Label className="text-xs font-medium text-muted-foreground text-slate-400 ml-2">{t('newPassword')}</Label>
                       <Input 
                         type="password" 
-                        placeholder="••••••••" 
-                        className="rounded-2xl border-slate-100 dark:border-slate-800 h-14 bg-slate-50 dark:bg-slate-800/50 focus:bg-white transition-all"
+                        placeholder={tc('passwordMask')} 
+                        className="rounded-2xl border-slate-100 dark:border-slate-800 h-10 bg-slate-50 dark:bg-slate-800/50 focus:bg-white transition-all"
                         value={formData.newPassword}
                         onChange={(e) => setFormData({...formData, newPassword: e.target.value})}
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">{t('confirmPassword')}</Label>
+                      <Label className="text-xs font-medium text-muted-foreground text-slate-400 ml-2">{t('confirmPassword')}</Label>
                       <Input
                         type="password"
-                        placeholder="••••••••"
-                        className="rounded-2xl border-slate-100 dark:border-slate-800 h-14 bg-slate-50 dark:bg-slate-800/50 focus:bg-white transition-all"
+                        placeholder={tc('passwordMask')}
+                        className="rounded-2xl border-slate-100 dark:border-slate-800 h-10 bg-slate-50 dark:bg-slate-800/50 focus:bg-white transition-all"
                         value={formData.confirmPassword}
                         onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
                       />
@@ -621,7 +634,7 @@ export default function ProfilePage() {
                     <Button 
                       onClick={handlePasswordUpdate}
                       disabled={isLoading}
-                      className="w-full h-14 rounded-2xl font-black uppercase tracking-widest bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:scale-[1.02] transition-transform"
+                      className="w-full h-10 rounded-2xl font-semibold uppercase tracking-widest bg-slate-900 dark:bg-white text-white dark:text-slate-900 transition-transform"
                     >
                       {isLoading ? <Loader2 className="animate-spin" /> : t('updatePassword')}
                     </Button>
@@ -630,43 +643,6 @@ export default function ProfilePage() {
               </div>
             )}
 
-            {activeTab === 'translation' && (
-              <div className="max-w-xl mx-auto space-y-4">
-                <div className="grid gap-3">
-                  {SUPPORTED_LANGUAGES.map((lang) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => {
-                        document.cookie = `vs_locale=${lang.code}; path=/; max-age=31536000`;
-                        window.location.reload();
-                      }}
-                      className={`w-full flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-slate-900 border transition-all group relative overflow-hidden ${
-                        currentLocale === lang.code 
-                        ? 'border-indigo-500 shadow-xl shadow-indigo-500/10' 
-                        : 'border-slate-100 dark:border-slate-800 hover:border-indigo-500'
-                      }`}
-                    >
-                      <div className="flex items-center gap-4 relative z-10">
-                        <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-2xl group-hover:scale-105 transition-transform">
-                          {lang.flag}
-                        </div>
-                        <div className="text-left">
-                          <p className="font-black text-slate-900 dark:text-white uppercase tracking-tight text-sm">{lang.name}</p>
-                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{lang.region}</p>
-                        </div>
-                      </div>
-                      <div className={`h-6 w-6 rounded-full border-2 flex items-center justify-center transition-colors relative z-10 ${
-                        currentLocale === lang.code ? 'border-indigo-500' : 'border-slate-100 dark:border-slate-800 group-hover:border-indigo-500'
-                      }`}>
-                        <div className={`h-3 w-3 rounded-full bg-indigo-500 transition-transform ${
-                          currentLocale === lang.code ? 'scale-100' : 'scale-0 group-hover:scale-100'
-                        }`} />
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
           </motion.div>
         </AnimatePresence>
       </div>
@@ -675,7 +651,7 @@ export default function ProfilePage() {
       <Dialog open={isEditMode} onOpenChange={setIsEditMode}>
         <DialogContent className="max-w-2xl rounded-[40px] p-10 border border-slate-200/50 dark:border-slate-800/50 shadow-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl">
           <DialogHeader className="text-center">
-            <DialogTitle className="text-3xl font-black uppercase tracking-tight text-slate-900 dark:text-white mb-2">
+            <DialogTitle className="text-3xl font-semibold uppercase tracking-tight text-slate-900 dark:text-white mb-2">
               {t('editProfile')}
             </DialogTitle>
             <DialogDescription className="font-bold text-slate-500">
@@ -685,16 +661,16 @@ export default function ProfilePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
             <div className="space-y-2 md:col-span-2">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">{t('fullName')}</Label>
+              <Label className="text-xs font-medium text-muted-foreground text-slate-400 ml-2">{t('fullName')}</Label>
               <Input 
                 value={formData.name} 
                 onChange={(e) => setFormData({...formData, name: e.target.value})}
-                className="rounded-2xl h-14 bg-slate-50/50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-indigo-500/20 text-base font-medium"
+                className="rounded-2xl h-10 bg-slate-50/50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-indigo-500/20 text-base font-medium"
               />
             </div>
             
             <div className="space-y-2 md:col-span-2">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">{t('bio')}</Label>
+              <Label className="text-xs font-medium text-muted-foreground text-slate-400 ml-2">{t('bio')}</Label>
               <textarea 
                 value={formData.bio} 
                 onChange={(e) => setFormData({...formData, bio: e.target.value})}
@@ -704,20 +680,20 @@ export default function ProfilePage() {
             </div>
 
             <div className="space-y-2">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">{t('phone')}</Label>
+              <Label className="text-xs font-medium text-muted-foreground text-slate-400 ml-2">{t('phone')}</Label>
               <Input 
                 value={formData.phone} 
                 onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                className="rounded-2xl h-14 bg-slate-50/50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-indigo-500/20 text-base font-medium"
+                className="rounded-2xl h-10 bg-slate-50/50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-indigo-500/20 text-base font-medium"
               />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">{t('city')}</Label>
+              <Label className="text-xs font-medium text-muted-foreground text-slate-400 ml-2">{t('city')}</Label>
               <Input 
                 value={formData.city} 
                 onChange={(e) => setFormData({...formData, city: e.target.value})}
-                className="rounded-2xl h-14 bg-slate-50/50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-indigo-500/20 text-base font-medium"
+                className="rounded-2xl h-10 bg-slate-50/50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-indigo-500/20 text-base font-medium"
               />
             </div>
           </div>
@@ -726,14 +702,14 @@ export default function ProfilePage() {
             <Button 
               variant="outline" 
               onClick={() => setIsEditMode(false)} 
-              className="flex-1 h-14 rounded-2xl font-black uppercase tracking-widest border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+              className="flex-1 h-10 rounded-2xl font-semibold uppercase tracking-widest border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
             >
               {t('cancel')}
             </Button>
             <Button 
               onClick={handleSave} 
               disabled={isLoading} 
-              className="flex-1 h-14 rounded-2xl font-black uppercase tracking-widest bg-indigo-600 text-white shadow-xl shadow-indigo-600/20 hover:shadow-indigo-600/40 hover:translate-y-[-2px] active:translate-y-0 transition-all"
+              className="flex-1 h-10 rounded-2xl font-semibold uppercase tracking-widest bg-indigo-600 text-white shadow-xl shadow-indigo-600/20 hover:shadow-indigo-600/40  transition-all"
             >
               {isLoading ? <Loader2 className="animate-spin" /> : t('saveChanges')}
             </Button>
@@ -749,16 +725,16 @@ export default function ProfilePage() {
             <DialogDescription className="font-semibold text-slate-500 text-sm">{t('scanQrSubtitle')}</DialogDescription>
           </DialogHeader>
           <div className="flex flex-col items-center gap-10 py-8">
-            <div className="p-6 bg-white rounded-[32px] shadow-2xl shadow-slate-200 dark:shadow-none border border-slate-100">
+            <div className="p-6 bg-white rounded-xl shadow-2xl shadow-slate-200 dark:shadow-none border border-slate-100">
               {otpUrl && <QRCodeSVG value={otpUrl} size={220} />}
             </div>
             <div className="space-y-4 w-full">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400">{t('enterSixDigitCode')}</Label>
+              <Label className="text-xs font-medium text-muted-foreground text-slate-400">{t('enterSixDigitCode')}</Label>
               <div className="flex justify-center">
                 <InputOTP maxLength={6} value={verificationCode} onChange={setVerificationCode}>
                   <InputOTPGroup className="gap-3">
                     {[...Array(6)].map((_, i) => (
-                      <InputOTPSlot key={i} index={i} className="w-12 h-14 rounded-xl border-2 border-slate-100 bg-slate-50 text-xl font-black" />
+                      <InputOTPSlot key={i} index={i} className="w-12 h-10 rounded-xl border-2 border-slate-100 bg-slate-50 text-xl font-semibold" />
                     ))}
                   </InputOTPGroup>
                 </InputOTP>
@@ -767,13 +743,13 @@ export default function ProfilePage() {
             <Button 
               onClick={verifyTOTP} 
               disabled={isVerifying || verificationCode.length !== 6}
-              className="w-full h-14 rounded-2xl font-black uppercase tracking-widest bg-indigo-600 text-white shadow-xl shadow-indigo-200 dark:shadow-none"
+              className="w-full h-10 rounded-2xl font-semibold uppercase tracking-widest bg-indigo-600 text-white shadow-xl shadow-indigo-200 dark:shadow-none"
             >
               {isVerifying ? <Loader2 className="animate-spin" /> : t('verifyAndEnable')}
             </Button>
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+    </CustomerPageShell>
   );
 }

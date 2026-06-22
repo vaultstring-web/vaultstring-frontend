@@ -48,7 +48,7 @@ export default function MyCards({ selectedWalletId, onSelectWallet }: MyCardsPro
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-black text-slate-900 dark:text-white flex items-center gap-2">
+        <h2 className="text-xl font-semibold text-slate-900 dark:text-white flex items-center gap-2">
           {t('cards.title')} <ArrowUpRight size={18} className="text-slate-400" />
         </h2>
         <Button variant="ghost" size="sm" className="text-indigo-600 font-bold hover:text-indigo-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30">
@@ -72,7 +72,7 @@ export default function MyCards({ selectedWalletId, onSelectWallet }: MyCardsPro
           <div className="relative z-10 flex justify-between items-start">
             <div>
               <p className="text-white/80 font-bold text-sm mb-1">{t('cards.totalBalance')}</p>
-              <h3 className="text-3xl font-black text-white">
+              <h3 className="text-3xl font-semibold text-white">
                 {formatCurrency(primaryWallet?.available_balance || 0, primaryWallet?.currency || 'MWK')}
               </h3>
             </div>
@@ -120,7 +120,7 @@ export default function MyCards({ selectedWalletId, onSelectWallet }: MyCardsPro
                         </div>
                         <CreditCard className="text-white/80" size={16} />
                     </div>
-                    <div className="text-white font-black text-sm truncate">
+                    <div className="text-white font-semibold text-sm truncate">
                         {formatCurrency(wallet.available_balance, wallet.currency)}
                     </div>
                     <div className="text-indigo-300 text-[10px] font-bold mt-1">{wallet.currency}</div>
